@@ -1,4 +1,5 @@
 import Project from "../models/project.js";
+import User from "../models/user.js";
 
 //basic CRUD functions:
 export const getAllProjects = async (req, res) => {
@@ -66,9 +67,10 @@ export const deleteProject = async (req, res) => {
 
 export const addMemberToProject = async (req, res) => {
   try {
-    const { id } = req.params;
-    const project = await Project.findByIdAndUpdate(id, req.body, {new: true});
-    res.status(200).json(project);
+    const { projectId, userId } = req.body;
+    const project = await Project.findByIdAndUpdate(projectId, req.body, {new: true});
+    const user = await User.findByIdAndUpdate(userId, req.body, {new: true})
+    res.status(200).json(project, user);
   } catch (error) {
     console.log(error.message);
     res.status(500).json({error: error.message});
@@ -77,9 +79,10 @@ export const addMemberToProject = async (req, res) => {
 
 export const removeMemberFromProject = async (req, res) => {
   try {
-    const { id } = req.params;
-    const project = await Project.findByIdAndUpdate(id, req.body, {new: true});
-    res.status(200).json(project);
+    const { projectId, userId } = req.body;
+    const project = await Project.findByIdAndUpdate(projectId, req.body, {new: true});
+    const user = await User.findByIdAndUpdate(userId, req.body, {new: true})
+    res.status(200).json(project, user);
   } catch (error) {
     console.log(error.message);
     res.status(500).json({error: error.message});
@@ -88,9 +91,10 @@ export const removeMemberFromProject = async (req, res) => {
 
 export const addInterestedUser = async (req, res) => {
   try {
-    const { id } = req.params;
-    const project = await Project.findByIdAndUpdate(id, req.body, {new: true});
-    res.status(200).json(project);
+    const { projectId, userId } = req.body;
+    const project = await Project.findByIdAndUpdate(projectId, req.body, {new: true});
+    const user = await User.findByIdAndUpdate(userId, req.body, {new: true})
+    res.status(200).json(project, user);
   } catch (error) {
     console.log(error.message);
     res.status(500).json({error: error.message});
@@ -99,9 +103,10 @@ export const addInterestedUser = async (req, res) => {
 
 export const removeInterestedUser = async (req, res) => {
   try {
-    const { id } = req.params;
-    const project = await Project.findByIdAndUpdate(id);
-    res.status(200).json(project);
+    const { projectId, userId } = req.body;
+    const project = await Project.findByIdAndUpdate(projectId, req.body, {new: true});
+    const user = await User.findByIdAndUpdate(userId, req.body, {new: true})
+    res.status(200).json(project, user);
   } catch (error) {
     console.log(error.message);
     res.status(500).json({error: error.message});
