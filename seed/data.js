@@ -13,12 +13,12 @@ const insertData = async () => {
       about: 'American whole magazine truth stop whose. On traditional measure example sense peace. Would mouth relate own chair. Role together range line. Government first policy daughter.',
       email: 'firstUser@mail.com',
       first_name: 'Wiggle',
-      interested_projects:[project[3],project[2]],
+      interested_projects:[projects[3],projects[2]],
       last_name: 'Jones',
       members_of_projects:[user3,user1],
       password_digest: await bcrypt.hash('gumballs', 11),
       portfolio:'www.wigglejones.com',
-      rejected_projects:[project[1]],
+      rejected_projects:[projects[1]],
       role: 'Engineer',
 
     }
@@ -31,12 +31,12 @@ const insertData = async () => {
       about: 'Designer for LA',
       email: 'laguy@mail.com',
       first_name: 'Mike',
-      interested_projects:[project[3]],
+      interested_projects:[projects[3]],
       last_name: 'Hunt',
       members_of_projects:[user2,user3],
       password_digest: await bcrypt.hash('pizza12', 11),
       portfolio:'www.ladesigner.com',
-      rejected_projects:[project[1],project[2]],
+      rejected_projects:[projects[1],projects[2]],
       role: 'Designer',
 
     }
@@ -49,11 +49,11 @@ const insertData = async () => {
       email: 'barbra@mail.com',
       first_name: 'Barbra',
       last_name: 'Woo',
-      interested_projects:[project[1],project[2],project[3]],
+      interested_projects:[projects[1],projects[2],projects[3]],
       members_of_projects:[user3,user1,user4],
       password_digest: await bcrypt.hash('gumballs', 11),
       portfolio:'www.bras.com',
-      rejected_projects:[project[4]],
+      rejected_projects:[projects[4]],
       role: 'Engineer',
 
     }
@@ -65,12 +65,12 @@ const insertData = async () => {
       about: 'I like all the colors!',
       email: 'wondergirl@mail.com',
       first_name: 'Stephanie',
-      interested_projects:[project[1],project[2]],
+      interested_projects:[projects[1],projects[2]],
       last_name: 'Carter',
       members_of_projects:[user4,user1],
       password_digest: await bcrypt.hash('gumballs', 11),
       portfolio:'www.colorsofrainbows.com',
-      rejected_projects:[project[4],project[3]],
+      rejected_projects:[projects[4],projects[3]],
       role: 'Designer',
 
     }
