@@ -4,12 +4,15 @@ import * as controllers from "../controllers/users.js";
 
 const router = Router();
 
+// standard crud
 router.post("/sign-up", controllers.signUp);
+router.put("/users/:id", controllers.updateUserInfo);
+
+// auth
 router.post("/sign-in", controllers.signIn);
 router.get("/verify", controllers.verify);
 
-router.put("/users/:id", controllers.updateUserInfo);
-
+// special endpoints
 router.put("/users/:id/add-interested", controllers.addProjectToInterested);
 router.put("/users/:id/add-rejected", controllers.addProjectToRejected);
 
