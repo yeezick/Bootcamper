@@ -12,8 +12,9 @@ router.delete("/projects/:id", controllers.deleteProject);
 router.put("/projects/:id/add-member", controllers.addMemberToProject);
 router.put("/projects/:id/remove-member", controllers.removeMemberFromProject);
 router.put("/projects/:id/add-interested-user", controllers.addInterestedUser);
-router.put("/projects/:id/remove-interested-user", controllers.removeInterestedUser)
+router.put(
+  "/projects/:id/remove-interested-user",
+  controllers.removeInterestedUser
+);
 
 export default router;
-
-
