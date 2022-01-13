@@ -15,7 +15,7 @@ const insertData = async () => {
       first_name: 'Wiggle',
       interested_projects:[projects[3],projects[2]],
       last_name: 'Jones',
-      members_of_projects:[user3,user1],
+      member_of_projects:[projects[0]],
       password_digest: await bcrypt.hash('gumballs', 11),
       portfolio:'www.wigglejones.com',
       rejected_projects:[projects[1]],
@@ -33,7 +33,7 @@ const insertData = async () => {
       first_name: 'Mike',
       interested_projects:[projects[3]],
       last_name: 'Hunt',
-      members_of_projects:[user2,user3],
+      member_of_projects:[],
       password_digest: await bcrypt.hash('pizza12', 11),
       portfolio:'www.ladesigner.com',
       rejected_projects:[projects[1],projects[2]],
@@ -50,7 +50,7 @@ const insertData = async () => {
       first_name: 'Barbra',
       last_name: 'Woo',
       interested_projects:[projects[1],projects[2],projects[3]],
-      members_of_projects:[user3,user1,user4],
+      member_of_projects:[],
       password_digest: await bcrypt.hash('gumballs', 11),
       portfolio:'www.bras.com',
       rejected_projects:[projects[4]],
@@ -67,10 +67,10 @@ const insertData = async () => {
       first_name: 'Stephanie',
       interested_projects:[projects[1],projects[2]],
       last_name: 'Carter',
-      members_of_projects:[user4,user1],
+      member_of_projects:[projects[3]],
       password_digest: await bcrypt.hash('gumballs', 11),
       portfolio:'www.colorsofrainbows.com',
-      rejected_projects:[projects[4],projects[3]],
+      rejected_projects:[projects[4]],
       role: 'Designer',
 
     }
@@ -110,13 +110,21 @@ const insertData = async () => {
       title:'BabysitterBot',
       owner: user4,
     },
+    {
+      description:'finance app',
+      interested_applicants:[user2],
+      seeking: true,
+      team_member:[user1, user4],
+      title:'MyMoney.io',
+      owner: user4,
+    },
   ]
   await Project.insertMany(projects)
   console.log('Created users & projects!')
 
-  db.close()
+  db.close();
 
 }
 
-insertData()
+insertData();
 
