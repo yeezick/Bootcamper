@@ -12,8 +12,4 @@ router.put("/users/:id", controllers.updateUserInfo);
 router.post("/sign-in", controllers.signIn);
 router.get("/verify", controllers.verify);
 
-// special endpoints
-router.put("/users/:id/add-interested", controllers.addProjectToInterested);
-router.put("/users/:id/add-rejected", controllers.addProjectToRejected);
-
 export default router;
