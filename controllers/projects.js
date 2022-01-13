@@ -29,7 +29,7 @@ export const getOneProject = async (req, res) => {
 
 export const createProject = async (req, res) => {
   try {
-    const newProject = new Album(req.body);
+    const newProject = new Project(req.body);
     await newProject.save();
     res.status(201).json(newProject);
   } catch (error) {
