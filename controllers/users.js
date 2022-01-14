@@ -1,4 +1,32 @@
-import User from "../models/user";
+import User from "../models/user.js";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import project from "../models/project.js";
+// project id gamebot: 61e090dc02b0f84cd989cd1b
+// user id wiggle: 61e090dc02b0f84cd989cd13
+const SALT_ROUNDS = Number(process.env.SALT_ROUNDS) || 11;
+
+const TOKEN_KEY =
+  process.env.NODE_ENV === "production"
+    ? process.env.TOKEN_KEY
+    : "themostamazingestkey";
+
+const today = new Date();
+const exp = new Date(today);
+exp.setDate(today.getDate() + 30);
+
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find().populate({
+      path: "member_of_projects",
+      model: project,
+    });
+    res.json(users);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ error: error.message });
+  }
+}; //works
 
 export const signUp = async (req, res) => {
   try {
@@ -20,24 +48,17 @@ export const signUp = async (req, res) => {
     console.error(error.message);
     res.status(400).json({ error: error.message });
   }
-};
+}; // works
 
 export const updateUserInfo = async (req, res) => {
   try {
     const { id } = req.params;
-    await User.findByIdAndUpdate(id, req.body, { new: true }, (err, user) => {
-      if (err) {
-        res.status(500).json(err);
-      }
-      if (!user) {
-        res.status(500).send("User not found!");
-      }
-      res.status(200).json(user);
-    });
+    const user = await User.findByIdAndUpdate(id, req.body, { new: true });
+    res.status(200).send(user);
   } catch (error) {
     res.status(500).send(error.message);
   }
-};
+}; // works
 
 // Auth
 export const signIn = async (req, res) => {
@@ -48,7 +69,7 @@ export const signIn = async (req, res) => {
     );
     if (await bcrypt.compare(password, user.password_digest)) {
       const payload = {
-        id: user_id,
+        id: user._id,
         email: user.email,
         exp: parseInt(exp.getTime() / 1000),
       };
@@ -61,7 +82,7 @@ export const signIn = async (req, res) => {
     console.log(error.message);
     res.status(500).json({ error: error.message });
   }
-};
+}; // works
 
 export const verify = async (req, res) => {
   try {
