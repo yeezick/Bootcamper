@@ -5,6 +5,7 @@ import * as controllers from "../controllers/users.js";
 const router = Router();
 
 // standard crud
+router.get("/users", controllers.getAllUsers);
 router.post("/sign-up", controllers.signUp);
 router.put("/users/:id", controllers.updateUserInfo);
 
