@@ -109,19 +109,19 @@ const insertData = async () => {
   ];
 
   // adding projects to each user's member_of_projects array:
-  user1.member_of_projects = [projects[0], projects[1], projects[2], projects[4]];
-  user2.member_of_projects = [projects[0], projects[1]];
-  user3.member_of_projects = [projects[1], projects[2], projects[3]];
-  user4.member_of_projects = [projects[3], projects[4]];
+  user1.member_of_projects.push(projects[0], projects[1], projects[2], projects[4]);
+  user2.member_of_projects.push(projects[0], projects[1]);
+  user3.member_of_projects.push(projects[1], projects[2], projects[3]);
+  user4.member_of_projects.push(projects[3], projects[4]);
 
   // adding projects to each user's interested_projects array:
-  user2.interested_projects = [projects[3], projects[4]];
-  user3.interested_projects = [projects[0]];
-  user4.interested_projects = [projects[0], projects[1], projects[2]];
+  user2.interested_projects.push(projects[3], projects[4]);
+  user3.interested_projects.push(projects[0]);
+  user4.interested_projects.push(projects[0], projects[1], projects[2]);
 
   // adding projects to each user's rejected_projects array: 
-  user2.rejected_projects = [projects[2]];
-  user3.rejected_projects = [projects[3]];
+  user2.rejected_projects.push(projects[2]);
+  user3.rejected_projects.push(projects[3]);
 
   user1.save();
   user2.save();
