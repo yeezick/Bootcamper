@@ -116,7 +116,7 @@ const insertData = async () => {
   // console.log("first", project1[0]);
   // adding allProjects to each user's member_of_projects array:
   user1.member_of_projects.push(
-    allProjects[0]._id,
+    allProjects[0],
     allProjects[1],
     allProjects[2],
     allProjects[4]
