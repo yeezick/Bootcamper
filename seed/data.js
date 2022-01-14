@@ -68,7 +68,7 @@ const insertData = async () => {
   const projects = [
     {
       description: "building gaming app",
-      interested_applicants: [user3, user4],  // projects[0]
+      interested_applicants: [user3, user4], // projects[0]
       seeking: true,
       team_members: [user1, user2],
       title: "GameBot",
@@ -76,7 +76,7 @@ const insertData = async () => {
     },
     {
       description: "Painting app",
-      interested_applicants: [user4],   //projects[1]
+      interested_applicants: [user4], //projects[1]
       seeking: true,
       team_members: [user1, user2, user3],
       title: "PaintBot",
@@ -107,30 +107,42 @@ const insertData = async () => {
       owner: user4,
     },
   ];
+  await Project.insertMany(projects);
+  const allProjects = await Project.find();
+  // const projArr = (await project1).forEach((project) =>
+  //   console.log("Project:", project)
+  // );
 
-  // adding projects to each user's member_of_projects array:
-  user1.member_of_projects.push(projects[0], projects[1], projects[2], projects[4]);
-  user2.member_of_projects.push(projects[0], projects[1]);
-  user3.member_of_projects.push(projects[1], projects[2], projects[3]);
-  user4.member_of_projects.push(projects[3], projects[4]);
+  // console.log("first", project1[0]);
+  // adding allProjects to each user's member_of_projects array:
+  user1.member_of_projects.push(
+    allProjects[0]._id,
+    allProjects[1],
+    allProjects[2],
+    allProjects[4]
+  );
+  user2.member_of_projects.push(allProjects[0], allProjects[1]);
+  user3.member_of_projects.push(allProjects[1], allProjects[2], allProjects[3]);
+  user4.member_of_projects.push(allProjects[3], allProjects[4]);
 
   // adding projects to each user's interested_projects array:
-  user2.interested_projects.push(projects[3], projects[4]);
-  user3.interested_projects.push(projects[0]);
-  user4.interested_projects.push(projects[0], projects[1], projects[2]);
+  user2.interested_projects.push(allProjects[3], allProjects[4]);
+  user3.interested_projects.push(allProjects[0]);
+  user4.interested_projects.push(
+    allProjects[0],
+    allProjects[1],
+    allProjects[2]
+  );
 
-  // adding projects to each user's rejected_projects array: 
-  user2.rejected_projects.push(projects[2]);
-  user3.rejected_projects.push(projects[3]);
+  // adding projects to each user's rejected_projects array:
+  user2.rejected_projects.push(allProjects[2]);
+  user3.rejected_projects.push(allProjects[3]);
 
-  user1.save();
-  user2.save();
-  user3.save();
-  user4.save();
+  await user1.save();
+  await user2.save();
+  await user3.save();
+  await user4.save();
 
-
-
-  await Project.insertMany(projects);
   console.log("Created users & projects!");
 
   db.close();
