@@ -16,6 +16,7 @@ src/
     |__ Layout.jsx
     |__ Nav/
     |__ Footer/
+    |__ Sidebar/
   |__ screens/
     |__ SignUp/
     |__ SignIn/
@@ -23,7 +24,7 @@ src/
     |__ EditProfile/
     |__ UserProfile/
     |__ SingleProject/
-    |__ CreateProject/
+    |__ EditProject/
     |__ Roulette/
   |__ services
     |__ api/
