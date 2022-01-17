@@ -1,23 +1,28 @@
 import logo from './logo.svg';
 import './App.css';
+import { EditProfile } from "./screens/EditProfile/EditProfile.jsx";
+import { EditProject } from "./screens/EditProject/EditProject.jsx";
+import { Landing } from "./screens/Landing/Landing.jsx";
+import { Roulette } from "./screens/Roulette/Roulette.jsx";
+import { SignIn } from "./screens/SignIn/SignIn.jsx";
+import { SignUp } from "./screens/SignUp/SignUp.jsx";
+import { SingleProject } from './screens/SingleProject/SingleProject.jsx';
+import { UserProfile } from "./screens/UserProfile/UserProfile.jsx"
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route exact path="/" element={<Landing />} />
+        <Route exact path="/projects/:id" element={<SingleProject />} />
+        <Route exact path="/projects/:id/edit" element={<EditProject />} />
+        <Route path="/roulette" element={<Roulette />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route exact path="/users/:id" element={<UserProfile />} />
+        <Route exact path="/users/:id/edit" element={<EditProfile />} />
+      </Routes>
     </div>
   );
 }
