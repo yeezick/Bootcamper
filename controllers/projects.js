@@ -113,7 +113,28 @@ export const addMemberToProject = async (req, res) => {
     member_of_projects: ["61e090dc02b0f84cd989cd1b"], //must have old project id's too 
   },
 };
- */
+todo: refactor this so that req.body looks like
+todo: this will also help with the need to destructure id from params
+const body = {
+  project: {
+    projectId: "61e090dc02b0f84cd989cd1b"
+    projectUpdate: {
+      team_members: [
+        "61e090dc02b0f84cd989cd13",
+        "61e090dc02b0f84cd989cd15",
+        "61e090dc02b0f84cd989cd17",
+        "61e096f7dcab51d3edee52e6", // new member
+      ],
+    },
+  },
+  user: {
+    userId: "61e096f7dcab51d3edee52e6",
+    userUpdate: {
+      member_of_projects: ["61e090dc02b0f84cd989cd1b"], //must have old project id's too
+    },
+  },
+};
+*/
 
 export const removeMemberFromProject = async (req, res) => {
   try {
