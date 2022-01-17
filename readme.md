@@ -3,6 +3,7 @@
 A networking platform for bootcamp graduates. Connecting software engineers with UX designers to build professional projects.
 
 ```
+File Tree Structure
 |__ public/
   |__ assets/
 src/
