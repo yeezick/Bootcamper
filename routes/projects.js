@@ -9,18 +9,13 @@ router.post("/projects", controllers.createProject);
 router.put("/projects/:id", controllers.updateProject); //update description etc
 router.delete("/projects/:id", controllers.deleteProject);
 
-// special endpoints
-router.put("/projects/:projectId/add-member", controllers.addMemberToProject);
-router.put(
-  "/projects/:projectId/remove-member",
-  controllers.removeMemberFromProject
-);
-router.put(
-  "/projects/:projectId/add-interested-user",
-  controllers.addInterestedUser
-);
-router.put(
-  "/projects/:projectId/remove-interested-user",
+// special endpoints(`id` is sent via the req.body)
+// `put` requests NEED id's
+router.patch("/projects/add-member", controllers.addMemberToProject);
+router.patch("/projects/remove-member", controllers.removeMemberFromProject);
+router.patch("/projects/add-interested-user", controllers.addInterestedUser);
+router.patch(
+  "/projects/remove-interested-user",
   controllers.removeInterestedUser
 );
 
