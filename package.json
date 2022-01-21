@@ -21,19 +21,12 @@
   },
   "homepage": "https://github.com/yeezick/Bootcamper#readme",
   "dependencies": {
-    "@reduxjs/toolkit": "^1.7.1",
-    "axios": "^0.25.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
-    "jwt-decode": "^3.1.2",
     "mongoose": "^6.1.6",
-    "morgan": "^1.10.0",
-    "react-icons": "^4.3.1",
-    "react-redux": "^7.2.6",
-    "react-router-dom": "^6.2.1",
-    "redux-persist": "^6.0.0"
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
