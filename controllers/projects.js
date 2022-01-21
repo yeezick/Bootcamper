@@ -8,12 +8,12 @@
  */
 import Project from "../models/project.js";
 import User from "../models/user.js";
-// barbra : 61e1dd56f0433b2d40e12cdb
-// wiggle jones: 61e1dd56f0433b2d40e12cd7
-// mike: 61e1dd56f0433b2d40e12cd9
+// barbra : 61e1eccd385f4c5e6251a67a
+// wiggle jones: 61e1eccc385f4c5e6251a676
+// mike: 61e1eccd385f4c5e6251a678
 
-// project id gamebot: 61e1dd57f0433b2d40e12cdf //owned by wiggle jones
-// painting app: 61e1dd57f0433b2d40e12ce0 // owned by mike
+// project id gamebot: 61e1eccd385f4c5e6251a67e //owned by wiggle jones
+// gardening app: 61e1eccd385f4c5e6251a680 // owned by mike
 
 //basic CRUD functions:
 export const getAllProjects = async (req, res) => {
@@ -80,14 +80,13 @@ export const deleteProject = async (req, res) => {
 
 //custom functions:
 
-export const addMemberToProject = async (req, res) => {
+export const updateUserAndProject = async (req, res) => {
   try {
-    const { projectId } = req.params;
-    const { projectUpdate, userUpdate, userId } = req.body;
+    const { projectId, projectUpdate } = req.body.project;
+    const { userUpdate, userId } = req.body.user;
     const project = await Project.findByIdAndUpdate(projectId, projectUpdate, {
       new: true,
-    }).populate({ path: "team_members", model: User });
-
+    }); // .populate({ path: "team_members", model: User }); //review
     const user = await User.findByIdAndUpdate(userId, userUpdate, {
       new: true,
     });
@@ -97,24 +96,30 @@ export const addMemberToProject = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-/* for `addMemberToProject`, currently getting project id from params
-- on the front-end must do a check if the project is in this User's `interested_projects` array and remove this project from that array 
- {
-  projectUpdate: {
-    team_members: [
-      "61e090dc02b0f84cd989cd13",
-      "61e090dc02b0f84cd989cd15",
-      "61e090dc02b0f84cd989cd17",
-      "61e096f7dcab51d3edee52e6", // new member
-    ],
+
+/* 
+const body = {
+  project: {
+    projectId: "61e090dc02b0f84cd989cd1b"
+    projectUpdate: {
+      team_members: [
+        "61e090dc02b0f84cd989cd13",
+        "61e090dc02b0f84cd989cd15",
+        "61e090dc02b0f84cd989cd17",
+        "61e096f7dcab51d3edee52e6", // new member
+      ],
+    },
   },
-  userId: "61e096f7dcab51d3edee52e6",
-  userUpdate: {
-    member_of_projects: ["61e090dc02b0f84cd989cd1b"], //must have old project id's too 
+  user: {
+    userId: "61e096f7dcab51d3edee52e6",
+    userUpdate: {
+      member_of_projects: ["61e090dc02b0f84cd989cd1b"], //must have old project id's too
+    },
   },
 };
- */
+*/
 
+/*
 export const removeMemberFromProject = async (req, res) => {
   try {
     const { projectUpdate, userId, userUpdate } = req.body;
@@ -144,7 +149,7 @@ export const removeMemberFromProject = async (req, res) => {
   },
 };
  */
-
+/*
 export const addInterestedUser = async (req, res) => {
   try {
     const { projectId } = req.params;
@@ -172,7 +177,7 @@ export const addInterestedUser = async (req, res) => {
   }
 }
 */
-
+/*
 export const removeInterestedUser = async (req, res) => {
   try {
     const { projectId } = req.params;
