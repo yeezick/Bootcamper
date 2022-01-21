@@ -6,7 +6,7 @@ const getToken = () => {
   });
 };
 
-const api = axios.create({
+export const api = axios.create({
   baseURL:
     process.env.NODE_ENV === "production"
       ? "deployed URL goes hhere"
@@ -23,5 +23,3 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
-export default api;
