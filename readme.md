@@ -98,24 +98,22 @@ src/
 
 In order to build the app we used:
 
-|    Back-End    | Front-End    |
-| :------------: | :----------- |
-|    Nodemon     | React        |
-|     BCrypt     | Redux        |
-|      Cors      | SCSS         |
-|    Express     | Axios        |
-| JSON Web Token | React Router |
-|    Mongoose    | React Icons  |
-|     Morgan     |              |
+|    Back-End    |  Front-End   | Planing & Mgmt. |
+| :------------: | :----------: | :-------------: |
+|    Nodemon     |    React     |      Jira       |
+|     BCrypt     |    Redux     |      Agile      |
+|      Cors      |     SCSS     |      Figma      |
+|    Express     |    Axios     |     FigJam      |
+| JSON Web Token | React Router |                 |
+|    Mongoose    | React Icons  |                 |
+|     Morgan     |              |                 |
 
 ## Credits
 
 Our talented team includes:
 | Name | Role | LinkedIn | GitHub |
 |:----:|:--------:|:-------:| :----:|
-| Erick Manrique |  Full-Stack Engineer |[LinkedIn](https://www.linkedin.com/in/erick-manrique/)| [GitHub](https://github.com/yeezick)|
+| Erick Manrique | Full-Stack Engineer |[LinkedIn](https://www.linkedin.com/in/erick-manrique/)| [GitHub](https://github.com/yeezick)|
 | Nicholas Rynearson |Full-Stack Engineer | [LinkedIn](https://www.linkedin.com/in/nicholas-rynearson-88a77635/)| [GitHub](https://github.com/flexibleidealist)|
 | Aaron Harris | Front-end Engineer |[LinkedIn](https://www.linkedin.com/in/aaron-harris-577867218/)| [GitHub](https://github.com/aaronsHarris)|
 | Diego Gallardo | UX Designer |[LinkedIn](https://www.linkedin.com/in/digallardox/)| [GitHub](https://github.com/digallardox)|
-
-
