@@ -27,7 +27,6 @@ If you need an example of a good README, check out [the VSCode repository](https
 - [Planning](#planning)
 - [Technologies Used](#technologies)
 - [Credits](#credits)
-- [License](#license)
 
 ## Planning
 
