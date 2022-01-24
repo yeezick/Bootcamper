@@ -1,0 +1,10 @@
+.responsive-wrapper{
+  display: flex;
+  justify-content: center;
+}
+
+
+.layout-container {
+  width: 375px;
+  height: 812px;
+}
