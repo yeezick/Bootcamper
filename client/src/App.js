@@ -1,18 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 import { EditProfile } from "./screens/EditProfile/EditProfile.jsx";
 import { EditProject } from "./screens/EditProject/EditProject.jsx";
 import { Landing } from "./screens/Landing/Landing.jsx";
 import { Roulette } from "./screens/Roulette/Roulette.jsx";
 import { SignIn } from "./screens/SignIn/SignIn.jsx";
 import { SignUp } from "./screens/SignUp/SignUp.jsx";
-import { SingleProject } from './screens/SingleProject/SingleProject.jsx';
-import { UserProfile } from "./screens/UserProfile/UserProfile.jsx"
-import { Route, Routes } from 'react-router-dom';
+import { SingleProject } from "./screens/SingleProject/SingleProject.jsx";
+import { UserProfile } from "./screens/UserProfile/UserProfile.jsx";
+import { Route, Routes } from "react-router-dom";
+import Layout from "./layout/Layout";
 
 function App() {
   return (
-    <div className="App">
+    <Layout>
       <Routes>
         <Route exact path="/" element={<Landing />} />
         <Route exact path="/projects/:id" element={<SingleProject />} />
@@ -23,7 +23,7 @@ function App() {
         <Route exact path="/users/:id" element={<UserProfile />} />
         <Route exact path="/users/:id/edit" element={<EditProfile />} />
       </Routes>
-    </div>
+    </Layout>
   );
 }
 
