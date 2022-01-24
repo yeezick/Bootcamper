@@ -30,7 +30,8 @@ export const SignUp = () => {
       console.error(error);
     }
   }
-  const { first_name, last_name, email, password, passwordConfirm } = formData
+  const { first_name, last_name, email, password, passwordConfirm } = formData;
+
   return (
     <div className='sign-up-screen'>
       <div className="header">
@@ -58,14 +59,14 @@ export const SignUp = () => {
           value={email}
           onChange={handleChange}
         />
-        <label htmlFor="password">Create a password.</label>
+        <label htmlFor="password">Create a password:</label>
         <input 
           type="password" 
           name="password"
           value={password}
           onChange={handleChange}
         />
-        <label htmlFor="passwordConfirm">Confirm your password.</label>
+        <label htmlFor="passwordConfirm">Confirm your password:</label>
         <input 
           type="password" 
           name="passwordConfirm"
