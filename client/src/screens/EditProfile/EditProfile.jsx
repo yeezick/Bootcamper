@@ -1,19 +1,15 @@
 import { useState } from 'react';
+import { ShowPortfolioProjects } from '../../components/Projects/PortfolioCard/PortfolioCard';
+
+const handleChange = (e, property, setterFunction) => {
+  const { value } = e.target;
+
+  setterFunction((state) => {
+    return { ...state, [property]: value };
+  });
+};
 
 export const EditProfile = () => {
-  const [userInfo, setUserInfo] = useState({
-    about: '',
-    funFact: '',
-    role: '',
-    portfolio_link: '',
-    user_projects: [],
-  });
-
-  const handleChange = (e) => {
-    console.log();
-    const { value } = e.target;
-  };
-
   return (
     <div>
       <header>
@@ -23,6 +19,7 @@ export const EditProfile = () => {
       <AboutUser />
       <AddPortfolioProject />
       <ShowPortfolioProjects />
+      <button>Update Profile</button>
     </div>
   );
 };
@@ -36,15 +33,6 @@ const AboutUser = () => {
     user_projects: [],
   });
   const [dropdownOption, setDropdownOption] = useState('');
-
-  const handleChange = (e, property) => {
-    console.log(e);
-    const { value } = e.target;
-
-    setUserInfo((state) => {
-      return { ...state, [property]: value };
-    });
-  };
 
   const handleDropdownChange = (e) => {
     const { value } = e.target;
@@ -60,7 +48,7 @@ const AboutUser = () => {
             type="textarea"
             max={250}
             value={userInfo.about}
-            onChange={(e) => handleChange(e, 'about')}
+            onChange={(e) => handleChange(e, 'about', setUserInfo)}
           />
         </label>
 
@@ -76,7 +64,7 @@ const AboutUser = () => {
 
         <label>
           I am a...
-          <select defaultValue="" value={dropdownOption} onChange={handleDropdownChange}>
+          <select value={dropdownOption} onChange={handleDropdownChange}>
             <option value="UX designer">UX designer</option>
             <option value="Software engineer">Software Engineer</option>
           </select>
@@ -146,9 +134,4 @@ const AddPortfolioProject = () => {
       </form>
     </div>
   );
-};
-
-const ShowPortfolioProjects = () => {
-  // map through all user projects
-  // return portfolio card for that project
 };
