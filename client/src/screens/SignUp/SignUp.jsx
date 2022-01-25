@@ -43,11 +43,11 @@ export const SignUp = () => {
   
   // define inputs array for Form component; pass both input and label information here; also pass text for submit button in Form component
   const inputs = [
-    {type: "text", name: "first_name", value: first_name, onChange: handleChange, htmlFor:"first_name", labelText: "What's your first name?" }, 
-    {type: "text", name: "last_name", value: last_name, onChange: handleChange, htmlFor: "last_name", labelText: "What's your last name?" }, 
-    {type: "email", name: "email", value: email, onChange: handleChange, htmlFor: "email", labelText: "What's your email?" }, 
-    {type: "password", name: "password", value: password, onChange: handleChange, htmlFor: "password", labelText: "Create a password:" },
-    {type: "password", name: "confirmPassword", value: confirmPassword, onChange: handleChange, htmlFor: "confirmPassword", labelText: "Confirm password:" },
+    {type: "text", name: "first_name", value: first_name, onChange: handleChange, labelText: "What's your first name?" }, 
+    {type: "text", name: "last_name", value: last_name, onChange: handleChange, labelText: "What's your last name?" }, 
+    {type: "email", name: "email", value: email, onChange: handleChange, labelText: "What's your email?" }, 
+    {type: "password", name: "password", value: password, onChange: handleChange, labelText: "Create a password:" },
+    {type: "password", name: "confirmPassword", value: confirmPassword, onChange: handleChange, labelText: "Confirm password:" },
   ]
   const buttonText = "Register"
   
