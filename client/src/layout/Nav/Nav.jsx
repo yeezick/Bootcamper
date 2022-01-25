@@ -1,15 +1,16 @@
-import React from "react";
-import {FaBars} from 'react-icons/fa'
+import './nav.css'
+
 const Nav = () => {
   return (
-    <nav classNam='nav-container'>
+    <div className="nav-container">
     <div className="logo">Bootcamper</div>
-    <div className="menu-bars">
-    <FaBars />
+    <div className="menu-btn">
+    <i></i>
+    <i></i>
+    <i></i>
     </div>
-    </nav>
-
-  )
+    </div>
+  );
 };
 
 export default Nav;

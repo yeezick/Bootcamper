@@ -3,8 +3,7 @@ import MobileMenu from "./MobileMenu/MobileMenu";
 import Nav from "./Nav/Nav";
 import "./layout.css";
 
-
-const Layout = ({ children }) => {
+const Layout = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => {
@@ -12,15 +11,11 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className='responsive-wrapper'>
+    <div className="responsive-wrapper">
       <div className="layout-container">
-        <div className="nav-container">
-          <Nav />
-        </div>
-        <div className="mobile-menu-container">
-          <MobileMenu toggle={toggle} isOpen={isOpen} />
-        </div>
-        <div className="layout-wrapper">{children}</div>
+        <Nav toggle={toggle} />
+        <MobileMenu isOpen={isOpen} toggle={toggle} />
+        {props.children}
       </div>
     </div>
   );
