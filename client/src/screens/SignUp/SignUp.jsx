@@ -1,10 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { Header } from '../../components/Header/Header.jsx'
 import { signUp } from "../../services/api/users.js";
 
 export const SignUp = () => {
   const navigate = useNavigate();
+  const headerTitle = 'Register'
+  const headerText = "In order to find projects and connect with other users, we'll need to create an account."
   const [formData, setFormData] = useState({
     email: "",
     first_name: "",
@@ -34,9 +37,7 @@ export const SignUp = () => {
 
   return (
     <div className='sign-up-screen'>
-      <div className="header">
-        <p>header text for signUp screen</p>
-      </div>
+      <Header headerTitle={headerTitle} headerText={headerText}/>
       <form onSubmit={onSignUp}>
         <label htmlFor="first_name">What's your first name?</label>
         <input 
