@@ -1,8 +1,9 @@
 .nav-container{
-  height: 80px;
   display: flex;
+  height: 80px;
   justify-content: space-between;
   align-items: center;
+  background-color: #efefef;
 }
 
 .logo{
@@ -23,3 +24,4 @@ i {
   margin: 4px;
   border-radius: 2px;
 }
+

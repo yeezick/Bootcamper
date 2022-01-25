@@ -1,14 +1,15 @@
-import './nav.css'
+import './Nav.scss'
 
-const Nav = () => {
+const Nav = ({toggle}) => {
   return (
     <div className="nav-container">
     <div className="logo">Bootcamper</div>
-    <div className="menu-btn">
+    <div className="menu-btn" onClick={toggle}>
     <i></i>
     <i></i>
     <i></i>
     </div>
+
     </div>
   );
 };
