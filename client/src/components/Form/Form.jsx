@@ -10,6 +10,7 @@ export const Form = ({onSubmit, inputs, buttonText}) => {
         <label htmlFor={input.name}>{input.labelText}</label>
         <input 
           type={input.type}
+          id={input.name}
           name={input.name}
           value={input.value}
           onChange={input.onChange}
