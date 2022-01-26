@@ -1,15 +1,16 @@
 import React from 'react';
+import './Form.scss'
 
 export const Form = ({ buttonText, inputs, onSubmit }) => {
   return (
-  <form onSubmit={onSubmit}>
+  <form className="form" onSubmit={onSubmit}>
     
     {
       inputs.map(input => (
-        <div key={input.name} className='input'>
+        <div key={input.name} className='input-div'>
         <label htmlFor={input.name}>{input.labelText}</label>
-        <input
-          id={input.name} 
+        <input 
+          id={input.name}
           name={input.name}
           onChange={input.onChange}
           type={input.type}
