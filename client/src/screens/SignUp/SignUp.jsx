@@ -30,7 +30,7 @@ export const SignUp = () => {
     });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSignUp = async (event) => {
     event.preventDefault();
     try {
       const newUser = await signUp(formData);
@@ -54,8 +54,8 @@ export const SignUp = () => {
 
   return (
     <div className='sign-up-screen'>
-      <Header headerTitle={headerTitle} headerText={headerText}/>
-      <Form onSubmit={handleSubmit} inputs={inputs} buttonText={buttonText} />
+      <Header headerText={headerText} headerTitle={headerTitle} />
+      <Form buttonText={buttonText} inputs={inputs} onSubmit={handleSignUp} />
     </div>
   )
 }
