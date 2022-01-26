@@ -1,11 +1,28 @@
+.form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 5% 0;
+    button {
+      height: 2.5em;
+      margin: 5% 0;
+    }
+}
+
 .input-div {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: .75em;
+  margin: 5% 2% 0 2%;
   padding: 0 2em;
-  width: 70vw;
+  width: 75%;
+    input {
+      height: 1.75em;
+      width: 85%;
+    }
     label {
       margin-bottom: .5rem;
     }
+
 }

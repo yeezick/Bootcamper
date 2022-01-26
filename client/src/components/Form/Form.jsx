@@ -9,11 +9,11 @@ export const Form = ({onSubmit, inputs, buttonText}) => {
         <div key={input.name} className='input-div'>
         <label htmlFor={input.name}>{input.labelText}</label>
         <input 
-          type={input.type}
           id={input.name}
           name={input.name}
-          value={input.value}
           onChange={input.onChange}
+          type={input.type}
+          value={input.value}
         />
         </div>
       ))
