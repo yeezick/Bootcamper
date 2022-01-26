@@ -6,7 +6,7 @@ export const Form = ({onSubmit, inputs, buttonText}) => {
     
     {
       inputs.map(input => (
-        <div key={input.name} className="input">
+        <div key={input.name} className='input-div'>
         <label htmlFor={input.name}>{input.labelText}</label>
         <input 
           type={input.type}

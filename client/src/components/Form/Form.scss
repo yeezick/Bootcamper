@@ -1,4 +1,11 @@
-.input {
+.input-div {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  margin: .75em;
+  padding: 0 2em;
+  width: 70vw;
+    label {
+      margin-bottom: .5rem;
+    }
 }
