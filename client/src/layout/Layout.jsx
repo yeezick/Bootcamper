@@ -8,7 +8,6 @@ const Layout = (props) => {
 
   const toggle = () => {
     setIsOpen(!isOpen);
-    console.log('clicked');
   };
 
   return (
