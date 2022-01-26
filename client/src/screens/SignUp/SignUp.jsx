@@ -10,17 +10,17 @@ export const SignUp = () => {
 
   // define state variables
   const [formData, setFormData] = useState({
-    email: "",
-    first_name: "",
-    last_name: "",
-    password: "",
-    confirmPassword: "",
+    confirmPassword: '',
+    email: '',
+    first_name: '',
+    last_name: '',
+    password: '',
   });
-  const { first_name, last_name, email, password, confirmPassword } = formData;
+  const { confirmPassword, email, first_name, last_name, password } = formData;
 
   // pass header information for Header component
-  const headerTitle = 'Register'
   const headerText = "In order to find projects and connect with other users, we'll need to create an account."
+  const headerTitle = 'Register'
   
  // define functions for screen
   const handleChange = (event) => {
@@ -43,13 +43,13 @@ export const SignUp = () => {
   
   // define inputs array for Form component; pass both input and label information here; also pass text for submit button in Form component
   const inputs = [
-    {type: "text", name: "first_name", value: first_name, onChange: handleChange, labelText: "What's your first name?" }, 
-    {type: "text", name: "last_name", value: last_name, onChange: handleChange, labelText: "What's your last name?" }, 
-    {type: "email", name: "email", value: email, onChange: handleChange, labelText: "What's your email?" }, 
-    {type: "password", name: "password", value: password, onChange: handleChange, labelText: "Create a password:" },
-    {type: "password", name: "confirmPassword", value: confirmPassword, onChange: handleChange, labelText: "Confirm password:" },
+    {labelText: "What's your first name?", name: 'first_name', onChange: handleChange, type: 'text', value: first_name}, 
+    {labelText: "What's your last name?", name: 'last_name', onChange: handleChange, type: 'text', value: last_name}, 
+    {labelText: "What's your email?", name: 'email', onChange: handleChange, type: 'email',  value: email}, 
+    {labelText: 'Create a password:', name: 'password', onChange: handleChange, type: 'password',  value: password},
+    {labelText: 'Confirm password:', name: 'confirmPassword', onChange: handleChange, type: 'password',  value: confirmPassword},
   ]
-  const buttonText = "Register"
+  const buttonText = 'Register'
   
 
   return (

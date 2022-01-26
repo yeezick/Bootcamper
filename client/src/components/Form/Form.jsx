@@ -1,23 +1,24 @@
 import React from 'react';
 
-export const Form = ({onSubmit, inputs, buttonText}) => {
+export const Form = ({ buttonText, inputs, onSubmit }) => {
   return (
   <form onSubmit={onSubmit}>
     
     {
       inputs.map(input => (
-        <div key={input.name} className="input">
+        <div key={input.name} className='input'>
         <label htmlFor={input.name}>{input.labelText}</label>
-        <input 
-          type={input.type}
+        <input
+          id={input.name} 
           name={input.name}
-          value={input.value}
           onChange={input.onChange}
+          type={input.type}
+          value={input.value}
         />
         </div>
       ))
     }
-    <button type="submit">{buttonText}</button>
+    <button type='submit'>{buttonText}</button>
   </form>
   )
 };
