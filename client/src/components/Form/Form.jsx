@@ -1,8 +1,8 @@
 import React from 'react';
-
+import './Form.scss'
 export const Form = ({onSubmit, inputs, buttonText}) => {
   return (
-  <form onSubmit={onSubmit}>
+  <form className="form" onSubmit={onSubmit}>
     
     {
       inputs.map(input => (

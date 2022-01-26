@@ -8,8 +8,8 @@ import { signIn } from '../../services/api/users.js'
 export const SignIn = () => {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
-    email: "",
-    password: ""
+    email: '',
+    password: '',
   })
   const { email, password } = formData;
 
@@ -30,20 +30,20 @@ export const SignIn = () => {
       [event.target.name]: event.target.value,
     });
   }
-  const headerTitle = "Sign In"
   const headerText = "Welcome back! Let's get you signed in!"
+  const headerTitle = 'Sign In'
   
   const inputs =[
-    {type: "email", name: "email", value: email, onChange: handleChange, labelText: "Email:"},
-    {type: "password", name: "password", value: password, onChange: handleChange, labelText: "Password:"}
+    {labelText: 'Email:', name: 'email', onChange: handleChange, type: 'email',  value: email,},
+    {labelText: 'Password:',name: 'password', onChange: handleChange, type: 'password', value: password,  }
   ]
 
-  const buttonText = "Sign in"
+  const buttonText = 'Sign in'
   
   return (
     <div className='sign-in-screen'>
-      <Header headerTitle={headerTitle} headerText={headerText}/>
-      <Form onSubmit={handleSubmit} inputs={inputs} buttonText={buttonText}/>
+      <Header headerText={headerText} headerTitle={headerTitle} />
+      <Form buttonText={buttonText} inputs={inputs} onSubmit={handleSubmit} />
     </div>
   )
 }
