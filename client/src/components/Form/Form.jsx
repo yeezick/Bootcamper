@@ -1,6 +1,7 @@
 import React from 'react';
 import './Form.scss'
-export const Form = ({onSubmit, inputs, buttonText}) => {
+
+export const Form = ({ buttonText, inputs, onSubmit }) => {
   return (
   <form className="form" onSubmit={onSubmit}>
     
@@ -18,7 +19,7 @@ export const Form = ({onSubmit, inputs, buttonText}) => {
         </div>
       ))
     }
-    <button type="submit">{buttonText}</button>
+    <button type='submit'>{buttonText}</button>
   </form>
   )
 };
