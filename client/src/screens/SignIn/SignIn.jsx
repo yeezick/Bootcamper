@@ -13,7 +13,7 @@ export const SignIn = () => {
   })
   const { email, password } = formData;
 
-  const handleSubmit = async (event) => {
+  const handleSignIn = async (event) => {
     event.preventDefault();
     try {
       const user = await signIn(formData);
@@ -43,7 +43,7 @@ export const SignIn = () => {
   return (
     <div className='sign-in-screen'>
       <Header headerText={headerText} headerTitle={headerTitle} />
-      <Form buttonText={buttonText} inputs={inputs} onSubmit={handleSubmit} />
+      <Form buttonText={buttonText} inputs={inputs} onSubmit={handleSignIn} />
     </div>
   )
 }
