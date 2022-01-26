@@ -24,14 +24,15 @@ export const SignUp = () => {
   
  // define functions for screen
   const handleChange = (event) => {
+    const { name, value } = event.target
     setFormData({
       ...formData,
-      [event.target.name]: event.target.value,
+      name: value,
     });
   };
 
   const handleSignUp = async (event) => {
-    event.preventDefault();
+    event.preventDefault(); 
     try {
       const newUser = await signUp(formData);
       console.log(newUser);
