@@ -1,18 +1,39 @@
-.portfolio-project {
-  border: 2px solid black;
+.add-portfolio-project {
+  form {
+    margin: auto;
+    width: 300px;
+  }
+}
+
+.show-portfolio-wrapper {
   display: flex;
-  // justify-content: space-around;
+  flex-direction: column;
+  margin: auto;
+  max-width: fit-content;
+  header {
+    align-self: flex-start;
+    margin-top: 5px;
+    text-decoration: underline;
+  }
+}
+
+.portfolio-project {
+  border: 1px solid black;
+  border-radius: 4px;
+  display: flex;
+  height: 70px;
   margin: 1rem auto;
-  width: 80%;
+  overflow: hidden;
+  width: 279px;
 
   img {
-    flex-basis: 30%;
-    height: 100px;
-    margin: 10px 4px;
-    width: 100px;
+    flex-basis: 50%;
   }
 
   .portfolio-content {
+    display: flex;
+    flex-direction: column;
     margin: auto;
+    width: 100%;
   }
 }
