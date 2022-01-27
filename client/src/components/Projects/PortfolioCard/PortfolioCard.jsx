@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Form } from '../../Form/Form';
+import { Header } from '../../Header/Header';
 import './PortfolioCard.scss';
 
 const dummyProjects = [
@@ -37,9 +39,6 @@ export const AddPortfolioProject = () => {
   });
   // ideally updates the database on each new project without slowing the app down
   // this way the user can add a new project and on refresh, load their work.
-  const handleSubmit = (e) => {
-    console.log(e);
-  };
 
   const formData = {
     button: {
@@ -71,45 +70,32 @@ export const AddPortfolioProject = () => {
       },
     ],
   };
+  const header = {
+    title: 'Portfolio Projects',
+    text: ' Add your personal projects here. You can add as many as you want, but to avoid cluttering we recommend a maximum of 3.',
+  };
 
   return (
     <div className="add-portfolio-project">
-      <header>
-        Add your personal projects here. You can add as many as you want, but to avoid cluttering we
-        recommend a maximum of 3.
-      </header>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Project Title:
-          <input
-            type="text"
-            value={newProject.title}
-            onChange={(e) => handleChange(e, 'title', setNewProject)}
-          />
-        </label>
-
-        <label>
-          Describe the project. <small>(max 250 characters)</small>
-          <input
-            type="text"
-            value={newProject.description}
-            onChange={(e) => handleChange(e, 'description', setNewProject)}
-          />
-        </label>
-
-        <label>
-          Link to your project
-          <input
-            type="text"
-            value={newProject.link}
-            onChange={(e) => handleChange(e, 'link', setNewProject)}
-          />
-        </label>
-        <button>Add</button>
-      </form>
+      <Header headerTitle={header.title} headerText={header.text} />
+      {/* <Form
+        inputs={formData.inputs}
+        buttonText={formData.button.text}
+        onSubmit={formData.handlers.onChange}
+      /> */}
     </div>
   );
 };
+/*
+<label>
+  Project Title:
+  <input
+    type="text"
+    value={newProject.title}
+    onChange={(e) => handleChange(e, 'title', setNewProject)}
+  />
+</label>
+*/
 
 export const ShowPortfolioProjects = () => {
   return (
