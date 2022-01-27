@@ -1,0 +1,27 @@
+.nav-container{
+  display: flex;
+  height: 80px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #efefef;
+}
+
+.logo{
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.menu-btn{
+  display: flex;
+  flex-direction: column;
+  padding-right: 10px;
+  cursor: pointer;
+}
+i {
+  background-color: black;
+  width: 32px;
+  height: 4px;
+  margin: 4px;
+  border-radius: 2px;
+}
+
