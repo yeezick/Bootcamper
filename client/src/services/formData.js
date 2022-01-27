@@ -78,3 +78,40 @@ export const signInForm = {
     },
   ],
 };
+
+export const signUpForm = {
+  button: {
+    type: 'single',
+    text: 'Register',
+  },
+  handlers: {
+    // onSubmit: handleNewProject,
+  },
+  inputs: [
+    {
+      labelText: "What's your first name?",
+      name: 'first_name',
+      type: 'text',
+    },
+    {
+      labelText: "What's your last name?",
+      name: 'last_name',
+      type: 'text',
+    },
+    {
+      labelText: "What's your email?",
+      name: 'email',
+      type: 'email',
+    },
+    {
+      labelText: 'Create a password:',
+      name: 'password',
+      type: 'password',
+    },
+    {
+      labelText: 'Confirm password:',
+      name: 'confirmPassword',
+      type: 'password',
+    },
+  ],
+};

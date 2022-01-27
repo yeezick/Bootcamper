@@ -4,10 +4,10 @@ import './Form.scss';
 
 export const Form = ({ formData, formState }) => {
   const { button, handlers, inputs } = formData;
-  const [stateObject, setterFunction] = formState;
+  const [stateObject, setterFunction, handleSubmit] = formState;
 
   return (
-    <form className="form">
+    <form className="form" onSubmit={handleSubmit}>
       {inputs.map((input) => (
         <div key={input.name} className="input-wrapper">
           <label htmlFor={input.name}>{input.labelText}</label>
