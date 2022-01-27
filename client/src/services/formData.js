@@ -4,8 +4,8 @@ export const userForm = {
     text: 'Add New Project',
   },
   handlers: {
-    // setterFunction: setUserInfo,
-    // onSubmit: handleNewProject,
+    // setterFunction: ,
+    // onSubmit: ,
   },
   inputs: [
     {
@@ -33,3 +33,49 @@ export const userForm = {
     },
   ],
 };
+// project form 
+export const projectForm = {
+  button: {
+    type: 'submit',
+    text: 'Create Project',
+  },
+  handlers: {
+    // setterFunction: setUserInfo,
+    // onSubmit: handleNewProject,
+  },
+  inputs: [
+    {
+      labelText: 'Name the project',
+      name: 'title',
+      max_chars: 45,
+      type: 'text',
+    },
+    {
+      labelText: 'Describe the project (max 300 characters)',
+      name: 'description',
+      max_chars: 300,
+      type: 'textarea',
+    },
+    {
+      labelText: 'What tech stack will it use?',
+      name: 'tech_stack',
+      type: 'text',
+    },
+    {
+      labelText: 'How many designers are you seeking?',
+      name: 'designer_count',
+      type: 'number',
+    },
+    {
+      labelText: 'How many engineers are you seeking?',
+      name: 'engineer_count',
+      type: 'number',
+    },
+    {
+      labelText: '...who can commit at least...',
+      name: 'timeframe',
+      type: 'select',
+      options: ['no preference', 'hobby <10 hours', 'part-time <20 hours', 'full-time <30 hours' ]
+    },
+  ],
+}

@@ -30,7 +30,7 @@ export const Form = ({ formData, formState }) => {
           )}
         </div>
       ))}
-      <button type="submit">{inputs.text}</button>
+      <button type="submit">{button.text}</button>
     </form>
   );
 };
