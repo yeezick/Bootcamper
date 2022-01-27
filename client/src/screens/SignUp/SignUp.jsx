@@ -25,7 +25,6 @@ export const SignUp = () => {
     event.preventDefault();
     try {
       const createdUser = await signUp(newUser);
-      console.log('new user', createdUser);
       navigate('/');
     } catch (error) {
       console.error(error);
