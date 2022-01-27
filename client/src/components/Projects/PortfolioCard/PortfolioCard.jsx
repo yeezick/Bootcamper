@@ -3,6 +3,7 @@ import { Form } from '../../Form/Form';
 import { Header } from '../../Header/Header';
 
 import { portfolioProjectForm } from '../../../services/formData';
+import { updateUser } from '../../../services/api/users.js';
 import './PortfolioCard.scss';
 
 const dummyProjects = [
@@ -34,6 +35,14 @@ export const AddPortfolioProject = () => {
   });
   // ideally updates the database on each new project without slowing the app down
   // this way the user can add a new project and on refresh, load their work.
+  const handleNewProject = async (e) => {
+    e.preventDefault();
+    try {
+      const user = await updateUser(newProject);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const header = {
     title: 'Portfolio Projects',
@@ -51,7 +60,7 @@ export const AddPortfolioProject = () => {
 export const ShowPortfolioProjects = () => {
   return (
     <div className="show-portfolio-wrapper">
-      <header> Portfolio Projects</header>
+      <header> Your Portfolio Projects</header>
       {dummyProjects.map((project, idx) => (
         <PortfolioProject key={idx} project={project} />
       ))}
