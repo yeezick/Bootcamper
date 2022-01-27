@@ -1,9 +1,9 @@
 {
     "version": 3,
-    "mappings": "AAAA,AAAA,iBAAiB,AAAA,CACf,KAAK,CAAE,KAAK,CACZ,MAAM,CAAE,KAAK,CACd",
+    "mappings": "AAAA,AAAA,mBAAmB,AAAA,CACjB,OAAO,CAAE,IAAI,CACb,eAAe,CAAE,MAAM,CACxB,AAGD,AAAA,iBAAiB,AAAC,CAChB,KAAK,CAAE,KAAK,CACZ,MAAM,CAAE,KAAK,CACb,MAAM,CAAE,eAAe,CACxB",
     "sources": [
-        "../client/src/layout/layout.scss"
+        "../client/src/layout/Layout.scss"
     ],
     "names": [],
-    "file": "layout.css"
+    "file": "Layout.css"
 }
