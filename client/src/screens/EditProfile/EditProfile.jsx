@@ -7,6 +7,7 @@ import { Form } from '../../components/Form/Form';
 import { Header } from '../../components/Header/Header';
 import { Modal } from '../../components/Modal/Modal';
 
+import { updateUser } from '../../services/api/users';
 import { userForm } from '../../services/formData';
 import './EditProfile.scss';
 
@@ -34,15 +35,24 @@ export const EditProfile = () => {
 const AboutUser = () => {
   const [userInfo, setUserInfo] = useState({
     about: '',
-    funFact: '',
+    fun_fact: '',
     portfolio_link: '',
     role: '',
-    user_projects: [],
   });
+
+  const handleUserUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const user = await updateUser('61f32730ecf7c67c9bee9f36', userInfo);
+      console.log('user', user);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="about-user">
-      <Form formData={userForm} formState={[userInfo, setUserInfo]} />
+      <Form formData={userForm} formState={[userInfo, setUserInfo, handleUserUpdate]} />
     </div>
   );
 };

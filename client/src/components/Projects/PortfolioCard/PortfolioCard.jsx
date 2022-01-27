@@ -29,16 +29,18 @@ const dummyProjects = [
 
 export const AddPortfolioProject = () => {
   const [newProject, setNewProject] = useState({
-    description: '',
-    link: '',
-    title: '',
+    project_description: '',
+    project_link: '',
+    project_title: '',
   });
   // ideally updates the database on each new project without slowing the app down
   // this way the user can add a new project and on refresh, load their work.
   const handleNewProject = async (e) => {
     e.preventDefault();
     try {
-      const user = await updateUser(newProject);
+      // must be able to access user's portfolio projects, spread them, then add newProject at the end of it
+      const user = await updateUser('61f32730ecf7c67c9bee9f36', { portfolio_projects: newProject });
+      console.log(user);
     } catch (error) {
       console.error(error);
     }
@@ -52,7 +54,10 @@ export const AddPortfolioProject = () => {
   return (
     <div className="add-portfolio-project">
       <Header headerTitle={header.title} headerText={header.text} />
-      <Form formData={portfolioProjectForm} formState={[newProject, setNewProject]} />
+      <Form
+        formData={portfolioProjectForm}
+        formState={[newProject, setNewProject, handleNewProject]}
+      />
     </div>
   );
 };

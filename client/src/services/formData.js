@@ -1,7 +1,7 @@
 export const userForm = {
   button: {
     type: 'single',
-    text: 'Add New Project',
+    text: 'Save Progress',
   },
   handlers: {
     // setterFunction: setUserInfo,
@@ -16,7 +16,7 @@ export const userForm = {
     },
     {
       labelText: 'Include a fun fact!  <small> (optional, max 250 characters)</small> ',
-      name: 'funFact',
+      name: 'fun_fact',
       max_chars: 250,
       type: 'textarea',
     },
@@ -24,11 +24,11 @@ export const userForm = {
       labelText: 'I am a...',
       name: 'role',
       type: 'select',
-      options: ['UX Designer', 'Software Engineer'],
+      options: ['Select role', 'UX Designer', 'Software Engineer'],
     },
     {
       labelText: 'Link to your portfolio <small>(optional)</small>',
-      name: 'portfolioLink',
+      name: 'portfolio_link',
       type: 'text',
     },
   ],
@@ -110,7 +110,7 @@ export const signUpForm = {
     },
     {
       labelText: 'Confirm password:',
-      name: 'confirmPassword',
+      name: 'confirm_password',
       type: 'password',
     },
   ],

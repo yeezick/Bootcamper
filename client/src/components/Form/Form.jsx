@@ -12,7 +12,10 @@ export const Form = ({ formData, formState }) => {
         <div key={input.name} className="input-wrapper">
           <label htmlFor={input.name}>{input.labelText}</label>
           {input.type === 'select' ? (
-            <select defaultValue="" onChange={(e) => handleChange(e, input.name, setterFunction)}>
+            <select
+              defaultValue={input.options[0]}
+              onChange={(e) => handleChange(e, input.name, setterFunction)}
+            >
               {input.options.map((option) => (
                 <option key={`${input.name}-${option}`} value={option}>
                   {option}
