@@ -13,8 +13,8 @@ import './EditProfile.scss';
 export const EditProfile = () => {
   const [showModal, setShowModal] = useState(true);
   const header = {
-    title: 'About You',
     text: "Before you can create or join a project, we'll need to finish your profile first.",
+    title: 'About You',
   };
   return (
     <>

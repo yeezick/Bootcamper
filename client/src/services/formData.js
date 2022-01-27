@@ -33,3 +33,48 @@ export const userForm = {
     },
   ],
 };
+
+export const portfolioProjectForm = {
+  button: {
+    type: 'single',
+    text: 'Add New Project',
+  },
+  handlers: {
+    // onSubmit: handleNewProject,
+  },
+  inputs: [
+    {
+      labelText: 'Project Title',
+      name: 'project_title',
+      type: 'text',
+    },
+    {
+      labelText: 'Describe the project',
+      name: 'project_description',
+      type: 'textarea',
+    },
+    {
+      labelText: 'Link to your project',
+      name: 'project_link',
+      type: 'text',
+    },
+  ],
+};
+
+export const signInForm = {
+  button: {
+    type: 'single',
+    text: 'Sign in',
+  },
+  handlers: {
+    // onSubmit: handleNewProject,
+  },
+  inputs: [
+    { labelText: 'Email:', name: 'email', type: 'email' },
+    {
+      labelText: 'Password:',
+      name: 'password',
+      type: 'password',
+    },
+  ],
+};
