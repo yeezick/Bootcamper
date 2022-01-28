@@ -28,6 +28,43 @@ export const getAllUsers = async (req, res) => {
   }
 }; //works
 
+export const getOneUser = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const user = await User.findById(id);
+    if (user) {
+      return res.json(user)
+    }
+    return res.status(404).json({message: 'User not found.'})
+  } catch (error) {
+    console.error(error).message
+    res.status(500).json({ error: error.message });
+  }
+}
+
+export const addPortfolioProject = async (req, res) => {
+  try {
+    const {id} = req.params;
+    console.log(req.body)
+    const user = await User.findByIdAndUpdate(id, {$push: {'portfolio_projects': req.body }}, {new:true});
+    console.log(user)
+    res.status(200).send(user);
+  } catch(error) {
+    res.status(500).send(error.message);
+  }
+}
+
+export const updateUserInfo = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findByIdAndUpdate(id, req.body, { new: true });
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+}; // works
+
+// Auth
 export const signUp = async (req, res) => {
   try {
     const { email, first_name, last_name, password } = req.body;
@@ -50,17 +87,6 @@ export const signUp = async (req, res) => {
   }
 }; // works
 
-export const updateUserInfo = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const user = await User.findByIdAndUpdate(id, req.body, { new: true });
-    res.status(200).send(user);
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
-}; // works
-
-// Auth
 export const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;

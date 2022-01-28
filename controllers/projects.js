@@ -29,7 +29,7 @@ export const getAllProjects = async (req, res) => {
 export const getOneProject = async (req, res) => {
   try {
     const { id } = req.params;
-    const project = await Project.findById(id);
+    const project = await Project.findById(id).populate({path:'interested_applicants', model: User});
     if (project) {
       return res.json(project);
     }

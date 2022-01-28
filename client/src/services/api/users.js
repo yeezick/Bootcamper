@@ -1,10 +1,46 @@
-import { api } from "./apiConfig";
-import jwtDecode from "jwt-decode";
+import { api } from './apiConfig';
+import jwtDecode from 'jwt-decode';
+
+export const getAllUsers = async () => {
+  try {
+    const res = await api.get('/users');
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getOneUser = async (id) => {
+  try {
+    const res = await api.get(`/projects/${id}`);
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateUser = async (id, userUpdate) => {
+  try {
+    const res = await api.put(`/users/${id}`, userUpdate);
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const addPortfolioProject = async (id, newProject) => {
+  try {
+    const res = await api.patch(`/users/${id}`, newProject);
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const signUp = async (credentials) => {
   try {
-    const res = await api.post("/sign-up", credentials);
-    localStorage.setItem("token", res.data.token);
+    const res = await api.post('/sign-up', credentials);
+    localStorage.setItem('token', res.data.token);
     const user = jwtDecode(res.data.token);
     return user;
   } catch (error) {
@@ -14,8 +50,8 @@ export const signUp = async (credentials) => {
 
 export const signIn = async (credentials) => {
   try {
-    const res = await api.post("/sign-in", credentials);
-    localStorage.setItem("token", res.data.token);
+    const res = await api.post('/sign-in', credentials);
+    localStorage.setItem('token', res.data.token);
     const user = jwtDecode(res.data.token);
     return user;
   } catch (error) {
@@ -25,7 +61,7 @@ export const signIn = async (credentials) => {
 
 export const signOut = async () => {
   try {
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
     return true;
   } catch (error) {
     throw error;
@@ -33,9 +69,9 @@ export const signOut = async () => {
 }; // missing endpoint
 
 export const verify = async () => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
   if (token) {
-    const res = await api.get("/verify");
+    const res = await api.get('/verify');
     return res.data;
   }
   return false;

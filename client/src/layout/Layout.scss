@@ -1,11 +1,13 @@
-.responsive-wrapper{
+.responsive-wrapper {
   display: flex;
   justify-content: center;
 }
 
-
 .layout-container {
+  border: 1px solid green;
+  height: 667px;
+  max-height: 667px;
+  max-width: 375px;
+  overflow: scroll;
   width: 375px;
-  height: 812px;
-  border: 5px solid green;
 }

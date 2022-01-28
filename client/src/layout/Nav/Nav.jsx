@@ -1,15 +1,14 @@
-import './Nav.scss'
+import './Nav.scss';
 
-const Nav = ({toggle}) => {
+const Nav = ({ toggleMobileMenu }) => {
   return (
     <div className="nav-container">
-    <div className="logo">Bootcamper</div>
-    <div className="menu-btn" onClick={toggle}>
-    <i></i>
-    <i></i>
-    <i></i>
-    </div>
-
+      <div className="logo">Bootcamper</div>
+      <div className="menu-btn" onClick={toggleMobileMenu}>
+        <i></i>
+        <i></i>
+        <i></i>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,14 @@
+.edit-profile {
+  .about-user {
+    display: flex;
+    flex-direction: column;
+  }
+  .add-portfolio-project {
+    display: flex;
+    flex-direction: column;
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

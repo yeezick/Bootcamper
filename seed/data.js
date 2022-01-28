@@ -17,9 +17,10 @@ const insertData = async () => {
     last_name: "Jones",
     member_of_projects: [],
     password_digest: await bcrypt.hash("gumballs", 11),
-    portfolio: "www.wigglejones.com",
+    portfolio_link: "www.wigglejones.com",
+    portfolio_projects: [],
     rejected_projects: [],
-    role: "Engineer",
+    role: "Software Engineer",
   });
   await user1.save();
 
@@ -31,9 +32,10 @@ const insertData = async () => {
     last_name: "Hunt",
     member_of_projects: [],
     password_digest: await bcrypt.hash("pizza12", 11),
-    portfolio: "www.ladesigner.com",
+    portfolio_link: "www.ladesigner.com",
+    portfolio_projects: [],
     rejected_projects: [],
-    role: "Designer",
+    role: "UX Designer",
   });
   await user2.save();
 
@@ -45,9 +47,10 @@ const insertData = async () => {
     interested_projects: [],
     member_of_projects: [],
     password_digest: await bcrypt.hash("gumballs", 11),
-    portfolio: "www.bras.com",
+    portfolio_link: "www.bras.com",
+    portfolio_projects: [],
     rejected_projects: [],
-    role: "Engineer",
+    role: "Software Engineer",
   });
   await user3.save();
 
@@ -59,51 +62,72 @@ const insertData = async () => {
     last_name: "Carter",
     member_of_projects: [],
     password_digest: await bcrypt.hash("gumballs", 11),
-    portfolio: "www.colorsofrainbows.com",
+    portfolio_link: "www.colorsofrainbows.com",
+    portfolio_projects: [],
     rejected_projects: [],
-    role: "Designer",
+    role: "UX Designer",
   });
   await user4.save();
 
   const projects = [
     {
       description: "building gaming app",
+      designer_count: 0,
+      engineer_count: 0,
       interested_applicants: [user3, user4], // projects[0]
       seeking: true,
       team_members: [user1, user2],
+      time_commitment: 'no preference',
       title: "GameBot",
+      tools: [],
       owner: user1,
     },
     {
       description: "Painting app",
+      designer_count: 0,
+      engineer_count: 0,
       interested_applicants: [user4], //projects[1]
       seeking: true,
       team_members: [user1, user2, user3],
+      time_commitment: 'hobby',
       title: "PaintBot",
+      tools: [],
       owner: user2,
     },
     {
       description: "gardening app",
+      designer_count: 0,
+      engineer_count: 0,
       interested_applicants: [user4], //projects[2]
       seeking: false,
       team_members: [user3, user1],
+      time_commitment: 'part-time',
       title: "GardenBot",
+      tools: [],
       owner: user3,
     },
     {
       description: "babysitter app",
+      designer_count: 0,
+      engineer_count: 0,
       interested_applicants: [user2], //projects[3]
       seeking: true,
       team_members: [user3, user4],
+      time_commitment: 'full-time',
       title: "BabysitterBot",
+      tools: [],
       owner: user4,
     },
     {
       description: "finance app",
+      designer_count: 0,
+      engineer_count: 0,
       interested_applicants: [user2], //projects[4]
       seeking: true,
       team_member: [user1, user4],
+      time_commitment: 'full-time',
       title: "MyMoney.io",
+      tools: [],
       owner: user4,
     },
   ];
