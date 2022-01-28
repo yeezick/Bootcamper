@@ -9,6 +9,7 @@ router.get("/users", controllers.getAllUsers);
 router.get('/users/:id', controllers.getOneUser);
 router.post("/sign-up", controllers.signUp);
 router.put("/users/:id", controllers.updateUserInfo);
+router.patch('/users/:id', controllers.addPortfolioProject);
 
 // auth
 router.post("/sign-in", controllers.signIn);

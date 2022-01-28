@@ -3,7 +3,7 @@ import { Form } from '../../Form/Form';
 import { Header } from '../../Header/Header';
 
 import { portfolioProjectForm } from '../../../services/formData';
-import { updateUser } from '../../../services/api/users.js';
+import { addPortfolioProject } from '../../../services/api/users.js';
 import './PortfolioCard.scss';
 
 const dummyProjects = [
@@ -39,7 +39,7 @@ export const AddPortfolioProject = () => {
     e.preventDefault();
     try {
       // must be able to access user's portfolio projects, spread them, then add newProject at the end of it
-      const user = await updateUser('61f32730ecf7c67c9bee9f36', { portfolio_projects: newProject });
+      const user = await addPortfolioProject('61f32730ecf7c67c9bee9f36', newProject);
       console.log(user);
     } catch (error) {
       console.error(error);

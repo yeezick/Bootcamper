@@ -28,6 +28,15 @@ export const updateUser = async (id, userUpdate) => {
   }
 };
 
+export const addPortfolioProject = async (id, newProject) => {
+  try {
+    const res = await api.patch(`/users/${id}`, newProject);
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const signUp = async (credentials) => {
   try {
     const res = await api.post('/sign-up', credentials);
