@@ -57,8 +57,9 @@ export const projectForm = {
       type: 'textarea',
     },
     {
-      labelText: 'What tech stack will it use?',
-      name: 'tech_stack',
+      labelText: 'What tools will it use?',
+      name: 'tools',
+      // list: 'toolsList', the list this input refers to needs to be defined; tools should be in the DB
       type: 'text',
     },
     {
@@ -73,7 +74,7 @@ export const projectForm = {
     },
     {
       labelText: '...who can commit at least...',
-      name: 'timeframe',
+      name: 'time_commitment',
       type: 'select',
       options: ['no preference', 'hobby <10 hours', 'part-time <20 hours', 'full-time <30 hours' ]
     },

@@ -23,10 +23,10 @@ const AboutProject = () => {
   const [projectInfo, setProjectInfo] = useState({
     title: '',
     description: '',
-    tech_stack: '',
+    tools: '',
     designer_count: '',
     engineer_count: '',
-    timeframe: '',
+    time_commitment: '',
   });
 
   return (
