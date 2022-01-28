@@ -1,7 +1,7 @@
 export const userForm = {
   button: {
     type: 'single',
-    text: 'Save Progress',
+    text: 'Update Your Info',
   },
   handlers: {
     // setterFunction: setUserInfo,
