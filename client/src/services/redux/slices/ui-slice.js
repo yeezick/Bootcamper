@@ -15,7 +15,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   user: '',
-  available_projects: [],
+  blacklisted_projects: [],
   visibleMobileMenu: false,
 };
 
@@ -28,11 +28,16 @@ export const uiSlice = createSlice({
     },
     fetchUser(state, action) {
       state.user = action.payload;
+      const { interested_projects, member_of_projects, rejected_projects } = action.payload;
+      state.blacklisted_projects = [
+        ...interested_projects,
+        ...member_of_projects,
+        ...rejected_projects,
+      ];
     },
-    updateLoginForm(state, action) {
-      const { email, password } = action.payload;
-      state.login.email = email;
-      state.login.password = password;
+    updateBlacklistedProjects(state, action) {
+      // action.payload should just be the id of the new project to add to this array
+      state.blacklisted_projects = [...state.blacklisted_projects, action.payload];
     },
   },
 });
