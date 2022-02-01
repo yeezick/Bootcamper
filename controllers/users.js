@@ -44,10 +44,8 @@ export const getOneUser = async (req, res) => {
 
 export const addPortfolioProject = async (req, res) => {
   try {
-    const {id} = req.params;
-    console.log(req.body)
+    const { id } = req.params;
     const user = await User.findByIdAndUpdate(id, {$push: {'portfolio_projects': req.body }}, {new:true});
-    console.log(user)
     res.status(200).send(user);
   } catch(error) {
     res.status(500).send(error.message);

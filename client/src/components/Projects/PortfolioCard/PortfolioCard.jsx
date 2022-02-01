@@ -39,8 +39,7 @@ export const AddPortfolioProject = () => {
     e.preventDefault();
     try {
       // must be able to access user's portfolio projects, spread them, then add newProject at the end of it
-      const user = await addPortfolioProject('61f32730ecf7c67c9bee9f36', newProject);
-      console.log(user);
+      await addPortfolioProject('61f32730ecf7c67c9bee9f36', newProject);
     } catch (error) {
       console.error(error);
     }
@@ -67,14 +66,14 @@ export const ShowPortfolioProjects = () => {
     <div className="show-portfolio-wrapper">
       <header> Your Portfolio Projects</header>
       {dummyProjects.map((project, idx) => (
-        <PortfolioProject key={idx} project={project} />
+        <PortfolioProject key={`portfolioProject-${idx}`} project={project} />
       ))}
     </div>
   );
 };
 
 const PortfolioProject = ({ project }) => {
-  const { title, description, image, link } = project;
+  const { description, image, link, title } = project;
   return (
     <div className="portfolio-project">
       <img src={image} alt={title} />
