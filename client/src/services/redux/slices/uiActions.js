@@ -1,4 +1,4 @@
-import { uiActions } from './ui-slice';
+import { uiActions } from './uiSlice';
 import { signIn } from '../../api/users';
 
 export const loginUser = (userData) => {

@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 /**
  * should it be called ui or user?
+ * - could handle modals? and check if user is finished editing account?
  *
  * states that the user needs
  * - their profile
