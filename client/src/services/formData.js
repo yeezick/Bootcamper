@@ -1,7 +1,7 @@
 export const userForm = {
   button: {
-    type: 'single',
     text: 'Update Your Info',
+    type: 'single',
   },
   handlers: {
     // setterFunction: setUserInfo,
@@ -36,8 +36,8 @@ export const userForm = {
 
 export const portfolioProjectForm = {
   button: {
-    type: 'single',
     text: 'Add New Project',
+    type: 'single',
   },
   handlers: {
     // onSubmit: handleNewProject,
@@ -63,8 +63,8 @@ export const portfolioProjectForm = {
 
 export const signInForm = {
   button: {
-    type: 'single',
     text: 'Sign in',
+    type: 'single',
   },
   handlers: {
     // onSubmit: handleNewProject,
@@ -81,8 +81,8 @@ export const signInForm = {
 
 export const signUpForm = {
   button: {
-    type: 'single',
     text: 'Register',
+    type: 'single',
   },
   handlers: {
     // onSubmit: handleNewProject,

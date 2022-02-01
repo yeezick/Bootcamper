@@ -43,8 +43,7 @@ const AboutUser = () => {
   const handleUserUpdate = async (e) => {
     e.preventDefault();
     try {
-      const user = await updateUser('61f32730ecf7c67c9bee9f36', userInfo);
-      console.log('user', user);
+      await updateUser('61f32730ecf7c67c9bee9f36', userInfo);
     } catch (error) {
       console.error(error);
     }

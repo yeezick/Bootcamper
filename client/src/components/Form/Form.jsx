@@ -4,7 +4,7 @@ import './Form.scss';
 
 export const Form = ({ formData, formState }) => {
   const { button, handlers, inputs } = formData;
-  const [stateObject, setterFunction, handleSubmit] = formState;
+  const [handleSubmit, stateObject, setterFunction] = formState;
 
   return (
     <form className="form" onSubmit={handleSubmit}>
