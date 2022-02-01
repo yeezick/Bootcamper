@@ -5,7 +5,7 @@ import './Form.scss';
 export const Form = ({ formData, formState }) => {
   const { button, handlers, inputs } = formData;
   const [stateObject, setterFunction] = formState;
-
+ 
   return (
     <form className="form">
       {inputs.map((input) => (

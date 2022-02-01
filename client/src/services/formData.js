@@ -1,7 +1,7 @@
 export const userForm = {
   button: {
+    text: 'Update Your Info',
     type: 'single',
-    text: 'Add New Project',
   },
   handlers: {
     // setterFunction: ,
@@ -57,12 +57,6 @@ export const projectForm = {
       type: 'textarea',
     },
     {
-      labelText: 'What tools will it use?',
-      name: 'tools',
-      // list: 'toolsList', the list this input refers to needs to be defined; tools should be in the DB
-      type: 'text',
-    },
-    {
       labelText: 'How many designers are you seeking?',
       name: 'designer_count',
       type: 'number',
@@ -76,7 +70,7 @@ export const projectForm = {
       labelText: '...who can commit at least...',
       name: 'time_commitment',
       type: 'select',
-      options: ['no preference', 'hobby <10 hours', 'part-time <20 hours', 'full-time <30 hours' ]
+      options: ['no preference', 'hobby', 'part-time', 'full-time' ]
     },
   ],
 }
