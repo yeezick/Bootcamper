@@ -1,9 +1,6 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-// import { Form } from '../../components/Form/Form.jsx';
+import { useState } from 'react';
 import { Header } from '../../components/Header/Header.jsx';
-// import { projectForm } from '../../services/formData';
-import { handleChange } from '../../services/utils/formHandlers.js';
 import '../../components/Form/Form.scss';
 
 export const EditProject = () => {
@@ -21,7 +18,7 @@ export const EditProject = () => {
 }
 
 const AboutProject = () => {
-  const [selectedTools, setSelectedTools] = useState([]);
+  const [currentTool, setCurrentTool] = useState('')
   const [projectInfo, setProjectInfo] = useState({
     title: '',
     description: '',
@@ -37,26 +34,23 @@ const handleChange = (e) => {
   setProjectInfo({
     ...projectInfo,
     [name]: value,
-    tools: selectedTools, 
   })
 }
 
 const handleToolChange = (e) => {
-  setSelectedTools(
-    [...selectedTools, e.target[0].value]
-  )
+  setCurrentTool(e.target.value)
 }
 const selectTool = (e) => {
   e.preventDefault()
   setProjectInfo({
     ...projectInfo,
-    tools: selectedTools,
+    tools: [...projectInfo.tools, currentTool],
   })
+  setCurrentTool('')
 }
 
   return (
     <div className="about-project">
-      {/* <Form formData={projectForm} formState={[projectInfo, setProjectInfo]} /> */}
       <form className='project-form form'>
        <label htmlFor='title'>Name the project</label>
        <input
@@ -80,14 +74,15 @@ const selectTool = (e) => {
           id='tools'
           list='tools-list'
           name='tools'
-          onChange={handleChange}
-          value={projectInfo.tools}
+          onChange={handleToolChange}
+          value={currentTool}
         />
         <datalist id='tools-list'>
           {toolsList.map(tool => (
             <option value={tool} />
           ))}
         </datalist>
+       
         <button onClick={selectTool}>Add Tool</button>
       </form>
        <label htmlFor='designer-count'>How many designers are you seeking?</label>
