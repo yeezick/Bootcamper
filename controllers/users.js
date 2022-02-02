@@ -77,8 +77,9 @@ export const signUp = async (req, res) => {
       exp: parseInt(exp.getTime() / 1000),
     };
     const token = jwt.sign(payload, TOKEN_KEY);
+    let secureUser = Object.assign({}, user._doc, {"password_digest": undefined})
 
-    res.status(201).json({ token });
+    res.status(201).json({user: secureUser, token });
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ error: error.message });

@@ -35,6 +35,7 @@ export const uiSlice = createSlice({
         ...member_of_projects,
         ...rejected_projects,
       ];
+      console.log(state.user);
     },
     updateBlacklistedProjects(state, action) {
       // action.payload should just be the id of the new project to add to this array

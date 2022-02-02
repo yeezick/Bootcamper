@@ -22,6 +22,9 @@ export const projectSlice = createSlice({
       state.projects = action.payload;
       state.isLoaded = true;
     },
+    createProject(state, action) {
+      // when a user creates a project, their project should be added to
+    },
   },
 });
 
