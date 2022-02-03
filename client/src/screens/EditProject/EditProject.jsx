@@ -20,26 +20,26 @@ export const EditProject = () => {
 }
 
 const AboutProject = () => {
+  const navigate = useNavigate()
   const [currentTool, setCurrentTool] = useState('')
   const [projectInfo, setProjectInfo] = useState({
     description: '',
     designer_count: 0,
     engineer_count: 0,
-    owner: '61fc3a9afec2b58f7be69b01',
+    owner: '61fc3a9afec2b58f7be69b01', //this should dynamically retrieve the current user
     seeking: true,
     time_commitment: '',
     title: '',
     tools: [],
   });
-  const navigate = useNavigate()
-
+  // submit the form and create a record for the project in the DB
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newProject = await createProject(projectInfo);
     if (newProject) navigate('/')
   }
 
-// a toolsList will later be generated from the list of tools stored in the DB; functionality for adding a new tool also needs to be added here
+// tools related functions; a toolsList will later be generated from the list of tools stored in the DB; functionality for adding a new tool also needs to be added here
 const toolsList = ['JavaScript', 'React', 'Ruby'];
 const handleChange = (e) => {
   const {name, value} = e.target
