@@ -4,6 +4,7 @@ import { Header } from '../../components/Header/Header';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllProjects } from '../../services/redux/slices/projectActions';
+import { updateUserAndProject } from '../../services/api/projects';
 
 // currently rerendering 5x
 export const Roulette = () => {
@@ -12,6 +13,7 @@ export const Roulette = () => {
   const [currProject, setCurrProject] = useState(null);
   const [currIndex, setCurrIndex] = useState(null);
   const { projects, isLoaded } = useSelector((state) => state.projects);
+  const { user } = useSelector((state) => state.ui);
 
   useEffect(() => {
     dispatch(fetchAllProjects());
@@ -23,7 +25,7 @@ export const Roulette = () => {
     console.log('new project', currProject);
   }, [currProject]);
 
-  console.log('project', currProject);
+  console.log('user', user);
   const declineProject = () => {
     /* on click should 
       - add this project to blacklisted projects
@@ -34,17 +36,37 @@ export const Roulette = () => {
     console.log('declining');
   };
 
-  const showInterest = () => {
+  const showInterest = async () => {
     /* on click should 
       projects: 
-      interested_applicants
+      - interested_applicants
       
       user: 
       - interested_projects
-      -
+      
       then move on to next item
       */
-    console.log('show interest');
+    const { _id: projectId, interested_applicants } = currProject;
+    const { _id: userId, interested_projects } = user;
+    const body = {
+      project: {
+        projectId,
+        projectUpdate: {
+          interested_applicants: [...interested_applicants, userId],
+        },
+      },
+      user: {
+        userId,
+        userUpdate: {
+          interested_projects: [...interested_projects, projectId],
+        },
+      },
+    };
+
+    // console.log('body', body);
+    const res = await updateUserAndProject(body);
+    console.log('res', res);
+    skipProject();
   };
 
   const skipProject = () => {
