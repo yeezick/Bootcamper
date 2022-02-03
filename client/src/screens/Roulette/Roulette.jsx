@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllProjects } from '../../services/redux/slices/projectActions';
 import { updateUserAndProject } from '../../services/api/projects';
+import { updateUser } from '../../services/api/users';
 
 // currently rerendering 5x
 export const Roulette = () => {
@@ -26,26 +27,23 @@ export const Roulette = () => {
   }, [currProject]);
 
   console.log('user', user);
-  const declineProject = () => {
+  const declineProject = async () => {
     /* on click should 
       - add this project to blacklisted projects
       - add to user's rejected_projects
 
       then move on to next item
-      */
-    console.log('declining');
+    */
+    //  currently replacing user object with rejectedProjects in redux User store and adding the new project at the end
+    // put method is not allowing the new project id to be ADDED to the user's rejected projects
+    const body = {
+      rejected_projects: [...user.rejected_projects, currProject._id],
+    };
+    const res = await updateUser(user._id, body);
+    console.log('res', res);
   };
 
   const showInterest = async () => {
-    /* on click should 
-      projects: 
-      - interested_applicants
-      
-      user: 
-      - interested_projects
-      
-      then move on to next item
-      */
     const { _id: projectId, interested_applicants } = currProject;
     const { _id: userId, interested_projects } = user;
     const body = {
@@ -63,9 +61,7 @@ export const Roulette = () => {
       },
     };
 
-    // console.log('body', body);
-    const res = await updateUserAndProject(body);
-    console.log('res', res);
+    await updateUserAndProject(body);
     skipProject();
   };
 
