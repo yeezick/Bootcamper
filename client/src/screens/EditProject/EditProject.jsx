@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 import { Header } from '../../components/Header/Header.jsx';
+import { createProject } from '../../services/api/projects.js'
 import '../../components/Form/Form.scss';
 
 export const EditProject = () => {
@@ -20,13 +22,23 @@ export const EditProject = () => {
 const AboutProject = () => {
   const [currentTool, setCurrentTool] = useState('')
   const [projectInfo, setProjectInfo] = useState({
-    title: '',
     description: '',
-    tools: [],
     designer_count: 0,
     engineer_count: 0,
+    owner: '61fc3a9afec2b58f7be69b01',
+    seeking: true,
     time_commitment: '',
+    title: '',
+    tools: [],
   });
+  const navigate = useNavigate()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newProject = await createProject(projectInfo);
+    if (newProject) navigate('/')
+  }
+
 // a toolsList will later be generated from the list of tools stored in the DB; functionality for adding a new tool also needs to be added here
 const toolsList = ['JavaScript', 'React', 'Ruby'];
 const handleChange = (e) => {
@@ -51,7 +63,7 @@ const selectTool = (e) => {
 
   return (
     <div className="about-project">
-      <form className='project-form form'>
+      <form onSubmit={handleSubmit} className='project-form form'>
        <label htmlFor='title'>Name the project</label>
        <input
         id='title' 
