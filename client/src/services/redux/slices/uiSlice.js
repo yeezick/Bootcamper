@@ -15,8 +15,8 @@ import { createSlice } from '@reduxjs/toolkit';
  */
 
 const initialState = {
-  user: '',
   blacklisted_projects: [],
+  user: '',
   visibleMobileMenu: false,
 };
 
