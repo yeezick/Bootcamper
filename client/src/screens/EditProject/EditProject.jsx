@@ -1,8 +1,9 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { Header } from '../../components/Header/Header.jsx';
 import { createProject } from '../../services/api/projects.js'
+import { getAllTools } from '../../services/api/tools.js';
 import '../../components/Form/Form.scss';
 
 export const EditProject = () => {
@@ -21,6 +22,7 @@ export const EditProject = () => {
 
 const AboutProject = () => {
   const navigate = useNavigate()
+  const [toolsList, setToolsList] = useState([]);
   const [currentTool, setCurrentTool] = useState('')
   const [projectInfo, setProjectInfo] = useState({
     description: '',
@@ -40,7 +42,8 @@ const AboutProject = () => {
   }
 
 // tools related variables and functions; a toolsList will later be generated from the list of tools stored in the DB; functionality for adding a new tool also needs to be added here
-const toolsList = ['JavaScript', 'React', 'Ruby'];
+
+// const toolsList = ['JavaScript', 'React', 'Ruby'];
 const handleChange = (e) => {
   const {name, value} = e.target
   setProjectInfo({
@@ -60,7 +63,13 @@ const selectTool = (e) => {
   })
   setCurrentTool('')
 }
-
+useEffect(() => {
+  const generateToolsList = async () => {
+    const allTools = await getAllTools();
+    setToolsList(allTools)
+  }
+  generateToolsList();
+}, []);
 // we will need a function to remove tools from the tools list as well
 
   return (
@@ -92,7 +101,7 @@ const selectTool = (e) => {
         />
         <datalist id='tools-list'>
           {toolsList.map(tool => (
-            <option value={tool} />
+            <option value={tool.name} />
           ))}
         </datalist>
        
