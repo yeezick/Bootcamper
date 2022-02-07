@@ -104,14 +104,14 @@ useEffect(() => {
         />
         <datalist id='tools-list'>
           {toolsList.map(tool => (
-            <option key={tool.id} value={tool.name}/>
+            <option key={tool._id} value={tool.name}/>
           ))}
         </datalist>
        
         <button onClick={selectTool}>Add Tool</button>
         <div className="current-tools">
           {projectInfo.tools.map(tool => (
-              <h5>{tool.name}</h5>
+              <h5 key={tool.name}>{tool.name}</h5>
           ))}
         </div>
       </div>
