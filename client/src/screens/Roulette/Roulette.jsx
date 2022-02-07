@@ -21,9 +21,9 @@ export const Roulette = () => {
 
   // for inital render & filtering
   useEffect(() => {
-    // getting all projects should change to only the user's available projects
     const showAvailableProjects = async () => {
       dispatch(fetchAllProjects(blacklisted_projects));
+      //todo: figure out how to consider the projects that should be blacklisted for users. currently `availableProjects` reflects `allProjects` until `availableProjects` is updated on re-render
       setCurrProject(availableProjects[0]);
       setCurrIndex(0);
     };
@@ -32,8 +32,6 @@ export const Roulette = () => {
 
   useEffect(() => {
     // how do i eliminate the need to fetch all projects again?
-    // console.log('available', availableProjects);
-    console.log('blacklisted', blacklisted_projects);
   }, [currIndex, blacklisted_projects, user]);
 
   // console.log('user', user);
