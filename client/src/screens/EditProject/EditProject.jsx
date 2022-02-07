@@ -60,17 +60,8 @@ const selectTool = (e) => {
   })
   setCurrentTool('')
 }
-/* draft of a function to remove a current tool from the tool list; need to figure out how to delete button when the tool is removed
-const removeTool = (e, tool) => {
-  e.preventDefault()
-  const currentTools = projectInfo.tools
-  currentTools.splice(currentTools.indexOf(tool), 1)
-  setProjectInfo({
-    ...projectInfo,
-    tools: [currentTools],
-  })
-  console.log(currentTools)
-} */
+
+// we will need a function to remove tools from the tools list as well
 
   return (
     <div className="about-project">
