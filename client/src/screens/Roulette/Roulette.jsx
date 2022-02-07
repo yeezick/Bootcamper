@@ -5,42 +5,47 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllProjects } from '../../services/redux/slices/projectActions';
 import { updateUserAndProject } from '../../services/api/projects';
-import { updateUser } from '../../services/api/users';
+import { addRejectedProject } from '../../services/redux/slices/uiActions';
+import { projectActions } from '../../services/redux/slices/projectSlice';
 
 // currently rerendering 5x
 export const Roulette = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [currProject, setCurrProject] = useState(null);
   const [currIndex, setCurrIndex] = useState(null);
-  const { projects, isLoaded } = useSelector((state) => state.projects);
-  const { user } = useSelector((state) => state.ui);
 
+  const { availableProjects, isLoaded } = useSelector((state) => state.projects);
+  const { blacklisted_projects, user } = useSelector((state) => state.ui);
+
+  // for inital render & filtering
   useEffect(() => {
-    dispatch(fetchAllProjects());
-    setCurrProject(projects[0]);
-    setCurrIndex(0);
+    // getting all projects should change to only the user's available projects
+    const showAvailableProjects = async () => {
+      dispatch(fetchAllProjects(blacklisted_projects));
+      setCurrProject(availableProjects[0]);
+      setCurrIndex(0);
+    };
+    showAvailableProjects();
   }, [isLoaded]);
 
   useEffect(() => {
-    console.log('new project', currProject);
-  }, [currProject]);
+    // how do i eliminate the need to fetch all projects again?
+    // console.log('available', availableProjects);
+    console.log('blacklisted', blacklisted_projects);
+  }, [currIndex, blacklisted_projects, user]);
 
-  console.log('user', user);
+  // console.log('user', user);
   const declineProject = async () => {
-    /* on click should 
-      - add this project to blacklisted projects
-      - add to user's rejected_projects
-
-      then move on to next item
-    */
-    //  currently replacing user object with rejectedProjects in redux User store and adding the new project at the end
-    // put method is not allowing the new project id to be ADDED to the user's rejected projects
     const body = {
       rejected_projects: [...user.rejected_projects, currProject._id],
     };
-    const res = await updateUser(user._id, body);
-    console.log('res', res);
+    dispatch(addRejectedProject(user._id, body));
+
+    const blackListedProjects = [...blacklisted_projects, currProject._id];
+    dispatch(projectActions.updateBlacklistedProject(blackListedProjects));
+    skipProject();
   };
 
   const showInterest = async () => {
@@ -62,16 +67,23 @@ export const Roulette = () => {
     };
 
     await updateUserAndProject(body);
+    const blackListedProjects = [...blacklisted_projects, currProject._id];
+    dispatch(projectActions.updateBlacklistedProject(blackListedProjects));
     skipProject();
   };
 
   const skipProject = () => {
     let newIndex = currIndex + 1;
-    if (newIndex === projects.length - 1) {
-      newIndex = 0;
+    if (newIndex === availableProjects.length && availableProjects.length !== 0) {
+      setCurrProject(availableProjects[0]);
+      setCurrIndex(0);
+    } else if (availableProjects.length === 0) {
+      setCurrProject(null);
+      setCurrIndex(null);
+    } else {
+      setCurrProject(availableProjects[newIndex]);
+      setCurrIndex(newIndex);
     }
-    setCurrProject(projects[newIndex]);
-    setCurrIndex(newIndex);
   };
 
   const redirectToCreateProject = () => {
@@ -97,7 +109,9 @@ export const Roulette = () => {
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <button onClick={declineProject}>I'll Pass</button>
         <button onClick={showInterest}>I'm interested</button>
-        <button onClick={skipProject}>Skip for now</button>
+        {availableProjects.length === 1 ? null : (
+          <button onClick={skipProject}>Skip for now</button>
+        )}
         <button onClick={redirectToCreateProject}> Create my own</button>
       </div>
     </div>

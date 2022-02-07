@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 /**
- * should it be called ui or user?
  * - could handle modals? and check if user is finished editing account?
  *
  * states that the user needs
@@ -11,7 +10,7 @@ import { createSlice } from '@reduxjs/toolkit';
  *
  * actions:
  * - update the users' available projects
- * - update the users' info
+ * - update the users' rejected projects
  */
 
 const initialState = {
@@ -35,12 +34,11 @@ export const uiSlice = createSlice({
         ...member_of_projects,
         ...rejected_projects,
       ];
-      console.log(state.user);
     },
-    updateBlacklistedProjects(state, action) {
-      // action.payload should just be the id of the new project to add to this array
-      state.blacklisted_projects = [...state.blacklisted_projects, action.payload];
-    },
+    // updateBlacklistedProjects(state, action) {
+    //   // action.payload should just be the id of the new project to add to this array
+    //   state.blacklisted_projects = [...state.blacklisted_projects, action.payload];
+    // },
   },
 });
 

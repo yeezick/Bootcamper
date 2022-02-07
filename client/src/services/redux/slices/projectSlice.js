@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-
 /**
  * what belongs in the project state?
  * states:
@@ -10,7 +9,8 @@ import { createSlice } from '@reduxjs/toolkit';
  */
 
 const initialState = {
-  projects: [],
+  allProjects: [],
+  availableProjects: [], // available to the user
   isLoaded: false,
 };
 
@@ -19,11 +19,28 @@ export const projectSlice = createSlice({
   initialState,
   reducers: {
     fetchProjects(state, action) {
-      state.projects = action.payload;
+      const { blacklistedProjects, allProjects } = action.payload;
+      // console.log('action', action.payload);
+      state.allProjects = allProjects;
+
+      if (blacklistedProjects.length > 0) {
+        const projectsAvailableToUser = allProjects.filter(
+          (project) => blacklistedProjects.includes(project._id) === false
+        );
+
+        state.availableProjects = projectsAvailableToUser;
+      } else {
+        state.availableProjects = allProjects;
+      }
+
+      // console.log('available', state.availableProjects);
       state.isLoaded = true;
     },
-    createProject(state, action) {
-      // when a user creates a project, their project should be added to
+    updateBlacklistedProject(state, action) {
+      console.log('payload', action);
+      state.availableProjects = state.allProjects.filter(
+        (project) => action.payload.includes(project._id) === false
+      );
     },
   },
 });
