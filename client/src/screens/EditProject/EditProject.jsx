@@ -39,7 +39,7 @@ const AboutProject = () => {
     if (newProject) navigate('/')
   }
 
-// tools related functions; a toolsList will later be generated from the list of tools stored in the DB; functionality for adding a new tool also needs to be added here
+// tools related variables and functions; a toolsList will later be generated from the list of tools stored in the DB; functionality for adding a new tool also needs to be added here
 const toolsList = ['JavaScript', 'React', 'Ruby'];
 const handleChange = (e) => {
   const {name, value} = e.target
