@@ -38,31 +38,34 @@ const AboutProject = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newProject = await createProject(projectInfo);
+    console.log("new project", newProject);
     if (newProject) navigate('/')
   }
 
-// tools related variables and functions; a toolsList will later be generated from the list of tools stored in the DB; functionality for adding a new tool also needs to be added here
-
-// const toolsList = ['JavaScript', 'React', 'Ruby'];
-const handleChange = (e) => {
-  const {name, value} = e.target
-  setProjectInfo({
-    ...projectInfo,
-    [name]: value,
-  })
-}
-
+  
+  const handleChange = (e) => {
+    const {name, value} = e.target
+    setProjectInfo({
+      ...projectInfo,
+      [name]: value,
+    })
+  }
+  
+// tools related variables and functions
 const handleToolChange = (e) => {
   setCurrentTool(e.target.value)
 }
 const selectTool = (e) => {
-  e.preventDefault()
+  e.preventDefault();
+  const selectedTool = toolsList.find(tool => tool.name === currentTool)
   setProjectInfo({
     ...projectInfo,
-    tools: [...projectInfo.tools, currentTool],
+    tools: [...projectInfo.tools, selectedTool],
   })
   setCurrentTool('')
 }
+
+
 useEffect(() => {
   const generateToolsList = async () => {
     const allTools = await getAllTools();
@@ -101,14 +104,14 @@ useEffect(() => {
         />
         <datalist id='tools-list'>
           {toolsList.map(tool => (
-            <option value={tool.name} />
+            <option key={tool.id} value={tool.name}/>
           ))}
         </datalist>
        
         <button onClick={selectTool}>Add Tool</button>
         <div className="current-tools">
           {projectInfo.tools.map(tool => (
-              <h5>{tool}</h5>
+              <h5>{tool.name}</h5>
           ))}
         </div>
       </div>
