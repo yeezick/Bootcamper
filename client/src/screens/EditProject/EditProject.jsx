@@ -84,14 +84,13 @@ const removeTool = (e, tool) => {
         onChange={handleChange}
        />
        <label htmlFor='description'>Describe the project (max 300 characters)</label>
-       <input
+       <textarea
         id='description' 
         name='description'
-        type='textarea'
         value={projectInfo.description}
         onChange={handleChange}
        />
-       <form className="tools-form form">
+       <div className="tools-form form">
         <label htmlFor="tools">What tools will the project use?</label>
         <input 
           id='tools'
@@ -112,7 +111,7 @@ const removeTool = (e, tool) => {
               <h5>{tool}</h5>
           ))}
         </div>
-      </form>
+      </div>
        <label htmlFor='designer-count'>How many designers are you seeking?</label>
        <input
         id='designer-count'
