@@ -92,14 +92,14 @@ const selectTool = (e) => {
         />
         <datalist id='tools-list'>
           {toolsList.map(tool => (
-            <option value={tool} />
+            <option key={tool._id} value={tool} />
           ))}
         </datalist>
        
         <button onClick={selectTool}>Add Tool</button>
         <div className="current-tools">
           {projectInfo.tools.map(tool => (
-              <h5>{tool}</h5>
+              <h5 key={tool.name}>{tool.name}</h5>
           ))}
         </div>
       </div>
