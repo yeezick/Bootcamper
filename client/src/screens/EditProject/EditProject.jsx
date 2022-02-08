@@ -38,7 +38,6 @@ const AboutProject = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newProject = await createProject(projectInfo);
-    console.log("new project", newProject);
     if (newProject) navigate('/')
   }
 
