@@ -6,6 +6,7 @@ export const Form = ({ formData, formState }) => {
   const { button, handlers, inputs } = formData;
   const [stateObject, setterFunction, handleSubmit] = formState;
 
+
   return (
     <form className="form" onSubmit={handleSubmit}>
       {inputs.map((input) => (

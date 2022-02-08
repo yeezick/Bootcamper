@@ -12,7 +12,7 @@ const Project = new Schema(
     time_commitment: {type: String, enum: ["no preference", "hobby", "part-time", "full-time"]},
     team_members: [{ type: Schema.Types.ObjectId, ref: "User" }],
     title: { type: String, required: true, maxlength: 45 },
-    tools: [{ type: String }]
+    tools: [{ type: Schema.Types.ObjectId, ref: 'Tool'}],
   },
   { timestamps: true }
 );
