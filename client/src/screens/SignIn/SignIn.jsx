@@ -1,26 +1,24 @@
-import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Header } from '../../components/Header/Header.jsx';
 import { Form } from '../../components/Form/Form';
-import { signIn } from '../../services/api/users.js';
+// assets
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../services/redux/slices/uiActions.js';
 import { signInForm } from '../../services/formData.js';
 
 export const SignIn = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [loginInfo, setLoginInfo] = useState({
-    email: '',
-    password: '',
+    email: 'test@test.com',
+    password: 'test',
   });
 
   const handleSignIn = async (event) => {
     event.preventDefault();
-    try {
-      const user = await signIn(loginInfo);
-      navigate('/');
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch(loginUser(loginInfo));
+    navigate('/');
   };
 
   const header = {

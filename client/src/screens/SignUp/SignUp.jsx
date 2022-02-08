@@ -1,13 +1,15 @@
-import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Header } from '../../components/Header/Header.jsx';
 import { Form } from '../../components/Form/Form.jsx';
-import { signUp } from '../../services/api/users.js';
+// assets
 import { signUpForm } from '../../services/formData.js';
+import { useDispatch } from 'react-redux';
+import { signUpUser } from '../../services/redux/slices/uiActions.js';
 
 export const SignUp = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [newUser, setNewUser] = useState({
     confirmPassword: '',
     email: '',
@@ -23,12 +25,8 @@ export const SignUp = () => {
 
   const handleSignUp = async (event) => {
     event.preventDefault();
-    try {
-      const createdUser = await signUp(newUser);
-      navigate('/');
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch(signUpUser(newUser));
+    navigate('/');
   };
 
   return (

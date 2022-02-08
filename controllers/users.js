@@ -77,8 +77,9 @@ export const signUp = async (req, res) => {
       exp: parseInt(exp.getTime() / 1000),
     };
     const token = jwt.sign(payload, TOKEN_KEY);
+    let secureUser = Object.assign({}, user._doc, {"password_digest": undefined})
 
-    res.status(201).json({ token });
+    res.status(201).json({user: secureUser, token });
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ error: error.message });
@@ -88,9 +89,10 @@ export const signUp = async (req, res) => {
 export const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email: email }).select(
-      "email password_digest"
-    );
+    let user = await User.findOne({ email: email }).select(
+      "about email first_name fun_fact interested_projects last_name member_of_projects password_digest portfolio_projects portfolio_link rejected_projects role"
+    ); // to avoid setting `select` to true on the user model, i select all properties here then copy the user object without the password_digest below
+    let secureUser = Object.assign({}, user._doc, {"password_digest": undefined})
     if (await bcrypt.compare(password, user.password_digest)) {
       const payload = {
         id: user._id,
@@ -98,7 +100,7 @@ export const signIn = async (req, res) => {
         exp: parseInt(exp.getTime() / 1000),
       };
       const token = jwt.sign(payload, TOKEN_KEY);
-      res.status(201).json({ token });
+      res.status(201).json({ user: secureUser, token });
     } else {
       res.status(401).send("Invalid credentials");
     }

@@ -40,8 +40,8 @@ export const addPortfolioProject = async (id, newProject) => {
 export const signUp = async (credentials) => {
   try {
     const res = await api.post('/sign-up', credentials);
-    localStorage.setItem('token', res.data.token);
-    const user = jwtDecode(res.data.token);
+    const { token, user } = res.data;
+    localStorage.setItem('token', token);
     return user;
   } catch (error) {
     throw error;
@@ -51,8 +51,9 @@ export const signUp = async (credentials) => {
 export const signIn = async (credentials) => {
   try {
     const res = await api.post('/sign-in', credentials);
-    localStorage.setItem('token', res.data.token);
-    const user = jwtDecode(res.data.token);
+    const { token, user } = res.data;
+    localStorage.setItem('token', token);
+    // const user = jwtDecode(res.data.token);
     return user;
   } catch (error) {
     throw error;
