@@ -4,15 +4,19 @@ import './Form.scss';
 
 export const Form = ({ formData, formState }) => {
   const { button, handlers, inputs } = formData;
-  const [stateObject, setterFunction] = formState;
  
+  const [handleSubmit, stateObject, setterFunction] = formState;
+
   return (
-    <form className="form">
+    <form className="form" onSubmit={handleSubmit}>
       {inputs.map((input) => (
         <div key={input.name} className="input-wrapper">
           <label htmlFor={input.name}>{input.labelText}</label>
           {input.type === 'select' ? (
-            <select defaultValue="" onChange={(e) => handleChange(e, input.name, setterFunction)}>
+            <select
+              defaultValue={input.options[0]}
+              onChange={(e) => handleChange(e, input.name, setterFunction)}
+            >
               {input.options.map((option) => (
                 <option key={`${input.name}-${option}`} value={option}>
                   {option}

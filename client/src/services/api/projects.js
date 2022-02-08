@@ -1,8 +1,8 @@
-import { api } from "./apiConfig";
+import { api } from './apiConfig';
 
 export const getAllProjects = async () => {
   try {
-    const res = await api.get("/projects");
+    const res = await api.get('/projects');
     return res.data;
   } catch (error) {
     throw error;
@@ -20,7 +20,7 @@ export const getOneProject = async (id) => {
 
 export const createProject = async (project) => {
   try {
-    const res = await api.post("/projects/", project);
+    const res = await api.post('/projects/', project);
     return res.data;
   } catch (error) {
     throw error;
@@ -45,9 +45,9 @@ export const deleteProject = async (id) => {
   }
 };
 
-export const updateUserAndProject = async (update) => {
+export const updateUserAndProject = async (projectUpdate) => {
   try {
-    const res = await api.patch("/update-user-and-project", update);
+    const res = await api.patch('/update-user-and-project', projectUpdate);
     return res.data;
   } catch (error) {
     throw error;

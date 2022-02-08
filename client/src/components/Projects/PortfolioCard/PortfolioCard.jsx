@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { Form } from '../../Form/Form';
 import { Header } from '../../Header/Header';
+
+import { portfolioProjectForm } from '../../../services/formData';
+import { addPortfolioProject } from '../../../services/api/users.js';
 import './PortfolioCard.scss';
 
 const dummyProjects = [
@@ -23,53 +26,25 @@ const dummyProjects = [
     link: 'www.google.com',
   },
 ];
-// make this a global function and remove
-const handleChange = (e, property, setterFunction) => {
-  const { value } = e.target;
-  setterFunction((state) => {
-    return { ...state, [property]: value };
-  });
-};
 
 export const AddPortfolioProject = () => {
   const [newProject, setNewProject] = useState({
-    description: '',
-    link: '',
-    title: '',
+    project_description: '',
+    project_link: '',
+    project_title: '',
   });
   // ideally updates the database on each new project without slowing the app down
   // this way the user can add a new project and on refresh, load their work.
-
-  const formData = {
-    button: {
-      type: 'single',
-      text: 'Add New Project',
-    },
-    handlers: {
-      onChange: handleChange,
-      // onSubmit: handleNewProject,
-    },
-    inputs: [
-      {
-        labelText: 'Project Title',
-        name: 'project_title',
-        type: 'text',
-        value: newProject.title,
-      },
-      {
-        labelText: 'Describe the project',
-        name: 'project_description',
-        type: 'textarea',
-        value: newProject.description,
-      },
-      {
-        labelText: 'Link to your project',
-        name: 'project_link',
-        type: 'text',
-        value: newProject.link,
-      },
-    ],
+  const handleNewProject = async (e) => {
+    e.preventDefault();
+    try {
+      // must be able to access user's portfolio projects, spread them, then add newProject at the end of it
+      await addPortfolioProject('61f32730ecf7c67c9bee9f36', newProject);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
   const header = {
     title: 'Portfolio Projects',
     text: ' Add your personal projects here. You can add as many as you want, but to avoid cluttering we recommend a maximum of 3.',
@@ -78,38 +53,27 @@ export const AddPortfolioProject = () => {
   return (
     <div className="add-portfolio-project">
       <Header headerTitle={header.title} headerText={header.text} />
-      {/* <Form
-        inputs={formData.inputs}
-        buttonText={formData.button.text}
-        onSubmit={formData.handlers.onChange}
-      /> */}
+      <Form
+        formData={portfolioProjectForm}
+        formState={[newProject, setNewProject, handleNewProject]}
+      />
     </div>
   );
 };
-/*
-<label>
-  Project Title:
-  <input
-    type="text"
-    value={newProject.title}
-    onChange={(e) => handleChange(e, 'title', setNewProject)}
-  />
-</label>
-*/
 
 export const ShowPortfolioProjects = () => {
   return (
     <div className="show-portfolio-wrapper">
-      <header> Portfolio Projects</header>
+      <header> Your Portfolio Projects</header>
       {dummyProjects.map((project, idx) => (
-        <PortfolioProject key={idx} project={project} />
+        <PortfolioProject key={`portfolioProject-${idx}`} project={project} />
       ))}
     </div>
   );
 };
 
 const PortfolioProject = ({ project }) => {
-  const { title, description, image, link } = project;
+  const { description, image, link, title } = project;
   return (
     <div className="portfolio-project">
       <img src={image} alt={title} />

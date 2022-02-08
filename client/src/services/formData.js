@@ -16,7 +16,7 @@ export const userForm = {
     },
     {
       labelText: 'Include a fun fact!  <small> (optional, max 250 characters)</small> ',
-      name: 'funFact',
+      name: 'fun_fact',
       max_chars: 250,
       type: 'textarea',
     },
@@ -24,12 +24,94 @@ export const userForm = {
       labelText: 'I am a...',
       name: 'role',
       type: 'select',
-      options: ['UX Designer', 'Software Engineer'],
+      options: ['Select role', 'UX Designer', 'Software Engineer'],
     },
     {
       labelText: 'Link to your portfolio <small>(optional)</small>',
-      name: 'portfolioLink',
+      name: 'portfolio_link',
       type: 'text',
+    },
+  ],
+};
+
+export const portfolioProjectForm = {
+  button: {
+    text: 'Add New Project',
+    type: 'single',
+  },
+  handlers: {
+    // onSubmit: handleNewProject,
+  },
+  inputs: [
+    {
+      labelText: 'Project Title',
+      name: 'project_title',
+      type: 'text',
+    },
+    {
+      labelText: 'Describe the project',
+      name: 'project_description',
+      type: 'textarea',
+    },
+    {
+      labelText: 'Link to your project',
+      name: 'project_link',
+      type: 'text',
+    },
+  ],
+};
+
+export const signInForm = {
+  button: {
+    text: 'Sign in',
+    type: 'single',
+  },
+  handlers: {
+    // onSubmit: handleNewProject,
+  },
+  inputs: [
+    { labelText: 'Email:', name: 'email', type: 'email' },
+    {
+      labelText: 'Password:',
+      name: 'password',
+      type: 'password',
+    },
+  ],
+};
+
+export const signUpForm = {
+  button: {
+    text: 'Register',
+    type: 'single',
+  },
+  handlers: {
+    // onSubmit: handleNewProject,
+  },
+  inputs: [
+    {
+      labelText: "What's your first name?",
+      name: 'first_name',
+      type: 'text',
+    },
+    {
+      labelText: "What's your last name?",
+      name: 'last_name',
+      type: 'text',
+    },
+    {
+      labelText: "What's your email?",
+      name: 'email',
+      type: 'email',
+    },
+    {
+      labelText: 'Create a password:',
+      name: 'password',
+      type: 'password',
+    },
+    {
+      labelText: 'Confirm password:',
+      name: 'confirm_password',
+      type: 'password',
     },
   ],
 };
