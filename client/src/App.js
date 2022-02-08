@@ -1,16 +1,33 @@
-import "./App.css";
-import { EditProfile } from "./screens/EditProfile/EditProfile.jsx";
-import { EditProject } from "./screens/EditProject/EditProject.jsx";
-import { Landing } from "./screens/Landing/Landing.jsx";
-import { Roulette } from "./screens/Roulette/Roulette.jsx";
-import { SignIn } from "./screens/SignIn/SignIn.jsx";
-import { SignUp } from "./screens/SignUp/SignUp.jsx";
-import { SingleProject } from "./screens/SingleProject/SingleProject.jsx";
-import { UserProfile } from "./screens/UserProfile/UserProfile.jsx";
-import { Route, Routes } from "react-router-dom";
-import Layout from "./layout/Layout";
+import { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
+
+import { EditProfile } from './screens/EditProfile/EditProfile.jsx';
+import { EditProject } from './screens/EditProject/EditProject.jsx';
+import { Landing } from './screens/Landing/Landing.jsx';
+import { Roulette } from './screens/Roulette/Roulette.jsx';
+import { SignIn } from './screens/SignIn/SignIn.jsx';
+import { SignUp } from './screens/SignUp/SignUp.jsx';
+import { SingleProject } from './screens/SingleProject/SingleProject.jsx';
+import { UserProfile } from './screens/UserProfile/UserProfile.jsx';
+import Layout from './layout/Layout';
+// assets
+import './App.css';
+import { verify } from './services/api/users';
+import { useDispatch, useSelector } from 'react-redux';
+import { uiActions } from './services/redux/slices/uiSlice';
+import { fetchAllProjects } from './services/redux/slices/projectActions.js';
 
 function App() {
+  const dispatch = useDispatch();
+  const { blacklisted_projects } = useSelector((state) => state.ui);
+  useEffect(() => {
+    const setupReduxStore = async () => {
+      const user = await verify();
+      dispatch(uiActions.fetchUser(user));
+      dispatch(fetchAllProjects(blacklisted_projects));
+    };
+    setupReduxStore();
+  }, []);
   return (
     <Layout>
       <Routes>
@@ -23,6 +40,7 @@ function App() {
         <Route exact path="/users/:id" element={<UserProfile />} />
         <Route exact path="/users/:id/edit" element={<EditProfile />} />
       </Routes>
+      {/* <button onClick={() => setToggle((prev) => !prev)}>trigger rerender</button> */}
     </Layout>
   );
 }
