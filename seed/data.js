@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import db from "../db/connection.js";
 import Project from "../models/project.js";
+import Tool from "../models/tool.js";
 import User from "../models/user.js";
 
 const insertData = async () => {
@@ -144,7 +145,52 @@ const insertData = async () => {
   await user4.save();
 
   console.log("Created users & projects!");
+  console.log(user1)
 
+  // tools 
+
+  const tools = [
+    {
+      category: 'Engineering',
+      icon: '/assets/icons/javascript.svg',
+      name: 'JavaScript',
+    },
+    {
+      category: 'Engineering',
+      icon: '/assets/icons/react.svg',
+      name: 'React',
+    },
+    {
+      category: 'Engineering',
+      icon: '/assets/icons/html.svg',
+      name: 'HTML',
+    },
+    {
+      category: 'Engineering',
+      icon: '/assets/icons/css.png',
+      name: 'CSS',
+    },
+    {
+      category: 'Engineering',
+      icon: '/assets/icons/rails.png',
+      name: 'Rails',
+    },
+    {
+      category: 'Engineering',
+      icon: '/assets/icons/ruby.svg',
+      name: 'Ruby',
+    },
+    {
+      category: 'Design',
+      icon: '/assets/icons/figma.svg',
+      name: 'Figma',
+    },
+    
+  ];
+  await Tool.insertMany(tools);
+  console.log('Created tools!')
+  const allTools = await Tool.find()
+  console.log(allTools)
   db.close();
 };
 

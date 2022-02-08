@@ -9,6 +9,7 @@ const Project = new Schema(
     seeking: { type: Boolean, required: true },
     team_members: [{ type: Schema.Types.ObjectId, ref: "User" }],
     title: { type: String, required: true, maxlength: 45 },
+    tools: [{ type: Schema.Types.ObjectId, ref: 'Tool'}],
   },
   { timestamps: true }
 );

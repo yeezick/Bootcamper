@@ -1,8 +1,9 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { Header } from '../../components/Header/Header.jsx';
 import { createProject } from '../../services/api/projects.js'
+import { getAllTools } from '../../services/api/tools.js';
 import '../../components/Form/Form.scss';
 
 export const EditProject = () => {
@@ -21,6 +22,7 @@ export const EditProject = () => {
 
 const AboutProject = () => {
   const navigate = useNavigate()
+  const [toolsList, setToolsList] = useState([]);
   const [currentTool, setCurrentTool] = useState('')
   const [projectInfo, setProjectInfo] = useState({
     description: '',
@@ -36,31 +38,41 @@ const AboutProject = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newProject = await createProject(projectInfo);
+    console.log("new project", newProject);
     if (newProject) navigate('/')
   }
 
-// tools related functions; a toolsList will later be generated from the list of tools stored in the DB; functionality for adding a new tool also needs to be added here
-const toolsList = ['JavaScript', 'React', 'Ruby'];
-const handleChange = (e) => {
-  const {name, value} = e.target
-  setProjectInfo({
-    ...projectInfo,
-    [name]: value,
-  })
-}
-
+  
+  const handleChange = (e) => {
+    const {name, value} = e.target
+    setProjectInfo({
+      ...projectInfo,
+      [name]: value,
+    })
+  }
+  
+// tools related variables and functions
 const handleToolChange = (e) => {
   setCurrentTool(e.target.value)
 }
 const selectTool = (e) => {
-  e.preventDefault()
+  e.preventDefault();
+  const selectedTool = toolsList.find(tool => tool.name === currentTool)
   setProjectInfo({
     ...projectInfo,
-    tools: [...projectInfo.tools, currentTool],
+    tools: [...projectInfo.tools, selectedTool],
   })
   setCurrentTool('')
 }
 
+
+useEffect(() => {
+  const generateToolsList = async () => {
+    const allTools = await getAllTools();
+    setToolsList(allTools)
+  }
+  generateToolsList();
+}, []);
 // we will need a function to remove tools from the tools list as well
 
   return (
@@ -92,7 +104,7 @@ const selectTool = (e) => {
         />
         <datalist id='tools-list'>
           {toolsList.map(tool => (
-            <option key={tool._id} value={tool} />
+            <option key={tool._id} value={tool.name}/>
           ))}
         </datalist>
        
