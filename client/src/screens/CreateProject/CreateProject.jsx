@@ -5,6 +5,7 @@ import { Header } from '../../components/Header/Header.jsx';
 import { createProject } from '../../services/api/projects.js'
 import { getAllTools } from '../../services/api/tools.js';
 import '../../components/Form/Form.scss';
+import './CreateProject.scss'
 
 export const CreateProject = () => {
   const header = {
@@ -40,7 +41,7 @@ const AboutProject = () => {
     e.preventDefault();
     const newProject = await createProject(projectInfo);
     if (newProject) navigate('/') // change this to navigate to projects dashboard when that is complete
-    
+
   }
 
   
@@ -67,9 +68,11 @@ const selectTool = (e) => {
 }
 
 const removeTool = (id) => {
+  const removeIndex = projectInfo.tools.findIndex(tool => tool._id === id)
+  projectInfo.tools.splice(removeIndex, 1);
   setProjectInfo({
     ...projectInfo,
-    tools: projectInfo.tools.filter(tool => tool._id !== id)
+    tools: projectInfo.tools
   })
 }
 
@@ -85,7 +88,6 @@ useEffect(() => {
   })
   generateToolsList();
 }, []);
-// we will need a function to remove tools from the tools list as well
 
   return (
     <div className="about-project">
@@ -124,8 +126,8 @@ useEffect(() => {
         <div className="current-tools">
           {projectInfo.tools.map(tool => (
             <div key={tool._id} className="tool-preview">
-              <h5 >{tool.name}</h5>
-              <button onClick={() => removeTool(tool._id)}>remove</button>
+              <p>{tool.name}</p>
+              <button onClick={() => removeTool(tool._id)}>x</button>
             </div>
           ))}
         </div>
