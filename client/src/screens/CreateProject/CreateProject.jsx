@@ -6,7 +6,7 @@ import { createProject } from '../../services/api/projects.js'
 import { getAllTools } from '../../services/api/tools.js';
 import '../../components/Form/Form.scss';
 
-export const EditProject = () => {
+export const CreateProject = () => {
   const header = {
     text: "Have a vision? Let's make it real!",
     title: 'Create a Project',
@@ -21,6 +21,7 @@ export const EditProject = () => {
 }
 
 const AboutProject = () => {
+  let currentUser = '61fc3a9afec2b58f7be69b01';
   const navigate = useNavigate()
   const [toolsList, setToolsList] = useState([]);
   const [currentTool, setCurrentTool] = useState('')
@@ -28,7 +29,7 @@ const AboutProject = () => {
     description: '',
     designer_count: 0,
     engineer_count: 0,
-    owner: '61fc3a9afec2b58f7be69b01', //this should dynamically retrieve the current user
+    owner: '', 
     seeking: true,
     time_commitment: '',
     title: '',
@@ -64,12 +65,23 @@ const selectTool = (e) => {
   setCurrentTool('')
 }
 
+const removeTool = (id) => {
+  setProjectInfo({
+    ...projectInfo,
+    tools: projectInfo.tools.filter(tool => tool._id !== id)
+  })
+}
+
 
 useEffect(() => {
   const generateToolsList = async () => {
     const allTools = await getAllTools();
     setToolsList(allTools)
   }
+  setProjectInfo({
+    ...projectInfo,
+    owner: currentUser,
+  })
   generateToolsList();
 }, []);
 // we will need a function to remove tools from the tools list as well
@@ -110,7 +122,10 @@ useEffect(() => {
         <button onClick={selectTool}>Add Tool</button>
         <div className="current-tools">
           {projectInfo.tools.map(tool => (
-              <h5 key={tool.name}>{tool.name}</h5>
+            <div key={tool._id} className="tool-preview">
+              <h5 >{tool.name}</h5>
+              <button onClick={() => removeTool(tool._id)}>remove</button>
+            </div>
           ))}
         </div>
       </div>
