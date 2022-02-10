@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 import { Header } from '../../components/Header/Header.jsx';
 import { createProject } from '../../services/api/projects.js'
 import { getAllTools } from '../../services/api/tools.js';
@@ -22,7 +23,7 @@ export const CreateProject = () => {
 }
 
 const AboutProject = () => {
-  let currentUser = '61fc3a9afec2b58f7be69b01';
+  const currentUser = useSelector(state => state.ui.user)
   const navigate = useNavigate()
   const [toolsList, setToolsList] = useState([]);
   const [currentTool, setCurrentTool] = useState('')
@@ -32,7 +33,7 @@ const AboutProject = () => {
     engineer_count: 0,
     owner: '', 
     seeking: true,
-    time_commitment: '',
+    time_commitment: 'no preference',
     title: '',
     tools: [],
   });
@@ -40,6 +41,7 @@ const AboutProject = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newProject = await createProject(projectInfo);
+    console.log(newProject)
     if (newProject) navigate('/') // change this to navigate to projects dashboard when that is complete
 
   }
@@ -87,7 +89,7 @@ useEffect(() => {
     owner: currentUser,
   })
   generateToolsList();
-}, []);
+}, [currentUser]);
 
   return (
     <div className="about-project">

@@ -22,7 +22,7 @@ export const Roulette = () => {
   // for inital render & filtering
   useEffect(() => {
     const showAvailableProjects = async () => {
-      dispatch(fetchAllProjects(blacklisted_projects));
+      // dispatch(fetchAllProjects(blacklisted_projects));
       //todo: figure out how to consider the projects that should be blacklisted for users. currently `availableProjects` reflects `allProjects` until `availableProjects` is updated on re-render
       setCurrProject(availableProjects[0]);
       setCurrIndex(0);
