@@ -24,10 +24,13 @@ function App() {
     const setupReduxStore = async () => {
       const user = await verify();
       dispatch(uiActions.fetchUser(user));
-      dispatch(fetchAllProjects(blacklisted_projects));
     };
     setupReduxStore();
   }, []);
+
+  useEffect(() => {
+    dispatch(fetchAllProjects(blacklisted_projects));
+  }, [blacklisted_projects]);
   return (
     <Layout>
       <Routes>
