@@ -41,7 +41,6 @@ const AboutProject = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newProject = await createProject(projectInfo);
-    console.log(newProject)
     if (newProject) navigate('/') // change this to navigate to projects dashboard when that is complete
 
   }
