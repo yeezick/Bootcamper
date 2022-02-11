@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   AddPortfolioProject,
   ShowPortfolioProjects,
@@ -33,6 +34,7 @@ export const EditProfile = () => {
 };
 
 const AboutUser = () => {
+  const currentUser = useSelector(state => state.ui.user);
   const [userInfo, setUserInfo] = useState({
     about: '',
     fun_fact: '',
@@ -43,7 +45,7 @@ const AboutUser = () => {
   const handleUserUpdate = async (e) => {
     e.preventDefault();
     try {
-      await updateUser('61f32730ecf7c67c9bee9f36', userInfo);
+      await updateUser(currentUser._id, userInfo);
     } catch (error) {
       console.error(error);
     }

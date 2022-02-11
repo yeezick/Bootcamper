@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-
+import { CreateProject } from './screens/CreateProject/CreateProject.jsx';
 import { EditProfile } from './screens/EditProfile/EditProfile.jsx';
 import { EditProject } from './screens/EditProject/EditProject.jsx';
 import { Landing } from './screens/Landing/Landing.jsx';
@@ -35,6 +35,7 @@ function App() {
     <Layout>
       <Routes>
         <Route exact path="/" element={<Landing />} />
+        <Route exact path='/projects/create' element={<CreateProject />} />
         <Route exact path="/projects/:id" element={<SingleProject />} />
         <Route exact path="/projects/:id/edit" element={<EditProject />} />
         <Route path="/roulette" element={<Roulette />} />
