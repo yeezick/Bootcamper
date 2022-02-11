@@ -1,30 +1,45 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { counterActions } from '../../services/redux/slices/counterSlice';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import { getOneProject } from '../../services/api/projects.js';
 
 export const SingleProject = () => {
-  const { increment, addMore } = counterActions;
-  const dispatch = useDispatch();
-  const { count } = useSelector((state) => state.counter);
+  const currentUser = useSelector(state => state.ui.user);
+  const { id } = useParams();
+  const [project, setProject] = useState({});
+  const [loaded, setLoaded] = useState(false);
 
-  const [amount, setAmount] = useState(0);
+  useEffect(() => {
+    const fetchProject = async () => {
+    const currentProject = await getOneProject(id);
+    if (currentProject) {
+      setLoaded(true)
+      setProject(currentProject);
+      
+    }
+  }
+    fetchProject();
+  }, [id])
 
-  const addOne = () => {
-    dispatch(increment());
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(addMore(amount));
-  };
+  console.log(project)
 
-  return (
+  return loaded ? (
     <div>
-      <h1>counter: {count}</h1>
-      <button onClick={addOne}> ++++</button>
-      <form onSubmit={handleSubmit}>
-        <input onChange={(e) => setAmount(e.target.value)} value={amount} />
-        <button> add more </button>
-      </form>
+      <h2 className='project-title'>{project.title}</h2>
+      <h3>Project Description:</h3>
+      <p>{project.description}</p>
+      <h3>Built with:</h3>
+      {project.tools?.map(tool => (
+        <div key={tool._id}>
+          <h4>{tool.name}</h4>
+        </div>
+      ))} 
     </div>
-  );
+  ) : 
+  (
+   <div>
+     loading ... 
+   </div>
+  )
 };

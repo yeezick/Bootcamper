@@ -8,6 +8,7 @@
  */
 import Project from "../models/project.js";
 import User from "../models/user.js";
+import Tool from '../models/tool.js';
 // barbra : 61e1eccd385f4c5e6251a67a
 // wiggle jones: 61e1eccc385f4c5e6251a676
 // mike: 61e1eccd385f4c5e6251a678
@@ -29,7 +30,7 @@ export const getAllProjects = async (req, res) => {
 export const getOneProject = async (req, res) => {
   try {
     const { id } = req.params;
-    const project = await Project.findById(id).populate({path:'interested_applicants', model: User});
+    const project = await Project.findById(id).populate({path:['interested_applicants', 'tools'], model: [User, Tool]});
     if (project) {
       return res.json(project);
     }
