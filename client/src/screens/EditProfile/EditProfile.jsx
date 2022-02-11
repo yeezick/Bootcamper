@@ -11,13 +11,15 @@ import { Modal } from '../../components/Modal/Modal';
 import { updateUser } from '../../services/api/users';
 import { userForm } from '../../services/formData';
 import './EditProfile.scss';
+import { useEffect } from 'react';
 
 export const EditProfile = () => {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const header = {
     text: "Before you can create or join a project, we'll need to finish your profile first.",
     title: 'About You',
   };
+
   return (
     <>
       {showModal && <Modal setShowModal={setShowModal} />}
@@ -34,7 +36,7 @@ export const EditProfile = () => {
 };
 
 const AboutUser = () => {
-  const currentUser = useSelector(state => state.ui.user);
+  const { toggleEditUser, user } = useSelector((state) => state.ui);
   const [userInfo, setUserInfo] = useState({
     about: '',
     fun_fact: '',
@@ -42,10 +44,22 @@ const AboutUser = () => {
     role: '',
   });
 
+  useEffect(() => {
+    if (toggleEditUser) {
+      const { about, fun_fact, portfolio_link, role } = user;
+      setUserInfo({
+        about,
+        fun_fact,
+        portfolio_link,
+        role,
+      });
+    }
+  }, [toggleEditUser]);
+
   const handleUserUpdate = async (e) => {
     e.preventDefault();
     try {
-      await updateUser(currentUser._id, userInfo);
+      await updateUser(user._id, userInfo);
     } catch (error) {
       console.error(error);
     }

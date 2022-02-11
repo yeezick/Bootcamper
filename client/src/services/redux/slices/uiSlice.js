@@ -17,6 +17,7 @@ const initialState = {
   blacklisted_projects: [],
   user: '',
   visibleMobileMenu: false,
+  toggleEditUser: false,
 };
 
 export const uiSlice = createSlice({
@@ -25,6 +26,9 @@ export const uiSlice = createSlice({
   reducers: {
     toggleMobileMenu(state) {
       state.visibleMobileMenu = !state.visibleMobileMenu;
+    },
+    toggleEditUser(state) {
+      state.toggleEditUser = !state.toggleEditUser;
     },
     fetchUser(state, action) {
       state.user = action.payload;
