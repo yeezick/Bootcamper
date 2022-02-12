@@ -14,20 +14,21 @@ export const SingleProject = () => {
     const fetchProject = async () => {
     const currentProject = await getOneProject(id);
     if (currentProject) {
+      console.log(currentProject)
       setLoaded(true)
       setProject(currentProject);
-      
     }
   }
     fetchProject();
   }, [id])
 
-  console.log(project)
+  
 
   return loaded ? (
     <div>
       <h2 className='project-title'>{project.title}</h2>
       <h3>Project Description:</h3>
+      <p>{project.team_members?.length}</p>
       <p>{project.description}</p>
       <h3>Built with:</h3>
       {project.tools?.map(tool => (
