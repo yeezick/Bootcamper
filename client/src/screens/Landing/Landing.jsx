@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 export const Landing = () => {
   return (
@@ -6,8 +7,12 @@ export const Landing = () => {
       <div className="img-placeholder">
       </div>
       <h1 className="logo-placeholder">Bootcamper</h1>
-      <button>Sign Up</button>
-      <button>Log In</button>
+      <Link to="/sign-up">
+        <button>Sign Up</button>
+      </Link>
+      <Link to="/sign-in">
+        <button>Log In</button>
+      </Link>
       <h6>Help | Contact</h6>
     </div>
   )
