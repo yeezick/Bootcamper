@@ -14,6 +14,10 @@ export const Landing = () => {
       <Link to="/sign-in">
         <button>Log In</button>
       </Link>
+      <h5>Want to take a test drive first?</h5>
+      <Link to="/roulette">
+        <button>Try It!</button>
+      </Link>
       <h6>Help | Contact</h6>
     </div>
   )
