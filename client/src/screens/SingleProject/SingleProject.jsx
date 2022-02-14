@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
 import { getOneProject } from '../../services/api/projects.js';
+import './SingleProject.scss';
 
 export const SingleProject = () => {
   const currentUser = useSelector(state => state.ui.user);
@@ -40,18 +40,20 @@ export const SingleProject = () => {
   
 
   return loaded ? (
-    <div>
+    <div className='single-project-wrapper' >
       <h2 className='project-title'>{project.title}</h2>
       <h3>Project Description:</h3>
       <p>{project.description}</p>
-      <p>{project.team_members?.length} team members</p>
+      <p>Current team size: {project.team_members?.length + 1}</p>
       <h3>Built with:</h3>
+      <ul>
       {project.tools?.map(tool => (
-        <div key={tool._id}>
-          <h4>{tool.name}</h4>
-        </div>
+        <li key={tool._id}>
+          {tool.name}
+        </li>
       ))} 
-      <h3>{`Looking for collaborators who can commit ${hours} hours per week.`}</h3>
+      </ul>
+      <p>{`Looking for collaborators who can commit ${hours} hours per week.`}</p>
       {currentUser._id === project.owner? <button>Edit Project</button> : null}
     </div>
   ) : 

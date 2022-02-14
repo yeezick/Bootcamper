@@ -1,0 +1,19 @@
+.single-project-wrapper {
+  align-items: left;
+  display: flex;
+  flex-direction: column;
+  padding: 10%;
+    .project-title {
+      margin-bottom: 10px;
+    }
+    button {
+      margin: 10px;
+      width: 25%;
+    }
+    h3 {
+      text-decoration: underline;
+    }
+    p {
+      padding: 2%;
+    }
+}
