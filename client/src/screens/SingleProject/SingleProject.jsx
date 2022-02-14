@@ -45,7 +45,7 @@ export const SingleProject = () => {
       <h3>Project Description:</h3>
       <p>{project.description}</p>
       <p>Current team size: {project.team_members?.length + 1}</p>
-      <h3>Built with:</h3>
+      {project.tools.length > 0 ? <h3>Built with:</h3> : null}
       <ul>
       {project.tools?.map(tool => (
         <li key={tool._id}>
