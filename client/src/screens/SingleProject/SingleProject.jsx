@@ -30,8 +30,8 @@ export const SingleProject = () => {
     const fetchProject = async () => {
     const currentProject = await getOneProject(id);
     if (currentProject) {
-      setLoaded(true)
       setProject(currentProject);
+      setLoaded(true)
     }
   }
     fetchProject();
@@ -44,7 +44,7 @@ export const SingleProject = () => {
       <h2 className='project-title'>{project.title}</h2>
       <h3>Project Description:</h3>
       <p>{project.description}</p>
-      <p>Current team size: {project.team_members?.length + 1}</p>
+      <p>Current team size: {project.team_members.length + 1}</p>
       {project.tools.length > 0 ? <h3>Built with:</h3> : null}
       <ul>
       {project.tools?.map(tool => (
