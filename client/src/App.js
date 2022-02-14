@@ -23,7 +23,7 @@ function App() {
   useEffect(() => {
     const setupReduxStore = async () => {
       const user = await verify();
-      dispatch(uiActions.fetchUser(user));
+      dispatch(uiActions.updateUser(user));
     };
     setupReduxStore();
   }, []);
@@ -35,7 +35,7 @@ function App() {
     <Layout>
       <Routes>
         <Route exact path="/" element={<Landing />} />
-        <Route exact path='/projects/create' element={<CreateProject />} />
+        <Route exact path="/projects/create" element={<CreateProject />} />
         <Route exact path="/projects/:id" element={<SingleProject />} />
         <Route exact path="/projects/:id/edit" element={<EditProject />} />
         <Route path="/roulette" element={<Roulette />} />

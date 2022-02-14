@@ -10,7 +10,6 @@ export const UserProfile = () => {
   const { user, toggleEditUser } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
   const validUrl = `http://${user.portfolio_link}`;
-  console.log('user', user);
 
   const handleToggleMode = () => {
     dispatch(uiActions.toggleEditUser());

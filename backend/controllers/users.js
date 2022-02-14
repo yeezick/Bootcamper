@@ -46,7 +46,12 @@ export const addPortfolioProject = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await User.findByIdAndUpdate(id, {$push: {'portfolio_projects': req.body }}, {new:true});
-    res.status(200).send(user);
+    // i believe this can be handled better by throwing an error rather than responding with a 404 
+    if (user) {
+      return res.status(200).send(user);
+    } else {
+      return res.status(404).json({message: 'User not found.'})
+    }
   } catch(error) {
     res.status(500).send(error.message);
   }

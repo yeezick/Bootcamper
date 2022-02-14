@@ -30,7 +30,7 @@ export const uiSlice = createSlice({
     toggleEditUser(state) {
       state.toggleEditUser = !state.toggleEditUser;
     },
-    fetchUser(state, action) {
+    updateUser(state, action) {
       state.user = action.payload;
       const { interested_projects, member_of_projects, rejected_projects } = action.payload;
       state.blacklisted_projects = [

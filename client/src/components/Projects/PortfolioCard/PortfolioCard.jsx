@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Form } from '../../Form/Form';
 import { Header } from '../../Header/Header';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { uiActions } from '../../../services/redux/slices/uiSlice';
 import { portfolioProjectForm } from '../../../services/formData';
 import { addPortfolioProject } from '../../../services/api/users.js';
 import './PortfolioCard.scss';
@@ -28,6 +30,8 @@ const dummyProjects = [
 ];
 
 export const AddPortfolioProject = () => {
+  const { _id: userId } = useSelector((state) => state.ui.user);
+  const dispatch = useDispatch();
   const [newProject, setNewProject] = useState({
     project_description: '',
     project_link: '',
@@ -39,7 +43,13 @@ export const AddPortfolioProject = () => {
     e.preventDefault();
     try {
       // must be able to access user's portfolio projects, spread them, then add newProject at the end of it
-      await addPortfolioProject('61f32730ecf7c67c9bee9f36', newProject);
+      const res = await addPortfolioProject(userId, newProject);
+      dispatch(uiActions.updateUser(res));
+      setNewProject({
+        project_description: '',
+        project_link: '',
+        project_title: '',
+      });
     } catch (error) {
       console.error(error);
     }
