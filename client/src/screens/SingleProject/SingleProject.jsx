@@ -57,12 +57,12 @@ export const SingleProject = () => {
           ))} 
         </ul>
         <p>{`Looking for collaborators who can commit ${hours} hours per week.`}</p>
-        {currentUser._id === project.owner? <button onClick={() => {setEdit(true)}}>Edit Project</button> : null}
+        {currentUser._id === project.owner? <button onClick={() => {setEdit(true)}}>Edit Project Details</button> : null}
     </div>
   ) } else if (loaded && edit) {
     return (
       <div>
-        <EditProject />
+        <EditProject project={project}/>
       </div>
     )
   } else {
