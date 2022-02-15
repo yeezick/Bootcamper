@@ -37,7 +37,7 @@ export const SingleProject = () => {
     }
   }
     fetchProject();
-  }, [id])
+  }, [id, edit])
 
   
 
@@ -62,7 +62,7 @@ export const SingleProject = () => {
   ) } else if (loaded && edit) {
     return (
       <div>
-        <EditProject project={project}/>
+        <EditProject project={project} setEdit={setEdit}/>
       </div>
     )
   } else {
