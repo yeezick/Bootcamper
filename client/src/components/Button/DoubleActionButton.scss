@@ -1,8 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+
+
 .double-button {
     background-color: black;
-    width: 100px;
+    height: 33px;
+    width: 250px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    border-radius: 4px;
+    font-size: 25px;
+    margin: 5px;
     a {
         color: white;
-
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 400;
+        width: 50%;
+        text-align: center;
+        font-family: 'Roboto', sans-serif;
+        padding: 5px;
     }
+
 }

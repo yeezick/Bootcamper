@@ -1,4 +1,5 @@
 import './DoubleActionButton.scss';
+import { Link } from 'react-router-dom';
 
 export const DoubleActionButton = ({leftText, leftLinkTo, rightText, rightLinkTo }) => {
     return (
