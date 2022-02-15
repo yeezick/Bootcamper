@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { EditProject } from '../EditProject/EditProject.jsx';
 import { getOneProject } from '../../services/api/projects.js';
 import './SingleProject.scss';
 
@@ -8,6 +9,7 @@ export const SingleProject = () => {
   const currentUser = useSelector(state => state.ui.user);
   const { id } = useParams();
   const [project, setProject] = useState({});
+  const [edit, setEdit] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
   let hours;
@@ -25,7 +27,7 @@ export const SingleProject = () => {
     default: 
       hours = 'any';
   }
-
+  
   useEffect(() => {
     const fetchProject = async () => {
     const currentProject = await getOneProject(id);
@@ -39,27 +41,35 @@ export const SingleProject = () => {
 
   
 
-  return loaded ? (
-    <div className='single-project-wrapper' >
-      <h2 className='project-title'>{project.title}</h2>
-      <h3>Project Description:</h3>
-      <p>{project.description}</p>
-      <p>Current team size: {project.team_members.length + 1}</p>
-      {project.tools.length > 0 ? <h3>Built with:</h3> : null}
-      <ul>
-      {project.tools?.map(tool => (
-        <li key={tool._id}>
-          {tool.name}
-        </li>
-      ))} 
-      </ul>
-      <p>{`Looking for collaborators who can commit ${hours} hours per week.`}</p>
-      {currentUser._id === project.owner? <button>Edit Project</button> : null}
+  if (loaded && !edit) {
+    return (
+      <div className='single-project-wrapper' >
+        <h2 className='project-title'>{project.title}</h2>
+        <h3>Project Description:</h3>
+        <p>{project.description}</p>
+        <p>Current team size: {project.team_members.length + 1}</p>
+        {project.tools.length > 0 ? <h3>Built with:</h3> : null}
+        <ul>
+          {project.tools?.map(tool => (
+            <li key={tool._id}>
+              {tool.name}
+            </li>
+          ))} 
+        </ul>
+        <p>{`Looking for collaborators who can commit ${hours} hours per week.`}</p>
+        {currentUser._id === project.owner? <button onClick={() => {setEdit(true)}}>Edit Project</button> : null}
     </div>
-  ) : 
-  (
-   <div>
-     loading ... 
-   </div>
-  )
-};
+  ) } else if (loaded && edit) {
+    return (
+      <div>
+        <EditProject />
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        loading ... 
+      </div>
+    )
+  }
+  };
