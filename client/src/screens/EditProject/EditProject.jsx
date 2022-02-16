@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Header } from '../../components/Header/Header.jsx';
 import { editProject } from '../../services/api/projects.js';
-import { getAllTools } from '../../services/api/tools.js';
 
 export const EditProject = ({ project, setEdit }) => {
   
@@ -18,10 +18,10 @@ export const EditProject = ({ project, setEdit }) => {
 }
 
 const AboutProject = ({ project, setEdit }) => {
+  const toolsList = useSelector(state => state.tools.allTools)
   const [projectInfo, setProjectInfo] = useState({
     ...project,
   })
-  const [toolsList, setToolsList] = useState([]);
   const [currentTool, setCurrentTool] = useState('');
 
   const handleChange = (e) => {
@@ -37,6 +37,7 @@ const AboutProject = ({ project, setEdit }) => {
     const updatedProject = await editProject(project._id, projectInfo);
     if (updatedProject) setEdit(false)
   }
+
 // tools related variables and functions
 const handleToolChange = (e) => {
   setCurrentTool(e.target.value)
@@ -51,7 +52,8 @@ const selectTool = (e) => {
   setCurrentTool('')
 }
 
-const removeTool = (id) => {
+const removeTool = (e, id) => {
+  e.preventDefault();
   const removeIndex = projectInfo.tools.findIndex(tool => tool._id === id)
   projectInfo.tools.splice(removeIndex, 1);
   setProjectInfo({
@@ -59,14 +61,6 @@ const removeTool = (id) => {
     tools: projectInfo.tools
   })
 }
-
-useEffect(() => {
-  const generateToolsList = async () => {
-    const allTools = await getAllTools();
-    setToolsList(allTools)
-  }
-  generateToolsList();
-}, []);
 
   return (
     <div className="about-project">
@@ -106,7 +100,7 @@ useEffect(() => {
           {projectInfo.tools.map(tool => (
             <div key={tool._id} className="tool-preview">
               <p>{tool.name}</p>
-              <button onClick={() => removeTool(tool._id)}>x</button>
+              <button onClick={(e) => removeTool(e, tool._id)}>x</button>
             </div>
           ))}
         </div>

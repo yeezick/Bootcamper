@@ -16,6 +16,7 @@ import { verify } from './services/api/users';
 import { useDispatch, useSelector } from 'react-redux';
 import { uiActions } from './services/redux/slices/uiSlice';
 import { fetchAllProjects } from './services/redux/slices/projectActions.js';
+import { fetchAllTools} from './services/redux/slices/toolActions.js';
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,11 @@ function App() {
   useEffect(() => {
     dispatch(fetchAllProjects(blacklisted_projects));
   }, [blacklisted_projects]);
+
+  useEffect(() => {
+    dispatch(fetchAllTools());
+  }, [])
+  
   return (
     <Layout>
       <Routes>

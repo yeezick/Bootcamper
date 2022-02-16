@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { Header } from '../../components/Header/Header.jsx';
 import { createProject } from '../../services/api/projects.js'
-import { getAllTools } from '../../services/api/tools.js';
 import '../../components/Form/Form.scss';
 import './CreateProject.scss'
 
@@ -24,8 +23,8 @@ export const CreateProject = () => {
 
 const AboutProject = () => {
   const currentUser = useSelector(state => state.ui.user)
+  const toolsList = useSelector(state => state.tools.allTools)
   const navigate = useNavigate()
-  const [toolsList, setToolsList] = useState([]);
   const [currentTool, setCurrentTool] = useState('')
   const [projectInfo, setProjectInfo] = useState({
     description: '',
@@ -37,11 +36,12 @@ const AboutProject = () => {
     title: '',
     tools: [],
   });
+
   // submit the form and create a record for the project in the DB
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newProject = await createProject(projectInfo);
-    if (newProject) navigate('/') // change this to navigate to projects dashboard when that is complete
+    if (newProject) navigate(`/projects/${newProject._id}`) // change this to navigate to projects dashboard when that is complete
 
   }
 
@@ -79,15 +79,15 @@ const removeTool = (id) => {
 
 
 useEffect(() => {
-  const generateToolsList = async () => {
-    const allTools = await getAllTools();
-    setToolsList(allTools)
-  }
+  // const generateToolsList = async () => {
+  //   const allTools = await getAllTools();
+  //   setToolsList(allTools)
+  // }
   setProjectInfo({
     ...projectInfo,
     owner: currentUser,
   })
-  generateToolsList();
+  // generateToolsList();
 }, [currentUser]);
 
   return (
