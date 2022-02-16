@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   AddPortfolioProject,
   ShowPortfolioProjects,
@@ -8,6 +8,7 @@ import { Form } from '../../components/Form/Form';
 import { Header } from '../../components/Header/Header';
 import { Modal } from '../../components/Modal/Modal';
 
+import { uiActions } from '../../services/redux/slices/uiSlice';
 import { updateUser } from '../../services/api/users';
 import { userForm } from '../../services/formData';
 import './EditProfile.scss';
@@ -37,6 +38,7 @@ export const EditProfile = () => {
 
 const AboutUser = () => {
   const { toggleEditUser, user } = useSelector((state) => state.ui);
+  const dispatch = useDispatch();
   const [userInfo, setUserInfo] = useState({
     about: '',
     fun_fact: '',
@@ -59,7 +61,8 @@ const AboutUser = () => {
   const handleUserUpdate = async (e) => {
     e.preventDefault();
     try {
-      await updateUser(user._id, userInfo);
+      const res = await updateUser(user._id, userInfo);
+      dispatch(uiActions.updateUser(res));
     } catch (error) {
       console.error(error);
     }
