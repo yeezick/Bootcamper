@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   AddPortfolioProject,
   ShowPortfolioProjects,
@@ -30,7 +31,9 @@ export const EditProfile = () => {
         <AboutUser />
         <AddPortfolioProject />
         <ShowPortfolioProjects />
-        <button>Update Profile</button>
+        <Link to="/roulette">
+          <button>Start Collaborating!</button>
+        </Link>
       </div>
     </>
   );
@@ -63,12 +66,6 @@ const AboutUser = () => {
     try {
       const res = await updateUser(user._id, userInfo);
       dispatch(uiActions.updateUser(res));
-      setUserInfo({
-        about: '',
-        fun_fact: '',
-        portfolio_link: '',
-        role: '',
-      });
     } catch (error) {
       console.error(error);
     }
