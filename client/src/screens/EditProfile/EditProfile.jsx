@@ -63,6 +63,12 @@ const AboutUser = () => {
     try {
       const res = await updateUser(user._id, userInfo);
       dispatch(uiActions.updateUser(res));
+      setUserInfo({
+        about: '',
+        fun_fact: '',
+        portfolio_link: '',
+        role: '',
+      });
     } catch (error) {
       console.error(error);
     }

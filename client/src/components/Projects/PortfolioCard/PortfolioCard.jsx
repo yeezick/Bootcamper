@@ -8,31 +8,11 @@ import { portfolioProjectForm } from '../../../services/formData';
 import { addPortfolioProject } from '../../../services/api/users.js';
 import './PortfolioCard.scss';
 
-const dummyProjects = [
-  {
-    title: 'first',
-    description: 'im a project mwahahahahahaha',
-    image: 'https://pbs.twimg.com/media/E5KGFT9X0AQzzaR?format=jpg&name=240x240',
-    link: 'www.google.com',
-  },
-  {
-    title: 'second',
-    description: 'im a project mwahahahahahaha',
-    image: 'https://pbs.twimg.com/media/E5KGFT9X0AQzzaR?format=jpg&name=240x240',
-    link: 'www.google.com',
-  },
-  {
-    title: 'third',
-    description: 'im a project mwahahahahahaha',
-    image: 'https://pbs.twimg.com/media/E5KGFT9X0AQzzaR?format=jpg&name=240x240',
-    link: 'www.google.com',
-  },
-];
-
 export const AddPortfolioProject = () => {
   const { _id: userId } = useSelector((state) => state.ui.user);
   const dispatch = useDispatch();
   const [newProject, setNewProject] = useState({
+    image: 'https://pbs.twimg.com/media/E5KGFT9X0AQzzaR?format=jpg&name=240x240',
     project_description: '',
     project_link: '',
     project_title: '',
@@ -72,10 +52,12 @@ export const AddPortfolioProject = () => {
 };
 
 export const ShowPortfolioProjects = () => {
+  const { portfolio_projects } = useSelector((state) => state.ui.user);
+
   return (
     <div className="show-portfolio-wrapper">
       <header> Your Portfolio Projects</header>
-      {dummyProjects.map((project, idx) => (
+      {portfolio_projects.map((project, idx) => (
         <PortfolioProject key={`portfolioProject-${idx}`} project={project} />
       ))}
     </div>
@@ -83,15 +65,16 @@ export const ShowPortfolioProjects = () => {
 };
 
 const PortfolioProject = ({ project }) => {
-  const { description, image, link, title } = project;
+  console.log('project', project);
+  const { image, project_description, project_link, project_title } = project;
   return (
     <div className="portfolio-project">
-      <img src={image} alt={title} />
+      <img src={image} alt={project_title} />
       <div className="portfolio-content">
-        <p>{title}</p>
+        <p>{project_title}</p>
         {/* there should be an expand description that would expand the card and show the the project's description */}
-        <p>{description}</p>
-        <p>{link}</p>
+        <p>{project_description}</p>
+        <p>{project_link}</p>
       </div>
     </div>
   );
