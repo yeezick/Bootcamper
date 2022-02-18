@@ -61,14 +61,20 @@ export const ShowPortfolioProjects = () => {
   const { user } = useSelector((state) => state.ui);
   const { portfolio_projects, _id: userId } = user;
 
-  const updateEditedProject = (editedProject) => {
-    const { project_id: editedId } = editedProject;
-    const editedIdx = portfolio_projects.findIndex((project) => project.project_id === editedId);
-    const copyPortfolioProjects = [...portfolio_projects];
-    copyPortfolioProjects[editedIdx] = editedProject;
-
+  const updateEditedProject = (editedProject, removeProject) => {
+    const { project_id: currentId } = editedProject;
+    let copyPortfolioProjects = [...portfolio_projects];
+    if (removeProject) {
+      copyPortfolioProjects = portfolio_projects.filter(
+        (project) => project.project_id !== currentId
+      );
+    } else {
+      const editedIdx = portfolio_projects.findIndex((project) => project.project_id === currentId);
+      copyPortfolioProjects[editedIdx] = editedProject;
+    }
     dispatch(addRejectedProject(userId, { portfolio_projects: copyPortfolioProjects }));
   };
+
   return (
     <div className="show-portfolio-wrapper">
       <header> Your Portfolio Projects</header>
@@ -101,17 +107,16 @@ const PortfolioProject = ({ updateEditedProject, project }) => {
     onLoad();
   }, [project]);
 
-  const handleProjectUpdate = () => {
-    updateEditedProject(currProject);
+  const handleProjectUpdate = (e, removeProject) => {
+    updateEditedProject(currProject, removeProject);
     toggleEditProject(!editProject);
   };
 
   if (editProject) {
     return (
       <div className="edit-portfolio-project">
-        <button style={{ width: '45px' }} onClick={() => toggleEditProject(!editProject)}>
-          toggle edit
-        </button>
+        <button onClick={() => toggleEditProject(!editProject)}>toggle edit</button>
+        <button onClick={(e) => handleProjectUpdate(e, 'remove project')}>delete</button>
         {/* reuse of inputs is opportunity to consolidate using a map method */}
         <label className="">
           Title:
