@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { nanoid } from 'nanoid';
 import { Form } from '../../Form/Form';
 import { Header } from '../../Header/Header';
 
-import { useDispatch, useSelector } from 'react-redux';
 import { uiActions } from '../../../services/redux/slices/uiSlice';
 import { portfolioProjectForm } from '../../../services/formData';
 import { addPortfolioProject } from '../../../services/api/users.js';
 import './PortfolioCard.scss';
+import { handleChange } from '../../../services/utils/formHandlers';
+import { addRejectedProject } from '../../../services/redux/slices/uiActions';
 
 export const AddPortfolioProject = () => {
   const { _id: userId } = useSelector((state) => state.ui.user);
@@ -16,19 +19,21 @@ export const AddPortfolioProject = () => {
     project_description: '',
     project_link: '',
     project_title: '',
+    project_id: nanoid(),
   });
   // ideally updates the database on each new project without slowing the app down
   // this way the user can add a new project and on refresh, load their work.
   const handleNewProject = async (e) => {
     e.preventDefault();
     try {
-      // must be able to access user's portfolio projects, spread them, then add newProject at the end of it
       const res = await addPortfolioProject(userId, newProject);
       dispatch(uiActions.updateUser(res));
       setNewProject({
+        image: 'https://pbs.twimg.com/media/E5KGFT9X0AQzzaR?format=jpg&name=240x240',
         project_description: '',
         project_link: '',
         project_title: '',
+        project_id: nanoid(),
       });
     } catch (error) {
       console.error(error);
@@ -52,23 +57,104 @@ export const AddPortfolioProject = () => {
 };
 
 export const ShowPortfolioProjects = () => {
-  const { portfolio_projects } = useSelector((state) => state.ui.user);
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.ui);
+  const { portfolio_projects, _id: userId } = user;
 
+  const updateEditedProject = (editedProject) => {
+    const { project_id: editedId } = editedProject;
+    const editedIdx = portfolio_projects.findIndex((project) => project.project_id === editedId);
+    const copyPortfolioProjects = [...portfolio_projects];
+    copyPortfolioProjects[editedIdx] = editedProject;
+
+    dispatch(addRejectedProject(userId, { portfolio_projects: copyPortfolioProjects }));
+  };
   return (
     <div className="show-portfolio-wrapper">
       <header> Your Portfolio Projects</header>
-      {portfolio_projects.map((project, idx) => (
-        <PortfolioProject key={`portfolioProject-${idx}`} project={project} />
+      {portfolio_projects?.map((project, idx) => (
+        <PortfolioProject
+          key={`portfolioProject-${idx}`}
+          project={project}
+          updateEditedProject={updateEditedProject}
+        />
       ))}
     </div>
   );
 };
 
-const PortfolioProject = ({ project }) => {
-  console.log('project', project);
-  const { image, project_description, project_link, project_title } = project;
+const PortfolioProject = ({ updateEditedProject, project }) => {
+  const [currProject, setCurrProject] = useState({
+    image: 'https://pbs.twimg.com/media/E5KGFT9X0AQzzaR?format=jpg&name=240x240',
+    project_description: '',
+    project_link: '',
+    project_title: '',
+    project_id: nanoid(),
+  });
+  const [editProject, toggleEditProject] = useState(false);
+  const { image, project_description, project_link, project_title } = currProject;
+
+  useEffect(() => {
+    const onLoad = () => {
+      setCurrProject(project);
+    };
+    onLoad();
+  }, [project]);
+
+  const handleProjectUpdate = () => {
+    updateEditedProject(currProject);
+    toggleEditProject(!editProject);
+  };
+
+  if (editProject) {
+    return (
+      <div className="edit-portfolio-project">
+        <button style={{ width: '45px' }} onClick={() => toggleEditProject(!editProject)}>
+          toggle edit
+        </button>
+        {/* reuse of inputs is opportunity to consolidate using a map method */}
+        <label className="">
+          Title:
+          <input
+            type="text"
+            className=""
+            value={project_title}
+            onChange={(e) => handleChange(e, 'project_title', setCurrProject)}
+          />
+        </label>
+
+        <label className="">
+          Description:
+          <input
+            type="text"
+            className=""
+            value={project_description}
+            onChange={(e) => handleChange(e, 'project_description', setCurrProject)}
+          />
+        </label>
+
+        <label className="">
+          Link:
+          <input
+            type="text"
+            className=""
+            value={project_link}
+            onChange={(e) => handleChange(e, 'project_link', setCurrProject)}
+          />
+        </label>
+        <button onClick={handleProjectUpdate}> SAVE EDIT</button>
+      </div>
+    );
+  }
   return (
     <div className="portfolio-project">
+      <button
+        style={{ width: '45px' }}
+        onClick={(e) => {
+          console.log('e', e);
+          toggleEditProject(!editProject);
+        }}
+      ></button>
       <img src={image} alt={project_title} />
       <div className="portfolio-content">
         <p>{project_title}</p>
