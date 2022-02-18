@@ -56,12 +56,11 @@ export const AddPortfolioProject = () => {
   );
 };
 
-export const ShowPortfolioProjects = () => {
+export const ShowPortfolioProjects = ({ currUser }) => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.ui);
-  const { portfolio_projects, _id: userId } = user;
 
   const updateEditedProject = (editedProject, removeProject) => {
+    const { portfolio_projects, _id: userId } = currUser;
     const { project_id: currentId } = editedProject;
     let copyPortfolioProjects = [...portfolio_projects];
     if (removeProject) {
@@ -76,10 +75,10 @@ export const ShowPortfolioProjects = () => {
   };
 
   return (
-    portfolio_projects.length > 0 && (
+    currUser?.portfolio_projects?.length > 0 && (
       <div className="show-portfolio-wrapper">
         <header> Your Portfolio Projects</header>
-        {portfolio_projects?.map((project, idx) => (
+        {currUser?.portfolio_projects?.map((project, idx) => (
           <PortfolioProject
             key={`portfolioProject-${idx}`}
             project={project}
@@ -157,8 +156,7 @@ const PortfolioProject = ({ updateEditedProject, project }) => {
     <div className="portfolio-project">
       <button
         style={{ width: '45px' }}
-        onClick={(e) => {
-          console.log('e', e);
+        onClick={() => {
           toggleEditProject(!editProject);
         }}
       ></button>

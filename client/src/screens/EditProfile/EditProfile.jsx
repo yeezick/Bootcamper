@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {
   AddPortfolioProject,
   ShowPortfolioProjects,
@@ -15,7 +15,7 @@ import { userForm } from '../../services/formData';
 import './EditProfile.scss';
 import { useEffect } from 'react';
 
-export const EditProfile = () => {
+export const EditProfile = ({ currUser }) => {
   const [showModal, setShowModal] = useState(false);
   const header = {
     text: "Before you can create or join a project, we'll need to finish your profile first.",
@@ -30,7 +30,7 @@ export const EditProfile = () => {
         <Header headerTitle={header.title} headerText={header.text} />
         <AboutUser />
         <AddPortfolioProject />
-        <ShowPortfolioProjects />
+        <ShowPortfolioProjects currUser={currUser} />
         <Link to="/roulette">
           <button>Start Collaborating!</button>
         </Link>
@@ -42,6 +42,7 @@ export const EditProfile = () => {
 const AboutUser = () => {
   const { toggleEditUser, user } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
+  const params = useParams();
   const [userInfo, setUserInfo] = useState({
     about: '',
     fun_fact: '',
@@ -50,7 +51,7 @@ const AboutUser = () => {
   });
 
   useEffect(() => {
-    if (toggleEditUser) {
+    if (toggleEditUser || params.id === user._id) {
       const { about, fun_fact, portfolio_link, role } = user;
       setUserInfo({
         about,
@@ -60,7 +61,6 @@ const AboutUser = () => {
       });
     }
   }, [toggleEditUser]);
-
   const handleUserUpdate = async (e) => {
     e.preventDefault();
     try {

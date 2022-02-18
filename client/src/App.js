@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { CreateProject } from './screens/CreateProject/CreateProject.jsx';
 import { EditProfile } from './screens/EditProfile/EditProfile.jsx';
@@ -19,18 +19,22 @@ import { fetchAllProjects } from './services/redux/slices/projectActions.js';
 
 function App() {
   const dispatch = useDispatch();
-  const { blacklisted_projects } = useSelector((state) => state.ui);
+  const { blacklisted_projects, user } = useSelector((state) => state.ui);
+  const [userLoaded, toggleUserLoaded] = useState(false);
   useEffect(() => {
     const setupReduxStore = async () => {
       const user = await verify();
       dispatch(uiActions.updateUser(user));
+      toggleUserLoaded(true);
     };
     setupReduxStore();
   }, []);
 
   useEffect(() => {
-    dispatch(fetchAllProjects(blacklisted_projects));
-  }, [blacklisted_projects]);
+    if (userLoaded) {
+      dispatch(fetchAllProjects(blacklisted_projects));
+    }
+  }, [userLoaded]);
   return (
     <Layout>
       <Routes>
@@ -42,9 +46,8 @@ function App() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route exact path="/users/:id" element={<UserProfile />} />
-        <Route exact path="/users/:id/edit" element={<EditProfile />} />
+        <Route exact path="/users/:id/edit" element={<EditProfile currUser={user} />} />
       </Routes>
-      {/* <button onClick={() => setToggle((prev) => !prev)}>trigger rerender</button> */}
     </Layout>
   );
 }
