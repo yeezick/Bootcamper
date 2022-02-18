@@ -1,8 +1,10 @@
-import { Link } from 'react-router-dom';
 import './SingleActionButton.scss'
 
-export const SingleActionButton = ({text,linkTo}) => {
+export const SingleActionButton = ({text, onClick, type}) => {
     return (
-        <Link to={linkTo}><button className="single-button">{text}</button></Link>
+        <div className="single-button">
+            <button onClick={onClick} type={type} >{text}</button>
+        </div>
+
     )
 }

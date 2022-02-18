@@ -1,12 +1,12 @@
 import './DoubleActionButton.scss';
-import { Link } from 'react-router-dom';
 
-export const DoubleActionButton = ({leftText, leftLinkTo, rightText, rightLinkTo }) => {
+
+export const DoubleActionButton = ({leftText, leftOnClick, leftType,rightText, rightOnClick, rightType }) => {
     return (
         <div className="double-button">
-            <Link to={leftLinkTo}>{leftText}</Link>
-            |
-            <Link to={rightLinkTo}>{rightText}</Link>
+            <button className="left" onClick={leftOnClick} type={leftType} >{leftText}</button>
+            <p>|</p>
+            <button className="right" onClick={rightOnClick} type={rightType} value={rightText}>{rightText}</button>
         </div>
     )
 }
