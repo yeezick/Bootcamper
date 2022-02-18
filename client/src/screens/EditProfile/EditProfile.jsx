@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   AddPortfolioProject,
   ShowPortfolioProjects,
@@ -42,7 +42,6 @@ export const EditProfile = ({ currUser }) => {
 const AboutUser = () => {
   const { toggleEditUser, user } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
-  const params = useParams();
   const [userInfo, setUserInfo] = useState({
     about: '',
     fun_fact: '',
@@ -51,7 +50,7 @@ const AboutUser = () => {
   });
 
   useEffect(() => {
-    if (toggleEditUser || params.id === user._id) {
+    if (toggleEditUser) {
       const { about, fun_fact, portfolio_link, role } = user;
       setUserInfo({
         about,
