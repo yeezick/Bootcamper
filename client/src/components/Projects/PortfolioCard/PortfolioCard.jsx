@@ -76,16 +76,18 @@ export const ShowPortfolioProjects = () => {
   };
 
   return (
-    <div className="show-portfolio-wrapper">
-      <header> Your Portfolio Projects</header>
-      {portfolio_projects?.map((project, idx) => (
-        <PortfolioProject
-          key={`portfolioProject-${idx}`}
-          project={project}
-          updateEditedProject={updateEditedProject}
-        />
-      ))}
-    </div>
+    portfolio_projects.length > 0 && (
+      <div className="show-portfolio-wrapper">
+        <header> Your Portfolio Projects</header>
+        {portfolio_projects?.map((project, idx) => (
+          <PortfolioProject
+            key={`portfolioProject-${idx}`}
+            project={project}
+            updateEditedProject={updateEditedProject}
+          />
+        ))}
+      </div>
+    )
   );
 };
 
