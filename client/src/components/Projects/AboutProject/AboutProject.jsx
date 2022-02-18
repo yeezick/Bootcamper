@@ -24,11 +24,12 @@ const handleToolChange = (e) => {
 }
 const selectTool = (e) => {
   e.preventDefault();
-  const selectedTool = toolsList.find(tool => tool.name === currentTool)
+  if (currentTool) { const selectedTool = toolsList.find(tool => tool.name === currentTool)
   setProjectInfo({
     ...projectInfo,
     tools: [...projectInfo.tools, selectedTool],
   })
+}
   setCurrentTool('')
 }
 

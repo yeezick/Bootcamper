@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { CreateProject } from './screens/CreateProject/CreateProject.jsx';
 import { EditProfile } from './screens/EditProfile/EditProfile.jsx';
-import { EditProject } from './screens/EditProject/EditProject.jsx';
+// import { EditProject } from './screens/EditProject/EditProject.jsx';
 import { Landing } from './screens/Landing/Landing.jsx';
 import { Roulette } from './screens/Roulette/Roulette.jsx';
 import { SignIn } from './screens/SignIn/SignIn.jsx';
