@@ -1,7 +1,7 @@
 import './DoubleActionButton.scss';
 
 
-export const DoubleActionButton = ({leftText, leftOnClick, leftType,rightText, rightOnClick, rightType }) => {
+export const DoubleActionButton = ({leftText, leftOnClick, leftType="button", rightText, rightOnClick, rightType="button" }) => {
     return (
         <div className="double-button">
             <button className="left" onClick={leftOnClick} type={leftType} >{leftText}</button>

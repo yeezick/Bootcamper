@@ -7,6 +7,7 @@ import { fetchAllProjects } from '../../services/redux/slices/projectActions';
 import { updateUserAndProject } from '../../services/api/projects';
 import { addRejectedProject } from '../../services/redux/slices/uiActions';
 import { projectActions } from '../../services/redux/slices/projectSlice';
+import { DoubleActionButton } from '../../components/Button/DoubleActionButton';
 
 // currently rerendering 5x
 export const Roulette = () => {
@@ -102,11 +103,14 @@ export const Roulette = () => {
         <p> Built with:</p>
         {/* map thru tools */}
       </div>
-      <p>{`Looking for collaboratos who can commit at least X hours per week`}</p>
+      <p>{`Looking for collaborators who can commit at least X hours per week`}</p>
 
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <button onClick={declineProject}>I'll Pass</button>
-        <button onClick={showInterest}>I'm interested</button>
+        <DoubleActionButton 
+          leftText="I'll Pass" 
+          leftOnClick={declineProject} 
+          rightText="I'm Interested" 
+          rightOnClick={showInterest} />
         {availableProjects.length === 1 ? null : (
           <button onClick={skipProject}>Skip for now</button>
         )}

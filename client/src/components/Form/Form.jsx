@@ -1,5 +1,6 @@
 import React from 'react';
 import { handleChange } from '../../services/utils/formHandlers';
+import { SingleActionButton } from '../Button/SingleActionButton';
 import './Form.scss';
 
 export const Form = ({ formData, formState }) => {
@@ -34,7 +35,7 @@ export const Form = ({ formData, formState }) => {
           )}
         </div>
       ))}
-      <button type="submit">{button.text}</button>
+      <SingleActionButton text={button.text} type="submit" />
     </form>
   );
 };
