@@ -1,3 +1,4 @@
+import { SingleActionButton } from '../Button/SingleActionButton';
 import './Modal.scss';
 
 export const Modal = ({ setShowModal }) => {
@@ -9,7 +10,7 @@ export const Modal = ({ setShowModal }) => {
       <div className="modal-wrapper">
         <div className="modal-content">
           <p>Would you like to finish setting up your account?</p>
-          <button onClick={handleModal}>Finish Account</button>
+          <SingleActionButton text="Finish Account" onClick={handleModal} />
         </div>
       </div>
     </div>
