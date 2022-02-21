@@ -89,27 +89,27 @@ export const signUpForm = {
   },
   inputs: [
     {
-      labelText: "What's your first name?",
+      labelText: "Name",
       name: 'first_name',
       type: 'text',
     },
     {
-      labelText: "What's your last name?",
+      labelText: "Last Name",
       name: 'last_name',
       type: 'text',
     },
     {
-      labelText: "What's your email?",
+      labelText: "Email Address",
       name: 'email',
       type: 'email',
     },
     {
-      labelText: 'Create a password:',
+      labelText: 'Password',
       name: 'password',
       type: 'password',
     },
     {
-      labelText: 'Confirm password:',
+      labelText: 'Re-enter Password',
       name: 'confirm_password',
       type: 'password',
     },
