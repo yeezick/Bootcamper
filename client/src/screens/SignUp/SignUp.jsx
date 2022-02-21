@@ -7,6 +7,7 @@ import { useDispatch, getState } from 'react-redux';
 import { signUpUser } from '../../services/redux/slices/uiActions.js';
 import { GenericModal } from '../../components/Modal/GenericModal.jsx';
 import './SignUp.scss';
+import { verify } from '../../services/api/users.js';
 
 
 export const SignUp = () => {
@@ -29,6 +30,7 @@ export const SignUp = () => {
 
 
   const handleSignUp = async (event) => {
+    localStorage.removeItem('token');
     event.preventDefault();
     const { email, first_name, last_name, password } = newUser
     if (email === "" || first_name === "" || last_name === "" || password === "") {
@@ -47,8 +49,13 @@ export const SignUp = () => {
     } else {
       dispatch(signUpUser(newUser));
     }
-
-      // navigate('/');
+    const user = await verify()
+    if (user) {
+        navigate('/')
+    } else {
+        setError("An account with this email address already exists.")
+        setShowModal(true);
+      }
     
   };
 
