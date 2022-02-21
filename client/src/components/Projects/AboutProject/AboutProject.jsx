@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 export const AboutProject = ({ createNewProject, handleSubmit, project, setEdit }) => {
