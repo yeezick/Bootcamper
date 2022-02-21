@@ -17,10 +17,10 @@ exp.setDate(today.getDate() + 30);
 
 export const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find().populate({
-      path: "member_of_projects",
-      model: project,
-    });
+    const users = await User.find()  //.populate({
+    //   path: "member_of_projects",
+    //   model: project,
+    // });
     res.json(users);
   } catch (error) {
     console.log(error.message);
