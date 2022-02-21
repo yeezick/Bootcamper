@@ -12,7 +12,7 @@ export const getAllUsers = async () => {
 
 export const getOneUser = async (id) => {
   try {
-    const res = await api.get(`/projects/${id}`);
+    const res = await api.get(`/users/${id}`);
     return res.data;
   } catch (error) {
     throw error;

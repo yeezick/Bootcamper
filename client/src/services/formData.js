@@ -12,6 +12,7 @@ export const userForm = {
       labelText: 'Tell us a bit about you <small>(max 250 characters)</small>',
       name: 'about',
       max_chars: 250,
+      required: true,
       type: 'textarea',
     },
     {
@@ -23,6 +24,7 @@ export const userForm = {
     {
       labelText: 'I am a...',
       name: 'role',
+      required: true,
       type: 'select',
       options: ['Select role', 'UX Designer', 'Software Engineer'],
     },
@@ -115,7 +117,7 @@ export const signUpForm = {
     },
   ],
 };
-// project form 
+// project form
 export const projectForm = {
   button: {
     type: 'submit',
@@ -152,7 +154,7 @@ export const projectForm = {
       labelText: '...who can commit at least...',
       name: 'time_commitment',
       type: 'select',
-      options: ['no preference', 'hobby', 'part-time', 'full-time' ]
+      options: ['no preference', 'hobby', 'part-time', 'full-time'],
     },
   ],
-}
+};

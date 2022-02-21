@@ -3,7 +3,7 @@ import { Header } from '../../components/Header/Header.jsx';
 import { AboutProject } from '../../components/Projects/AboutProject/AboutProject.jsx';
 import { createProject } from '../../services/api/projects.js'
 import '../../components/Form/Form.scss';
-import './CreateProject.scss'
+import './CreateProject.scss';
 
 export const CreateProject = () => {
 
@@ -14,7 +14,7 @@ export const CreateProject = () => {
     title: 'Create a Project',
   };
 
-  const handleSubmit = async (e, projectInfo) => {
+  const handleNewProject = async (e, projectInfo) => {
     e.preventDefault();
     const newProject = await createProject(projectInfo);
     if (newProject) navigate(`/projects/${newProject._id}`)
@@ -23,7 +23,8 @@ export const CreateProject = () => {
   return (
     <div className='create-project-screen'>
       <Header headerText={header.text} headerTitle={header.title} />
-      <AboutProject handleSubmit={handleSubmit} createNewProject={createNewProject} />
+      <AboutProject handleSubmit={handleNewProject} createNewProject={createNewProject} />
     </div>
   )
 }
+
