@@ -13,10 +13,7 @@ export const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
-  const [error, setError] = useState({
-    presence: false,
-    msg: '',
-  });
+  const [error, setError] = useState("");
   const [newUser, setNewUser] = useState({
     confirm_password: '',
     email: '',
@@ -33,7 +30,11 @@ export const SignUp = () => {
 
   const handleSignUp = async (event) => {
     event.preventDefault();
-    if (newUser.confirm_password !== newUser.password) {
+    const { email, first_name, last_name, password } = newUser
+    if (email === "" || first_name === "" || last_name === "" || password === "") {
+      setError("Please fill in all required fields.")
+      setShowModal(true)
+    } else if (newUser.confirm_password !== newUser.password) {
       setNewUser(prevState => {
         return {
           ...prevState,
@@ -41,20 +42,13 @@ export const SignUp = () => {
           password: '',
         }
       });
-      setError({
-        presence: true,
-        msg: 'Passwords do not match'})
+      setError("Passwords do not match")
       setShowModal(true)
     } else {
       dispatch(signUpUser(newUser));
     }
 
       // navigate('/');
-      // setError({
-      //   presence: true,
-      //   msg: this.err,
-      // });
-      // setShowModal(true);
     
   };
 
@@ -62,8 +56,8 @@ export const SignUp = () => {
     <div className="sign-up-screen">
       {showModal && 
         <GenericModal 
-          bodyText={error.msg} 
-          buttonText="Try again" 
+          bodyText={error} 
+          buttonText="Ok" 
           setShowModal={setShowModal}/>  }
           <h4>Create an account</h4>
       <Form formData={signUpForm} formState={[newUser, setNewUser, handleSignUp]} />
