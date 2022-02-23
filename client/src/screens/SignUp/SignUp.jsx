@@ -75,7 +75,7 @@ export const SignUp = () => {
   }
 
   return (
-    <div className="sign-up-screen">
+    <div className="sign-up-screen auth-form">
       {showSuccessModal &&
       <DoubleActionModal 
         setShowModal={setShowSuccessModal}
