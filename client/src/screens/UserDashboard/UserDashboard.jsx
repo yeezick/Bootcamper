@@ -27,7 +27,7 @@ export const UserDashboard = () => {
           </div>
         ))}
       </div>
-      <div className="my-projects-wrapper">
+      <div className="user-projects-wrapper">
         <h3>My Projects:</h3>
           {userProjects.map(project => (
             <div className="user-project-wrapper" key={project._id}>
