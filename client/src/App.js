@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { CreateProject } from './screens/CreateProject/CreateProject.jsx';
 import { EditProfile } from './screens/EditProfile/EditProfile.jsx';
@@ -21,38 +21,37 @@ import { fetchAllTools} from './services/redux/slices/toolActions.js';
 
 function App() {
   const dispatch = useDispatch();
-  const { blacklisted_projects } = useSelector((state) => state.ui);
+  const { blacklisted_projects, user } = useSelector((state) => state.ui);
+  const [userLoaded, toggleUserLoaded] = useState(false);
   useEffect(() => {
     const setupReduxStore = async () => {
       const user = await verify();
-      dispatch(uiActions.fetchUser(user));
+      dispatch(uiActions.updateUser(user));
+      dispatch(fetchAllTools());
+      toggleUserLoaded(true);
     };
     setupReduxStore();
   }, []);
 
   useEffect(() => {
-    dispatch(fetchAllProjects(blacklisted_projects));
-  }, [blacklisted_projects]);
+    if (userLoaded) {
+      dispatch(fetchAllProjects(blacklisted_projects));
+    }
+  }, [userLoaded]);
 
-  useEffect(() => {
-    dispatch(fetchAllTools());
-  }, [])
-  
   return (
     <Layout>
       <Routes>
         <Route exact path="/" element={<Landing />} />
-        <Route exact path='/projects/create' element={<CreateProject />} />
+        <Route exact path="/projects/create" element={<CreateProject />} />
         <Route exact path="/projects/:id" element={<SingleProject />} />
-        {/* <Route exact path="/projects/:id/edit" element={<EditProject />} /> */}
         <Route path="/roulette" element={<Roulette />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route exact path='/dashboard' element={<UserDashboard />}></Route>
         <Route exact path="/users/:id" element={<UserProfile />} />
-        <Route exact path="/users/:id/edit" element={<EditProfile />} />
+        <Route exact path="/users/:id/edit" element={<EditProfile currUser={user} />} />
       </Routes>
-      {/* <button onClick={() => setToggle((prev) => !prev)}>trigger rerender</button> */}
     </Layout>
   );
 }
