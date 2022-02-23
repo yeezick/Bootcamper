@@ -6,13 +6,16 @@ import './UserDashboard.scss'
 
 export const UserDashboard = () => {
   const currentUser = useSelector(state => state.ui.user);
-  const collaborations = currentUser.member_of_projects;
+  const [collaborations, setCollaborations] = useState([]);
   const [userProjects, setUserProjects] = useState([]);
   
   useEffect(() => {
     const fetchProjects = async () => {
       const allProjects = await getAllProjects();
-      if (allProjects) setUserProjects(allProjects.filter(project => project.owner === currentUser._id))
+      if (allProjects) {
+      setUserProjects(allProjects.filter(project => project.owner === currentUser._id));
+      setCollaborations(allProjects.filter(project => currentUser.member_of_projects.includes(project._id)));
+    }
     }
     fetchProjects();
   }, [currentUser]);
