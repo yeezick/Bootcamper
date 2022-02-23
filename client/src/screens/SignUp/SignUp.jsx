@@ -1,20 +1,22 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Form } from '../../components/Form/Form.jsx';
+import { useNavigate, Link } from 'react-router-dom';
+
 // assets
-import { signUpForm } from '../../services/formData.js';
-import { useDispatch, getState } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { signUpUser } from '../../services/redux/slices/uiActions.js';
 import { GenericModal } from '../../components/Modal/GenericModal.jsx';
 import './SignUp.scss';
-import { verify } from '../../services/api/users.js';
+import { checkEmailAuth } from '../../services/api/users.js';
+import { handleChange } from '../../services/utils/formHandlers';
+import { SingleActionButton } from '../../components/Button/SingleActionButton.jsx';
 
 
 export const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
-  const [error, setError] = useState("");
+  const [modalError, setModalError] = useState("");
+  const [emailError, setEmailError] = useState(null);
   const [newUser, setNewUser] = useState({
     confirm_password: '',
     email: '',
@@ -23,18 +25,12 @@ export const SignUp = () => {
     password: '',
   });
 
-  const header = {
-    text: "In order to find projects and connect with other users, we'll need to create an account.",
-    title: 'Create an account',
-  };
-
 
   const handleSignUp = async (event) => {
-    localStorage.removeItem('token');
     event.preventDefault();
     const { email, first_name, last_name, password } = newUser
     if (email === "" || first_name === "" || last_name === "" || password === "") {
-      setError("Please fill in all required fields.")
+      setModalError("Please fill in all required fields.")
       setShowModal(true)
     } else if (newUser.confirm_password !== newUser.password) {
       setNewUser(prevState => {
@@ -44,30 +40,103 @@ export const SignUp = () => {
           password: '',
         }
       });
-      setError("Passwords do not match")
+      setModalError("Passwords do not match. Please try again.")
       setShowModal(true)
+    } else if (emailError) {
+      setModalError("An account with this email already exists. Please try another email or Sign in.")
+      setShowModal(true);
+      setNewUser(prevState => {
+        return {
+          ...prevState,
+          email: '',
+          confirm_password: '',
+          password: '',
+        }});
+        setEmailError(null);
     } else {
       dispatch(signUpUser(newUser));
+      navigate('/roulette')
     }
-    const user = await verify()
-    if (user) {
-        navigate('/')
-    } else {
-        setError("An account with this email address already exists.")
-        setShowModal(true);
-      }
-    
   };
+
+  const handleEmailCheck = async (e) => {
+    const emailReq = {email: e.target.value}
+    const res = await checkEmailAuth(emailReq)
+    if (res) {
+      setEmailError(res)
+    }
+  }
 
   return (
     <div className="sign-up-screen">
       {showModal && 
         <GenericModal 
-          bodyText={error} 
+          bodyText={modalError} 
           buttonText="Ok" 
           setShowModal={setShowModal}/>  }
-          <h4>Create an account</h4>
-      <Form formData={signUpForm} formState={[newUser, setNewUser, handleSignUp]} />
+        <h4>Create an account</h4>
+        <form className="form sign-up" onSubmit={handleSignUp}>
+          <div className="input-wrapper">
+            <label htmlFor="first_name">Name</label>
+            <input 
+              id="first_name"
+              name="first_name"
+              onChange={(e) => handleChange(e, "first_name", setNewUser)}
+              type="text"
+              value={newUser["first_name"]}
+              />
+          </div>
+          <div className="input-wrapper">
+            <label htmlFor="last_name">Last Name</label>
+            <input 
+              id="last_name"
+              name="last_name"
+              onChange={(e) => handleChange(e, "last_name", setNewUser)}
+              type="text"
+              value={newUser["last_name"]}
+              />
+          </div>
+          <div className="input-wrapper">
+            <label htmlFor="email">Email Address</label>
+            <input 
+              id="email"
+              name="email"
+              onChange={(e) => handleChange(e, "email", setNewUser)}
+              type="text"
+              value={newUser["email"]}
+              onFocus={() => setEmailError(null)}
+              onBlur={(e)=>handleEmailCheck(e)}
+              />
+          </div>
+          <div className="form-error">
+            <h6>{emailError}</h6>
+          </div>
+          <div className="input-wrapper">
+            <label htmlFor="password">Password</label>
+            <input 
+              id="password"
+              name="password"
+              onChange={(e) => handleChange(e, "password", setNewUser)}
+              type="password"
+              value={newUser["password"]}
+              />
+          </div>
+          <div className="input-wrapper">
+            <label htmlFor="confirm_password">Re-enter Password</label>
+            <input 
+              id="confirm_password"
+              name="confirm_password"
+              onChange={(e) => handleChange(e, "confirm_password", setNewUser)}
+              type="password"
+              value={newUser["confirm_password"]}
+              />
+          </div>
+          <div className="form-error">
+            { newUser.password !== "" && <h6>{ newUser.password === newUser.confirm_password ? "Passwords match." : "Passwords do not match."}</h6>}
+          </div>
+          <SingleActionButton text="Register" type="submit" />
+        </form>
+        <h6>Already have an account? <Link to="/sign-in">Sign in.</Link></h6>
     </div>
   );
 };
