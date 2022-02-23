@@ -6,15 +6,17 @@ import { useDispatch } from 'react-redux';
 import { signUpUser } from '../../services/redux/slices/uiActions.js';
 import { GenericModal } from '../../components/Modal/GenericModal.jsx';
 import './SignUp.scss';
-import { checkEmailAuth } from '../../services/api/users.js';
+import { checkEmailAuth, verify } from '../../services/api/users.js';
 import { handleChange } from '../../services/utils/formHandlers';
 import { SingleActionButton } from '../../components/Button/SingleActionButton.jsx';
+import { DoubleActionModal } from '../../components/Modal/DoubleActionModal.jsx';
 
 
 export const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [modalError, setModalError] = useState("");
   const [emailError, setEmailError] = useState(null);
   const [newUser, setNewUser] = useState({
@@ -55,7 +57,7 @@ export const SignUp = () => {
         setEmailError(null);
     } else {
       dispatch(signUpUser(newUser));
-      navigate('/roulette')
+      setShowSuccessModal(true);
     }
   };
 
@@ -65,10 +67,23 @@ export const SignUp = () => {
     if (res) {
       setEmailError(res)
     }
+  };
+
+  const handleEditProfile = async () => {
+    const {_id} = await verify();
+    navigate(`/users/${_id}/edit`)
   }
 
   return (
     <div className="sign-up-screen">
+      {showSuccessModal &&
+      <DoubleActionModal 
+        setShowModal={setShowSuccessModal}
+        bodyText="Success! Do you want to finish setting up your profile or try out the Roulette?"
+        leftText="Finish Profile"
+        leftOnClick={() => handleEditProfile()}
+        rightText="Go to Roulette"
+        rightOnClick={() => navigate("/roulette")}/>}
       {showModal && 
         <GenericModal 
           bodyText={modalError} 
