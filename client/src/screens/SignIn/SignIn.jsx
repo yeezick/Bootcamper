@@ -4,7 +4,7 @@ import { Header } from '../../components/Header/Header.jsx';
 import { Form } from '../../components/Form/Form';
 // assets
 import { useDispatch } from 'react-redux';
-import { loginUser } from '../../services/redux/slices/uiActions.js';
+import { loginUser } from '../../services/redux/actions/uiActions.js';
 import { signInForm } from '../../services/formData.js';
 
 export const SignIn = () => {

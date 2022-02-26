@@ -15,8 +15,8 @@ import './App.css';
 import { verify } from './services/api/users';
 import { useDispatch, useSelector } from 'react-redux';
 import { uiActions } from './services/redux/slices/uiSlice';
-import { fetchAllProjects } from './services/redux/slices/projectActions.js';
-import { fetchAllTools} from './services/redux/slices/toolActions.js';
+import { fetchAllProjects } from './services/redux/actions/projectActions.js';
+import { fetchAllTools } from './services/redux/actions/toolActions.js';
 
 function App() {
   const dispatch = useDispatch();

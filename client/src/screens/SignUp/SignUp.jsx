@@ -5,7 +5,7 @@ import { Form } from '../../components/Form/Form.jsx';
 // assets
 import { signUpForm } from '../../services/formData.js';
 import { useDispatch } from 'react-redux';
-import { signUpUser } from '../../services/redux/slices/uiActions.js';
+import { signUpUser } from '../../services/redux/actions/uiActions.js';
 
 export const SignUp = () => {
   const navigate = useNavigate();

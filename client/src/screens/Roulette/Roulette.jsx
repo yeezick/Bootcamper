@@ -3,9 +3,9 @@ import { Header } from '../../components/Header/Header';
 // assets
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllProjects } from '../../services/redux/slices/projectActions';
+import { fetchAllProjects } from '../../services/redux/actions/projectActions';
 import { updateUserAndProject } from '../../services/api/projects';
-import { addRejectedProject } from '../../services/redux/slices/uiActions';
+import { addRejectedProject } from '../../services/redux/actions/uiActions';
 import { projectActions } from '../../services/redux/slices/projectSlice';
 import { DoubleActionButton } from '../../components/Button/DoubleActionButton';
 
@@ -106,11 +106,12 @@ export const Roulette = () => {
       <p>{`Looking for collaborators who can commit at least X hours per week`}</p>
 
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <DoubleActionButton 
-          leftText="I'll Pass" 
-          leftOnClick={declineProject} 
-          rightText="I'm Interested" 
-          rightOnClick={showInterest} />
+        <DoubleActionButton
+          leftText="I'll Pass"
+          leftOnClick={declineProject}
+          rightText="I'm Interested"
+          rightOnClick={showInterest}
+        />
         {availableProjects.length === 1 ? null : (
           <button onClick={skipProject}>Skip for now</button>
         )}

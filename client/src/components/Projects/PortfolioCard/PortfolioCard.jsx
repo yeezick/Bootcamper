@@ -9,7 +9,7 @@ import { portfolioProjectForm } from '../../../services/formData';
 import { addPortfolioProject } from '../../../services/api/users.js';
 import './PortfolioCard.scss';
 import { handleChange } from '../../../services/utils/formHandlers';
-import { addRejectedProject } from '../../../services/redux/slices/uiActions';
+import { addRejectedProject } from '../../../services/redux/actions/uiActions';
 
 export const AddPortfolioProject = () => {
   const { _id: userId } = useSelector((state) => state.ui.user);

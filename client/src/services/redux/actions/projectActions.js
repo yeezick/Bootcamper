@@ -1,4 +1,4 @@
-import { projectActions } from './projectSlice';
+import { projectActions } from '../slices/projectSlice';
 import { getAllProjects } from '../../api/projects';
 
 export const fetchAllProjects = (blacklistedProjects) => {

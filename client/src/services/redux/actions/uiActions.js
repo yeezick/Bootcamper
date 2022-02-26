@@ -1,4 +1,4 @@
-import { uiActions } from './uiSlice';
+import { uiActions } from '../slices/uiSlice';
 import { signIn, signUp, updateUser } from '../../api/users';
 
 export const loginUser = (userData) => {

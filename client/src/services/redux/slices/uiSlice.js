@@ -18,9 +18,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   blacklisted_projects: [],
+  finishedRegistration: false,
+  toggleEditUser: false,
   user: '',
   visibleMobileMenu: false,
-  toggleEditUser: false,
 };
 
 export const uiSlice = createSlice({
@@ -34,8 +35,12 @@ export const uiSlice = createSlice({
       state.toggleEditUser = !state.toggleEditUser;
     },
     updateUser(state, action) {
+      const { about, interested_projects, member_of_projects, rejected_projects, role } =
+        action.payload;
+      if (about && role) {
+        state.finishedRegistration = true;
+      }
       state.user = action.payload;
-      const { interested_projects, member_of_projects, rejected_projects } = action.payload;
       state.blacklisted_projects = [
         ...interested_projects,
         ...member_of_projects,

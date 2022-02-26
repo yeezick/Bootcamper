@@ -1,5 +1,5 @@
-import { toolActions } from "./toolSlice.js";
-import { getAllTools } from "../../api/tools.js";
+import { toolActions } from '../slices/toolSlice.js';
+import { getAllTools } from '../../api/tools.js';
 
 export const fetchAllTools = () => {
   return async (dispatch) => {
@@ -9,5 +9,5 @@ export const fetchAllTools = () => {
     } catch (error) {
       console.log(error);
     }
-  }
-}
+  };
+};
