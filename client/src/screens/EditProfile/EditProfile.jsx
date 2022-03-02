@@ -16,7 +16,6 @@ import './EditProfile.scss';
 import { useEffect } from 'react';
 
 export const EditProfile = ({ currUser }) => {
-  const [showModal, setShowModal] = useState(false);
   const header = {
     text: "Before you can create or join a project, we'll need to finish your profile first.",
     title: 'About You',
@@ -24,8 +23,6 @@ export const EditProfile = ({ currUser }) => {
 
   return (
     <>
-      {showModal && <Modal setShowModal={setShowModal} />}
-      <button onClick={() => setShowModal(!showModal)}>show modal</button>
       <div className="edit-profile">
         <Header headerTitle={header.title} headerText={header.text} />
         <AboutUser />
