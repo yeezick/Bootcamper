@@ -1,68 +1,6 @@
-export const userForm = {
-  button: {
-    text: 'Update Your Info',
-    type: 'single',
-  },
-  handlers: {
-    // setterFunction: ,
-    // onSubmit: ,
-  },
-  inputs: [
-    {
-      labelText: 'Tell us a bit about you <small>(max 250 characters)</small>',
-      name: 'about',
-      max_chars: 250,
-      required: true,
-      type: 'textarea',
-    },
-    {
-      labelText: 'Include a fun fact!  <small> (optional, max 250 characters)</small> ',
-      name: 'fun_fact',
-      max_chars: 250,
-      type: 'textarea',
-    },
-    {
-      labelText: 'I am a...',
-      name: 'role',
-      required: true,
-      type: 'select',
-      options: ['Select role', 'UX Designer', 'Software Engineer'],
-    },
-    {
-      labelText: 'Link to your portfolio <small>(optional)</small>',
-      name: 'portfolio_link',
-      type: 'text',
-    },
-  ],
-};
-
-export const portfolioProjectForm = {
-  button: {
-    text: 'Add New Project',
-    type: 'single',
-  },
-  handlers: {
-    // onSubmit: handleNewProject,
-  },
-  inputs: [
-    {
-      labelText: 'Project Title',
-      name: 'project_title',
-      type: 'text',
-    },
-    {
-      labelText: 'Describe the project',
-      name: 'project_description',
-      type: 'textarea',
-    },
-    {
-      labelText: 'Link to your project',
-      name: 'project_link',
-      type: 'text',
-    },
-  ],
-};
-
+/* 
+  authentication forms
+ */
 export const signInForm = {
   button: {
     text: 'Sign in',
@@ -117,7 +55,81 @@ export const signUpForm = {
     },
   ],
 };
-// project form
+
+/* 
+  user related forms 
+*/
+export const userForm = {
+  button: {
+    text: 'Update Your Info',
+    type: 'single',
+  },
+  handlers: {
+    // setterFunction: ,
+    // onSubmit: ,
+  },
+  inputs: [
+    {
+      labelText: 'Tell us a bit about you <small>(max 250 characters)</small>',
+      name: 'about',
+      max_chars: 250,
+      required: true,
+      type: 'textarea',
+    },
+    {
+      labelText: 'Include a fun fact!  <small> (optional, max 250 characters)</small> ',
+      name: 'fun_fact',
+      max_chars: 250,
+      type: 'textarea',
+    },
+    {
+      labelText: 'I am a...',
+      name: 'role',
+      required: true,
+      type: 'select',
+      options: ['Select role', 'UX Designer', 'Software Engineer'],
+    },
+    {
+      labelText: 'Link to your portfolio <small>(optional)</small>',
+      name: 'portfolio_link',
+      type: 'text',
+    },
+  ],
+};
+
+export const portfolioProjectForm = {
+  button: {
+    text: 'Add New Project',
+    type: 'single',
+  },
+  handlers: {
+    // onSubmit: handleNewProject,
+  },
+  inputs: [
+    {
+      labelText: 'Project Title',
+      name: 'project_title',
+      required: true,
+      type: 'text',
+    },
+    {
+      labelText: 'Describe the project',
+      name: 'project_description',
+      required: true,
+      type: 'textarea',
+    },
+    {
+      labelText: 'Link to your project',
+      name: 'project_link',
+      required: true,
+      type: 'text',
+    },
+  ],
+};
+
+/* 
+  new project form
+*/
 export const projectForm = {
   button: {
     type: 'submit',
