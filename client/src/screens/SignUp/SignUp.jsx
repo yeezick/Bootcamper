@@ -30,11 +30,7 @@ export const SignUp = () => {
 
   const handleSignUp = async (event) => {
     event.preventDefault();
-    const { email, first_name, last_name, password } = newUser
-    if (email === "" || first_name === "" || last_name === "" || password === "") {
-      setModalError("Please fill in all required fields.")
-      setShowModal(true)
-    } else if (newUser.confirm_password !== newUser.password) {
+    if (newUser.confirm_password !== newUser.password) {
       setNewUser(prevState => {
         return {
           ...prevState,
@@ -94,6 +90,7 @@ export const SignUp = () => {
           <div className="input-wrapper">
             <label htmlFor="first_name">Name</label>
             <input 
+              required
               id="first_name"
               name="first_name"
               onChange={(e) => handleChange(e, "first_name", setNewUser)}
@@ -104,6 +101,7 @@ export const SignUp = () => {
           <div className="input-wrapper">
             <label htmlFor="last_name">Last Name</label>
             <input 
+              required
               id="last_name"
               name="last_name"
               onChange={(e) => handleChange(e, "last_name", setNewUser)}
@@ -114,10 +112,11 @@ export const SignUp = () => {
           <div className="input-wrapper">
             <label htmlFor="email">Email Address</label>
             <input 
+              required
               id="email"
               name="email"
               onChange={(e) => handleChange(e, "email", setNewUser)}
-              type="text"
+              type="email"
               value={newUser["email"]}
               onFocus={() => setEmailError(null)}
               onBlur={(e)=>handleEmailCheck(e)}
@@ -129,6 +128,7 @@ export const SignUp = () => {
           <div className="input-wrapper">
             <label htmlFor="password">Password</label>
             <input 
+              required
               id="password"
               name="password"
               onChange={(e) => handleChange(e, "password", setNewUser)}
@@ -139,6 +139,7 @@ export const SignUp = () => {
           <div className="input-wrapper">
             <label htmlFor="confirm_password">Re-enter Password</label>
             <input 
+              required
               id="confirm_password"
               name="confirm_password"
               onChange={(e) => handleChange(e, "confirm_password", setNewUser)}
