@@ -1,30 +1,22 @@
 import { useEffect, useState } from 'react';
-import { Header } from '../../components/Header/Header';
-// assets
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllProjects } from '../../services/redux/actions/projectActions';
+// components
+import { DoubleActionButton } from '../../components/Button/DoubleActionButton';
+// assets
 import { updateUserAndProject } from '../../services/api/projects';
 import { addRejectedProject } from '../../services/redux/actions/uiActions';
 import { projectActions } from '../../services/redux/slices/projectSlice';
-import { DoubleActionButton } from '../../components/Button/DoubleActionButton';
 
 // currently rerendering 5x
 export const Roulette = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
   const [currProject, setCurrProject] = useState(null);
   const [currIndex, setCurrIndex] = useState(null);
 
   const { availableProjects, isLoaded } = useSelector((state) => state.projects);
-  const { blacklisted_projects, user } = useSelector((state) => state.ui);
 
-  // for inital render & filtering
   useEffect(() => {
     const showAvailableProjects = async () => {
-      // dispatch(fetchAllProjects(blacklisted_projects));
-      //todo: figure out how to consider the projects that should be blacklisted for users. currently `availableProjects` reflects `allProjects` until `availableProjects` is updated on re-render
       setCurrProject(availableProjects[0]);
       setCurrIndex(0);
     };
@@ -33,9 +25,58 @@ export const Roulette = () => {
 
   useEffect(() => {
     // how do i eliminate the need to fetch all projects again?
-  }, [currIndex, blacklisted_projects, user]);
+  }, [currIndex]);
 
-  // console.log('user', user);
+  const rouletteButtonProps = {
+    availableProjects,
+    currIndex,
+    currProject,
+    setCurrIndex,
+    setCurrProject,
+  };
+
+  if (!currProject) {
+    return <p>Loading</p>;
+  }
+
+  return (
+    <div>
+      <ProjectInfo project={currProject} />
+      <RouletteButtons rouletteButtonProps={rouletteButtonProps} />
+    </div>
+  );
+};
+
+const ProjectInfo = ({ project }) => {
+  return (
+    <>
+      <div className="roulette-visual">I am an image</div>
+      <p>{project.title}</p>
+      <p>{project.description}</p>
+      <div className="roulette-tools">
+        <p> Built with:</p>
+        {project.tools?.map((tool) => (
+          <p>{tool}</p>
+        ))}
+      </div>
+      <p>{`Looking for collaborators who can commit at least X hours per week`}</p>
+    </>
+  );
+};
+
+/**
+ *  needs:
+ * user, currProject, dispatch,blacklisted, currIndex, navigate,finishedRegistration
+ * @param {} param0
+ * @returns
+ */
+const RouletteButtons = ({ rouletteButtonProps }) => {
+  const { availableProjects, currIndex, currProject, setCurrIndex, setCurrProject } =
+    rouletteButtonProps;
+  const { blacklisted_projects, finishedRegistration, user } = useSelector((state) => state.ui);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const declineProject = async () => {
     const body = {
       rejected_projects: [...user.rejected_projects, currProject._id],
@@ -89,34 +130,28 @@ export const Roulette = () => {
     navigate('/projects/:id/edit');
   };
 
-  if (!currProject) {
-    return <p>Loading</p>;
-  }
-
   return (
-    <div>
-      <header>Roulette</header>
-      <div className="roulette-visual">I am an image</div>
-      <p>{currProject.title}</p>
-      <p>{currProject.description}</p>
-      <div className="roulette-tools">
-        <p> Built with:</p>
-        {/* map thru tools */}
-      </div>
-      <p>{`Looking for collaborators who can commit at least X hours per week`}</p>
-
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <DoubleActionButton
-          leftText="I'll Pass"
-          leftOnClick={declineProject}
-          rightText="I'm Interested"
-          rightOnClick={showInterest}
-        />
-        {availableProjects.length === 1 ? null : (
-          <button onClick={skipProject}>Skip for now</button>
-        )}
-        <button onClick={redirectToCreateProject}> Create my own</button>
-      </div>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      {finishedRegistration ? (
+        <>
+          <DoubleActionButton
+            leftText="I'll Pass"
+            leftOnClick={declineProject}
+            rightText="I'm Interested"
+            rightOnClick={showInterest}
+          />
+          {availableProjects.length === 1 ? null : (
+            <button onClick={skipProject}>Skip for now</button>
+          )}
+          <button onClick={redirectToCreateProject}> Create my own</button>
+        </>
+      ) : (
+        <>
+          {availableProjects.length === 1 ? null : (
+            <button onClick={skipProject}>Skip for now</button>
+          )}
+        </>
+      )}
     </div>
   );
 };

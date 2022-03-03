@@ -19,25 +19,21 @@ export const projectSlice = createSlice({
   initialState,
   reducers: {
     fetchProjects(state, action) {
-      const { blacklistedProjects, allProjects } = action.payload;
-      // console.log('action', action.payload);
+      const { allProjects, blacklistedProjects } = action.payload;
       state.allProjects = allProjects;
 
       if (blacklistedProjects.length > 0) {
         const projectsAvailableToUser = allProjects.filter(
           (project) => blacklistedProjects.includes(project._id) === false
         );
-
         state.availableProjects = projectsAvailableToUser;
       } else {
         state.availableProjects = allProjects;
       }
 
-      // console.log('available', state.availableProjects);
       state.isLoaded = true;
     },
     updateBlacklistedProject(state, action) {
-      console.log('payload', action);
       state.availableProjects = state.allProjects.filter(
         (project) => action.payload.includes(project._id) === false
       );
