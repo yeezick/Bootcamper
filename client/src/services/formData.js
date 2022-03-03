@@ -1,3 +1,64 @@
+/* 
+  authentication forms
+ */
+export const signInForm = {
+  button: {
+    text: 'Sign in',
+    type: 'single',
+  },
+  handlers: {
+    // onSubmit: handleNewProject,
+  },
+  inputs: [
+    { labelText: 'Email:', name: 'email', type: 'email' },
+    {
+      labelText: 'Password:',
+      name: 'password',
+      type: 'password',
+    },
+  ],
+};
+
+export const signUpForm = {
+  button: {
+    text: 'Register',
+    type: 'single',
+  },
+  handlers: {
+    // onSubmit: handleNewProject,
+  },
+  inputs: [
+    {
+      labelText: "What's your first name?",
+      name: 'first_name',
+      type: 'text',
+    },
+    {
+      labelText: "What's your last name?",
+      name: 'last_name',
+      type: 'text',
+    },
+    {
+      labelText: "What's your email?",
+      name: 'email',
+      type: 'email',
+    },
+    {
+      labelText: 'Create a password:',
+      name: 'password',
+      type: 'password',
+    },
+    {
+      labelText: 'Confirm password:',
+      name: 'confirm_password',
+      type: 'password',
+    },
+  ],
+};
+
+/* 
+  user related forms 
+*/
 export const userForm = {
   button: {
     text: 'Update Your Info',
@@ -48,76 +109,27 @@ export const portfolioProjectForm = {
     {
       labelText: 'Project Title',
       name: 'project_title',
+      required: true,
       type: 'text',
     },
     {
       labelText: 'Describe the project',
       name: 'project_description',
+      required: true,
       type: 'textarea',
     },
     {
       labelText: 'Link to your project',
       name: 'project_link',
+      required: true,
       type: 'text',
     },
   ],
 };
 
-export const signInForm = {
-  button: {
-    text: 'Log In',
-    type: 'single',
-  },
-  handlers: {
-    // onSubmit: handleNewProject,
-  },
-  inputs: [
-    { labelText: 'Email:', name: 'email', type: 'email' },
-    {
-      labelText: 'Password:',
-      name: 'password',
-      type: 'password',
-    },
-  ],
-};
-
-export const signUpForm = {
-  button: {
-    text: 'Register',
-    type: 'single',
-  },
-  handlers: {
-    // onSubmit: handleNewProject,
-  },
-  inputs: [
-    {
-      labelText: "Name",
-      name: 'first_name',
-      type: 'text',
-    },
-    {
-      labelText: "Last Name",
-      name: 'last_name',
-      type: 'text',
-    },
-    {
-      labelText: "Email Address",
-      name: 'email',
-      type: 'email',
-    },
-    {
-      labelText: 'Password',
-      name: 'password',
-      type: 'password',
-    },
-    {
-      labelText: 'Re-enter Password',
-      name: 'confirm_password',
-      type: 'password',
-    },
-  ],
-};
-// project form
+/* 
+  new project form
+*/
 export const projectForm = {
   button: {
     type: 'submit',
