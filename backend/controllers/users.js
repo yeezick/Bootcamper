@@ -17,10 +17,10 @@ exp.setDate(today.getDate() + 30);
 
 export const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find().populate({
-      path: "member_of_projects",
-      model: project,
-    });
+    const users = await User.find()  //.populate({
+    //   path: "member_of_projects",
+    //   model: project,
+    // });
     res.json(users);
   } catch (error) {
     console.log(error.message);
@@ -66,6 +66,19 @@ export const updateUserInfo = async (req, res) => {
     res.status(500).send(error.message);
   }
 }; // works
+
+export const checkEmail = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email});
+    if (user) {
+      return res.json({message: "An account with this email address already exists."})
+    }
+    return res.status(200).json({message: false})
+  } catch (error) {
+    console.error({ err: error.message })
+    res.status(500).json({ error: error.message });
+  }
+}
 
 // Auth
 export const signUp = async (req, res) => {

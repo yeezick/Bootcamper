@@ -1,6 +1,7 @@
 import React from 'react';
 import parseHtml from 'html-react-parser';
 import { handleChange } from '../../services/utils/formHandlers';
+import { SingleActionButton } from '../Button/SingleActionButton';
 import './Form.scss';
 
 export const Form = ({ formData, formState }) => {
@@ -35,7 +36,7 @@ export const Form = ({ formData, formState }) => {
           )}
         </div>
       ))}
-      <button type="submit">{button.text}</button>
+      <SingleActionButton text={button.text} type="submit" />
     </form>
   );
 };

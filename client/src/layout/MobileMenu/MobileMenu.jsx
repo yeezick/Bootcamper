@@ -19,26 +19,26 @@ const MobileMenu = ({ isOpen, toggleMobileMenu }) => {
         <Link className="nav-link" to="/" onClick={toggleMobileMenu}>
           Home
         </Link>
-        <Link className="nav-link" to="/projects/1" onClick={toggleMobileMenu}>
-          Projects
+        <Link className="nav-link" to="/dashboard" onClick={toggleMobileMenu}>
+          Dashboard
         </Link>
-        <Link className="nav-link" to="/projects/i/edit" onClick={toggleMobileMenu}>
-          Project edit
+        <Link className="nav-link" to="/projects/create" onClick={toggleMobileMenu}>
+          Create Project
         </Link>
         <Link className="nav-link" to="/roulette" onClick={toggleMobileMenu}>
-          roulette
+          Roulette
         </Link>
         <Link className="nav-link" to="/sign-in" onClick={toggleMobileMenu}>
-          sign-in
+          Sign In
         </Link>
         <Link className="nav-link" to="/sign-up" onClick={toggleMobileMenu}>
-          sign-up
+          Sign Up
         </Link>
         <Link className="nav-link" to={`/users/${userId}`} onClick={toggleMobileMenu}>
-          my profile
+          My Profile
         </Link>
         <Link className="nav-link" to={`/users/${userId}/edit`} onClick={toggleEditMode}>
-          edit my profile
+          Edit My Profile
         </Link>
       </div>
     </div>

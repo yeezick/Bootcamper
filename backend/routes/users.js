@@ -14,5 +14,6 @@ router.patch('/users/:id', controllers.addPortfolioProject);
 // auth
 router.post("/sign-in", controllers.signIn);
 router.get("/verify", controllers.verify);
+router.post("/email", controllers.checkEmail)
 
 export default router;

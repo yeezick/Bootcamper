@@ -1,5 +1,4 @@
 import { api } from './apiConfig';
-import jwtDecode from 'jwt-decode';
 
 export const getAllUsers = async () => {
   try {
@@ -36,6 +35,15 @@ export const addPortfolioProject = async (id, newProject) => {
     throw error;
   }
 };
+
+export const checkEmailAuth = async (email) => {
+  try {
+    const res = await api.post('/email', email);
+    return res.data.message;
+  } catch (error) {
+    throw error;
+  }
+}
 
 export const signUp = async (credentials) => {
   try {
