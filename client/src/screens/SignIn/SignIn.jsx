@@ -1,54 +1,42 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // assets
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../services/redux/slices/uiActions.js';
 import '../SignUp/SignUp.scss';
-import store from '../../services/redux/store.js'
-import { GenericModal } from '../../components/Modal/GenericModal';
 import { handleChange } from '../../services/utils/formHandlers';
 import { SingleActionButton } from '../../components/Button/SingleActionButton';
-import { checkEmailAuth, signOut } from '../../services/api/users';
+import { checkEmailAuth, signOut, verify } from '../../services/api/users';
 
 export const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [noAccountError, setNoAccountError] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const { _id } = useSelector((state) => state.ui.user);
+  const [authError, setAuthError] = useState(null);
+  const [noAccountError, setNoAccountError] = useState(null);
   const [loginInfo, setLoginInfo] = useState({
     email: 'test@test.com',
     password: 'test',
   });
 
-  useEffect( async () => {
+  useEffect(() => {
     signOut();
   },[])
 
   const handleSignIn = async (event) => {
     event.preventDefault();
-    if (!noAccountError) {
-      await dispatch(loginUser(loginInfo));
-      //check for user
-      const state = store.getState();
-      if (state.ui.user.email === loginInfo.email) {
-        navigate(`/users/${state.ui._id}/edit`);
-      } else {
-        setShowModal(true);
-        setLoginInfo(prevState => {
-          return {
-            ...prevState,
-            password: '',
-          }
-        })
-      }
+    await dispatch(loginUser(loginInfo));
+    const user = await verify();
+    if (user.email === loginInfo.email) {
+        navigate(`/users/${_id}/edit`);
     } else {
-      setShowModal(true);
+      setAuthError("Invalid credentials. Please check your details and try again.")
       setLoginInfo((prevState) => {
         return {
           ...prevState,
           password: '',
         }
-      })
+      });
     }
     
   };
@@ -57,44 +45,45 @@ export const SignIn = () => {
     const emailReq = { email: loginInfo.email }
     const res = await checkEmailAuth(emailReq);
     if (!res) {
-      setNoAccountError(true);
+      setNoAccountError("Account not found.");
     }
   }
 
 
   return (
     <div className="sign-in-screen auth-form">
-      {showModal && <GenericModal
-        setShowModal={setShowModal}
-        bodyText="Invalid credentials. Please check your info try again, or register a new account."
-        buttonText="Ok"
-      />}
       <h4>Welcome Back!</h4>
       <form className="form sign-in" onSubmit={handleSignIn}>
         <div className="input-wrapper">
               <label htmlFor="email">Email</label>
               <input 
+                required
                 id="email"
                 name="email"
                 onChange={(e) => handleChange(e, "email", setLoginInfo)}
-                type="text"
+                type="email"
                 value={loginInfo["email"]}
                 onFocus={()=> setNoAccountError(false)}
                 onBlur={() => validEmail()}
                 />
             </div>
             <div className="form-error">
-              { noAccountError && <h6>User not found.</h6> }
+              <h6>{noAccountError}</h6> 
             </div>
             <div className="input-wrapper">
               <label htmlFor="password">Password</label>
               <input 
+                required
                 id="password"
                 name="password"
                 onChange={(e) => handleChange(e, "password", setLoginInfo)}
                 type="password"
                 value={loginInfo["password"]}
+                onFocus={() => setAuthError(null)}
                 />
+          </div>
+          <div className="form-error">
+            <h6>{authError}</h6>
           </div>
           <SingleActionButton text="Log In" type="submit" />
       </form>
