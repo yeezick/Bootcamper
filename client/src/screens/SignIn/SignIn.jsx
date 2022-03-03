@@ -11,7 +11,7 @@ import { checkEmailAuth, signOut, verify } from '../../services/api/users';
 export const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { _id } = useSelector((state) => state.ui.user);
+  const { _id: userId } = useSelector((state) => state.ui.user);
   const [authError, setAuthError] = useState(null);
   const [noAccountError, setNoAccountError] = useState(null);
   const [loginInfo, setLoginInfo] = useState({
@@ -28,7 +28,7 @@ export const SignIn = () => {
     await dispatch(loginUser(loginInfo));
     const user = await verify();
     if (user.email === loginInfo.email) {
-        navigate(`/users/${_id}/edit`);
+        navigate(`/users/${userId}/edit`);
     } else {
       setAuthError("Invalid credentials. Please check your details and try again.")
       setLoginInfo((prevState) => {
