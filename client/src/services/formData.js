@@ -63,7 +63,7 @@ export const portfolioProjectForm = {
 
 export const signInForm = {
   button: {
-    text: 'Sign in',
+    text: 'Log In',
     type: 'single',
   },
   handlers: {
