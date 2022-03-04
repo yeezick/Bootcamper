@@ -36,6 +36,8 @@ function App() {
   useEffect(() => {
     if (userLoaded) {
       dispatch(fetchAllProjects(blacklisted_projects));
+    } else {
+      dispatch(fetchAllProjects());
     }
   }, [userLoaded]);
 
