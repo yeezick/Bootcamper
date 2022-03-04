@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 // components
 import { DoubleActionButton } from '../../components/Button/DoubleActionButton';
 // assets
-import { updateUserAndProject } from '../../services/api/projects';
 import { addRejectedProject } from '../../services/redux/actions/uiActions';
-import { projectActions } from '../../services/redux/slices/projectSlice';
+import { showInterestInRoulette } from '../../services/redux/actions/projectActions';
 
 // currently rerendering 5x
 export const Roulette = () => {
@@ -64,33 +63,27 @@ const ProjectInfo = ({ project }) => {
   );
 };
 
-/**
- *  needs:
- * user, currProject, dispatch,blacklisted, currIndex, navigate,finishedRegistration
- * @param {} param0
- * @returns
- */
 const RouletteButtons = ({ rouletteButtonProps }) => {
-  const { availableProjects, currIndex, currProject, setCurrIndex, setCurrProject } =
-    rouletteButtonProps;
-  const { blacklisted_projects, finishedRegistration, user } = useSelector((state) => state.ui);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { blacklisted_projects, finishedRegistration, user } = useSelector((state) => state.ui);
+  const { availableProjects, currIndex, currProject, setCurrIndex, setCurrProject } =
+    rouletteButtonProps;
 
   const declineProject = async () => {
+    const blacklistedProjects = [...blacklisted_projects, currProject._id];
     const body = {
       rejected_projects: [...user.rejected_projects, currProject._id],
     };
-    dispatch(addRejectedProject(user._id, body));
 
-    const blackListedProjects = [...blacklisted_projects, currProject._id];
-    dispatch(projectActions.updateBlacklistedProject(blackListedProjects));
+    dispatch(addRejectedProject(user._id, body, blacklistedProjects));
     skipProject();
   };
 
   const showInterest = async () => {
     const { _id: projectId, interested_applicants } = currProject;
     const { _id: userId, interested_projects } = user;
+    const blacklistedProjects = [...blacklisted_projects, currProject._id];
     const body = {
       project: {
         projectId,
@@ -106,9 +99,7 @@ const RouletteButtons = ({ rouletteButtonProps }) => {
       },
     };
 
-    await updateUserAndProject(body);
-    const blackListedProjects = [...blacklisted_projects, currProject._id];
-    dispatch(projectActions.updateBlacklistedProject(blackListedProjects));
+    dispatch(showInterestInRoulette(body, blacklistedProjects));
     skipProject();
   };
 

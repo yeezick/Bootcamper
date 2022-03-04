@@ -33,7 +33,7 @@ export const projectSlice = createSlice({
 
       state.isLoaded = true;
     },
-    updateBlacklistedProject(state, action) {
+    updateBlacklistedProjects(state, action) {
       state.availableProjects = state.allProjects.filter(
         (project) => action.payload.includes(project._id) === false
       );
