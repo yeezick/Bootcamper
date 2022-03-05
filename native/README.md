@@ -30,7 +30,10 @@ I already had Java downloaded on my machine, but this would be important to reso
 
 ### Dependencies
 
-By this point it should be safe to install the dependencies for the app with: `npm install`
+By this point it should be safe to install the dependencies for the app with:
+
+- `npm install`
+- `npm start`
 
 ## Resources
 
