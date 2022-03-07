@@ -8,6 +8,7 @@ import { Roulette } from './screens/Roulette/Roulette.jsx';
 import { SignIn } from './screens/SignIn/SignIn.jsx';
 import { SignUp } from './screens/SignUp/SignUp.jsx';
 import { SingleProject } from './screens/SingleProject/SingleProject.jsx';
+import { UserDashboard } from './screens/UserDashboard/UserDashboard.jsx';
 import { UserProfile } from './screens/UserProfile/UserProfile.jsx';
 import Layout from './layout/Layout';
 // assets
@@ -35,6 +36,8 @@ function App() {
   useEffect(() => {
     if (userLoaded) {
       dispatch(fetchAllProjects(blacklisted_projects));
+    } else {
+      dispatch(fetchAllProjects());
     }
   }, [userLoaded]);
 
@@ -47,6 +50,7 @@ function App() {
         <Route path="/roulette" element={<Roulette />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route exact path='/dashboard' element={<UserDashboard />}></Route>
         <Route exact path="/users/:id" element={<UserProfile />} />
         <Route exact path="/users/:id/edit" element={<EditProfile currUser={user} />} />
       </Routes>

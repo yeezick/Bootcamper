@@ -77,7 +77,7 @@ const insertData = async () => {
       engineer_count: 0,
       interested_applicants: [user3, user4], // projects[0]
       seeking: true,
-      team_members: [user1, user2],
+      team_members: [user2],
       time_commitment: 'no preference',
       title: "GameBot",
       tools: [],
@@ -89,7 +89,7 @@ const insertData = async () => {
       engineer_count: 0,
       interested_applicants: [user4], //projects[1]
       seeking: true,
-      team_members: [user1, user2, user3],
+      team_members: [user1, user3],
       time_commitment: 'hobby',
       title: "PaintBot",
       tools: [],
@@ -101,7 +101,7 @@ const insertData = async () => {
       engineer_count: 0,
       interested_applicants: [user4], //projects[2]
       seeking: false,
-      team_members: [user3, user1],
+      team_members: [user2, user1],
       time_commitment: 'part-time',
       title: "GardenBot",
       tools: [],
@@ -113,7 +113,7 @@ const insertData = async () => {
       engineer_count: 0,
       interested_applicants: [user2], //projects[3]
       seeking: true,
-      team_members: [user3, user4],
+      team_members: [user3],
       time_commitment: 'full-time',
       title: "BabysitterBot",
       tools: [],
@@ -125,7 +125,7 @@ const insertData = async () => {
       engineer_count: 0,
       interested_applicants: [user2], //projects[4]
       seeking: true,
-      team_member: [user1, user4],
+      team_members: [user1, user3],
       time_commitment: 'full-time',
       title: "MyMoney.io",
       tools: [],
@@ -141,14 +141,13 @@ const insertData = async () => {
   // console.log("first", project1[0]);
   // adding allProjects to each user's member_of_projects array:
   user1.member_of_projects.push(
-    allProjects[0],
     allProjects[1],
     allProjects[2],
     allProjects[4]
   );
-  user2.member_of_projects.push(allProjects[0], allProjects[1]);
-  user3.member_of_projects.push(allProjects[1], allProjects[2], allProjects[3]);
-  user4.member_of_projects.push(allProjects[3], allProjects[4]);
+  user2.member_of_projects.push(allProjects[0]);
+  user3.member_of_projects.push(allProjects[1], allProjects[3]);
+  user4.member_of_projects.push();
 
   // adding projects to each user's interested_projects array:
   user2.interested_projects.push(allProjects[3], allProjects[4]);

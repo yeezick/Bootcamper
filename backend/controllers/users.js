@@ -67,6 +67,19 @@ export const updateUserInfo = async (req, res) => {
   }
 }; // works
 
+export const checkEmail = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email});
+    if (user) {
+      return res.json({message: "An account with this email address already exists."})
+    }
+    return res.status(200).json({message: false})
+  } catch (error) {
+    console.error({ err: error.message })
+    res.status(500).json({ error: error.message });
+  }
+}
+
 // Auth
 export const signUp = async (req, res) => {
   try {

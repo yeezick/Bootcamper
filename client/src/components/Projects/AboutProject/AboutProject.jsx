@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { SingleActionButton } from '../../Button/SingleActionButton';
 
 export const AboutProject = ({ createNewProject, handleSubmit, project, setEdit }) => {
   const currentUser = useSelector(state => state.ui.user)
@@ -128,7 +129,7 @@ useEffect(() => {
         <option value='part-time'>part-time</option>
         <option value='full-time'>full-time</option>
       </select>
-      <button type='submit'>{createNewProject ? 'Create Project' : 'Update Project'}</button>
+      <SingleActionButton type={'submit'} text={createNewProject ? 'Create Project' : 'Update Project'} />
       </form>
     </div>
   )

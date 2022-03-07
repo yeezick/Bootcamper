@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { EditProject } from '../EditProject/EditProject.jsx';
+import { SingleActionButton } from '../../components/Button/SingleActionButton.jsx';
 import { getOneProject } from '../../services/api/projects.js';
 import './SingleProject.scss';
 
@@ -57,7 +58,7 @@ export const SingleProject = () => {
           ))} 
         </ul>
         <p>{`Looking for collaborators who can commit ${hours} hours per week.`}</p>
-        {currentUser._id === project.owner? <button onClick={() => {setEdit(true)}}>Edit Project Details</button> : null}
+        {currentUser._id === project.owner? <SingleActionButton onClick={() => {setEdit(true)}} text={'Edit Project Details'}/> : null}
     </div>
   ) } else if (loaded && edit) {
     return (
