@@ -1,8 +1,12 @@
-import { StatusBar } from "expo-status-bar";
+import "react-native-gesture-handler";
+// packages
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+// native components
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { StyleSheet, Text, View } from "react-native";
+import { SideMenu } from "./SideMenu";
+// custom components
 import { Landing } from "./screens/Landing";
 import { CreateProject } from "./screens/CreateProject";
 import { EditProject } from "./screens/EditProject";
@@ -13,13 +17,15 @@ import { SignUp } from "./screens/SignUp";
 import { UserDashboard } from "./screens/UserDashboard";
 import { UserProfile } from "./screens/UserProfile";
 import { EditProfile } from "./screens/EditProfile";
+// assets
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <SideMenu />
+      {/* <Stack.Navigator>
         <Stack.Screen
           name="Landing"
           component={Landing}
@@ -70,7 +76,7 @@ export default function App() {
           component={EditProfile}
           options={{ title: "welcome" }}
         />
-      </Stack.Navigator>
+      </Stack.Navigator> */}
     </NavigationContainer>
 
     // <View style={styles.container}>
