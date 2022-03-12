@@ -1,18 +1,21 @@
 // import React from "react";
 // // import { useNavigate } from "react-router-dom";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 
-export function Landing() {
+export function Landing({ navigation }) {
   // const navigate = useNavigate();
   return (
     <View style={styles.container}>
+      <View style={styles.placeholderImage}></View>
       <Text>Bootcamper</Text>
-      {/* button */}
-      {/* button */}
+      <Button title={"Sign Up"} onPress={() => navigation.navigate("SignUp")} />
+      <Button title={"Sign In"} onPress={() => navigation.navigate("SignIn")} />
       <Text>Want to take a test drive first?</Text>
-      {/* button */}
+      <Button
+        title={"Try it!"}
+        onPress={() => navigation.navigate("Roulette")}
+      />
       <Text> Help | Contact</Text>
-      {/* <StatusBar style="auto" /> */}
     </View>
   );
 }
@@ -22,6 +25,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+  },
+  placeholderImage: {
+    backgroundColor: "black",
+    height: "60%",
+    width: "100%",
   },
 });
