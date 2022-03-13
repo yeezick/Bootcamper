@@ -46,9 +46,7 @@
     ]
   },
   "devDependencies": {
+    "mini-css-extract-plugin": "2.4.5",
     "prettier": "^2.5.1"
-  },
-  "resolutions": {
-    "mini-css-extract-plugin": "2.4.5"
   }
 }
