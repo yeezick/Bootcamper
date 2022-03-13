@@ -1,4 +1,5 @@
-import { uiActions } from './uiSlice';
+import { uiActions } from '../slices/uiSlice';
+import { projectActions } from '../slices/projectSlice';
 import { signIn, signUp, updateUser } from '../../api/users';
 
 export const loginUser = (userData) => {
@@ -23,11 +24,12 @@ export const signUpUser = (userData) => {
   };
 };
 
-export const addRejectedProject = (userId, userUpdate) => {
+export const addRejectedProject = (userId, userUpdate, blacklistedProjects) => {
   return async (dispatch) => {
     try {
       const res = await updateUser(userId, userUpdate);
       dispatch(uiActions.updateUser(res));
+      dispatch(projectActions.updateBlacklistedProjects(blacklistedProjects));
     } catch (error) {
       console.log(error);
     }
