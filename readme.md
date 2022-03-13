@@ -109,10 +109,20 @@ In order to build the app we used:
 
 ## Credits
 
-Our talented team includes:
-| Name | Role | LinkedIn | GitHub |
-|:----:|:--------:|:-------:| :----:|
-| Erick Manrique | Full-Stack Engineer |[LinkedIn](https://www.linkedin.com/in/erick-manrique/)| [GitHub](https://github.com/yeezick)|
-| Nicholas Rynearson |Full-Stack Engineer | [LinkedIn](https://www.linkedin.com/in/nicholas-rynearson-88a77635/)| [GitHub](https://github.com/flexibleidealist)|
-| Aaron Harris | Front-end Engineer |[LinkedIn](https://www.linkedin.com/in/aaron-harris-577867218/)| [GitHub](https://github.com/aaronsHarris)|
-| Diego Gallardo | UX Designer |[LinkedIn](https://www.linkedin.com/in/digallardox/)| [GitHub](https://github.com/digallardox)|
+### Engineering team
+
+|                                      Name                                      |             Role             |                         GitHub                          |
+| :----------------------------------------------------------------------------: | :--------------------------: | :-----------------------------------------------------: |
+|         [Erick Manrique](https://www.linkedin.com/in/erick-manrique/)          | Founding Full-Stack Engineer |          [Yeezick](https://github.com/yeezick)          |
+| [Nicholas Rynearson](https://www.linkedin.com/in/nicholas-rynearson-88a77635/) | Founding Full-Stack Engineer | [FlexibleIdealist](https://github.com/flexibleidealist) |
+|   [ Julia Dwyer](https://www.linkedin.com/in/julia-dwyer-software-engineer/)   |     Full-Stack Engineer      |      [GooliaJulia](https://github.com/gooliajulia)      |
+|      [Aaron Harris](https://www.linkedin.com/in/aaron-harris-577867218/)       |      Front-End Engineer      |     [AaronsHarris](https://github.com/aaronsHarris)     |
+|            [Naved Rahim](https://www.linkedin.com/in/naved-rahim/)             |     Full-Stack Engineer      |       [NavedRahim](https://github.com/navedrahim)       |
+
+### User Experience & Design Team
+
+|                              Name                               |    Role     |
+| :-------------------------------------------------------------: | :---------: |
+| [Jennifer Huddock](https://www.linkedin.com/in/jenniferhudock/) | UX Designer |
+|    [Osiris Ramos](https://www.linkedin.com/in/osirisramos/)     | UX Designer |
+|    [ Jordan Chan](https://www.linkedin.com/in/jordanzchan/)     | UX Designer |
