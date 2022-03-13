@@ -1,4 +1,5 @@
 # Bootcamper
+Heroku requires a node.js application have the package.json in a root folder, therefore, this branch will be our official repo containing our production-development server. 
 
 ## Description
 
