@@ -1,9 +1,8 @@
-// import React from "react";
-// // import { useNavigate } from "react-router-dom";
-import { StyleSheet, Text, View } from "react-native";
+import {useEffect} from "react";
+import { Button, StyleSheet, Text, View } from "react-native";
+import {getAllProjects} from '../services/api/projects'
 
-export function Landing() {
-  // const navigate = useNavigate();
+export function Landing({ navigation }) {
   return (
     <View style={styles.container}>
       <Text>Bootcamper</Text>
