@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 // set connection location
-let MONGODB_URI = "mongodb://localhost:27017"; //process.env.PROD_MONGODB; // || atlas connection string
+const MONGODB_URI = process.env.DATABASE_URL || "mongodb://localhost:27017";
 
 mongoose.set("returnOriginal", false); //for findByAndUpdate to return a reference to object at location
 
