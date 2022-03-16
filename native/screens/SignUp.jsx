@@ -10,11 +10,11 @@
 // import { handleChange } from "../../services/utils/formHandlers";
 // import { SingleActionButton } from "../components/Button/SingleActionButton.jsx";
 // import { DoubleActionModal } from "../components/Modal/DoubleActionModal.jsx";
-import { StyleSheet, Text, TextInput, View, Button, Alert, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TextInput, View, TouchableOpacity } from "react-native";
 import { useState, createRef } from 'react';
 
 
-export const SignUp = () => {
+export const SignUp = ({ navigation }) => {
   const [newUser, setNewUser] = useState({
     first_name: '',
     last_name: '',
@@ -28,6 +28,52 @@ export const SignUp = () => {
   const emailInputRef = createRef();
   const passwordInputRef = createRef();
   const confirmPasswordInputRef = createRef();
+
+
+    const handleSignUp = async (event) => {
+    event.preventDefault();
+    if (newUser.confirm_password !== newUser.password) {
+      setNewUser((prevState) => {
+        return {
+          ...prevState,
+          confirm_password: "",
+          password: "",
+        };
+      });
+      setModalError("Passwords do not match. Please try again.");
+      setShowModal(true);
+    } else if (emailError) {
+      setModalError(
+        "An account with this email already exists. Please try another email or Sign in."
+      );
+      setShowModal(true);
+      setNewUser((prevState) => {
+        return {
+          ...prevState,
+          email: "",
+          confirm_password: "",
+          password: "",
+        };
+      });
+      setEmailError(null);
+    } else {
+      dispatch(signUpUser(newUser));
+      setShowSuccessModal(true);
+    }
+  };
+
+  const handleEmailCheck = async (e) => {
+    const emailReq = { email: e.target.value };
+    const res = await checkEmailAuth(emailReq);
+    if (res) {
+      setEmailError(res);
+    }
+  };
+
+  const handleEditProfile = async () => {
+    const { _id } = await verify();
+    navigate(`/users/${_id}/edit`);
+  };
 
 
   return (
@@ -130,14 +176,14 @@ export const SignUp = () => {
       </View>
       <TouchableOpacity
         style={styles.singleButton}
-        onPress={() => Alert.alert('Register button pressed')}
+        onPress={() => handleSignUp()}
         color="white">
         <Text style={styles.buttonText}>Register</Text>
       </TouchableOpacity>
       <View>
         <Text style={styles.inlineText}>Already have an account? <Text 
             style={styles.link}
-            onPress={() => Alert.alert('Sign in button pressed')}
+            onPress={() => navigation.navigate('SignIn')}
           >Sign in.</Text>
         </Text>
       </View>
