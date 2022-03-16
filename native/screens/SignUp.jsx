@@ -10,15 +10,188 @@
 // import { handleChange } from "../../services/utils/formHandlers";
 // import { SingleActionButton } from "../components/Button/SingleActionButton.jsx";
 // import { DoubleActionModal } from "../components/Modal/DoubleActionModal.jsx";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TextInput, View, Button, Alert, TouchableOpacity } from "react-native";
+import { useState, createRef } from 'react';
+
 
 export const SignUp = () => {
+  const [newUser, setNewUser] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    password: '',
+    confirm_password: '',
+  });
+
+  const firstNameInputRef = createRef();
+  const lastNameInputRef = createRef();
+  const emailInputRef = createRef();
+  const passwordInputRef = createRef();
+  const confirmPasswordInputRef = createRef();
+
+
   return (
-    <View>
-      <Text>Sign up</Text>
+    <View style={styles.accountForms}>
+      <Text style={styles.title} >Create an Account</Text>
+      <View style={styles.inputContainer}>
+        <Text>Name</Text>
+        <TextInput 
+          style={styles.input}
+          onChangeText={(firstName) => setNewUser((prevState) => {
+            return {
+              ...prevState,
+              first_name: firstName,
+            }
+          })}
+          keyboardType="default"
+          ref={firstNameInputRef}
+          returnKeyType="next"
+          onSubmitEditing={() => {
+            lastNameInputRef.current &&
+            lastNameInputRef.current.focus()
+          }}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text>Last Name</Text>
+        <TextInput 
+          style={styles.input}
+          onChangeText={(lastName) => setNewUser((prevState) => {
+            return {
+              ...prevState,
+              last_name: lastName
+            }
+          })}
+          keyboardType="default"
+          ref={lastNameInputRef}
+          returnKeyType="next"
+          onSubmitEditing={() => {
+            emailInputRef.current &&
+            emailInputRef.current.focus()
+          }}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text>Email Address</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={(email) => setNewUser((prevState) => {
+            return {
+              ...prevState,
+              email: email
+            }
+          })}
+          keyboardType="email"
+          ref={emailInputRef}
+          returnKeyType="next"
+          onSubmitEditing={() => {
+            passwordInputRef.current &&
+            passwordInputRef.current.focuse()
+          }}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text>Password</Text>
+        <TextInput 
+          style={styles.input}
+          onChangeText={(password) => setNewUser((prevState) => {
+            return {
+              ...prevState,
+              password: password
+            }
+          })}
+          ref={passwordInputRef}
+          returnKeyType="next"
+          secureTextEntry={true}
+          onSubmitEditing={() => {
+            confirmPasswordInputRef.current &&
+            confirmPasswordInputRef.current.focus()
+          }}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text>Re-enter Password</Text>
+        <TextInput 
+          style={styles.input}
+          onChangeText={(confirmPassword) => setNewUser((prevState) => {
+            return {
+              ...prevState,
+              confirm_password: confirmPassword
+            }
+          })}
+          ref={confirmPasswordInputRef}
+          returnKeyType="next"
+          secureTextEntry={true}
+          onSubmitEditing={() => {
+            confirmPasswordInputRef.current &&
+            confirmPasswordInputRef.current.focus()
+          }}
+        />
+      </View>
+      <TouchableOpacity
+        style={styles.singleButton}
+        onPress={() => Alert.alert('Register button pressed')}
+        color="white">
+        <Text style={styles.buttonText}>Register</Text>
+      </TouchableOpacity>
+      <View>
+        <Text style={styles.inlineText}>Already have an account? <Text 
+            style={styles.link}
+            onPress={() => Alert.alert('Sign in button pressed')}
+          >Sign in.</Text>
+        </Text>
+      </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  accountForms: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontWeight: '700',
+    margin: 20,
+    fontSize: 16,
+  },
+  inputContainer: {
+    width: 290,
+    marginHorizontal: 25,
+  },
+  input: {
+    height: 30,
+    marginVertical: 10,
+    borderRadius: 5,
+    borderStyle: "solid",
+    borderWidth: 1,
+    color: "black",
+    padding: 5,
+  },
+  singleButton: {
+    backgroundColor: 'black',
+    height: 40,
+    width: 120,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 20,
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: '500',
+  },
+  inlineText: {
+    fontSize: 14,
+    fontWeight: '600',
+    marginTop: 15,
+  },
+  link : {
+    fontStyle: 'italic',
+    textDecorationLine: 'underline',
+  }
+});
 
 // export const ReactSignUp = () => {
 //   const navigate = useNavigate();
