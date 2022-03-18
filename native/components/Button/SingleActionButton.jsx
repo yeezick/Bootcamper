@@ -30,14 +30,14 @@ export const SingleActionButton = ({ payload }) => {
 
     case 'call-api':
       return (
-        <Pressable style={[styles.button, styles.default]} onPress={reroute}>
+        <Pressable style={[styles.button, styles.default]} onPress={callApi}>
           <Text style={styles.text}>{text}</Text>
         </Pressable>
       );
 
     case 'api-reroute':
       return (
-        <Pressable style={[styles.button, styles.default]} onPress={reroute}>
+        <Pressable style={[styles.button, styles.default]} onPress={apiReroute}>
           <Text style={styles.text}>{text}</Text>
         </Pressable>
       );
