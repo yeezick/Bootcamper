@@ -1,23 +1,37 @@
-import { useEffect } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { getAllProjects } from '../services/api/projects';
-import { Provider, useSelector } from 'react-redux';
+import { StyleSheet, Text, View } from 'react-native';
+import { SingleActionButton } from '../components/Button/SingleActionButton.jsx';
 
-export function Landing({ navigation }) {
-  const state = useSelector((state) => state);
-  // console.log('state', state)
+export const Landing = ({}) => {
+  const routeToSignUp = {
+    path: 'SignUp',
+    text: 'Sign Up',
+    type: 'reroute',
+  };
+
+  const routeToSignIn = {
+    path: 'SignIn',
+    text: 'Sign in',
+    type: 'reroute',
+  };
+
+  const routeToRoulette = {
+    path: 'Roulette',
+    text: 'Try it!',
+    type: 'reroute',
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.placeholderImage}></View>
       <Text>Bootcamper</Text>
-      <Button title={'Sign Up'} onPress={() => navigation.navigate('SignUp')} />
-      <Button title={'Sign In'} onPress={() => navigation.navigate('SignIn')} />
+      <SingleActionButton payload={routeToSignUp} />
+      <SingleActionButton payload={routeToSignIn} />
       <Text>Want to take a test drive first?</Text>
-      <Button title={'Try it!'} onPress={() => navigation.navigate('Roulette')} />
+      <SingleActionButton payload={routeToRoulette} />
       <Text> Help | Contact</Text>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
