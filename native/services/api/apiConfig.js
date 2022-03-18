@@ -1,16 +1,16 @@
 import axios from "axios";
+import * as SecureStore from "expo-secure-store";
 
-const getToken = () => {
-  return new Promise((resolve) => {
-    resolve(`Bearer ${localStorage.getItem("token") || null}`);
-  });
+const getToken = async () => {
+  const localToken = await SecureStore.getItemAsync("token")
+    return `Bearer ${localToken || null}`;
 };
 
 export const api = axios.create({
   baseURL:
     process.env.NODE_ENV === "production"
       ? "deployed URL goes hhere"
-      : "http://localhost:3000/api",
+      : "http://localhost:8000/api",
 });
 
 api.interceptors.request.use(
