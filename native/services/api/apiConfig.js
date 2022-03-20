@@ -1,8 +1,9 @@
 import axios from "axios";
+import * as SecureStore from 'expo-secure-store';
 
 const getToken = () => {
   return new Promise((resolve) => {
-    resolve(`Bearer ${localStorage.getItem("token") || null}`);
+    resolve(`Bearer ${SecureStore.getItemAsync("token") || null}`);
   });
 };
 

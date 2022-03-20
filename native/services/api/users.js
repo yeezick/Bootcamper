@@ -1,4 +1,5 @@
 import { api } from './apiConfig';
+import * as SecureStore from 'expo-secure-store';
 
 export const getAllUsers = async () => {
   try {

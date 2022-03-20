@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // assets
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../../services/redux/slices/uiActions.js';
+import { loginUser } from '../../services/redux/actions/uiActions.js';
 import '../SignUp/SignUp.scss';
 import { handleChange } from '../../services/utils/formHandlers';
 import { SingleActionButton } from '../../components/Button/SingleActionButton';

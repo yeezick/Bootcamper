@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 // assets
 import { useDispatch } from 'react-redux';
-import { signUpUser } from '../../services/redux/slices/uiActions.js';
+import { signUpUser } from '../../services/redux/actions/uiActions.js';
 import { GenericModal } from '../../components/Modal/GenericModal.jsx';
 import './SignUp.scss';
 import { checkEmailAuth, verify } from '../../services/api/users.js';
