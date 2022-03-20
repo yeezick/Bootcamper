@@ -51,7 +51,6 @@ export const SingleActionButton = ({ payload }) => {
   }
 };
 
-// basic styling just for show
 // ideally, the styling does not live in this file
 const styles = StyleSheet.create({
   button: {

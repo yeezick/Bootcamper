@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { SingleActionButton } from '../components/Button/SingleActionButton.jsx';
 
-export const Landing = ({}) => {
+export const Landing = () => {
   const routeToSignUp = {
     path: 'SignUp',
     text: 'Sign Up',
