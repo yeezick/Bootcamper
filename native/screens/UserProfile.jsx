@@ -47,9 +47,9 @@ export const UserProfile = () => {
   //     setUser();
   //   }, [params]);
 
-  //   const handleToggleMode = () => {
-  //     dispatch(uiActions.toggleEditUser());
-  //   };
+  const handleToggleMode = () => {
+    dispatch(uiActions.toggleEditUser());
+  };
   if (toggleEditUser) {
     return (
       <>

@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { addRejectedProject } from '../../../services/redux/actions/uiActions';
 import { View } from 'react-native';
+import { SinglePortfolioCard } from './SinglePortfolioCard';
 
 export const ShowPortfolioProjects = ({ currUser }) => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ export const ShowPortfolioProjects = ({ currUser }) => {
       <View>
         <Text> Your Portfolio Projects</Text>
         {currUser?.portfolio_projects?.map((project, idx) => (
-          <PortfolioProject
+          <SinglePortfolioCard
             key={`portfolioProject-${idx}`}
             project={project}
             updateEditedProject={updateEditedProject}
