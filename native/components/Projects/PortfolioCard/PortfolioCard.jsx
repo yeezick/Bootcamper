@@ -11,8 +11,8 @@ import './PortfolioCard.scss';
 import { handleChange } from '../../../services/utils/formHandlers';
 import { addRejectedProject } from '../../../services/redux/actions/uiActions';
 import { Button, TextInput, View } from 'react-native';
-/*
-export const REACTAddPortfolioProject = () => {
+
+export const AddPortfolioProject = () => {
   const { _id: userId } = useSelector((state) => state.ui.user);
   const dispatch = useDispatch();
   const [newProject, setNewProject] = useState({
@@ -47,16 +47,16 @@ export const REACTAddPortfolioProject = () => {
   };
 
   return (
-    <div className="add-portfolio-project">
+    // className="add-portfolio-project"
+    <View>
       <Header headerTitle={header.title} headerText={header.text} />
       <Form
         formData={portfolioProjectForm}
         formState={[newProject, setNewProject, handleNewProject]}
       />
-    </div>
+    </View>
   );
 };
-*/
 
 export const ShowPortfolioProjects = ({ currUser }) => {
   const dispatch = useDispatch();
@@ -91,42 +91,6 @@ export const ShowPortfolioProjects = ({ currUser }) => {
     )
   );
 };
-
-/*
-export const ShowPortfolioProjects = ({ currUser }) => {
-  const dispatch = useDispatch();
-
-  const updateEditedProject = (editedProject, removeProject) => {
-    const { portfolio_projects, _id: userId } = currUser;
-    const { project_id: currentId } = editedProject;
-    let copyPortfolioProjects = [...portfolio_projects];
-    if (removeProject) {
-      copyPortfolioProjects = portfolio_projects.filter(
-        (project) => project.project_id !== currentId
-      );
-    } else {
-      const editedIdx = portfolio_projects.findIndex((project) => project.project_id === currentId);
-      copyPortfolioProjects[editedIdx] = editedProject;
-    }
-    dispatch(addRejectedProject(userId, { portfolio_projects: copyPortfolioProjects }));
-  };
-
-  return (
-    currUser?.portfolio_projects?.length > 0 && (
-      <div className="show-portfolio-wrapper">
-        <header> Your Portfolio Projects</header>
-        {currUser?.portfolio_projects?.map((project, idx) => (
-          <PortfolioProject
-            key={`portfolioProject-${idx}`}
-            project={project}
-            updateEditedProject={updateEditedProject}
-          />
-        ))}
-      </div>
-    )
-  );
-};
-*/
 
 export const PortfolioProject = ({ updateEditedProject, project }) => {
   const [currProject, setCurrProject] = useState({
@@ -210,84 +174,3 @@ export const PortfolioProject = ({ updateEditedProject, project }) => {
     </View>
   );
 };
-/* 
-const PortfolioProject = ({ updateEditedProject, project }) => {
-  const [currProject, setCurrProject] = useState({
-    image: 'https://pbs.twimg.com/media/E5KGFT9X0AQzzaR?format=jpg&name=240x240',
-    project_description: '',
-    project_link: '',
-    project_title: '',
-    project_id: nanoid(),
-  });
-  const [editProject, toggleEditProject] = useState(false);
-  const { image, project_description, project_link, project_title } = currProject;
-
-  useEffect(() => {
-    const onLoad = () => {
-      setCurrProject(project);
-    };
-    onLoad();
-  }, [project]);
-
-  const handleProjectUpdate = (e, removeProject) => {
-    updateEditedProject(currProject, removeProject);
-    toggleEditProject(!editProject);
-  };
-
-  if (editProject) {
-    return (
-      <div className="edit-portfolio-project">
-        <button onClick={() => toggleEditProject(!editProject)}>toggle edit</button>
-        <button onClick={(e) => handleProjectUpdate(e, 'remove project')}>delete</button>
-      ///  {/* reuse of inputs is opportunity to consolidate using a map method 
-        <label className="">
-          Title:
-          <input
-            type="text"
-            className=""
-            value={project_title}
-            onChange={(e) => handleChange(e, 'project_title', setCurrProject)}
-          />
-        </label>
-
-        <label className="">
-          Description:
-          <input
-            type="text"
-            className=""
-            value={project_description}
-            onChange={(e) => handleChange(e, 'project_description', setCurrProject)}
-          />
-        </label>
-
-        <label className="">
-          Link:
-          <input
-            type="text"
-            className=""
-            value={project_link}
-            onChange={(e) => handleChange(e, 'project_link', setCurrProject)}
-          />
-        </label>
-        <button onClick={handleProjectUpdate}> SAVE EDIT</button>
-      </div>
-    );
-  }
-  return (
-    <div className="portfolio-project">
-      <button
-        style={{ width: '45px' }}
-        onClick={() => {
-          toggleEditProject(!editProject);
-        }}
-      ></button>
-      <img src={image} alt={project_title} />
-      <div className="portfolio-content">
-        <p>{project_title}</p>
-        <p>{project_description}</p>
-        <p>{project_link}</p>
-      </div>
-    </div>
-  );
-};
-*/
