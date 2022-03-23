@@ -10,7 +10,7 @@ import { addPortfolioProject } from '../../../services/api/users.js';
 import './PortfolioCard.scss';
 import { handleChange } from '../../../services/utils/formHandlers';
 import { addRejectedProject } from '../../../services/redux/actions/uiActions';
-import { Button, View } from 'react-native';
+import { Button, TextInput, View } from 'react-native';
 /*
 export const REACTAddPortfolioProject = () => {
   const { _id: userId } = useSelector((state) => state.ui.user);
@@ -58,7 +58,23 @@ export const REACTAddPortfolioProject = () => {
 };
 */
 
-export const ShowPortfolioProjects = () => {
+export const ShowPortfolioProjects = ({ currUser }) => {
+  const dispatch = useDispatch();
+
+  const updateEditedProject = (editedProject, removeProject) => {
+    const { portfolio_projects, _id: userId } = currUser;
+    const { project_id: currentId } = editedProject;
+    let copyPortfolioProjects = [...portfolio_projects];
+    if (removeProject) {
+      copyPortfolioProjects = portfolio_projects.filter(
+        (project) => project.project_id !== currentId
+      );
+    } else {
+      const editedIdx = portfolio_projects.findIndex((project) => project.project_id === currentId);
+      copyPortfolioProjects[editedIdx] = editedProject;
+    }
+    dispatch(addRejectedProject(userId, { portfolio_projects: copyPortfolioProjects }));
+  };
   return (
     currUser?.portfolio_projects?.length > 0 && (
       // className="show-portfolio-wrapper
@@ -112,7 +128,7 @@ export const ShowPortfolioProjects = ({ currUser }) => {
 };
 */
 
-export const PortfolioProject = () => {
+export const PortfolioProject = ({ updateEditedProject, project }) => {
   const [currProject, setCurrProject] = useState({
     image: 'https://pbs.twimg.com/media/E5KGFT9X0AQzzaR?format=jpg&name=240x240',
     project_description: '',
@@ -141,36 +157,34 @@ export const PortfolioProject = () => {
       <View>
         <Button onPress={() => toggleEditProject(!editProject)}>toggle edit</Button>
         <Button onPress={(e) => handleProjectUpdate(e, 'remove project')}>delete</Button>
-        {/* reuse of inputs is opportunity to consolidate using a map method  */}
-        <label className="">
-          Title:
-          <input
-            type="text"
-            className=""
+        {/* each view here is a label-input pair */}
+        {/* onChange={(e) => handleChange(e, 'project_title', setCurrProject)} */}
+        <View>
+          <Text>Title:</Text>
+          <TextInput
+            placeholder="project_title"
             value={project_title}
-            onChange={(e) => handleChange(e, 'project_title', setCurrProject)}
+            onChangeText={(e) => console.log(e)}
           />
-        </label>
-
-        <label className="">
-          Description:
-          <input
-            type="text"
-            className=""
+        </View>
+        {/* onChange={(e) => handleChange(e, 'project_title', setCurrProject)} */}
+        <View>
+          <Text>Description:</Text>
+          <TextInput
+            placeholder="project_title"
             value={project_description}
-            onChange={(e) => handleChange(e, 'project_description', setCurrProject)}
+            onChangeText={(e) => console.log(e)}
           />
-        </label>
-
-        <label className="">
-          Link:
-          <input
-            type="text"
-            className=""
-            value={project_link}
-            onChange={(e) => handleChange(e, 'project_link', setCurrProject)}
+        </View>
+        {/* onChange={(e) => handleChange(e, 'project_link', setCurrProject)} */}
+        <View>
+          <Text>Link:</Text>
+          <TextInput
+            placeholder="project_link"
+            value={project_title}
+            onChangeText={(e) => console.log(e)}
           />
-        </label>
+        </View>
         <Button onPress={handleProjectUpdate}> SAVE EDIT</Button>
       </View>
     );
@@ -181,11 +195,12 @@ export const PortfolioProject = () => {
     <View>
       <Button
         style={{ width: '45px' }}
+        title="edit project"
         onPress={() => {
           toggleEditProject(!editProject);
         }}
-      ></Button>
-      <Text>I AM AN IMAGE</Text>
+      />
+      <Text>IMAGE: PORTFOLIO PROJECT</Text>
       {/* className="portfolio-content" */}
       <View>
         <Text>{project_title}</Text>
