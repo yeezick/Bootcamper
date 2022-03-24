@@ -30,8 +30,8 @@ export const UserProfile = () => {
       const { data: users } = await axios.get(
         'https://bootcamper-dev-backend.herokuapp.com/api/users'
       );
-      console.log('user', users[0]);
-      setCurrUser(users[0]);
+      console.log('user', users[6]);
+      setCurrUser(users[6]);
     };
     setUser();
   }, []);

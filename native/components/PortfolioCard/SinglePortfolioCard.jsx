@@ -8,7 +8,7 @@ export const SinglePortfolioCard = ({ updateEditedProject, project }) => {
     project_description: '',
     project_link: '',
     project_title: '',
-    project_id: nanoid(),
+    project_id: Math.random * 100,
   });
   const [editProject, toggleEditProject] = useState(false);
   const { image, project_description, project_link, project_title } = currProject;

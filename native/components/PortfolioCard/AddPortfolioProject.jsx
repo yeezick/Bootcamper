@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { nanoid } from 'nanoid';
 import { Form } from '../Form/Form';
 import { Header } from '../Header/Header';
 
@@ -17,7 +16,7 @@ export const AddPortfolioProject = () => {
     project_description: '',
     project_link: '',
     project_title: '',
-    project_id: nanoid(),
+    project_id: Math.random() * 100,
   });
   // ideally updates the database on each new project without slowing the app down
   // this way the user can add a new project and on refresh, load their work.

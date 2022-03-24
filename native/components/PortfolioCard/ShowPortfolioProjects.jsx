@@ -1,10 +1,11 @@
 import { useDispatch } from 'react-redux';
 import { addRejectedProject } from '../../services/redux/actions/uiActions';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { SinglePortfolioCard } from './SinglePortfolioCard';
 
 export const ShowPortfolioProjects = ({ currUser }) => {
   const dispatch = useDispatch();
+  console.log('show portfolio\n', currUser.portfolioProjects);
 
   const updateEditedProject = (editedProject, removeProject) => {
     const { portfolio_projects, _id: userId } = currUser;
