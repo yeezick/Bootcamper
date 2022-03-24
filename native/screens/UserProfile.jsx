@@ -8,7 +8,7 @@ import { EditProfile } from './EditProfile';
 // assets
 import { uiActions } from '../services/redux/slices/uiSlice';
 import { getOneUser } from '../services/api/users';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import { getAllUsers } from '../services/api/users';
 
 export const UserProfile = () => {
@@ -64,6 +64,7 @@ export const UserProfile = () => {
 
     return (
       <View>
+        <Button title="toggle edit mode" onPress={handleToggleMode} />
         {/* TITLE WRAPPER */}
         <View>
           <Text>

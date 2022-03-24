@@ -1,5 +1,5 @@
 import React from 'react';
-import parseHtml from 'html-react-parser';
+// import parseHtml from 'html-react-parser';
 import { handleChange } from '../../services/utils/formHandlers';
 import { SingleActionButton } from '../Button/SingleActionButton';
 import { TextInput, View } from 'react-native';
@@ -18,9 +18,10 @@ export const Form = ({ formData, formState }) => {
           <View>
             <Text>PARSE HTML: {input.name}</Text>
           </View>
-          <label htmlFor={input.name}>{parseHtml(input.labelText)}</label>
+          {/* <label htmlFor={input.name}>{parseHtml(input.labelText)}</label> */}
           {input.type === 'select' ? (
             <>
+              <Text>Picker</Text>
               <Picker
                 selectedValue={input.options[0]}
                 // onValueChange={(e) => handleChange(e, input.name, setterFunction)}
@@ -39,9 +40,9 @@ export const Form = ({ formData, formState }) => {
                 onChangeText={(e) => console.log(e)}
               />
             </View>
-            //   onChange={(e) => handleChange(e, input.name, setterFunction)}
-            //   type={input.type}
-            //   required={input.required ? true : null}
+            //  {/* onChange={(e) => handleChange(e, input.name, setterFunction)}
+            //    type={input.type}
+            //   required={input.required ? true : null} */}
           )}
         </View>
       ))}
