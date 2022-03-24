@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import { Button, TextInput, View } from 'react-native';
-import './PortfolioCard.scss';
 
-export const PortfolioProject = ({ updateEditedProject, project }) => {
+export const SinglePortfolioCard = ({ updateEditedProject, project }) => {
   const [currProject, setCurrProject] = useState({
     image: 'https://pbs.twimg.com/media/E5KGFT9X0AQzzaR?format=jpg&name=240x240',
     project_description: '',

@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
-import { Form } from '../../Form/Form';
-import { Header } from '../../Header/Header';
+import { Form } from '../Form/Form';
+import { Header } from '../Header/Header';
 
-import { uiActions } from '../../../services/redux/slices/uiSlice';
-import { portfolioProjectForm } from '../../../services/formData';
-import { addPortfolioProject } from '../../../services/api/users.js';
+import { uiActions } from '../../services/redux/slices/uiSlice';
+import { portfolioProjectForm } from '../../services/formData';
+import { addPortfolioProject } from '../../services/api/users.js';
 import { View } from 'react-native';
 
 export const AddPortfolioProject = () => {

@@ -3,16 +3,16 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 // components
-import { ShowPortfolioProjects } from '../components/Projects/PortfolioCard/PortfolioCard';
-import { EditProfile } from './EditProfile/EditProfile';
+import { ShowPortfolioProjects } from '../components/PortfolioCard/ShowPortfolioProjects.jsx';
+import { EditProfile } from './EditProfile';
 // assets
-import { uiActions } from '../../services/redux/slices/uiSlice';
-import './UserProfile.scss';
-import { getOneUser } from '../../services/api/users';
+import { uiActions } from '../services/redux/slices/uiSlice';
+import { getOneUser } from '../services/api/users';
 import { StyleSheet, Text, View } from 'react-native';
 import { getAllUsers } from '../services/api/users';
 
 export const UserProfile = () => {
+  const { user: reduxUser, toggleEditUser } = useSelector((state) => state.ui);
   const [currUser, setCurrUser] = useState({
     first_name: '',
     last_name: '',
@@ -22,7 +22,9 @@ export const UserProfile = () => {
     fun_fact: '',
     portfolio_link: '',
   });
-
+  const dispatch = useDispatch();
+  // const params = useParams(); => done differently
+  const validUrl = `http://${reduxUser.portfolio_link}`;
   useEffect(() => {
     const setUser = async () => {
       const { data: users } = await axios.get(

@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { addRejectedProject } from '../../../services/redux/actions/uiActions';
+import { addRejectedProject } from '../../services/redux/actions/uiActions';
 import { View } from 'react-native';
 import { SinglePortfolioCard } from './SinglePortfolioCard';
 
