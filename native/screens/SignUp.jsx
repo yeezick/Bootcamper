@@ -1,20 +1,31 @@
-// import { useState } from "react";
+
 // import { useNavigate, Link } from "react-router-dom";
 
 // // assets
-// import { useDispatch } from "react-redux";
-// import { signUpUser } from "../../services/redux/slices/uiActions.js";
+import { useDispatch } from "react-redux";
+import { signUpUser } from "../services/redux/actions/uiActions.js";
 // import { GenericModal } from "../components/Modal/GenericModal.jsx";
 // import "./SignUp.scss";
 // import { checkEmailAuth, verify } from "../../services/api/users.js";
 // import { handleChange } from "../../services/utils/formHandlers";
 // import { SingleActionButton } from "../components/Button/SingleActionButton.jsx";
 // import { DoubleActionModal } from "../components/Modal/DoubleActionModal.jsx";
-import { StyleSheet, Text, TextInput, View, TouchableOpacity } from "react-native";
+import { 
+  StyleSheet, Text, TextInput, View, TouchableOpacity, Alert, Modal } from "react-native";
 import { useState, createRef } from 'react';
 
 
 export const SignUp = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const [emailError, setEmailError] = useState(null);
+  const [successModalVisible, setSuccessModalVisible] = useState(false);
+
+
+  const handleSubmit = () => {
+    Alert.alert(newUser.email)
+    console.log("hi")
+  }
+
   const [newUser, setNewUser] = useState({
     first_name: '',
     last_name: '',
@@ -30,23 +41,24 @@ export const SignUp = ({ navigation }) => {
   const confirmPasswordInputRef = createRef();
 
 
-    const handleSignUp = async (event) => {
-    event.preventDefault();
+    const handleSignUp =  () => {
     if (newUser.confirm_password !== newUser.password) {
-      setNewUser((prevState) => {
-        return {
-          ...prevState,
-          confirm_password: "",
-          password: "",
-        };
-      });
-      setModalError("Passwords do not match. Please try again.");
-      setShowModal(true);
+      // setNewUser((prevState) => {
+      //   return {
+      //     ...prevState,
+      //     confirm_password: "",
+      //     password: "",
+      //   };
+      // });
+      Alert.alert('passwords do not match')
+      // setModalError("Passwords do not match. Please try again.");
+      // setShowModal(true);
     } else if (emailError) {
-      setModalError(
-        "An account with this email already exists. Please try another email or Sign in."
-      );
-      setShowModal(true);
+      Alert.alert('account already exists')
+      // setModalError(
+      //   "An account with this email already exists. Please try another email or Sign in."
+      // );
+      // setShowModal(true);
       setNewUser((prevState) => {
         return {
           ...prevState,
@@ -57,27 +69,46 @@ export const SignUp = ({ navigation }) => {
       });
       setEmailError(null);
     } else {
+      Alert.alert('everything looks good!')
       dispatch(signUpUser(newUser));
-      setShowSuccessModal(true);
+      setSuccessModalVisible(true);
+      // setShowSuccessModal(true);
     }
   };
 
-  const handleEmailCheck = async (e) => {
-    const emailReq = { email: e.target.value };
+  const handleEmailCheck = async () => {
+    const emailReq = newUser.email;
     const res = await checkEmailAuth(emailReq);
     if (res) {
       setEmailError(res);
     }
   };
 
-  const handleEditProfile = async () => {
-    const { _id } = await verify();
-    navigate(`/users/${_id}/edit`);
+  const handleReroute = async (screen) => {
+    // figure out whre this issue is
+    // const { _id } = await verify();
+    setSuccessModalVisible(false);
+    // add params here for edit profile
+    navigation.navigate(screen, {
+      id: 3,
+    });
   };
 
 
   return (
     <View style={styles.accountForms}>
+      <Modal
+        visible={successModalVisible}
+        >
+          <View style={styles.modalContainer}>
+            <Text style={styles.centeredView}>Success!</Text>
+            <Text
+              onPress={()=>handleReroute('EditProfile')}>Edit Profile</Text>
+              <Text 
+              onPress={()=> handleReroute('Roulette')}>Go to Roulette</Text>
+          </View>
+        
+      </Modal>
       <Text style={styles.title} >Create an Account</Text>
       <View style={styles.inputContainer}>
         <Text>Name</Text>
@@ -101,6 +132,7 @@ export const SignUp = ({ navigation }) => {
       <View style={styles.inputContainer}>
         <Text>Last Name</Text>
         <TextInput 
+          value={newUser.last_name}
           style={styles.input}
           onChangeText={(lastName) => setNewUser((prevState) => {
             return {
@@ -127,8 +159,9 @@ export const SignUp = ({ navigation }) => {
               email: email
             }
           })}
-          keyboardType="email"
+          keyboardType="email-address"
           ref={emailInputRef}
+          onBlur={() => handleEmailCheck()}
           returnKeyType="next"
           onSubmitEditing={() => {
             passwordInputRef.current &&
@@ -192,6 +225,16 @@ export const SignUp = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  modalContainer: {
+    height: 400,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  centeredView: {
+    textAlign: 'center',
+    textAlignVertical: 'center',
+  },
   accountForms: {
     flex: 1,
     alignItems: 'center',
