@@ -8,7 +8,7 @@ import { EditProfile } from './EditProfile';
 // assets
 import { uiActions } from '../services/redux/slices/uiSlice';
 import { getOneUser } from '../services/api/users';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { getAllUsers } from '../services/api/users';
 
 export const UserProfile = () => {
@@ -54,16 +54,16 @@ export const UserProfile = () => {
   };
   if (toggleEditUser) {
     return (
-      <>
+      <ScrollView>
         <Button title="back to profile" onPress={handleToggleMode} />
         <EditProfile currUser={currUser} />
-      </>
+      </ScrollView>
     );
   } else {
     const { about, email, fun_fact, first_name, last_name, role, _id: currUserId } = currUser;
 
     return (
-      <View>
+      <ScrollView>
         <Button title="toggle edit mode" onPress={handleToggleMode} />
         {/* TITLE WRAPPER */}
         <View>
@@ -91,7 +91,7 @@ export const UserProfile = () => {
         </View>
 
         <ShowPortfolioProjects currUser={currUser} />
-      </View>
+      </ScrollView>
     );
   }
 };

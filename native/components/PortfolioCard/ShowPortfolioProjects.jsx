@@ -5,12 +5,12 @@ import { SinglePortfolioCard } from './SinglePortfolioCard';
 
 export const ShowPortfolioProjects = ({ currUser }) => {
   const dispatch = useDispatch();
-  console.log('show portfolio\n', currUser.portfolioProjects);
 
   const updateEditedProject = (editedProject, removeProject) => {
     const { portfolio_projects, _id: userId } = currUser;
     const { project_id: currentId } = editedProject;
     let copyPortfolioProjects = [...portfolio_projects];
+
     if (removeProject) {
       copyPortfolioProjects = portfolio_projects.filter(
         (project) => project.project_id !== currentId
@@ -19,6 +19,7 @@ export const ShowPortfolioProjects = ({ currUser }) => {
       const editedIdx = portfolio_projects.findIndex((project) => project.project_id === currentId);
       copyPortfolioProjects[editedIdx] = editedProject;
     }
+
     dispatch(addRejectedProject(userId, { portfolio_projects: copyPortfolioProjects }));
   };
   return (

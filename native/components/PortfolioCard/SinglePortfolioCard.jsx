@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
-import { Button, TextInput, View } from 'react-native';
+import { Button, Text, TextInput, View } from 'react-native';
 
 export const SinglePortfolioCard = ({ updateEditedProject, project }) => {
   const [currProject, setCurrProject] = useState({
