@@ -1,6 +1,5 @@
-export const handleChange = (e, property, setterFunction) => {
-  const { value } = e.target;
+export const handleTextChange = (text, property, setterFunction) => {
   setterFunction((state) => {
-    return { ...state, [property]: value };
+    return { state, [property]: text };
   });
 };

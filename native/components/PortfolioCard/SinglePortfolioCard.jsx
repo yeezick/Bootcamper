@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
+import { handleTextChange } from '../../services/utils/formHandlers';
 import { Button, Text, TextInput, View } from 'react-native';
 
 export const SinglePortfolioCard = ({ updateEditedProject, project }) => {
@@ -29,37 +30,37 @@ export const SinglePortfolioCard = ({ updateEditedProject, project }) => {
     return (
       // className="edit-portfolio-project"
       <View>
-        <Button onPress={() => toggleEditProject(!editProject)}>toggle edit</Button>
-        <Button onPress={(e) => handleProjectUpdate(e, 'remove project')}>delete</Button>
+        <Button title="toggle edit" onPress={() => toggleEditProject(!editProject)} />
+        <Button title="delete" onPress={(e) => handleProjectUpdate(e, 'remove project')} />
         {/* each view here is a label-input pair */}
-        {/* onChange={(e) => handleChange(e, 'project_title', setCurrProject)} */}
         <View>
           <Text>Title:</Text>
           <TextInput
-            placeholder="project_title"
+            placeholder="My Project"
             value={project_title}
-            onChangeText={(e) => console.log(e)}
+            onChangeText={(e) => handleTextChange(e, 'project_title', setCurrProject)}
           />
         </View>
-        {/* onChange={(e) => handleChange(e, 'project_title', setCurrProject)} */}
+
         <View>
           <Text>Description:</Text>
           <TextInput
-            placeholder="project_title"
+            placeholder="It's super cool..."
             value={project_description}
-            onChangeText={(e) => console.log(e)}
+            onChangeText={(e) => handleTextChange(e, 'project_description', setCurrProject)}
           />
         </View>
-        {/* onChange={(e) => handleChange(e, 'project_link', setCurrProject)} */}
+
         <View>
           <Text>Link:</Text>
           <TextInput
-            placeholder="project_link"
-            value={project_title}
-            onChangeText={(e) => console.log(e)}
+            placeholder="www.myproject.com"
+            value={project_link}
+            onChangeText={(e) => handleTextChange(e, 'project_link', setCurrProject)}
           />
         </View>
-        <Button onPress={handleProjectUpdate}> SAVE EDIT</Button>
+
+        <Button title="SAVE EDIT" onPress={handleProjectUpdate} />
       </View>
     );
   }
