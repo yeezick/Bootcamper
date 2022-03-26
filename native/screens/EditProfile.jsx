@@ -52,6 +52,7 @@ const AboutUser = () => {
       });
     }
   }, [toggleEditUser]);
+
   const handleUserUpdate = async (e) => {
     e.preventDefault();
     try {

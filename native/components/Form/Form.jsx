@@ -14,8 +14,6 @@ export const Form = ({ formData, formState }) => {
     text: button.text,
     type: 'reroute',
   };
-  console.log('data', formData);
-  console.log('state', formState);
 
   return (
     // form

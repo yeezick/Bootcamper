@@ -11,7 +11,7 @@ import { getOneUser } from '../services/api/users';
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { getAllUsers } from '../services/api/users';
 
-export const UserProfile = () => {
+export const UserProfile = (props) => {
   const { user: reduxUser, toggleEditUser } = useSelector((state) => state.ui);
   const [currUser, setCurrUser] = useState({
     first_name: '',
@@ -22,6 +22,7 @@ export const UserProfile = () => {
     fun_fact: '',
     portfolio_link: '',
   });
+  // console.log('options', props);
   const dispatch = useDispatch();
   // const params = useParams(); => done differently
   const validUrl = `http://${reduxUser.portfolio_link}`;
@@ -30,7 +31,7 @@ export const UserProfile = () => {
       const { data: users } = await axios.get(
         'https://bootcamper-dev-backend.herokuapp.com/api/users'
       );
-      console.log('user', users[6]);
+      // console.log('user', users[6]);
       setCurrUser(users[6]);
     };
     setUser();

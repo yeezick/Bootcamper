@@ -27,11 +27,12 @@ export const SideMenu = () => {
   const store = useSelector((state) => state);
   const { blacklisted_projects, user } = useSelector((state) => state.ui);
   const [userLoaded, toggleUserLoaded] = useState(false);
-  console.log('black', blacklisted_projects[0]);
+
   useEffect(() => {
     const setupReduxStore = async () => {
-      const user = await verify();
-      dispatch(uiActions.updateUser(user));
+      const verifiedUser = await verify();
+      // console.log('useEffect', verifiedUser);
+      dispatch(uiActions.updateUser(verifiedUser));
       dispatch(fetchAllTools());
       toggleUserLoaded(true);
     };
@@ -92,12 +93,12 @@ export const SideMenu = () => {
         <Drawer.Screen
           name="UserProfile"
           component={UserProfile}
-          // options={{ title: "welcome" }}
+          initialParams={{ userId: user._id }}
         />
         <Drawer.Screen
           name="EditProfile"
           component={EditProfile}
-          // options={{ title: "welcome" }}
+          initialParams={{ userId: user._id }}
         />
       </Drawer.Navigator>
     </NavigationContainer>
