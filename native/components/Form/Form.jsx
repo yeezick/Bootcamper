@@ -1,42 +1,53 @@
 import React from 'react';
-import parseHtml from 'html-react-parser';
+// import parseHtml from 'html-react-parser';
 import { handleChange } from '../../services/utils/formHandlers';
 import { SingleActionButton } from '../Button/SingleActionButton';
-import './Form.scss';
+import { ScrollView, Text, TextInput, View } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 
 export const Form = ({ formData, formState }) => {
   const { button, handlers, inputs } = formData;
   const [stateObject, setterFunction, handleSubmit] = formState;
 
+  const submitForm = {
+    path: 'UserProfile',
+    text: button.text,
+    type: 'reroute',
+  };
+
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    // form
+    <View>
       {inputs.map((input) => (
-        <div key={input.name} className="input-wrapper">
-          <label htmlFor={input.name}>{parseHtml(input.labelText)}</label>
+        <View key={input.name} className="input-wrapper">
+          {/* select wrapper */}
+          <View>
+            <Text>{input.labelText}</Text>
+          </View>
+          {/* <label htmlFor={input.name}>{parseHtml(input.labelText)}</label> */}
           {input.type === 'select' ? (
-            <select
-              defaultValue={input.options[0]}
-              onChange={(e) => handleChange(e, input.name, setterFunction)}
+            <Picker
+            // defaultValue={input.options[0]}
+            // onValueChange={(e) => handleChange(e, input.name, setterFunction)}
             >
               {input.options.map((option) => (
-                <option key={`${input.name}-${option}`} value={option}>
-                  {option}
-                </option>
+                <Picker.Item key={`${input.name}-${option}`} label={option} value={option} />
               ))}
-            </select>
+            </Picker>
           ) : (
-            <input
-              id={input.name}
-              name={input.name}
-              onChange={(e) => handleChange(e, input.name, setterFunction)}
-              type={input.type}
+            <TextInput
+              placeholder={input.name}
               value={stateObject[input.name]}
-              required={input.required ? true : null}
+              onChangeText={(e) => console.log(e)}
             />
+            //  {/* onChange={(e) => handleChange(e, input.name, setterFunction)}
+            //    type={input.type}
+            //   required={input.required ? true : null} */}
           )}
-        </div>
+        </View>
       ))}
-      <SingleActionButton text={button.text} type="submit" />
-    </form>
+      {/* button takes handle submit */}
+      <SingleActionButton text={button.text} payload={submitForm} />
+    </View>
   );
 };

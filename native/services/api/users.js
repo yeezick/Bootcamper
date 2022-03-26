@@ -44,13 +44,13 @@ export const checkEmailAuth = async (email) => {
   } catch (error) {
     throw error;
   }
-}
+};
 
 export const signUp = async (credentials) => {
   try {
     const res = await api.post('/sign-up', credentials);
     const { token, user } = res.data;
-    localStorage.setItem('token', token);
+    SecureStore.setItemAsync('token', token);
     return user;
   } catch (error) {
     throw error;
@@ -61,7 +61,7 @@ export const signIn = async (credentials) => {
   try {
     const res = await api.post('/sign-in', credentials);
     const { token, user } = res.data;
-    localStorage.setItem('token', token);
+    SecureStore.setItemAsync('token', token);
     // const user = jwtDecode(res.data.token);
     return user;
   } catch (error) {
@@ -71,7 +71,8 @@ export const signIn = async (credentials) => {
 
 export const signOut = async () => {
   try {
-    localStorage.removeItem('token');
+    // todo: poor error handling, please revise
+    await SecureStore.deleteItemAsync('token');
     return true;
   } catch (error) {
     throw error;
@@ -79,7 +80,7 @@ export const signOut = async () => {
 }; // missing endpoint
 
 export const verify = async () => {
-  const token = localStorage.getItem('token');
+  const token = await SecureStore.getItemAsync('token');
   if (token) {
     const { data: payload } = await api.get('/verify');
     const { data: user } = await api.get(`/users/${payload.id}`);
