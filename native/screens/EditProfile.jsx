@@ -13,7 +13,8 @@ import { userForm } from '../services/formData';
 import { useEffect } from 'react';
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-export const EditProfile = ({ currUser, navigation }) => {
+export const EditProfile = (props) => {
+  const { currUser, navigation } = props;
   const header = {
     text: "Before you can create or join a project, we'll need to finish your profile first.",
     title: 'About You',

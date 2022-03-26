@@ -11,7 +11,7 @@ import { getOneUser } from '../services/api/users';
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { getAllUsers } from '../services/api/users';
 
-export const UserProfile = (props) => {
+export const UserProfile = ({ userId }) => {
   const { user: reduxUser, toggleEditUser } = useSelector((state) => state.ui);
   const [currUser, setCurrUser] = useState({
     first_name: '',
@@ -22,33 +22,34 @@ export const UserProfile = (props) => {
     fun_fact: '',
     portfolio_link: '',
   });
-  // console.log('options', props);
+  const [toggle, setToggle] = useState(false);
+  console.log('props', props);
   const dispatch = useDispatch();
-  // const params = useParams(); => done differently
   const validUrl = `http://${reduxUser.portfolio_link}`;
   useEffect(() => {
-    const setUser = async () => {
-      const { data: users } = await axios.get(
-        'https://bootcamper-dev-backend.herokuapp.com/api/users'
-      );
-      // console.log('user', users[6]);
-      setCurrUser(users[6]);
-    };
-    setUser();
-  }, []);
+    // const setUser = async () => {
+    //   const { data: users } = await axios.get(
+    //     'https://bootcamper-dev-backend.herokuapp.com/api/users'
+    //   );
+    //   setCurrUser(users[6]);
+    // };
+    // setUser();
+    setToggle(true);
+  }, [props.route]);
 
   // console.log('currUser', currUser);
-  //   useEffect(() => {
-  //     const setUser = async () => {
-  //       if (params.id === reduxUser._id) {
-  //         setCurrUser(reduxUser);
-  //       } else {
-  //         const res = await getOneUser(params.id);
-  //         setCurrUser(res);
-  //       }
-  //     };
-  //     setUser();
-  //   }, [params]);
+  useEffect(() => {
+    const setUser = async () => {
+      // console.log('route', route);
+      if (route.params.userId === reduxUser._id) {
+        setCurrUser(reduxUser);
+      } else {
+        const res = await getOneUser(params.id);
+        setCurrUser(res);
+      }
+    };
+    setUser();
+  }, [toggle]);
 
   const handleToggleMode = () => {
     dispatch(uiActions.toggleEditUser());
