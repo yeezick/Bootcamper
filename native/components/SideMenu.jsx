@@ -26,7 +26,6 @@ export const SideMenu = () => {
   const dispatch = useDispatch();
   const { blacklisted_projects, user } = useSelector((state) => state.ui);
   const { projects } = useSelector((state) => state);
-  console.log(projects);
   const [userLoaded, toggleUserLoaded] = useState(false);
 
   useEffect(() => {
@@ -47,7 +46,6 @@ export const SideMenu = () => {
       dispatch(fetchAllProjects());
     }
   }, [userLoaded]);
-  // console.log('------NHERE\n-----', user._id);
 
   return (
     <NavigationContainer>
@@ -94,14 +92,18 @@ export const SideMenu = () => {
         />
         <Drawer.Screen
           name="UserProfile"
-          component={() => <UserProfile userId={user._id} />}
+          // component={() => <UserProfile userId={user._id} />}
           initialParams={{ userId: user._id }}
-        />
+        >
+          {() => <UserProfile userId={user._id} />}
+        </Drawer.Screen>
         <Drawer.Screen
           name="EditProfile"
-          component={() => <EditProfile userId={user._id} />}
-          options={{ userId: user._id }}
-        />
+          // component={() => <UserProfile userId={user._id} />}
+          initialParams={{ userId: user._id }}
+        >
+          {() => <EditProfile userId={user._id} />}
+        </Drawer.Screen>
       </Drawer.Navigator>
     </NavigationContainer>
   );
