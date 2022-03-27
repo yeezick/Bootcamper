@@ -5,6 +5,7 @@ import * as SecureStore from "expo-secure-store";
 const getToken = async () => {
   const localToken = await SecureStore.getItemAsync("token")
     return `Bearer ${localToken || null}`;
+
 };
 
 export const api = axios.create({

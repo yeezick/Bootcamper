@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import store from '../services/redux/store.js'
-// // import { EditProject } from "./EditProject/EditProject.jsx";
+import { useSelector } from 'react-redux';
+import { EditProject } from "./EditProject/EditProject.jsx";
 // // import { SingleActionButton } from "../components/Button/SingleActionButton.jsx";
-import { getOneProject } from '../services/api/projects.js';
 import { FlatList, StyleSheet, Text, View } from "react-native";
 
 export const SingleProject = () => {
-  const state = store.getState();
-  const currentUser = state.ui.user;
+  const allProjects = useSelector(state => state.projects.allProjects);
+  const currentUser = useSelector(state => state.ui.user);
   const id = "622e4d5777c3c6a575004564"
   
   const [project, setProject] = useState({})
@@ -34,15 +34,13 @@ export const SingleProject = () => {
   }
   
   useEffect(() => {
-    const fetchProject = async () => {
-      const currentProject = await getOneProject(id);
-      if (currentProject) {
-        setProject(currentProject);
-        setLoaded(true);
-        }
-      };
-        fetchProject();
+    const currentProject = allProjects.find(project => project._id === id);
+    if (currentProject) {
+      setLoaded(true);
+      setProject(currentProject);
+    }
     }, [id])
+    console.log("project in local state:", project)
 
   
     if (loaded && !edit) {
@@ -63,7 +61,7 @@ export const SingleProject = () => {
     } else if (loaded && edit) {
       return (
         <View>
-          <Text>edit project</Text>
+          <EditProject project={project} setEdit={setEdit}/>
         </View>
       )
     } else {

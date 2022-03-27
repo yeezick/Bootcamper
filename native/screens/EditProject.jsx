@@ -1,14 +1,26 @@
 // import { useNavigate } from "react-router-dom";
-// import { AboutProject } from "../../components/Projects/AboutProject/AboutProject.jsx";
-// import { Header } from "../../components/Header/Header.jsx";
+import { AboutProject } from "../../components/Projects/AboutProject/AboutProject.jsx";
+import { Header } from "../../components/Header/Header.jsx";
 // import { SingleActionButton } from "../../components/Button/SingleActionButton.jsx";
 // import { editProject, deleteProject } from "../../services/api/projects.js";
 import { StyleSheet, Text, View } from "react-native";
 
-export const EditProject = () => {
+export const EditProject = ({ project, setEdit }) => {
+  const createNewProject = false;
+  const header = {
+    text: "Edit the fields below and click Update Project to save your changes.",
+    title: "Edit Project Details",
+  };
+
   return (
     <View>
-      <Text>Edit Project</Text>
+      <Header headerText={header.text} headerTitle={header.title}/>
+      <AboutProject
+        createNewProject={createNewProject}
+        project={project}
+        setEdit={setEdit}
+        handleSubmit={handleSubmit}
+      />
     </View>
   );
 };
