@@ -1,31 +1,26 @@
-
-// import { useNavigate, Link } from "react-router-dom";
-
-// // assets
+import { useState, createRef } from 'react';
 import { useDispatch } from "react-redux";
 import { signUpUser } from "../services/redux/actions/uiActions.js";
-// import { GenericModal } from "../components/Modal/GenericModal.jsx";
-// import "./SignUp.scss";
-// import { checkEmailAuth, verify } from "../../services/api/users.js";
-// import { handleChange } from "../../services/utils/formHandlers";
-// import { SingleActionButton } from "../components/Button/SingleActionButton.jsx";
-// import { DoubleActionModal } from "../components/Modal/DoubleActionModal.jsx";
+import { checkEmailAuth, verify } from '../services/api/users.js';
+
+// Native Components
 import { 
-  StyleSheet, Text, TextInput, View, TouchableOpacity, Alert, Modal } from "react-native";
-import { useState, createRef } from 'react';
+  StyleSheet, 
+  Text, 
+  TextInput, 
+  View, 
+  TouchableOpacity, 
+  Alert, 
+  Modal 
+} from "react-native";
 
 
 export const SignUp = ({ navigation }) => {
+  // redux
   const dispatch = useDispatch();
+  // state
   const [emailError, setEmailError] = useState(null);
   const [successModalVisible, setSuccessModalVisible] = useState(false);
-
-
-  const handleSubmit = () => {
-    Alert.alert(newUser.email)
-    console.log("hi")
-  }
-
   const [newUser, setNewUser] = useState({
     first_name: '',
     last_name: '',
@@ -33,51 +28,51 @@ export const SignUp = ({ navigation }) => {
     password: '',
     confirm_password: '',
   });
+  // input references
+  const { 
+    firstNameInputRef, 
+    lastNameInputRef, 
+    emailInputRef, 
+    passwordInputRef, 
+    confirmPasswordInputRef } = createRef();
 
-  const firstNameInputRef = createRef();
-  const lastNameInputRef = createRef();
-  const emailInputRef = createRef();
-  const passwordInputRef = createRef();
-  const confirmPasswordInputRef = createRef();
-
-
-    const handleSignUp =  () => {
+  
+  const handleSignUp =  () => {
     if (newUser.confirm_password !== newUser.password) {
-      // setNewUser((prevState) => {
-      //   return {
-      //     ...prevState,
-      //     confirm_password: "",
-      //     password: "",
-      //   };
-      // });
-      Alert.alert('passwords do not match')
-      // setModalError("Passwords do not match. Please try again.");
-      // setShowModal(true);
-    } else if (emailError) {
-      Alert.alert('account already exists')
-      // setModalError(
-      //   "An account with this email already exists. Please try another email or Sign in."
-      // );
-      // setShowModal(true);
       setNewUser((prevState) => {
         return {
           ...prevState,
-          email: "",
+          confirm_password: "",
+          password: "",
+        };
+      });
+      Alert.alert('Passwords do not match. Please try again.')
+    } else if (emailError) {
+      Alert.alert(`Account with email ${newUser.email} already exists. Please use a different email or sign in to your account.`)
+      setNewUser((prevState) => {
+        return {
+          ...prevState,
           confirm_password: "",
           password: "",
         };
       });
       setEmailError(null);
     } else {
-      Alert.alert('everything looks good!')
       dispatch(signUpUser(newUser));
       setSuccessModalVisible(true);
-      // setShowSuccessModal(true);
+      setNewUser({
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: '',
+        confirm_password: '',
+      })
     }
   };
 
+  // Check if email is already in use
   const handleEmailCheck = async () => {
-    const emailReq = newUser.email;
+    const emailReq = {email: newUser.email}
     const res = await checkEmailAuth(emailReq);
     if (res) {
       setEmailError(res);
@@ -85,12 +80,15 @@ export const SignUp = ({ navigation }) => {
   };
 
   const handleReroute = async (screen) => {
-    // figure out whre this issue is
-    // const { _id } = await verify();
+    let id = null;
+    if (screen === 'EditProfile') {
+      let resp = await verify();
+      id = resp._id;
+    }
     setSuccessModalVisible(false);
-    // add params here for edit profile
+    // need to test this params funcionality on edit profile screen
     navigation.navigate(screen, {
-      id: 3,
+      id: id,
     });
   };
 
@@ -99,20 +97,32 @@ export const SignUp = ({ navigation }) => {
     <View style={styles.accountForms}>
       <Modal
         visible={successModalVisible}
+        transparent={true}
+        animationType="slide"
         >
-          <View style={styles.modalContainer}>
-            <Text style={styles.centeredView}>Success!</Text>
-            <Text
-              onPress={()=>handleReroute('EditProfile')}>Edit Profile</Text>
-              <Text 
-              onPress={()=> handleReroute('Roulette')}>Go to Roulette</Text>
-          </View>
-        
+        <View style={styles.modalContainer}>
+          <Text style={styles.centeredView}>Success!</Text>
+            {/* Replace these with SingleButton or DoubleButton component*/}
+          <TouchableOpacity
+            style={styles.singleButton}
+            onPress={()=>handleReroute('EditProfile')}
+            color="white">
+            <Text style={styles.buttonText}>Edit Profile</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.singleButton}
+            onPress={()=> handleReroute('Roulette')}
+            color="white">
+            <Text style={styles.buttonText}>Go to Roulette</Text>
+          </TouchableOpacity>
+        </View>
       </Modal>
       <Text style={styles.title} >Create an Account</Text>
+      {/* Replace with Form componenet? */}
       <View style={styles.inputContainer}>
         <Text>Name</Text>
         <TextInput 
+          value={newUser.first_name}
           style={styles.input}
           onChangeText={(firstName) => setNewUser((prevState) => {
             return {
@@ -152,6 +162,7 @@ export const SignUp = ({ navigation }) => {
       <View style={styles.inputContainer}>
         <Text>Email Address</Text>
         <TextInput
+          value={newUser.email}
           style={styles.input}
           onChangeText={(email) => setNewUser((prevState) => {
             return {
@@ -160,18 +171,22 @@ export const SignUp = ({ navigation }) => {
             }
           })}
           keyboardType="email-address"
+          autoCapitalize="none"
           ref={emailInputRef}
+          onFocus={()=>setEmailError(null)}
           onBlur={() => handleEmailCheck()}
           returnKeyType="next"
           onSubmitEditing={() => {
             passwordInputRef.current &&
-            passwordInputRef.current.focuse()
+            passwordInputRef.current.focus()
           }}
         />
+        <Text>{emailError}</Text>
       </View>
       <View style={styles.inputContainer}>
         <Text>Password</Text>
         <TextInput 
+          value={newUser.password}
           style={styles.input}
           onChangeText={(password) => setNewUser((prevState) => {
             return {
@@ -191,6 +206,7 @@ export const SignUp = ({ navigation }) => {
       <View style={styles.inputContainer}>
         <Text>Re-enter Password</Text>
         <TextInput 
+          value={newUser.confirm_password}
           style={styles.input}
           onChangeText={(confirmPassword) => setNewUser((prevState) => {
             return {
@@ -206,7 +222,13 @@ export const SignUp = ({ navigation }) => {
             confirmPasswordInputRef.current.focus()
           }}
         />
+        { newUser.password !== "" && 
+        <Text>
+          {newUser.password === newUser.confirm_password ? 
+            "Passwords match." : "Passwords do not match." }
+        </Text> }
       </View>
+      {/* Replace with SingleButton Component */}
       <TouchableOpacity
         style={styles.singleButton}
         onPress={() => handleSignUp()}
@@ -214,10 +236,10 @@ export const SignUp = ({ navigation }) => {
         <Text style={styles.buttonText}>Register</Text>
       </TouchableOpacity>
       <View>
-        <Text style={styles.inlineText}>Already have an account? <Text 
-            style={styles.link}
-            onPress={() => navigation.navigate('SignIn')}
-          >Sign in.</Text>
+        <Text style={styles.inlineText}>
+          Already have an account? 
+        <Text style={styles.link} onPress={() => navigation.navigate('SignIn')}>
+          Sign in.</Text>
         </Text>
       </View>
     </View>
@@ -226,7 +248,11 @@ export const SignUp = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   modalContainer: {
-    height: 400,
+    height: '100%',
+    width: '100%',
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    borderRadius: 5,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
