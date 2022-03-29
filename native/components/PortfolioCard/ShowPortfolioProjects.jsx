@@ -1,17 +1,18 @@
 import { useDispatch } from 'react-redux';
-import { addRejectedProject } from '../../services/redux/actions/uiActions';
 import { Text, View } from 'react-native';
-import { SinglePortfolioCard } from './SinglePortfolioCard';
+import { SinglePortfolioProject } from './SinglePortfolioProject';
+import { uiActions } from '../../services/redux/slices/uiSlice';
+import { updateUser } from '../../services/api/users';
 
 export const ShowPortfolioProjects = ({ currUser }) => {
   const dispatch = useDispatch();
 
-  const updateEditedProject = (editedProject, removeProject) => {
-    const { portfolio_projects, _id: userId } = currUser;
+  const updateEditedProject = async (editedProject, updateType) => {
+    const { portfolio_projects, _id: userID } = currUser;
     const { project_id: currentId } = editedProject;
     let copyPortfolioProjects = [...portfolio_projects];
 
-    if (removeProject) {
+    if (updateType === 'remove project') {
       copyPortfolioProjects = portfolio_projects.filter(
         (project) => project.project_id !== currentId
       );
@@ -20,7 +21,8 @@ export const ShowPortfolioProjects = ({ currUser }) => {
       copyPortfolioProjects[editedIdx] = editedProject;
     }
 
-    dispatch(addRejectedProject(userId, { portfolio_projects: copyPortfolioProjects }));
+    const res = await updateUser(userID, { portfolio_projects: copyPortfolioProjects });
+    dispatch(uiActions.updateUser(res));
   };
   return (
     currUser?.portfolio_projects?.length > 0 && (
@@ -28,7 +30,7 @@ export const ShowPortfolioProjects = ({ currUser }) => {
       <View>
         <Text> Your Portfolio Projects</Text>
         {currUser?.portfolio_projects?.map((project, idx) => (
-          <SinglePortfolioCard
+          <SinglePortfolioProject
             key={`portfolioProject-${idx}`}
             project={project}
             updateEditedProject={updateEditedProject}

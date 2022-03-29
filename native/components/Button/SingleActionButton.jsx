@@ -2,14 +2,17 @@ import { Pressable, StyleSheet, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 export const SingleActionButton = ({ payload }) => {
-  const { path, text, type } = payload;
+  const { text, type } = payload;
   const navigation = useNavigation();
 
   const reroute = () => {
+    const { path } = payload;
     navigation.navigate(path);
   };
 
-  const callApi = (apiUrl) => {
+  const callApi = () => {
+    const { handler } = payload;
+    handler();
     // calls an API
     // consider when the request may have a body
   };
@@ -28,7 +31,7 @@ export const SingleActionButton = ({ payload }) => {
         </Pressable>
       );
 
-    case 'call-api':
+    case 'api':
       return (
         <Pressable style={[styles.button, styles.default]} onPress={callApi}>
           <Text style={styles.text}>{text}</Text>

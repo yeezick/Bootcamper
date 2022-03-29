@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
-import { nanoid } from 'nanoid';
-import { handleTextChange } from '../../services/utils/formHandlers';
+import uuid from 'react-native-uuid';
+import { handleTextChange } from '../../services/utils/handlers';
 import { Button, Text, TextInput, View } from 'react-native';
 
-export const SinglePortfolioCard = ({ updateEditedProject, project }) => {
+export const SinglePortfolioProject = ({ updateEditedProject, project }) => {
   const [currProject, setCurrProject] = useState({
     image: 'https://pbs.twimg.com/media/E5KGFT9X0AQzzaR?format=jpg&name=240x240',
     project_description: '',
     project_link: '',
     project_title: '',
-    project_id: Math.random * 100,
+    project_id: uuid.v4(),
   });
   const [editProject, toggleEditProject] = useState(false);
   const { image, project_description, project_link, project_title } = currProject;
@@ -21,8 +21,8 @@ export const SinglePortfolioCard = ({ updateEditedProject, project }) => {
     onLoad();
   }, [project]);
 
-  const handleProjectUpdate = (e, removeProject) => {
-    updateEditedProject(currProject, removeProject);
+  const handleProjectUpdate = (updateType) => {
+    updateEditedProject(currProject, updateType);
     toggleEditProject(!editProject);
   };
 
@@ -31,7 +31,7 @@ export const SinglePortfolioCard = ({ updateEditedProject, project }) => {
       // className="edit-portfolio-project"
       <View>
         <Button title="toggle edit" onPress={() => toggleEditProject(!editProject)} />
-        <Button title="delete" onPress={(e) => handleProjectUpdate(e, 'remove project')} />
+        <Button title="delete" onPress={() => handleProjectUpdate('remove project')} />
         {/* each view here is a label-input pair */}
         <View>
           <Text>Title:</Text>

@@ -1,12 +1,12 @@
 import { useState } from 'react';
+import uuid from 'react-native-uuid';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form } from '../Form/Form';
 import { Header } from '../Header/Header';
-
+import { View } from 'react-native';
 import { uiActions } from '../../services/redux/slices/uiSlice';
 import { portfolioProjectForm } from '../../services/formData';
 import { addPortfolioProject } from '../../services/api/users.js';
-import { View } from 'react-native';
 
 export const AddPortfolioProject = () => {
   const { _id: userId } = useSelector((state) => state.ui.user);
@@ -16,12 +16,11 @@ export const AddPortfolioProject = () => {
     project_description: '',
     project_link: '',
     project_title: '',
-    project_id: Math.random() * 100,
+    project_id: uuid.v4(),
   });
   // ideally updates the database on each new project without slowing the app down
   // this way the user can add a new project and on refresh, load their work.
-  const handleNewProject = async (e) => {
-    e.preventDefault();
+  const handleNewProject = async () => {
     try {
       const res = await addPortfolioProject(userId, newProject);
       dispatch(uiActions.updateUser(res));
@@ -30,7 +29,7 @@ export const AddPortfolioProject = () => {
         project_description: '',
         project_link: '',
         project_title: '',
-        project_id: nanoid(),
+        project_id: uuid.v4(),
       });
     } catch (error) {
       console.error(error);

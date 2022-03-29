@@ -25,7 +25,6 @@ const Drawer = createDrawerNavigator();
 export const SideMenu = () => {
   const dispatch = useDispatch();
   const { blacklisted_projects, user } = useSelector((state) => state.ui);
-  const { projects } = useSelector((state) => state);
   const [userLoaded, toggleUserLoaded] = useState(false);
 
   useEffect(() => {
