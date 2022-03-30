@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { SingleActionButton } from '../../Button/SingleActionButton';
-import { Text, View } from 'react-native';
+import { Button, FlatList, Text, TextInput, View } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+import { SingleActionButton } from '../Button/SingleActionButton';
 
 export const AboutProject = ({ createNewProject, handleSubmit, project, setEdit }) => {
   const currentUser = useSelector(state => state.ui.user)
@@ -9,6 +10,8 @@ export const AboutProject = ({ createNewProject, handleSubmit, project, setEdit 
   const [projectInfo, setProjectInfo] = useState({
   })
   const [currentTool, setCurrentTool] = useState('');
+  const [designerCount, setDesignerCount] = useState(0)
+  const [engineerCount, setEngineerCount] = useState(0)
 
   const handleChange = (e) => {
     const {name, value} = e.target
@@ -54,12 +57,68 @@ useEffect(() => {
           title: '',
           tools: [],
         });
-  if (!createNewProject) setProjectInfo({...project})
+  if (!createNewProject) {
+    setProjectInfo({...project});
+    setDesignerCount(project.designer_count);
+    setEngineerCount(project.engineer_count);
+  }
 }, [currentUser])
 
   return (
     <View>
-      <Text>about project</Text>
+      <Text>Project Title</Text>
+      <TextInput
+        onChangeText={handleChange}
+        value={projectInfo.title}
+      />
+      <Text>Project Description</Text>
+      <TextInput
+        onChangeText={handleChange}
+        value={projectInfo.description}
+      />
+      <Text>What tools will the project use?</Text>
+      <Picker defaultValue={'select a tool'} selectedValue={currentTool} onValueChange={(e) => selectTool(e)}>
+        {toolsList.map(tool => (
+          <Picker.Item key={tool.name} label={tool.name} value={currentTool} />
+        ))}
+      </Picker>
+      {project.tools.length ? 
+      <FlatList 
+        data={project.tools?.map(tool => new Object({key: tool.name}))}
+        renderItem={({item}) => (
+          <View>
+            <Text>{item.key}</Text>
+            <Button 
+              onPress={(e) => removeTool(e, tool._id)}
+              title="x"
+            />
+          </View>)}>
+      </FlatList> :
+      null }
+      <Text>How many designers are you seeking?</Text>
+      <Text>{designerCount}</Text>
+      <Button 
+        onPress={() => setDesignerCount(designerCount++)}
+        title='+'
+      />
+      <Button 
+        onPress={() => setDesignerCount(designerCount--)}
+        title='-'
+      />
+      <Text>How many engineers are you seeking?</Text>
+      <Text>{engineerCount}</Text>
+      <Button 
+        onPress={() => setEngineerCount(engineerCount++)}
+        title='+'
+      />
+      <Button 
+        onPress={() => setEngineerCount(engineerCount--)}
+        title='-'
+      />
+      <Text>What is the requested time commitment for collaborators?</Text>
+      <Picker>
+        
+      </Picker>
     </View>
   )
 

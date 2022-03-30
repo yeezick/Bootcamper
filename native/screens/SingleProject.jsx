@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import store from '../services/redux/store.js'
 import { useSelector } from 'react-redux';
-import { EditProject } from "./EditProject/EditProject.jsx";
+import { EditProject } from "./EditProject.jsx";
 // // import { SingleActionButton } from "../components/Button/SingleActionButton.jsx";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 
@@ -12,7 +12,7 @@ export const SingleProject = () => {
   const id = "622e4d5777c3c6a575004564"
   
   const [project, setProject] = useState({})
-  const [edit, setEdit] = useState(false)
+  const [edit, setEdit] = useState(true)
   const [loaded, setLoaded] = useState(false)
 
   const handlePress = () => console.log("pressed button")
