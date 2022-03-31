@@ -5,13 +5,16 @@ import { Picker } from '@react-native-picker/picker';
 import { SingleActionButton } from '../Button/SingleActionButton';
 
 export const AboutProject = ({ createNewProject, handleSubmit, project, setEdit }) => {
-  const currentUser = useSelector(state => state.ui.user)
-  const toolsList = useSelector(state => state.tools.allTools)
-  const [projectInfo, setProjectInfo] = useState({
-  })
+  const currentUser = useSelector(state => state.ui.user);
+  const toolsList = useSelector(state => state.tools.allTools);
+  const [projectInfo, setProjectInfo] = useState({});
   const [currentTool, setCurrentTool] = useState('');
-  const [designerCount, setDesignerCount] = useState(0)
-  const [engineerCount, setEngineerCount] = useState(0)
+  const [designerCount, setDesignerCount] = useState(0);
+  const [engineerCount, setEngineerCount] = useState(0);
+  const [timeCommitment, setTimeCommitment] = useState('')
+  const timeCommitments = ['no preference', 'hobby', 'part-time', 'full-time']
+  
+
 
   const handleChange = (e) => {
     const {name, value} = e.target
@@ -20,20 +23,24 @@ export const AboutProject = ({ createNewProject, handleSubmit, project, setEdit 
       [name]: value,
     })
   }
-  
+  const buttonText = createNewProject ? 'Create Project' : 'Update Project'
+  const buttonPayload = {
+    type: 'call-api',
+    text: buttonText,
+  }
 
 // tools related variables and functions
-const handleToolChange = (e) => {
-  setCurrentTool(e.target.value)
-}
-const selectTool = (e) => {
-  e.preventDefault();
-  if (currentTool) { const selectedTool = toolsList.find(tool => tool.name === currentTool)
-  setProjectInfo({
-    ...projectInfo,
-    tools: [...projectInfo.tools, selectedTool],
-  })
-}
+  const handleToolChange = (e) => {
+    setCurrentTool(e.target.value)
+  }
+  const selectTool = (e) => {
+    e.preventDefault();
+    if (currentTool) { const selectedTool = toolsList.find(tool => tool.name === currentTool)
+    setProjectInfo({
+      ...projectInfo,
+      tools: [...projectInfo.tools, selectedTool],
+    })
+  }
   setCurrentTool('')
 }
 
@@ -45,6 +52,21 @@ const removeTool = (e, id) => {
     ...projectInfo,
     tools: projectInfo.tools
   })
+}
+// count related functions
+const updateDesignerCount = () => {
+  setDesignerCount(designerCount);
+  setProjectInfo({
+    ...projectInfo,
+    designer_count: designerCount,
+  });
+}
+const updateEngineerCount = () => {
+  setEngineerCount(engineerCount);
+  setProjectInfo({
+    ...projectInfo,
+    engineer_count: engineerCount,
+  });
 }
 useEffect(() => {
   if (createNewProject) setProjectInfo({
@@ -98,27 +120,33 @@ useEffect(() => {
       <Text>How many designers are you seeking?</Text>
       <Text>{designerCount}</Text>
       <Button 
-        onPress={() => setDesignerCount(designerCount++)}
+        onPress={updateDesignerCount}
         title='+'
       />
       <Button 
-        onPress={() => setDesignerCount(designerCount--)}
+        onPress={updateDesignerCount}
         title='-'
       />
       <Text>How many engineers are you seeking?</Text>
       <Text>{engineerCount}</Text>
       <Button 
-        onPress={() => setEngineerCount(engineerCount++)}
+        onPress={() => updateEngineerCount('+')}
         title='+'
       />
       <Button 
-        onPress={() => setEngineerCount(engineerCount--)}
+        onPress={() => updateEngineerCount('-')}
         title='-'
       />
       <Text>What is the requested time commitment for collaborators?</Text>
-      <Picker>
-        
+      <Picker
+        defaultValue={createNewProject ? project.time_commitment : 'no preference'}
+        selectedValue={project.time_commitment} 
+      >
+        {timeCommitments.map(time => (
+          <Picker.Item key={time} label={time} value={time}/>
+        ))}
       </Picker>
+      <SingleActionButton payload={buttonPayload}/>
     </View>
   )
 
@@ -155,7 +183,6 @@ useEffect(() => {
   //           <option key={tool._id} value={tool.name}/>
   //         ))}
   //       </datalist>
-       
   //       <button onClick={selectTool}>Add Tool</button>
   //       <div className="current-tools">
   //         {projectInfo?.tools?.map(tool => (

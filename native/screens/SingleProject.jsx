@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import store from '../services/redux/store.js'
 import { useSelector } from 'react-redux';
 import { EditProject } from "./EditProject.jsx";
-// // import { SingleActionButton } from "../components/Button/SingleActionButton.jsx";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { Button, FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 
 export const SingleProject = () => {
   const allProjects = useSelector(state => state.projects.allProjects);
@@ -12,9 +9,10 @@ export const SingleProject = () => {
   const id = "622e4d5777c3c6a575004564"
   
   const [project, setProject] = useState({})
-  const [edit, setEdit] = useState(true)
+  const [edit, setEdit] = useState(false)
   const [loaded, setLoaded] = useState(false)
 
+  const showUser = () => console.log("redirect to user's profile")
   const handlePress = () => console.log("pressed button")
 
   let hours;
@@ -33,6 +31,20 @@ export const SingleProject = () => {
       hours = "any";
   }
   
+  const ownerView = <View>
+    <Button title="Edit Project Details" onPress={handlePress}/>
+    {project.interested_applicants?.length ? 
+      <View>
+        {project.interested_applicants.map(applicant => (
+          <Pressable onPress={showUser}>
+            <Text>{`user: ${applicant.first_name}`}</Text>
+          </Pressable>
+        ))}
+      </View> 
+      : null
+    } 
+  </View>
+
   useEffect(() => {
     const currentProject = allProjects.find(project => project._id === id);
     if (currentProject) {
@@ -55,7 +67,8 @@ export const SingleProject = () => {
             renderItem={({item}) => <Text>{item.key}</Text>}
           />
           <Text>{`Looking for collaborators who can commit ${hours} hours per week.`}</Text>
-          {currentUser._id === project.owner ? <Button title="Edit Project Details" onPress={handlePress}/> : null}
+          {currentUser._id === project.owner ? ownerView : null}
+          
         </View>
       )
     } else if (loaded && edit) {
