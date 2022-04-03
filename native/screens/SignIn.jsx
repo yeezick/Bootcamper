@@ -10,14 +10,14 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Alert } fr
 export const SignIn = ({ navigation }) => {
   const dispatch = useDispatch();
   const [noAccountError, setNoAccountError] = useState(null);
-  const [logInInfo, setLogInInfo] = useState({
+  const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
   });
   const { emailInputRef, passwordInputRef } = createRef();
 
   const handleSignIn = async () => {
-    const signedInUser = await signIn(logInInfo);
+    const signedInUser = await signIn(loginInfo);
     if (signedInUser) {
       dispatch(uiActions.updateUser(signedInUser));
       // check this params functionality on edit land
@@ -26,7 +26,7 @@ export const SignIn = ({ navigation }) => {
       });
     } else {
       Alert.alert('Invalid credentials. Please check your details and try again.');
-      setLogInInfo((prevState) => {
+      setLoginInfo((prevState) => {
         return {
           ...prevState,
           password: '',
@@ -36,7 +36,7 @@ export const SignIn = ({ navigation }) => {
   };
 
   const validEmail = async () => {
-    const emailReq = { email: logInInfo.email };
+    const emailReq = { email: loginInfo.email };
     const res = await checkEmailAuth(emailReq);
     if (!res) {
       setNoAccountError('No user found with this email address.');
@@ -49,9 +49,9 @@ export const SignIn = ({ navigation }) => {
       <View style={styles.inputContainer}>
         <Text>Email</Text>
         <TextInput
-          value={logInInfo.email}
+          value={loginInfo.email}
           style={styles.input}
-          onChangeText={(email) => handleTextChange(email, 'email', setLogInInfo)}
+          onChangeText={(email) => handleTextChange(email, 'email', setLoginInfo)}
           keyboardType="email-address"
           autoCapitalize="none"
           ref={emailInputRef}
@@ -68,9 +68,9 @@ export const SignIn = ({ navigation }) => {
       <View style={styles.inputContainer}>
         <Text>Password</Text>
         <TextInput
-          value={logInInfo.password}
+          value={loginInfo.password}
           style={styles.input}
-          onChangeText={(password) => handleTextChange(password, 'password', setLogInInfo)}
+          onChangeText={(password) => handleTextChange(password, 'password', setLoginInfo)}
           ref={passwordInputRef}
           returnKeyType="next"
           secureTextEntry={true}
@@ -86,39 +86,39 @@ export const SignIn = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   accountForms: {
+    alignItems: 'center',
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-  },
-  title: {
-    fontWeight: '700',
-    margin: 20,
-    fontSize: 16,
-  },
-  inputContainer: {
-    width: 290,
-    marginHorizontal: 25,
-  },
-  input: {
-    height: 30,
-    marginVertical: 10,
-    borderRadius: 5,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    color: 'black',
-    padding: 5,
-  },
-  singleButton: {
-    backgroundColor: 'black',
-    height: 40,
-    width: 120,
-    borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 20,
   },
   buttonText: {
     color: 'white',
     fontWeight: '500',
+  },
+  input: {
+    borderStyle: 'solid',
+    borderRadius: 5,
+    borderWidth: 1,
+    color: 'black',
+    height: 30,
+    marginVertical: 10,
+    padding: 5,
+  },
+  inputContainer: {
+    marginHorizontal: 25,
+    width: 290,
+  },
+  singleButton: {
+    alignItems: 'center',
+    backgroundColor: 'black',
+    borderRadius: 5,
+    height: 40,
+    justifyContent: 'center',
+    margin: 20,
+    width: 120,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: '700',
+    margin: 20,
   },
 });
