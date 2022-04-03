@@ -11,7 +11,7 @@ import { getOneUser } from '../services/api/users';
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { getAllUsers } from '../services/api/users';
 
-export const UserProfile = ({ userId }) => {
+export const UserProfile = (props) => {
   const { user: reduxUser, toggleEditUser } = useSelector((state) => state.ui);
   const [currUser, setCurrUser] = useState({
     first_name: '',
@@ -22,26 +22,12 @@ export const UserProfile = ({ userId }) => {
     fun_fact: '',
     portfolio_link: '',
   });
-  const [toggle, setToggle] = useState(false);
-  console.log('props', props);
   const dispatch = useDispatch();
   const validUrl = `http://${reduxUser.portfolio_link}`;
-  useEffect(() => {
-    // const setUser = async () => {
-    //   const { data: users } = await axios.get(
-    //     'https://bootcamper-dev-backend.herokuapp.com/api/users'
-    //   );
-    //   setCurrUser(users[6]);
-    // };
-    // setUser();
-    setToggle(true);
-  }, [props.route]);
 
-  // console.log('currUser', currUser);
   useEffect(() => {
     const setUser = async () => {
-      // console.log('route', route);
-      if (route.params.userId === reduxUser._id) {
+      if (props.userId === reduxUser._id) {
         setCurrUser(reduxUser);
       } else {
         const res = await getOneUser(params.id);
@@ -49,7 +35,7 @@ export const UserProfile = ({ userId }) => {
       }
     };
     setUser();
-  }, [toggle]);
+  }, [props]);
 
   const handleToggleMode = () => {
     dispatch(uiActions.toggleEditUser());

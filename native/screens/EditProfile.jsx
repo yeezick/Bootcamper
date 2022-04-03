@@ -54,8 +54,7 @@ const AboutUser = () => {
     }
   }, [toggleEditUser]);
 
-  const handleUserUpdate = async (e) => {
-    e.preventDefault();
+  const handleUserUpdate = async () => {
     try {
       const res = await updateUser(user._id, userInfo);
       dispatch(uiActions.updateUser(res));
