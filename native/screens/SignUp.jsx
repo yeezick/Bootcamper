@@ -152,7 +152,7 @@ export const SignUp = ({ navigation }) => {
           autoCapitalize="none"
           ref={emailInputRef}
           onFocus={() => setEmailError(null)}
-          onBlur={() => handleEmailCheck()}
+          onBlur={handleEmailCheck}
           returnKeyType="next"
           onSubmitEditing={() => {
             passwordInputRef.current && passwordInputRef.current.focus();
@@ -214,55 +214,31 @@ export const SignUp = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  modalContainer: {
-    height: '100%',
-    width: '100%',
-    alignSelf: 'center',
-    backgroundColor: 'white',
-    borderRadius: 5,
-    display: 'flex',
-    justifyContent: 'center',
+  accountForms: {
     alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: '500',
   },
   centeredView: {
     textAlign: 'center',
     textAlignVertical: 'center',
   },
-  accountForms: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontWeight: '700',
-    margin: 20,
-    fontSize: 16,
-  },
-  inputContainer: {
-    width: 290,
-    marginHorizontal: 25,
-  },
   input: {
-    height: 30,
-    marginVertical: 10,
     borderRadius: 5,
     borderStyle: 'solid',
     borderWidth: 1,
     color: 'black',
+    height: 30,
+    marginVertical: 10,
     padding: 5,
   },
-  singleButton: {
-    backgroundColor: 'black',
-    height: 40,
-    width: 120,
-    borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 20,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: '500',
+  inputContainer: {
+    marginHorizontal: 25,
+    width: 290,
   },
   inlineText: {
     fontSize: 14,
@@ -272,5 +248,29 @@ const styles = StyleSheet.create({
   link: {
     fontStyle: 'italic',
     textDecorationLine: 'underline',
+  },
+  modalContainer: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    borderRadius: 5,
+    display: 'flex',
+    height: '100%',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  singleButton: {
+    alignItems: 'center',
+    backgroundColor: 'black',
+    borderRadius: 5,
+    height: 40,
+    justifyContent: 'center',
+    margin: 20,
+    width: 120,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: '700',
+    margin: 20,
   },
 });
