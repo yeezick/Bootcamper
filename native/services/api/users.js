@@ -53,7 +53,11 @@ export const signUp = async (credentials) => {
     SecureStore.setItemAsync('token', token);
     return user;
   } catch (error) {
-    throw error;
+    console.log(
+      'Error: Unsuccessful sign-up. Verify that you do not have empty fields and a valid email.'
+    );
+    console.error(error);
+    return false;
   }
 };
 
@@ -65,7 +69,9 @@ export const signIn = async (credentials) => {
     // const user = jwtDecode(res.data.token);
     return user;
   } catch (error) {
-    throw error;
+    console.log('Error: User credentials incorrect or user does not exist.');
+    console.error(error);
+    return false;
   }
 };
 

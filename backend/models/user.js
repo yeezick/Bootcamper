@@ -5,6 +5,7 @@ const User = new Schema(
   {
     about: { type: String, maxlength: 300 },
     email: {
+      match: /.+\@.+\..+/,
       type: String,
       required: true,
       unique: [true, "E-mail already exists."],
