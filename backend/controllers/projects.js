@@ -19,7 +19,7 @@ import Tool from '../models/tool.js';
 //basic CRUD functions:
 export const getAllProjects = async (req, res) => {
   try {
-    const projects = await Project.find().populate([{path: 'team_members', model: User}, {path: 'tools', model: Tool}]); // .populate({path: "interested_applicants",model: User,  });
+    const projects = await Project.find().populate([{path: 'team_members', model: User}, {path: 'tools', model: Tool}, {path: 'interested_applicants', model: User}]); // .populate({path: "interested_applicants",model: User,  });
     res.json(projects);
   } catch (error) {
     console.log(error.message);

@@ -6,7 +6,7 @@ import { Button, FlatList, Pressable, StyleSheet, Text, View } from "react-nativ
 export const SingleProject = () => {
   const allProjects = useSelector(state => state.projects.allProjects);
   const currentUser = useSelector(state => state.ui.user);
-  const id = "622e4d5777c3c6a575004564"
+  const id = "6216b8b881d905a909aa239c"
   
   const [project, setProject] = useState({})
   const [edit, setEdit] = useState(false)
@@ -35,9 +35,10 @@ export const SingleProject = () => {
     <Button title="Edit Project Details" onPress={handlePress}/>
     {project.interested_applicants?.length ? 
       <View>
+        <Text>These users are interested in joining the project:</Text>
         {project.interested_applicants.map(applicant => (
           <Pressable onPress={showUser}>
-            <Text>{`user: ${applicant.first_name}`}</Text>
+            <Text>{`${applicant.first_name} ${applicant.last_name}, ${applicant.role}`}</Text>
           </Pressable>
         ))}
       </View> 
