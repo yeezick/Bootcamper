@@ -53,7 +53,11 @@ export const signUp = async (credentials) => {
     SecureStore.setItemAsync('token', token);
     return user;
   } catch (error) {
-    throw error;
+    console.log(
+      'Error: Unsuccessful sign-up. Verify that you do not have empty fields and a valid email.'
+    );
+    console.error(error);
+    return false;
   }
 };
 
