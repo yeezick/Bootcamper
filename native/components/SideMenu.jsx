@@ -15,7 +15,7 @@ import { UserDashboard } from '../screens/UserDashboard';
 import { UserProfile } from '../screens/UserProfile';
 import { EditProfile } from '../screens/EditProfile';
 // assets
-import { getAllUsers, verify } from '../services/api/users';
+import { signOut, verify } from '../services/api/users';
 import { uiActions } from '../services/redux/slices/uiSlice';
 import { fetchAllProjects } from '../services/redux/actions/projectActions.js';
 import { fetchAllTools } from '../services/redux/actions/toolActions.js';
@@ -29,9 +29,12 @@ export const SideMenu = () => {
 
   useEffect(() => {
     const setupReduxStore = async () => {
-      // const verifiedUser = await verify();
-      const allUsers = await getAllUsers(); // change once SIGN_IN is done
-      dispatch(uiActions.updateUser(allUsers[0]));
+      const verifiedUser = await verify();
+      if (verifiedUser) {
+        dispatch(uiActions.updateUser(verifiedUser));
+      } else {
+        dispatch(uiActions.updateUser(null));
+      }
       dispatch(fetchAllTools());
       toggleUserLoaded(true);
     };
