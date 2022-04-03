@@ -22,7 +22,7 @@ export const projectSlice = createSlice({
       const { allProjects, blacklistedProjects } = action.payload;
       state.allProjects = allProjects;
 
-      if (blacklistedProjects.length > 0) {
+      if (blacklistedProjects && blacklistedProjects.length > 0) {
         const projectsAvailableToUser = allProjects.filter(
           (project) => blacklistedProjects.includes(project._id) === false
         );

@@ -1,5 +1,5 @@
 import { api } from './apiConfig';
-import * as SecureStore from "expo-secure-store";
+import * as SecureStore from 'expo-secure-store';
 
 export const getAllUsers = async () => {
   try {
@@ -44,7 +44,7 @@ export const checkEmailAuth = async (email) => {
   } catch (error) {
     throw error;
   }
-}
+};
 
 export const signUp = async (credentials) => {
   try {
@@ -65,14 +65,16 @@ export const signIn = async (credentials) => {
     // const user = jwtDecode(res.data.token);
     return user;
   } catch (error) {
-    throw error;
+    console.log('Error: User credentials incorrect or user does not exist.');
+    console.error(error);
+    return false;
   }
 };
 
 export const signOut = async () => {
   try {
     // todo: poor error handling, please revise
-    await SecureStore.deleteItemAsync("token");
+    await SecureStore.deleteItemAsync('token');
     return true;
   } catch (error) {
     throw error;

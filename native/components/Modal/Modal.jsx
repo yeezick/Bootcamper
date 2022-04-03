@@ -1,5 +1,4 @@
 import { SingleActionButton } from '../Button/SingleActionButton';
-import './Modal.scss';
 
 export const Modal = ({ setShowModal }) => {
   const handleModal = () => {
