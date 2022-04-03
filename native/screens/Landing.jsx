@@ -1,29 +1,47 @@
-import { useEffect } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { getAllProjects } from '../services/api/projects';
-import { Provider, useSelector } from 'react-redux';
+import { StyleSheet, Text, View } from 'react-native';
+import { SingleActionButton } from '../components/Button/SingleActionButton.jsx';
 
-export function Landing({ navigation }) {
-  const state = useSelector((state) => state);
-  // console.log('state', state)
+export const Landing = () => {
+  const routeToSignUp = {
+    path: 'SignUp',
+    text: 'Sign Up',
+    type: 'reroute',
+  };
+
+  const routeToSignIn = {
+    path: 'SignIn',
+    text: 'Sign in',
+    type: 'reroute',
+  };
+
+  const routeToRoulette = {
+    path: 'Roulette',
+    text: 'Try it!',
+    type: 'reroute',
+  };
+
   return (
     <View style={styles.container}>
+      <View style={styles.placeholderImage}></View>
       <Text>Bootcamper</Text>
-      {/* button */}
-      {/* button */}
+      <SingleActionButton payload={routeToSignUp} />
+      <SingleActionButton payload={routeToSignIn} />
       <Text>Want to take a test drive first?</Text>
-      {/* button */}
+      <SingleActionButton payload={routeToRoulette} />
       <Text> Help | Contact</Text>
-      {/* <StatusBar style="auto" /> */}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+  },
+  placeholderImage: {
+    backgroundColor: 'black',
+    height: '60%',
+    width: '100%',
   },
 });

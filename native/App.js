@@ -7,7 +7,7 @@ import store from './services/redux/store.js';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyleSheet, Text, View } from 'react-native';
-import { SideMenu } from './SideMenu';
+import { SideMenu } from './components/SideMenu';
 // custom components
 import { Landing } from './screens/Landing';
 import { CreateProject } from './screens/CreateProject';
