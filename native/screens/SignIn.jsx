@@ -1,60 +1,35 @@
-import { useState, createRef, useEffect } from 'react';
+import { useState, createRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { signOut, checkEmailAuth, verify } from '../services/api/users.js';
-import { loginUser } from '../services/redux/actions/uiActions.js';
+import { signIn, checkEmailAuth } from '../services/api/users.js';
+import { handleTextChange } from '../services/utils/handlers.js';
+import { uiActions } from '../services/redux/slices/uiSlice';
 
 // Native Components
-import { 
-  StyleSheet, 
-  Text, 
-  View, 
-  TextInput, 
-  TouchableOpacity, 
-  Button,
-  Alert,
-} from "react-native";
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Alert } from 'react-native';
 
-
-export const SignIn = ({navigation}) => {
-  // redux
+export const SignIn = ({ navigation }) => {
   const dispatch = useDispatch();
-  // error states
   const [noAccountError, setNoAccountError] = useState(null);
-  const [authError, setAuthError] = useState(null);
-  // log in state
   const [logInInfo, setLogInInfo] = useState({
     email: '',
     password: '',
   });
-  // input references
   const { emailInputRef, passwordInputRef } = createRef();
 
-  // sign out user on sign in screen render
-  useEffect(() => {
-    signOut();
-  }, []);
-
   const handleSignIn = async () => {
-    await dispatch(loginUser(logInInfo));
-    const user = await verify();
-    if (user.email === logInInfo.email) {
-      setLogInInfo({
-        email: '',
-        password: '',
-      });
+    const signedInUser = await signIn(logInInfo);
+    if (signedInUser) {
+      dispatch(uiActions.updateUser(signedInUser));
       // check this params functionality on edit land
       navigation.navigate('EditProfile', {
-        id: user._id,
-      })
+        userID: signedInUser._id,
+      });
     } else {
-      setAuthError(
-        "Invalid credentials. Please check your details and try again."
-      );
-      Alert.alert(authError);
+      Alert.alert('Invalid credentials. Please check your details and try again.');
       setLogInInfo((prevState) => {
         return {
           ...prevState,
-          password: "",
+          password: '',
         };
       });
     }
@@ -64,7 +39,7 @@ export const SignIn = ({navigation}) => {
     const emailReq = { email: logInInfo.email };
     const res = await checkEmailAuth(emailReq);
     if (!res) {
-      setNoAccountError("Account not found.");
+      setNoAccountError('No user found with this email address.');
     }
   };
 
@@ -76,49 +51,32 @@ export const SignIn = ({navigation}) => {
         <TextInput
           value={logInInfo.email}
           style={styles.input}
-          onChangeText={(email) => setLogInInfo((prevState) => {
-            return {
-              ...prevState,
-              email: email,
-            }
-          })}
+          onChangeText={(email) => handleTextChange(email, 'email', setLogInInfo)}
           keyboardType="email-address"
           autoCapitalize="none"
           ref={emailInputRef}
-          onFocus={()=> setNoAccountError(null)}
+          onFocus={() => setNoAccountError(null)}
           onBlur={() => validEmail()}
           returnKeyType="next"
           onSubmitEditing={() => {
-            passwordInputRef.current &&
-            passwordInputRef.current.focus()
+            console.log(passwordInputRef.current);
+            console.log(passwordInputRef.current.focus());
           }}
         />
       </View>
       <Text>{noAccountError}</Text>
       <View style={styles.inputContainer}>
         <Text>Password</Text>
-        <TextInput 
+        <TextInput
           value={logInInfo.password}
           style={styles.input}
-          onChangeText={(password) => setLogInInfo((prevState) => {
-            return {
-              ...prevState,
-              password: password
-            }
-          })}
+          onChangeText={(password) => handleTextChange(password, 'password', setLogInInfo)}
           ref={passwordInputRef}
           returnKeyType="next"
           secureTextEntry={true}
-          onSubmitEditing={() => {
-            confirmPasswordInputRef.current &&
-            confirmPasswordInputRef.current.focus()
-          }}
         />
       </View>
-      <TouchableOpacity
-        style={styles.singleButton}
-        onPress={() => handleSignIn()}
-        color="white">
+      <TouchableOpacity style={styles.singleButton} onPress={handleSignIn} color="white">
         <Text style={styles.buttonText}>Log In</Text>
       </TouchableOpacity>
       <Button title="Forgot Password?" />
@@ -145,9 +103,9 @@ const styles = StyleSheet.create({
     height: 30,
     marginVertical: 10,
     borderRadius: 5,
-    borderStyle: "solid",
+    borderStyle: 'solid',
     borderWidth: 1,
-    color: "black",
+    color: 'black',
     padding: 5,
   },
   singleButton: {
@@ -162,5 +120,5 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: '500',
-  }
-})
+  },
+});

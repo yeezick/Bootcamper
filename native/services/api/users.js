@@ -65,7 +65,9 @@ export const signIn = async (credentials) => {
     // const user = jwtDecode(res.data.token);
     return user;
   } catch (error) {
-    throw error;
+    console.log('Error: User credentials incorrect or user does not exist.');
+    console.error(error);
+    return false;
   }
 };
 

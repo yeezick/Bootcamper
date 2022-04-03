@@ -1,18 +1,8 @@
 import { uiActions } from '../slices/uiSlice';
 import { projectActions } from '../slices/projectSlice';
-import { signIn, signUp, updateUser } from '../../api/users';
+import { signUp, updateUser } from '../../api/users';
 
-export const loginUser = (userData) => {
-  return async (dispatch) => {
-    try {
-      const res = await signIn(userData);
-      dispatch(uiActions.updateUser(res));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
+// worth reviewing with SignUp PR
 export const signUpUser = (userData) => {
   return async (dispatch) => {
     try {
@@ -35,3 +25,19 @@ export const addRejectedProject = (userId, userUpdate, blacklistedProjects) => {
     }
   };
 };
+
+/*  DEPRECATED:
+- sign in screen does not track state change
+- no way to handle unsuccessful login without having to call with `verify()` 
+export const loginUser = (userData) => {
+  return async (dispatch) => {
+    try {
+      const res = await signIn(userData);
+      dispatch(uiActions.updateUser(res));
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+*/
