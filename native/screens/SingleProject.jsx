@@ -13,7 +13,6 @@ export const SingleProject = () => {
   const [loaded, setLoaded] = useState(false)
 
   const showUser = () => console.log("redirect to user's profile")
-  const handlePress = () => console.log("pressed button")
 
   let hours;
   const option = project.time_commitment;
@@ -32,12 +31,12 @@ export const SingleProject = () => {
   }
   
   const ownerView = <View>
-    <Button title="Edit Project Details" onPress={handlePress}/>
+    <Button title="Edit Project Details" onPress={()=> setEdit(true)}/>
     {project.interested_applicants?.length ? 
       <View>
         <Text>These users are interested in joining the project:</Text>
         {project.interested_applicants.map(applicant => (
-          <Pressable onPress={showUser}>
+          <Pressable key={applicant._id} onPress={showUser}>
             <Text>{`${applicant.first_name} ${applicant.last_name}, ${applicant.role}`}</Text>
           </Pressable>
         ))}
@@ -53,8 +52,6 @@ export const SingleProject = () => {
       setProject(currentProject);
     }
     }, [id])
-    console.log("project in local state:", project)
-
   
     if (loaded && !edit) {
       return (

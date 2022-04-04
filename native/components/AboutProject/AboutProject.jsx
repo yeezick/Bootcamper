@@ -33,8 +33,7 @@ export const AboutProject = ({ createNewProject, handleSubmit, project, setEdit 
   const handleToolChange = (e) => {
     setCurrentTool(e.target.value)
   }
-  const selectTool = (e) => {
-    e.preventDefault();
+  const selectTool = () => {
     if (currentTool) { const selectedTool = toolsList.find(tool => tool.name === currentTool)
     setProjectInfo({
       ...projectInfo,
@@ -44,8 +43,7 @@ export const AboutProject = ({ createNewProject, handleSubmit, project, setEdit 
   setCurrentTool('')
 }
 
-const removeTool = (e, id) => {
-  e.preventDefault();
+const removeTool = (id) => {
   const removeIndex = projectInfo.tools.findIndex(tool => tool._id === id)
   projectInfo.tools.splice(removeIndex, 1);
   setProjectInfo({
@@ -54,15 +52,15 @@ const removeTool = (e, id) => {
   })
 }
 // count related functions
-const updateDesignerCount = () => {
-  setDesignerCount(designerCount);
+const updateDesignerCount = (change) => {
+  if (designerCount + change >= 0) setDesignerCount(designerCount + change);
   setProjectInfo({
     ...projectInfo,
     designer_count: designerCount,
   });
 }
-const updateEngineerCount = () => {
-  setEngineerCount(engineerCount);
+const updateEngineerCount = (change) => {
+  if (engineerCount + change >= 0) setEngineerCount(engineerCount + change);
   setProjectInfo({
     ...projectInfo,
     engineer_count: engineerCount,
@@ -111,7 +109,7 @@ useEffect(() => {
           <View>
             <Text>{item.key}</Text>
             <Button 
-              onPress={(e) => removeTool(e, tool._id)}
+              onPress={() => removeTool(tool._id)}
               title="x"
             />
           </View>)}>
@@ -120,26 +118,27 @@ useEffect(() => {
       <Text>How many designers are you seeking?</Text>
       <Text>{designerCount}</Text>
       <Button 
-        onPress={updateDesignerCount}
+        onPress={() => updateDesignerCount(1)}
         title='+'
       />
       <Button 
-        onPress={updateDesignerCount}
+        onPress={() => updateDesignerCount(-1)}
         title='-'
       />
       <Text>How many engineers are you seeking?</Text>
       <Text>{engineerCount}</Text>
       <Button 
-        onPress={() => updateEngineerCount('+')}
+        onPress={() => updateEngineerCount(1)}
         title='+'
       />
       <Button 
-        onPress={() => updateEngineerCount('-')}
+        onPress={() => updateEngineerCount(-1)}
         title='-'
       />
       <Text>What is the requested time commitment for collaborators?</Text>
+      <Text>{`Current time commitment: ${project.time_commitment}`}</Text>
       <Picker
-        defaultValue={createNewProject ? project.time_commitment : 'no preference'}
+        defaultValue={!createNewProject ? project.time_commitment : 'no preference'}
         selectedValue={project.time_commitment} 
       >
         {timeCommitments.map(time => (
