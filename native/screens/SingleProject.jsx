@@ -6,10 +6,9 @@ import { Button, FlatList, Pressable, StyleSheet, Text, View } from "react-nativ
 export const SingleProject = () => {
   const allProjects = useSelector(state => state.projects.allProjects);
   const currentUser = useSelector(state => state.ui.user);
-  const id = "6216b8b881d905a909aa239c"
-  
+  const id = "6216b8b881d905a909aa239d"
   const [project, setProject] = useState({})
-  const [edit, setEdit] = useState(false)
+  const [edit, setEdit] = useState(true)
   const [loaded, setLoaded] = useState(false)
 
   const showUser = () => console.log("redirect to user's profile")

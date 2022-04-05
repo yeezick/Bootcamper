@@ -45,10 +45,11 @@ export const AboutProject = ({ createNewProject, handleSubmit, project, setEdit 
 
 const removeTool = (id) => {
   const removeIndex = projectInfo.tools.findIndex(tool => tool._id === id)
-  projectInfo.tools.splice(removeIndex, 1);
+  const projectTools = projectInfo.tools
+  projectTools.splice(removeIndex, 1);
   setProjectInfo({
     ...projectInfo,
-    tools: projectInfo.tools
+    tools: projectTools
   })
 }
 // count related functions
@@ -97,24 +98,29 @@ useEffect(() => {
         value={projectInfo.description}
       />
       <Text>What tools will the project use?</Text>
+      {project.tools.length ? 
+      <View>
+        <Text>Current tools list:</Text>
+        <FlatList 
+          data={project.tools?.map(tool => new Object({key: tool.name, id: tool._id}))}
+          renderItem={({item}) => (
+            <View>
+              <Text>{item.key}</Text>
+              <Button 
+                onPress={() => removeTool(item.id)}
+                title="x"
+              />
+            </View>)}>
+        </FlatList> 
+
+      </View> 
+      : null }
+      <Text>Add tools to the project:</Text>
       <Picker defaultValue={'select a tool'} selectedValue={currentTool} onValueChange={(e) => selectTool(e)}>
         {toolsList.map(tool => (
-          <Picker.Item key={tool.name} label={tool.name} value={currentTool} />
+          <Picker.Item key={tool.name} label={tool.name} value={tool.name} />
         ))}
       </Picker>
-      {project.tools.length ? 
-      <FlatList 
-        data={project.tools?.map(tool => new Object({key: tool.name}))}
-        renderItem={({item}) => (
-          <View>
-            <Text>{item.key}</Text>
-            <Button 
-              onPress={() => removeTool(tool._id)}
-              title="x"
-            />
-          </View>)}>
-      </FlatList> :
-      null }
       <Text>How many designers are you seeking?</Text>
       <Text>{designerCount}</Text>
       <Button 
