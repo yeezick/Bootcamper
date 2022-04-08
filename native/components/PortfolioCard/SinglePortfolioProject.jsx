@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import uuid from 'react-native-uuid';
-import { handleTextChange } from '../../services/utils/handlers';
 import { Button, Text, TextInput, View } from 'react-native';
+import { handleTextChange } from '../../services/utils/handlers';
 
 export const SinglePortfolioProject = ({ updateEditedProject, project }) => {
   const [currProject, setCurrProject] = useState({

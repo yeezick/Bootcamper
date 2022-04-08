@@ -11,8 +11,9 @@ import { getOneUser } from '../services/api/users';
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { getAllUsers } from '../services/api/users';
 
-export const UserProfile = (props) => {
-  const { user: reduxUser, toggleEditUser } = useSelector((state) => state.ui);
+export const UserProfile = ({ route, navigation }) => {
+  console.log('route', route);
+  const { user: reduxUser, editMode } = useSelector((state) => state.ui);
   const [currUser, setCurrUser] = useState({
     first_name: '',
     last_name: '',
@@ -24,62 +25,56 @@ export const UserProfile = (props) => {
   });
   const dispatch = useDispatch();
   const validUrl = `http://${reduxUser.portfolio_link}`;
+  const { about, email, fun_fact, first_name, last_name, role, _id: currUserId } = currUser;
 
   useEffect(() => {
     const setUser = async () => {
-      if (props.userId === reduxUser._id) {
+      if (route.params === undefined || route.params.userID === reduxUser._id) {
         setCurrUser(reduxUser);
       } else {
-        const res = await getOneUser(params.id);
+        const res = await getOneUser(route.params.userID); // must be tested
         setCurrUser(res);
       }
     };
     setUser();
-  }, [props]);
+  }, []);
 
   const handleToggleMode = () => {
-    dispatch(uiActions.toggleEditUser());
+    dispatch(uiActions.toggleEditMode());
+    navigation.navigate('EditProfile', {
+      userID: currUser._id,
+    });
   };
-  if (toggleEditUser) {
-    return (
-      <ScrollView>
-        <Button title="back to profile" onPress={handleToggleMode} />
-        <EditProfile currUser={currUser} />
-      </ScrollView>
-    );
-  } else {
-    const { about, email, fun_fact, first_name, last_name, role, _id: currUserId } = currUser;
 
-    return (
-      <ScrollView>
-        <Button title="toggle edit mode" onPress={handleToggleMode} />
-        {/* TITLE WRAPPER */}
-        <View>
-          <Text>
-            {first_name} {last_name}
-          </Text>
-          <Text>{role}</Text>
-        </View>
+  return (
+    <ScrollView>
+      <Button title="toggle edit mode" onPress={handleToggleMode} />
+      {/* TITLE WRAPPER */}
+      <View>
+        <Text>
+          {first_name} {last_name}
+        </Text>
+        <Text>{role}</Text>
+      </View>
 
-        <Text> I AM AN IMAGE</Text>
-        {/* LINKS WRAPPER */}
-        <View>
-          <Text>{email}</Text>
-          <Text>PORTFOLIO LINK</Text>
-        </View>
+      <Text> I AM AN IMAGE</Text>
+      {/* LINKS WRAPPER */}
+      <View>
+        <Text>{email}</Text>
+        <Text>PORTFOLIO LINK</Text>
+      </View>
 
-        {/* CONTENT WRAPPER */}
-        <View>
-          <Text>{about}</Text>
-        </View>
+      {/* CONTENT WRAPPER */}
+      <View>
+        <Text>{about}</Text>
+      </View>
 
-        {/* FUN FACT WRAPPER */}
-        <View>
-          <Text>{fun_fact}</Text>
-        </View>
+      {/* FUN FACT WRAPPER */}
+      <View>
+        <Text>{fun_fact}</Text>
+      </View>
 
-        <ShowPortfolioProjects currUser={currUser} />
-      </ScrollView>
-    );
-  }
+      <ShowPortfolioProjects currUser={currUser} />
+    </ScrollView>
+  );
 };

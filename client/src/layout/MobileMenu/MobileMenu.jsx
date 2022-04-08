@@ -9,7 +9,7 @@ const MobileMenu = ({ isOpen, toggleMobileMenu }) => {
   const dispatch = useDispatch();
 
   const toggleEditMode = () => {
-    dispatch(uiActions.toggleEditUser());
+    dispatch(uiActions.toggleEditMode());
     toggleMobileMenu();
   };
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AddPortfolioProject } from '../components/PortfolioCard/AddPortfolioProject';
@@ -10,11 +10,12 @@ import { Modal } from '../components/Modal/Modal';
 import { uiActions } from '../services/redux/slices/uiSlice';
 import { updateUser } from '../services/api/users';
 import { userForm } from '../services/formData';
-import { useEffect } from 'react';
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-export const EditProfile = (props) => {
-  const { currUser, navigation } = props;
+export const EditProfile = ({ navigation, route }) => {
+  const { user: reduxUser, editMode } = useSelector((state) => state.ui);
+  console.log('edit profile props----\n');
+
   const header = {
     text: "Before you can create or join a project, we'll need to finish your profile first.",
     title: 'About You',
@@ -22,18 +23,18 @@ export const EditProfile = (props) => {
 
   return (
     //  edit profile
-    <View>
+    <ScrollView>
       <Header headerTitle={header.title} headerText={header.text} />
       <AboutUser />
       <AddPortfolioProject />
-      <ShowPortfolioProjects currUser={currUser} />
+      <ShowPortfolioProjects currUser={reduxUser} />
       <Button title="start collaborating" onPress={() => navigation.navigate('roulette')} />
-    </View>
+    </ScrollView>
   );
 };
 
 const AboutUser = () => {
-  const { toggleEditUser, user } = useSelector((state) => state.ui);
+  const { editMode, user } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
   const [userInfo, setUserInfo] = useState({
     about: '',
@@ -43,7 +44,7 @@ const AboutUser = () => {
   });
 
   useEffect(() => {
-    if (toggleEditUser) {
+    if (editMode) {
       const { about, fun_fact, portfolio_link, role } = user;
       setUserInfo({
         about,
@@ -52,7 +53,7 @@ const AboutUser = () => {
         role,
       });
     }
-  }, [toggleEditUser]);
+  }, [editMode]);
 
   const handleUserUpdate = async () => {
     try {
@@ -65,8 +66,8 @@ const AboutUser = () => {
 
   return (
     // className="about-user"
-    <ScrollView>
+    <View>
       <Form formData={userForm} formState={[userInfo, setUserInfo, handleUserUpdate]} />
-    </ScrollView>
+    </View>
   );
 };

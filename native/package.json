@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "expo start --dev-client",
     "android": "expo run:android",
     "ios": "expo run:ios",
+    "devtools": "react-devtools",
+    "start": "expo start --dev-client",
     "web": "expo start --web"
   },
   "dependencies": {
@@ -36,7 +37,8 @@
     "redux-persist": "^6.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "react-devtools": "^4.24.3"
   },
   "private": true
 }
