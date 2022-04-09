@@ -1,88 +1,92 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { EditProject } from "./EditProject.jsx";
-import { Button, FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import { EditProject } from './EditProject.jsx';
+import { Button, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import { handleToggle } from '../services/utils/handlers';
 
-export const SingleProject = () => {
-  const allProjects = useSelector(state => state.projects.allProjects);
-  const currentUser = useSelector(state => state.ui.user);
-  const id = "6216b8b881d905a909aa239d"
-  const [project, setProject] = useState({})
-  const [edit, setEdit] = useState(true)
-  const [loaded, setLoaded] = useState(false)
+export const SingleProject = ({ navigation }) => {
+  const allProjects = useSelector((state) => state.projects.allProjects);
+  const currentUser = useSelector((state) => state.ui.user);
+  const id = '6216b8b881d905a909aa239d';
+  const [project, setProject] = useState({});
+  const [edit, setEdit] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
-  const showUser = () => console.log("redirect to user's profile")
+  useEffect(() => {
+    setLoaded(true);
+    setProject(allProjects[0]);
+  }, [id]);
+
+  const showUser = () => console.log("redirect to user's profile");
 
   let hours;
   const option = project.time_commitment;
   switch (option) {
-    case "hobby":
+    case 'hobby':
       hours = 10;
       break;
-    case "part-time":
+    case 'part-time':
       hours = 20;
       break;
-    case "full-time":
+    case 'full-time':
       hours = 30;
       break;
     default:
-      hours = "any";
+      hours = 'any';
   }
-  
-  const ownerView = <View>
-    <Button title="Edit Project Details" onPress={()=> setEdit(true)}/>
-    {project.interested_applicants?.length ? 
-      <View>
-        <Text>These users are interested in joining the project:</Text>
-        {project.interested_applicants.map(applicant => (
-          <Pressable key={applicant._id} onPress={showUser}>
-            <Text>{`${applicant.first_name} ${applicant.last_name}, ${applicant.role}`}</Text>
-          </Pressable>
-        ))}
-      </View> 
-      : null
-    } 
-  </View>
 
-  useEffect(() => {
-    const currentProject = allProjects.find(project => project._id === id);
-    if (currentProject) {
-      setLoaded(true);
-      setProject(currentProject);
-    }
-    }, [id])
-  
-    if (loaded && !edit) {
-      return (
+  const OwnerView = () => (
+    <View>
+      <Button title="Edit Project Details" onPress={() => setEdit(true)} />
+      {project.interested_applicants?.length ? (
         <View>
-          <Text>{project.title}</Text>
-          <Text>{project.description}</Text>
-          <Text>Current team size: {project.team_members?.length + 1}</Text>
-          {project.tools?.length ? <Text>Built with:</Text> : null }
-          <FlatList 
-            data={project.tools?.map(tool => new Object({key: tool.name}))}
-            renderItem={({item}) => <Text>{item.key}</Text>}
-          />
-          <Text>{`Looking for collaborators who can commit ${hours} hours per week.`}</Text>
-          {currentUser._id === project.owner ? ownerView : null}
-          
+          <Text>These users are interested in joining the project:</Text>
+          {project.interested_applicants.map((applicant) => (
+            <Pressable key={applicant._id} onPress={showUser}>
+              <Text>{`${applicant.first_name} ${applicant.last_name}, ${applicant.role}`}</Text>
+            </Pressable>
+          ))}
         </View>
-      )
-    } else if (loaded && edit) {
-      return (
-        <View>
-          <EditProject project={project} setEdit={setEdit}/>
-        </View>
-      )
-    } else {
-      return (
-        <View>
-          <Text>Loading...</Text>
-        </View>
-      )
-    }
-      ;
+      ) : null}
+    </View>
+  );
 
+  const handleEditProjectMode = () => {
+    setEdit(true);
+    navigation.navigate('EditProject', {
+      projectID: project._id,
+    });
+  };
+
+  // if (loaded && !edit) {
+  return (
+    <View>
+      <Button title="Edit Project Details" onPress={handleEditProjectMode} />
+      <Text>{project.title}</Text>
+      <Text>{project.description}</Text>
+      <Text>Current team size: {project.team_members?.length + 1}</Text>
+      {project.tools?.length ? <Text>Built with:</Text> : null}
+      <FlatList
+        data={project.tools?.map((tool) => new Object({ key: tool.name }))}
+        renderItem={({ item }) => <Text>{item.key}</Text>}
+      />
+      <Text>{`Looking for collaborators who can commit ${hours} hours per week.`}</Text>
+      {currentUser._id === project.owner ? <OwnerView /> : null}
+    </View>
+  );
+  // } else if (loaded && edit) {
+  //   return (
+  //     <View>
+  //       <EditProject project={project} setEdit={setEdit} />
+  //     </View>
+  //   );
+  // } else {
+  //   return (
+  //     <View>
+  //       <Text>Loading...</Text>
+  //     </View>
+  //   );
+  // }
 };
 
 // export const ReactSingleProject = () => {

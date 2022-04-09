@@ -1,27 +1,52 @@
-// import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
 import { AboutProject } from '../components/AboutProject/AboutProject.jsx';
-import { Header } from "../components/Header/Header.jsx";
+import { Header } from '../components/Header/Header.jsx';
 // import { SingleActionButton } from "../../components/Button/SingleActionButton.jsx";
 // import { editProject, deleteProject } from "../../services/api/projects.js";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, ScrollView, Button } from 'react-native';
+import { getOneProject } from '../services/api/projects.js';
 
-export const EditProject = ({ project, setEdit }) => {
+export const EditProject = ({ navigation, route }) => {
+  const [currProject, setCurrProject] = useState();
+  const { projectID, setEdit } = route.params;
+  const [loadedProject, toggleLoadedProject] = useState(false);
   const createNewProject = false;
   const header = {
-    text: "Edit the fields below and click Update Project to save your changes.",
-    title: "Edit Project Details",
+    text: 'Edit the fields below and click Update Project to save your changes.',
+    title: 'Edit Project Details',
   };
 
+  useEffect(() => {
+    const fetchProject = async () => {
+      const res = await getOneProject(projectID);
+      console.log('res', res);
+      setCurrProject(res);
+      toggleLoadedProject(true);
+    };
+    fetchProject();
+  }, []);
+
+  // console.log('currProject', currProject);
+  if (!loadedProject) {
+    return <Text>Loading....</Text>;
+  }
+
   return (
-    <View>
-      <Header headerText={header.text} headerTitle={header.title}/>
+    <ScrollView>
+      <Button
+        title="Cancel Editing"
+        onPress={() => {
+          navigation.navigate('SingleProject');
+        }}
+      />
+      <Header headerText={header.text} headerTitle={header.title} />
       <AboutProject
         createNewProject={createNewProject}
-        project={project}
-        setEdit={setEdit}
+        project={currProject}
+        // setEdit={setEdit}
         // handleSubmit={handleSubmit}
       />
-    </View>
+    </ScrollView>
   );
 };
 
