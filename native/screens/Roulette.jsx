@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 // components
 import { DoubleActionButton } from '../components/Button/DoubleActionButton';
@@ -24,7 +23,7 @@ export const Roulette = ({ navigation }) => {
   }, [isLoaded]);
 
   useEffect(() => {
-    // how do i eliminate the need to fetch all projects again?
+    // used to keep available projects updated
   }, [currIndex]);
 
   const rouletteButtonProps = {
@@ -120,7 +119,7 @@ const RouletteButtons = ({ navigation, rouletteButtonProps }) => {
   };
 
   const redirectToCreateProject = () => {
-    navigation.navigate('/projects/:id/edit');
+    navigation.navigate('CreateProject');
   };
 
   return (

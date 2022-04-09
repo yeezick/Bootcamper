@@ -1,26 +1,11 @@
 import { Button, Text, View } from 'react-native';
-import { Alert } from 'react-native-web';
 
-export const DoubleActionButton = ({
-  leftText,
-  leftOnClick,
-  leftType = 'button',
-  rightText,
-  rightOnClick,
-  rightType = 'button',
-  onClick,
-}) => {
+export const DoubleActionButton = ({ leftText, leftOnClick, rightText, rightOnClick }) => {
   return (
-    <View className="double-button" onClick={onClick}>
-      <Button className="left" onClick={leftOnClick} title={leftText} type={leftType} />
+    <View className="double-button">
+      <Button className="left" onPress={leftOnClick} title={leftText} />
       <Text className="separator">|</Text>
-      <Button
-        className="right"
-        onClick={rightOnClick}
-        title={rightText}
-        type={rightType}
-        value={rightText}
-      />
+      <Button className="right" onPress={rightOnClick} title={rightText} />
     </View>
   );
 };
