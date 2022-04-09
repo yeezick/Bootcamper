@@ -1,169 +1,149 @@
-// import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { useDispatch, useSelector } from "react-redux";
-// // components
-// import { DoubleActionButton } from "../../components/Button/DoubleActionButton";
-// // assets
-// import { addRejectedProject } from "../../services/redux/actions/uiActions";
-// import { showInterestInRoulette } from "../../services/redux/actions/projectActions";
-import { StyleSheet, Text, View } from "react-native";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+// components
+import { DoubleActionButton } from '../components/Button/DoubleActionButton';
+// assets
+import { addRejectedProject } from '../services/redux/actions/uiActions';
+import { showInterestInRoulette } from '../services/redux/actions/projectActions';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
-export const Roulette = () => {
+// currently rerendering 5x
+export const Roulette = ({ navigation }) => {
+  const [currProject, setCurrProject] = useState(null);
+  const [currIndex, setCurrIndex] = useState(null);
+
+  const { availableProjects, isLoaded } = useSelector((state) => state.projects);
+
+  useEffect(() => {
+    const showAvailableProjects = async () => {
+      setCurrProject(availableProjects[0]);
+      setCurrIndex(0);
+    };
+    showAvailableProjects();
+  }, [isLoaded]);
+
+  useEffect(() => {
+    // used to keep available projects updated
+  }, [currIndex]);
+
+  const rouletteButtonProps = {
+    availableProjects,
+    currIndex,
+    currProject,
+    setCurrIndex,
+    setCurrProject,
+  };
+
+  if (!currProject) {
+    return <Text>Loading</Text>;
+  }
+
   return (
     <View>
-      <Text>roulette</Text>
+      <ProjectInfo project={currProject} />
+      <RouletteButtons navigation={navigation} rouletteButtonProps={rouletteButtonProps} />
     </View>
   );
 };
 
-// // currently rerendering 5x
-// export const ReactRoulette = () => {
-//   const [currProject, setCurrProject] = useState(null);
-//   const [currIndex, setCurrIndex] = useState(null);
+const ProjectInfo = ({ project }) => {
+  return (
+    // classname="roulette-visual"
+    <View>
+      <Text>I am an image</Text>
+      <Text>{project.title}</Text>
+      <Text>{project.description}</Text>
+      <View className="roulette-tools">
+        <Text> Built with:</Text>
+        {project.tools?.map((tool) => (
+          <Text>{tool}</Text>
+        ))}
+      </View>
+      <Text>{`Looking for collaborators who can commit at least X hours per week`}</Text>
+    </View>
+  );
+};
 
-//   const { availableProjects, isLoaded } = useSelector(
-//     (state) => state.projects
-//   );
+const RouletteButtons = ({ navigation, rouletteButtonProps }) => {
+  // const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { blacklisted_projects, finishedRegistration, user } = useSelector((state) => state.ui);
+  const { availableProjects, currIndex, currProject, setCurrIndex, setCurrProject } =
+    rouletteButtonProps;
 
-//   useEffect(() => {
-//     const showAvailableProjects = async () => {
-//       setCurrProject(availableProjects[0]);
-//       setCurrIndex(0);
-//     };
-//     showAvailableProjects();
-//   }, [isLoaded]);
+  const declineProject = async () => {
+    const blacklistedProjects = [...blacklisted_projects, currProject._id];
+    const body = {
+      rejected_projects: [...user.rejected_projects, currProject._id],
+    };
 
-//   useEffect(() => {
-//     // how do i eliminate the need to fetch all projects again?
-//   }, [currIndex]);
+    dispatch(addRejectedProject(user._id, body, blacklistedProjects));
+    skipProject();
+  };
 
-//   const rouletteButtonProps = {
-//     availableProjects,
-//     currIndex,
-//     currProject,
-//     setCurrIndex,
-//     setCurrProject,
-//   };
+  const showInterest = async () => {
+    const { _id: projectId, interested_applicants } = currProject;
+    const { _id: userId, interested_projects } = user;
+    const blacklistedProjects = [...blacklisted_projects, currProject._id];
+    const body = {
+      project: {
+        projectId,
+        projectUpdate: {
+          interested_applicants: [...interested_applicants, userId],
+        },
+      },
+      user: {
+        userId,
+        userUpdate: {
+          interested_projects: [...interested_projects, projectId],
+        },
+      },
+    };
 
-//   if (!currProject) {
-//     return <p>Loading</p>;
-//   }
+    dispatch(showInterestInRoulette(body, blacklistedProjects));
+    skipProject();
+  };
 
-//   return (
-//     <div>
-//       <ProjectInfo project={currProject} />
-//       <RouletteButtons rouletteButtonProps={rouletteButtonProps} />
-//     </div>
-//   );
-// };
+  const skipProject = () => {
+    let newIndex = currIndex + 1;
+    if (newIndex === availableProjects.length && availableProjects.length !== 0) {
+      setCurrProject(availableProjects[0]);
+      setCurrIndex(0);
+    } else if (availableProjects.length === 0) {
+      setCurrProject(null);
+      setCurrIndex(null);
+    } else {
+      setCurrProject(availableProjects[newIndex]);
+      setCurrIndex(newIndex);
+    }
+  };
 
-// const ProjectInfo = ({ project }) => {
-//   return (
-//     <>
-//       <div className="roulette-visual">I am an image</div>
-//       <p>{project.title}</p>
-//       <p>{project.description}</p>
-//       <div className="roulette-tools">
-//         <p> Built with:</p>
-//         {project.tools?.map((tool) => (
-//           <p>{tool}</p>
-//         ))}
-//       </div>
-//       <p>{`Looking for collaborators who can commit at least X hours per week`}</p>
-//     </>
-//   );
-// };
+  const redirectToCreateProject = () => {
+    navigation.navigate('CreateProject');
+  };
 
-// const RouletteButtons = ({ rouletteButtonProps }) => {
-//   const navigate = useNavigate();
-//   const dispatch = useDispatch();
-//   const { blacklisted_projects, finishedRegistration, user } = useSelector(
-//     (state) => state.ui
-//   );
-//   const {
-//     availableProjects,
-//     currIndex,
-//     currProject,
-//     setCurrIndex,
-//     setCurrProject,
-//   } = rouletteButtonProps;
-
-//   const declineProject = async () => {
-//     const blacklistedProjects = [...blacklisted_projects, currProject._id];
-//     const body = {
-//       rejected_projects: [...user.rejected_projects, currProject._id],
-//     };
-
-//     dispatch(addRejectedProject(user._id, body, blacklistedProjects));
-//     skipProject();
-//   };
-
-//   const showInterest = async () => {
-//     const { _id: projectId, interested_applicants } = currProject;
-//     const { _id: userId, interested_projects } = user;
-//     const blacklistedProjects = [...blacklisted_projects, currProject._id];
-//     const body = {
-//       project: {
-//         projectId,
-//         projectUpdate: {
-//           interested_applicants: [...interested_applicants, userId],
-//         },
-//       },
-//       user: {
-//         userId,
-//         userUpdate: {
-//           interested_projects: [...interested_projects, projectId],
-//         },
-//       },
-//     };
-
-//     dispatch(showInterestInRoulette(body, blacklistedProjects));
-//     skipProject();
-//   };
-
-//   const skipProject = () => {
-//     let newIndex = currIndex + 1;
-//     if (
-//       newIndex === availableProjects.length &&
-//       availableProjects.length !== 0
-//     ) {
-//       setCurrProject(availableProjects[0]);
-//       setCurrIndex(0);
-//     } else if (availableProjects.length === 0) {
-//       setCurrProject(null);
-//       setCurrIndex(null);
-//     } else {
-//       setCurrProject(availableProjects[newIndex]);
-//       setCurrIndex(newIndex);
-//     }
-//   };
-
-//   const redirectToCreateProject = () => {
-//     navigate("/projects/:id/edit");
-//   };
-
-//   return (
-//     <div style={{ display: "flex", flexDirection: "column" }}>
-//       {finishedRegistration ? (
-//         <>
-//           <DoubleActionButton
-//             leftText="I'll Pass"
-//             leftOnClick={declineProject}
-//             rightText="I'm Interested"
-//             rightOnClick={showInterest}
-//           />
-//           {availableProjects.length === 1 ? null : (
-//             <button onClick={skipProject}>Skip for now</button>
-//           )}
-//           <button onClick={redirectToCreateProject}> Create my own</button>
-//         </>
-//       ) : (
-//         <>
-//           {availableProjects.length === 1 ? null : (
-//             <button onClick={skipProject}>Skip for now</button>
-//           )}
-//         </>
-//       )}
-//     </div>
-//   );
-// };
+  return (
+    <View style={{ display: 'flex', flexDirection: 'column' }}>
+      {finishedRegistration ? (
+        <>
+          <DoubleActionButton
+            leftText="I'll Pass"
+            leftOnClick={declineProject}
+            rightText="I'm Interested"
+            rightOnClick={showInterest}
+          />
+          {availableProjects.length === 1 ? null : (
+            <Button title="Skip for now" onPress={skipProject} />
+          )}
+          <Button title="Create my own" onPress={redirectToCreateProject} />
+        </>
+      ) : (
+        <>
+          {availableProjects.length === 1 ? null : (
+            <Button title="Skip for now" onClick={skipProject} />
+          )}
+        </>
+      )}
+    </View>
+  );
+};

@@ -1,10 +1,12 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Text, View } from 'react-native';
 import { SinglePortfolioProject } from './SinglePortfolioProject';
 import { uiActions } from '../../services/redux/slices/uiSlice';
 import { updateUser } from '../../services/api/users';
+import { useEffect } from 'react';
 
-export const ShowPortfolioProjects = ({ currUser }) => {
+export const ShowPortfolioProjects = (props) => {
+  const { currUser } = props;
   const dispatch = useDispatch();
 
   const updateEditedProject = async (editedProject, updateType) => {
@@ -24,6 +26,7 @@ export const ShowPortfolioProjects = ({ currUser }) => {
     const res = await updateUser(userID, { portfolio_projects: copyPortfolioProjects });
     dispatch(uiActions.updateUser(res));
   };
+
   return (
     currUser?.portfolio_projects?.length > 0 && (
       // className="show-portfolio-wrapper
