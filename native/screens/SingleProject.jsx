@@ -3,19 +3,27 @@ import { useSelector } from 'react-redux';
 import { EditProject } from './EditProject.jsx';
 import { Button, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { handleToggle } from '../services/utils/handlers';
+import { getOneProject } from '../services/api/projects.js';
 
-export const SingleProject = ({ navigation }) => {
+export const SingleProject = ({ navigation, route }) => {
   const allProjects = useSelector((state) => state.projects.allProjects);
-  const currentUser = useSelector((state) => state.ui.user);
-  const id = '6216b8b881d905a909aa239d';
+  const reduxUser = useSelector((state) => state.ui.user);
   const [project, setProject] = useState({});
   const [edit, setEdit] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    const fetchProject = async () => {
+      if (route.params) {
+        const res = await getOneProject(route.params.projectID);
+        setProject(res);
+      } else {
+        setProject(allProjects[0]);
+      }
+    };
+    fetchProject();
     setLoaded(true);
-    setProject(allProjects[0]);
-  }, [id]);
+  }, [route]);
 
   let hours;
   const option = project.time_commitment;
@@ -35,7 +43,7 @@ export const SingleProject = ({ navigation }) => {
 
   const OwnerView = () => (
     <View>
-      <Button title="Edit Project Details" onPress={() => setEdit(true)} />
+      <Text>I AM THE OWNER VIEW COMPONENT that contains an applicants list</Text>
       {project.interested_applicants?.length ? (
         <View>
           <Text>These users are interested in joining the project:</Text>
@@ -56,7 +64,6 @@ export const SingleProject = ({ navigation }) => {
     });
   };
 
-  // if (loaded && !edit) {
   return (
     <View>
       <Button title="Edit Project Details" onPress={handleEditProjectMode} />
@@ -69,22 +76,9 @@ export const SingleProject = ({ navigation }) => {
         renderItem={({ item }) => <Text>{item.key}</Text>}
       />
       <Text>{`Looking for collaborators who can commit ${hours} hours per week.`}</Text>
-      {currentUser._id === project.owner ? <OwnerView /> : null}
+      {reduxUser._id === project.owner ? <OwnerView /> : null}
     </View>
   );
-  // } else if (loaded && edit) {
-  //   return (
-  //     <View>
-  //       <EditProject project={project} setEdit={setEdit} />
-  //     </View>
-  //   );
-  // } else {
-  //   return (
-  //     <View>
-  //       <Text>Loading...</Text>
-  //     </View>
-  //   );
-  // }
 };
 
 // export const ReactSingleProject = () => {

@@ -4,9 +4,10 @@ import { Button, FlatList, Text, TextInput, View } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { SingleActionButton } from '../Button/SingleActionButton';
 import { handleTextChange } from '../../services/utils/handlers';
-import { editProject } from '../../services/api/projects';
+import { createProject, editProject } from '../../services/api/projects';
+import { useNavigation } from '@react-navigation/native';
 
-export const AboutProject = ({ createNewProject, project, setEdit }) => {
+export const AboutProject = ({ project, setEdit }) => {
   const currentUser = useSelector((state) => state.ui.user);
   const allTools = useSelector((state) => state.tools.allTools);
   const [projectInfo, setProjectInfo] = useState({});
@@ -16,6 +17,8 @@ export const AboutProject = ({ createNewProject, project, setEdit }) => {
   const [timeCommitment, setTimeCommitment] = useState('');
   const timeCommitments = ['no preference', 'hobby', 'part-time', 'full-time'];
   const buttonText = createNewProject ? 'Create Project' : 'Update Project';
+  const navigation = useNavigation();
+  const createNewProject = true;
 
   useEffect(() => {
     if (createNewProject)
@@ -38,9 +41,11 @@ export const AboutProject = ({ createNewProject, project, setEdit }) => {
 
   const handleSubmit = async () => {
     if (createNewProject) {
-      await createProject(projectInfo);
+      const res = await createProject(projectInfo);
+      navigation.navigate('SingleProject', { projectID: res._id });
     } else {
       await editProject(projectInfo._id);
+      navigation.navigate('SingleProject', { projectID: projectInfo._id });
     }
   };
   const updateProjectPayload = {

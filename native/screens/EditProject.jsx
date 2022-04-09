@@ -10,7 +10,7 @@ export const EditProject = ({ navigation, route }) => {
   const [currProject, setCurrProject] = useState();
   const { projectID, setEdit } = route.params;
   const [loadedProject, toggleLoadedProject] = useState(false);
-  const createNewProject = false;
+  // const createNewProject = false;
   const header = {
     text: 'Edit the fields below and click Update Project to save your changes.',
     title: 'Edit Project Details',
@@ -39,7 +39,7 @@ export const EditProject = ({ navigation, route }) => {
       />
       <Header headerText={header.text} headerTitle={header.title} />
       <AboutProject
-        createNewProject={createNewProject}
+        // createNewProject={createNewProject}
         project={currProject}
         // setEdit={setEdit}
         // handleSubmit={handleSubmit}
