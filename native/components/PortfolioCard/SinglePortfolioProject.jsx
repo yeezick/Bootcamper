@@ -22,8 +22,6 @@ export const SinglePortfolioProject = ({ updateEditedProject, project }) => {
     onLoad();
   }, [project]);
 
-  useEffect(() => {}, [editMode]);
-
   const handleProjectUpdate = (updateType) => {
     updateEditedProject(currProject, updateType);
     handleToggle(toggleEditProject);
