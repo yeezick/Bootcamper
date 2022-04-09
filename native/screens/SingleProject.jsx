@@ -17,8 +17,6 @@ export const SingleProject = ({ navigation }) => {
     setProject(allProjects[0]);
   }, [id]);
 
-  const showUser = () => console.log("redirect to user's profile");
-
   let hours;
   const option = project.time_commitment;
   switch (option) {

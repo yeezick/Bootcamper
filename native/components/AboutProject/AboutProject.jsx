@@ -4,16 +4,18 @@ import { Button, FlatList, Text, TextInput, View } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { SingleActionButton } from '../Button/SingleActionButton';
 import { handleTextChange } from '../../services/utils/handlers';
+import { editProject } from '../../services/api/projects';
 
-export const AboutProject = ({ createNewProject, handleSubmit, project, setEdit }) => {
+export const AboutProject = ({ createNewProject, project, setEdit }) => {
   const currentUser = useSelector((state) => state.ui.user);
-  const toolsList = useSelector((state) => state.tools.allTools);
+  const allTools = useSelector((state) => state.tools.allTools);
   const [projectInfo, setProjectInfo] = useState({});
   const [currentTool, setCurrentTool] = useState('');
   const [designerCount, setDesignerCount] = useState(0);
   const [engineerCount, setEngineerCount] = useState(0);
   const [timeCommitment, setTimeCommitment] = useState('');
   const timeCommitments = ['no preference', 'hobby', 'part-time', 'full-time'];
+  const buttonText = createNewProject ? 'Create Project' : 'Update Project';
 
   useEffect(() => {
     if (createNewProject)
@@ -34,17 +36,17 @@ export const AboutProject = ({ createNewProject, handleSubmit, project, setEdit 
     }
   }, [currentUser]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProjectInfo({
-      ...projectInfo,
-      [name]: value,
-    });
+  const handleSubmit = async () => {
+    if (createNewProject) {
+      await createProject(projectInfo);
+    } else {
+      await editProject(projectInfo._id);
+    }
   };
-  const buttonText = createNewProject ? 'Create Project' : 'Update Project';
-  const buttonPayload = {
-    type: 'call-api',
+  const updateProjectPayload = {
+    handler: handleSubmit,
     text: buttonText,
+    type: 'api-reroute',
   };
 
   return (
@@ -61,7 +63,7 @@ export const AboutProject = ({ createNewProject, handleSubmit, project, setEdit 
       />
       <EditTools
         currentTool={currentTool}
-        toolsList={toolsList}
+        allTools={allTools}
         project={project}
         projectInfo={projectInfo}
         setProjectInfo={setProjectInfo}
@@ -76,32 +78,29 @@ export const AboutProject = ({ createNewProject, handleSubmit, project, setEdit 
         setProjectInfo={setProjectInfo}
       />
 
-      <EditTimeCommitment project={project} timeCommitments={timeCommitments} />
-      <SingleActionButton payload={buttonPayload} />
+      <EditTimeCommitment
+        projectInfo={projectInfo}
+        setProjectInfo={setProjectInfo}
+        timeCommitments={timeCommitments}
+      />
+      <SingleActionButton payload={updateProjectPayload} />
     </View>
   );
 };
 
-const EditTools = ({
-  project,
-  currentTool,
-  setCurrentTool,
-  toolsList,
-  projectInfo,
-  setProjectInfo,
-}) => {
-  const handleToolChange = (e) => {
-    setCurrentTool(e.target.value);
-  };
-  const selectTool = () => {
-    if (currentTool) {
-      const selectedTool = toolsList.find((tool) => tool.name === currentTool);
+const EditTools = ({ currentTool, allTools, projectInfo, setProjectInfo }) => {
+  const selectTool = (selectedTool) => {
+    const toolInList = allTools.find((tool) => tool.name === selectedTool);
+    const toolInProject = projectInfo.tools.includes(toolInList);
+
+    if (toolInProject) {
+      return;
+    } else {
       setProjectInfo({
         ...projectInfo,
-        tools: [...projectInfo.tools, selectedTool],
+        tools: [...projectInfo.tools, toolInList],
       });
     }
-    setCurrentTool('');
   };
 
   const removeTool = (id) => {
@@ -113,21 +112,24 @@ const EditTools = ({
       tools: projectTools,
     });
   };
+
   return (
     <>
       {/* tools */}
       <Text>What tools will the project use?</Text>
-      {project.tools?.length ? (
+      {projectInfo.tools?.length ? (
         <View>
           <Text>Current tools list:</Text>
           <FlatList
-            data={project.tools?.map((tool) => new Object({ key: tool.name, id: tool._id }))}
-            renderItem={({ item }) => (
-              <View>
-                <Text>{item.key}</Text>
-                <Button onPress={() => removeTool(item.id)} title="x" />
-              </View>
-            )}
+            data={projectInfo.tools?.map((tool) => new Object({ key: tool.name, id: tool._id }))}
+            renderItem={({ item }) => {
+              return (
+                <View>
+                  <Text>{item.key}</Text>
+                  <Button onPress={() => removeTool(item.id)} title="x" />
+                </View>
+              );
+            }}
           ></FlatList>
         </View>
       ) : null}
@@ -137,7 +139,7 @@ const EditTools = ({
         selectedValue={currentTool}
         onValueChange={(e) => selectTool(e)}
       >
-        {toolsList.map((tool) => (
+        {allTools.map((tool) => (
           <Picker.Item key={tool.name} label={tool.name} value={tool.name} />
         ))}
       </Picker>
@@ -153,20 +155,25 @@ const EditTeamCount = ({
   setProjectInfo,
   setEngineerCount,
 }) => {
+  useEffect(() => {}, [designerCount, engineerCount]);
+
   const updateDesignerCount = (change) => {
-    if (designerCount + change >= 0) setDesignerCount(designerCount + change);
+    const newDesCount = designerCount + change;
+    if (newDesCount > -1) setDesignerCount(newDesCount); // need to figure out better error handling for if count drops below 0, works on UI but console logging the values from projectInfo shows -1
     setProjectInfo({
       ...projectInfo,
-      designer_count: designerCount,
+      designer_count: newDesCount,
     });
   };
   const updateEngineerCount = (change) => {
-    if (engineerCount + change >= 0) setEngineerCount(engineerCount + change);
+    const newEngCount = engineerCount + change;
+    if (newEngCount > -1) setEngineerCount(newEngCount);
     setProjectInfo({
       ...projectInfo,
-      engineer_count: engineerCount,
+      engineer_count: newEngCount,
     });
   };
+
   return (
     <>
       <Text>How many designers are you seeking?</Text>
@@ -181,15 +188,20 @@ const EditTeamCount = ({
   );
 };
 
-const EditTimeCommitment = ({ createNewProject, project, timeCommitments }) => {
+const EditTimeCommitment = ({ createNewProject, projectInfo, setProjectInfo, timeCommitments }) => {
   return (
     <>
       {/* time collab */}
       <Text>What is the requested time commitment for collaborators?</Text>
-      <Text>{`Current time commitment: ${project.time_commitment}`}</Text>
+      <Text>{`Current time commitment: ${projectInfo.time_commitment}`}</Text>
       <Picker
-        defaultValue={!createNewProject ? project.time_commitment : 'no preference'}
-        selectedValue={project.time_commitment}
+        defaultValue={!createNewProject ? projectInfo.time_commitment : 'no preference'}
+        selectedValue={projectInfo.time_commitment}
+        onValueChange={(e) =>
+          setProjectInfo((state) => {
+            return { ...state, time_commitment: e };
+          })
+        }
       >
         {timeCommitments.map((time) => (
           <Picker.Item key={time} label={time} value={time} />
@@ -228,7 +240,7 @@ const EditTimeCommitment = ({ createNewProject, project, timeCommitments }) => {
 //         value={currentTool}
 //       />
 //       <datalist id='tools-list'>
-//         {toolsList?.map(tool => (
+//         {allTools?.map(tool => (
 //           <option key={tool._id} value={tool.name}/>
 //         ))}
 //       </datalist>

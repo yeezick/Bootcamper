@@ -12,7 +12,6 @@ export const counterSlice = createSlice({
       state.count++;
     },
     addMore(state, action) {
-      console.log('action', action);
       state.count += action.payload;
     },
   },

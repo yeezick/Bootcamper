@@ -19,14 +19,12 @@ export const EditProject = ({ navigation, route }) => {
   useEffect(() => {
     const fetchProject = async () => {
       const res = await getOneProject(projectID);
-      console.log('res', res);
       setCurrProject(res);
       toggleLoadedProject(true);
     };
     fetchProject();
   }, []);
 
-  // console.log('currProject', currProject);
   if (!loadedProject) {
     return <Text>Loading....</Text>;
   }
