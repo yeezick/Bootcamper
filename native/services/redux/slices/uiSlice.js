@@ -31,8 +31,16 @@ export const uiSlice = createSlice({
     toggleMobileMenu(state) {
       state.visibleMobileMenu = !state.visibleMobileMenu;
     },
-    toggleEditMode(state) {
-      state.editMode = !state.editMode;
+    toggleEditMode(state, action) {
+      switch (action.payload) {
+        case true:
+          state.editMode = true;
+          break;
+
+        default:
+          state.editMode = false;
+          break;
+      }
     },
     updateUser(state, action) {
       if (action.payload) {

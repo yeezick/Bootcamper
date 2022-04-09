@@ -1,19 +1,12 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-// components
 import { ShowPortfolioProjects } from '../components/PortfolioCard/ShowPortfolioProjects.jsx';
-import { EditProfile } from './EditProfile';
-// assets
 import { uiActions } from '../services/redux/slices/uiSlice';
 import { getOneUser } from '../services/api/users';
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { getAllUsers } from '../services/api/users';
 
 export const UserProfile = ({ route, navigation }) => {
-  console.log('route', route);
-  const { user: reduxUser, editMode } = useSelector((state) => state.ui);
+  const { user: reduxUser } = useSelector((state) => state.ui);
   const [currUser, setCurrUser] = useState({
     first_name: '',
     last_name: '',
@@ -25,7 +18,7 @@ export const UserProfile = ({ route, navigation }) => {
   });
   const dispatch = useDispatch();
   const validUrl = `http://${reduxUser.portfolio_link}`;
-  const { about, email, fun_fact, first_name, last_name, role, _id: currUserId } = currUser;
+  const { about, email, fun_fact, first_name, last_name, role, _id: currUserID } = currUser;
 
   useEffect(() => {
     const setUser = async () => {
@@ -35,14 +28,16 @@ export const UserProfile = ({ route, navigation }) => {
         const res = await getOneUser(route.params.userID); // must be tested
         setCurrUser(res);
       }
+
+      dispatch(uiActions.toggleEditMode());
     };
     setUser();
   }, []);
 
   const handleToggleMode = () => {
-    dispatch(uiActions.toggleEditMode());
+    dispatch(uiActions.toggleEditMode(true));
     navigation.navigate('EditProfile', {
-      userID: currUser._id,
+      userID: currUserID,
     });
   };
 

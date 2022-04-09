@@ -6,11 +6,8 @@ import { updateUser } from '../../services/api/users';
 import { useEffect } from 'react';
 
 export const ShowPortfolioProjects = (props) => {
-  console.log('spppppp', props);
   const { currUser } = props;
   const dispatch = useDispatch();
-  // const user = useSelector((state) => state.ui.user);
-  // useEffect(() => {}, [user]);
 
   const updateEditedProject = async (editedProject, updateType) => {
     const { portfolio_projects, _id: userID } = currUser;
@@ -29,6 +26,7 @@ export const ShowPortfolioProjects = (props) => {
     const res = await updateUser(userID, { portfolio_projects: copyPortfolioProjects });
     dispatch(uiActions.updateUser(res));
   };
+
   return (
     currUser?.portfolio_projects?.length > 0 && (
       // className="show-portfolio-wrapper

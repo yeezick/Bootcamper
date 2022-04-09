@@ -14,7 +14,7 @@ import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export const EditProfile = ({ navigation, route }) => {
   const { user: reduxUser, editMode } = useSelector((state) => state.ui);
-  console.log('edit profile props----\n');
+  const dispatch = useDispatch();
 
   const header = {
     text: "Before you can create or join a project, we'll need to finish your profile first.",
@@ -29,6 +29,13 @@ export const EditProfile = ({ navigation, route }) => {
       <AddPortfolioProject />
       <ShowPortfolioProjects currUser={reduxUser} />
       <Button title="start collaborating" onPress={() => navigation.navigate('roulette')} />
+      <Button
+        title="back to user profile"
+        onPress={() => {
+          dispatch(uiActions.toggleEditMode());
+          navigation.navigate('UserProfile', { userID: reduxUser._id });
+        }}
+      />
     </ScrollView>
   );
 };
