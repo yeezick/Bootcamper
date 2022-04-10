@@ -11,7 +11,13 @@ export const SingleProject = ({ navigation, route }) => {
   const [project, setProject] = useState({});
   const [edit, setEdit] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  console.log(project.owner)
 
+  const showUser = (applicantID) => {
+    navigation.navigate('UserProfile', {
+      userID: applicantID
+    })
+  }
   useEffect(() => {
     const fetchProject = async () => {
       if (route.params) {
@@ -43,12 +49,11 @@ export const SingleProject = ({ navigation, route }) => {
 
   const OwnerView = () => (
     <View>
-      <Text>I AM THE OWNER VIEW COMPONENT that contains an applicants list</Text>
       {project.interested_applicants?.length ? (
         <View>
           <Text>These users are interested in joining the project:</Text>
           {project.interested_applicants.map((applicant) => (
-            <Pressable key={applicant._id} onPress={showUser}>
+            <Pressable key={applicant._id} onPress={() => showUser(applicant._id)}>
               <Text>{`${applicant.first_name} ${applicant.last_name}, ${applicant.role}`}</Text>
             </Pressable>
           ))}
@@ -61,12 +66,14 @@ export const SingleProject = ({ navigation, route }) => {
     setEdit(true);
     navigation.navigate('EditProject', {
       projectID: project._id,
+      project,
+      createNewProject: false,
     });
   };
 
   return (
     <View>
-      <Button title="Edit Project Details" onPress={handleEditProjectMode} />
+      {reduxUser._id === project.owner && <Button title="Edit Project Details" onPress={handleEditProjectMode} />}
       <Text>{project.title}</Text>
       <Text>{project.description}</Text>
       <Text>Current team size: {project.team_members?.length + 1}</Text>

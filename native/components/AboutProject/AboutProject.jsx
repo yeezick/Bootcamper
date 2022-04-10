@@ -7,7 +7,7 @@ import { handleTextChange } from '../../services/utils/handlers';
 import { createProject, editProject } from '../../services/api/projects';
 import { useNavigation } from '@react-navigation/native';
 
-export const AboutProject = ({ project, setEdit }) => {
+export const AboutProject = ({ project, setEdit, createNewProject }) => {
   const currentUser = useSelector((state) => state.ui.user);
   const allTools = useSelector((state) => state.tools.allTools);
   const [projectInfo, setProjectInfo] = useState({});
@@ -18,8 +18,7 @@ export const AboutProject = ({ project, setEdit }) => {
   const timeCommitments = ['no preference', 'hobby', 'part-time', 'full-time'];
   const buttonText = createNewProject ? 'Create Project' : 'Update Project';
   const navigation = useNavigation();
-  const createNewProject = true;
-
+  
   useEffect(() => {
     if (createNewProject)
       setProjectInfo({
@@ -44,7 +43,7 @@ export const AboutProject = ({ project, setEdit }) => {
       const res = await createProject(projectInfo);
       navigation.navigate('SingleProject', { projectID: res._id });
     } else {
-      await editProject(projectInfo._id);
+      await editProject(projectInfo._id, projectInfo);
       navigation.navigate('SingleProject', { projectID: projectInfo._id });
     }
   };
