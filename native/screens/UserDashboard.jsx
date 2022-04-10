@@ -2,15 +2,61 @@
 // import { Link } from "react-router-dom";
 // import { useSelector } from "react-redux";
 // import "./UserDashboard.scss";
-import { StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
+import { useSelector } from 'react-redux';
 
-export const UserDashboard = () => {
+export const UserDashboard = ({navigation}) => {
+  const { allProjects } = useSelector((state) => state.projects);
+  const { user } = useSelector((state) => state.ui);
+  // consolidate these two with above
+  const userId = user._id 
+  const projectIds = user.member_of_projects
+
+  const filterProjects = (allProjects) => {
+    let projects = allProjects.filter((project) => projectIds.indexOf(project._id) >= 0 || project.owner === userId)
+    return projects
+  }
+  
   return (
     <View>
-      <Text>user dashboard</Text>
+      <Text>Bootcamper logo Placeholder</Text>
+      <View>
+        <Text>My Projects:</Text>
+          {filterProjects(allProjects).map((project)=> {
+            return (
+              <ProjectBanner 
+                title={project.title}
+                role={project.owner === userId ? "Project Owner" : "Collaborator"}
+                projectID={project._id}
+                navigation={navigation}
+              />
+            )
+        })}
+      </View>
+      <Button 
+        title="Start a Project" 
+        onPress={() => navigation.navigate('CreateProject')} 
+      />
     </View>
   );
 };
+
+
+const ProjectBanner = ({title, role, projectID, navigation}) => {
+  return (
+    <TouchableOpacity 
+      onPress={() => navigation.navigate('SingleProject', {
+        projectID: projectID,
+      })}>
+        <View>
+          <Text>{title}</Text>
+          <Text>{role}</Text>
+        </View>
+    </TouchableOpacity>
+
+  )
+}
 
 // export const ReactUserDashboard = () => {
 //   const currentUser = useSelector((state) => state.ui.user);
