@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
-import { Header } from '../components/Header/Header.jsx';
-import { SingleActionButton } from '../Button/SingleActionButton';
-
-import { StyleSheet, Text, ScrollView, Button } from 'react-native';
-import { createProject, editProject, getOneProject } from '../services/api/projects.js';
-
 import { useSelector } from 'react-redux';
-import { Button, FlatList, Text, TextInput, View } from 'react-native';
+import { Button, FlatList, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import { handleTextChange } from '../../services/utils/handlers';
-import { createProject, editProject } from '../../services/api/projects';
+import { Header } from '../components/Header/Header.jsx';
+import { SingleActionButton } from '../components/Button/SingleActionButton.jsx';
+import { handleTextChange } from '../services/utils/handlers';
+import { createProject, editProject } from '../services/api/projects';
 
 export const EditProject = ({ navigation, route }) => {
   const currentUser = useSelector((state) => state.ui.user);
   const allTools = useSelector((state) => state.tools.allTools);
+  
+  const { createNewProject, project } = route.params;
+
+
   const [projectInfo, setProjectInfo] = useState({});
   const [currentTool, setCurrentTool] = useState('');
   const [designerCount, setDesignerCount] = useState(0);
@@ -22,17 +22,20 @@ export const EditProject = ({ navigation, route }) => {
   const timeCommitments = ['no preference', 'hobby', 'part-time', 'full-time'];
   const buttonText = createNewProject ? 'Create Project' : 'Update Project';
   
-  const { setEdit, createNewProject } = route.params;
   const [loadedProject, toggleLoadedProject] = useState(false);
-  const header = {
+  const header = createNewProject ? {
+    text: 'Fill in the project details and click Create Project.',
+    title: 'Create a New Project',
+  } :
+  {
     text: 'Edit the fields below and click Update Project to save your changes.',
     title: 'Edit Project Details',
-  };
+  }
 
 
 
   useEffect(() => {
-    if (createNewProject)
+    if (createNewProject) {
       setProjectInfo({
         description: '',
         designer_count: 0,
@@ -43,10 +46,13 @@ export const EditProject = ({ navigation, route }) => {
         title: '',
         tools: [],
       });
+      toggleLoadedProject(true);
+    }
     if (!createNewProject) {
-      setProjectInfo(route.params.project);
+      setProjectInfo(project);
       setDesignerCount(project.designer_count);
       setEngineerCount(project.engineer_count);
+      toggleLoadedProject(true);
     }
   }, [currentUser]);
 
@@ -239,7 +245,7 @@ const EditTools = ({ currentTool, allTools, projectInfo, setProjectInfo }) => {
         onValueChange={(e) => selectTool(e)}
       >
         {allTools.map((tool) => (
-          <Picker.Item key={tool.name} label={tool.name} value={tool.name} />
+          <Picker.Item key={tool._id} label={tool.name} value={tool.name} />
         ))}
       </Picker>
     </>
