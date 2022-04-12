@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { EditProject } from './EditProject.jsx';
 import { Button, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
-import { handleToggle } from '../services/utils/handlers';
 import { getOneProject } from '../services/api/projects.js';
 
 export const SingleProject = ({ navigation, route }) => {
@@ -25,6 +23,7 @@ export const SingleProject = ({ navigation, route }) => {
         setProject(res);
       } else {
         setProject(allProjects[0]);
+        //ultimately we shouldn't need this default, if the SingleProject view is only accessible via a link to a specific project from Dashboard or elsewhere
       }
     };
     fetchProject();
@@ -71,7 +70,7 @@ export const SingleProject = ({ navigation, route }) => {
     });
   };
 
-  return (
+  return loaded ?  (
     <View>
       {reduxUser._id === project.owner && <Button title="Edit Project Details" onPress={handleEditProjectMode} />}
       <Text>{project.title}</Text>
@@ -85,74 +84,7 @@ export const SingleProject = ({ navigation, route }) => {
       <Text>{`Looking for collaborators who can commit ${hours} hours per week.`}</Text>
       {reduxUser._id === project.owner ? <OwnerView /> : null}
     </View>
-  );
+  ) : (
+    <Text>Loading...</Text>
+  )
 };
-
-// export const ReactSingleProject = () => {
-//   const currentUser = useSelector((state) => state.ui.user);
-//   const { id } = useParams();
-//   const [project, setProject] = useState({});
-//   const [edit, setEdit] = useState(false);
-//   const [loaded, setLoaded] = useState(false);
-
-//   let hours;
-//   const option = project.time_commitment;
-//   switch (option) {
-//     case "hobby":
-//       hours = 10;
-//       break;
-//     case "part-time":
-//       hours = 20;
-//       break;
-//     case "full-time":
-//       hours = 30;
-//       break;
-//     default:
-//       hours = "any";
-//   }
-
-//   useEffect(() => {
-//     const fetchProject = async () => {
-//       const currentProject = await getOneProject(id);
-//       if (currentProject) {
-//         setProject(currentProject);
-//         setLoaded(true);
-//       }
-//     };
-//     fetchProject();
-//   }, [id, edit]);
-
-//   if (loaded && !edit) {
-//     return (
-//       <div className="single-project-wrapper">
-//         <h2 className="project-title">{project.title}</h2>
-//         <h3>Project Description:</h3>
-//         <p>{project.description}</p>
-//         <p>Current team size: {project.team_members.length + 1}</p>
-//         {project.tools.length > 0 ? <h3>Built with:</h3> : null}
-//         <ul>
-//           {project.tools?.map((tool) => (
-//             <li key={tool._id}>{tool.name}</li>
-//           ))}
-//         </ul>
-//         <p>{`Looking for collaborators who can commit ${hours} hours per week.`}</p>
-//         {currentUser._id === project.owner ? (
-//           <SingleActionButton
-//             onClick={() => {
-//               setEdit(true);
-//             }}
-//             text={"Edit Project Details"}
-//           />
-//         ) : null}
-//       </div>
-//     );
-//   } else if (loaded && edit) {
-//     return (
-//       <div>
-//         <EditProject project={project} setEdit={setEdit} />
-//       </div>
-//     );
-//   } else {
-//     return <div>loading ...</div>;
-//   }
-// };

@@ -13,16 +13,14 @@ export const EditProject = ({ navigation, route }) => {
   
   const { createNewProject, project } = route.params;
 
-
   const [projectInfo, setProjectInfo] = useState({});
+  const [loadedProject, toggleLoadedProject] = useState(false);
   const [currentTool, setCurrentTool] = useState('');
   const [designerCount, setDesignerCount] = useState(0);
   const [engineerCount, setEngineerCount] = useState(0);
-  const [timeCommitment, setTimeCommitment] = useState('');
   const timeCommitments = ['no preference', 'hobby', 'part-time', 'full-time'];
-  const buttonText = createNewProject ? 'Create Project' : 'Update Project';
   
-  const [loadedProject, toggleLoadedProject] = useState(false);
+  const buttonText = createNewProject ? 'Create Project' : 'Update Project';
   const header = createNewProject ? {
     text: 'Fill in the project details and click Create Project.',
     title: 'Create a New Project',
@@ -31,7 +29,6 @@ export const EditProject = ({ navigation, route }) => {
     text: 'Edit the fields below and click Update Project to save your changes.',
     title: 'Edit Project Details',
   }
-
 
 
   useEffect(() => {
@@ -85,12 +82,12 @@ export const EditProject = ({ navigation, route }) => {
       />
       <Header headerText={header.text} headerTitle={header.title} />
       <View>
-      <Text>Project Title</Text>
+      <Text>Project Title:</Text>
       <TextInput
         onChangeText={(title) => handleTextChange(title, 'title', setProjectInfo)}
         value={projectInfo.title}
       />
-      <Text>Project Description</Text>
+      <Text>Project Description:</Text>
       <TextInput
         onChangeText={(description) => handleTextChange(description, 'description', setProjectInfo)}
         value={projectInfo.description}
@@ -124,74 +121,8 @@ export const EditProject = ({ navigation, route }) => {
 };
 
 
+//subcomponents:
 
-const AboutProject = ({ project, setEdit, createNewProject }) => {
-  const currentUser = useSelector((state) => state.ui.user);
-  const allTools = useSelector((state) => state.tools.allTools);
-  const [projectInfo, setProjectInfo] = useState({});
-  const [currentTool, setCurrentTool] = useState('');
-  const [designerCount, setDesignerCount] = useState(0);
-  const [engineerCount, setEngineerCount] = useState(0);
-  const [timeCommitment, setTimeCommitment] = useState('');
-  const timeCommitments = ['no preference', 'hobby', 'part-time', 'full-time'];
-  const buttonText = createNewProject ? 'Create Project' : 'Update Project';
-  const navigation = useNavigation();
-  
-  
-
-  const handleSubmit = async () => {
-    if (createNewProject) {
-      const res = await createProject(projectInfo);
-      navigation.navigate('SingleProject', { projectID: res._id });
-    } else {
-      await editProject(projectInfo._id, projectInfo);
-      navigation.navigate('SingleProject', { projectID: projectInfo._id });
-    }
-  };
-  const updateProjectPayload = {
-    handler: handleSubmit,
-    text: buttonText,
-    type: 'api-reroute',
-  };
-
-  return (
-    <View>
-      <Text>Project Title</Text>
-      <TextInput
-        onChangeText={(title) => handleTextChange(title, 'title', setProjectInfo)}
-        value={projectInfo.title}
-      />
-      <Text>Project Description</Text>
-      <TextInput
-        onChangeText={(description) => handleTextChange(description, 'description', setProjectInfo)}
-        value={projectInfo.description}
-      />
-      <EditTools
-        currentTool={currentTool}
-        allTools={allTools}
-        project={project}
-        projectInfo={projectInfo}
-        setProjectInfo={setProjectInfo}
-        setCurrentTool={setCurrentTool}
-      />
-      <EditTeamCount
-        designerCount={designerCount}
-        engineerCount={engineerCount}
-        projectInfo={projectInfo}
-        setDesignerCount={setDesignerCount}
-        setEngineerCount={setEngineerCount}
-        setProjectInfo={setProjectInfo}
-      />
-
-      <EditTimeCommitment
-        projectInfo={projectInfo}
-        setProjectInfo={setProjectInfo}
-        timeCommitments={timeCommitments}
-      />
-      <SingleActionButton payload={updateProjectPayload} />
-    </View>
-  );
-};
 
 const EditTools = ({ currentTool, allTools, projectInfo, setProjectInfo }) => {
   const selectTool = (selectedTool) => {
@@ -315,38 +246,3 @@ const EditTimeCommitment = ({ createNewProject, projectInfo, setProjectInfo, tim
     </>
   );
 };
-
-
-// export const ReactEditProject = ({ project, setEdit }) => {
-//   const navigate = useNavigate();
-//   const createNewProject = false;
-
-//   const header = {
-//     text: "Edit the fields below and click Update Project to save your changes.",
-//     title: "Edit Project Details",
-//   };
-
-//   const handleSubmit = async (e, projectInfo) => {
-//     e.preventDefault();
-//     const updatedProject = await editProject(project._id, projectInfo);
-//     if (updatedProject) setEdit(false);
-//   };
-
-//   const handleDelete = async () => {
-//     await deleteProject(project._id);
-//     navigate("/dashboard");
-//   };
-
-//   return (
-//     <div>
-//       <Header headerText={header.text} headerTitle={header.title} />
-//       <AboutProject
-//         createNewProject={createNewProject}
-//         project={project}
-//         setEdit={setEdit}
-//         handleSubmit={handleSubmit}
-//       />
-//       <SingleActionButton onClick={handleDelete} text={"Delete Project"} />
-//     </div>
-//   );
-// };
