@@ -95,7 +95,6 @@ export const EditProject = ({ navigation, route }) => {
       <EditTools
         currentTool={currentTool}
         allTools={allTools}
-        project={project}
         projectInfo={projectInfo}
         setProjectInfo={setProjectInfo}
         setCurrentTool={setCurrentTool}
@@ -123,7 +122,6 @@ export const EditProject = ({ navigation, route }) => {
 
 //subcomponents:
 
-
 const EditTools = ({ currentTool, allTools, projectInfo, setProjectInfo }) => {
   const selectTool = (selectedTool) => {
     const toolInList = allTools.find((tool) => tool.name === selectedTool);
@@ -141,23 +139,22 @@ const EditTools = ({ currentTool, allTools, projectInfo, setProjectInfo }) => {
 
   const removeTool = (id) => {
     const removeIndex = projectInfo.tools.findIndex((tool) => tool._id === id);
-    const projectTools = projectInfo.tools;
-    projectTools.splice(removeIndex, 1);
+    let tempToolsList = projectInfo.tools.map(tool => tool);
+    tempToolsList.splice(removeIndex, 1);
     setProjectInfo({
       ...projectInfo,
-      tools: projectTools,
+      tools: tempToolsList,
     });
   };
 
   return (
     <>
-      {/* tools */}
       <Text>What tools will the project use?</Text>
       {projectInfo.tools?.length ? (
         <View>
           <Text>Current tools list:</Text>
           <FlatList
-            data={projectInfo.tools?.map((tool) => new Object({ key: tool.name, id: tool._id }))}
+            data={projectInfo.tools?.map((tool) => new Object({ key: tool.name, id: tool._id}))}
             renderItem={({ item }) => {
               return (
                 <View>
