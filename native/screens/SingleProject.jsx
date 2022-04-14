@@ -9,13 +9,13 @@ export const SingleProject = ({ navigation, route }) => {
   const [project, setProject] = useState({});
   const [edit, setEdit] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  console.log(project.owner)
+  console.log(project.owner);
 
   const showUser = (applicantID) => {
     navigation.navigate('UserProfile', {
-      userID: applicantID
-    })
-  }
+      userID: applicantID,
+    });
+  };
   useEffect(() => {
     const fetchProject = async () => {
       if (route.params) {
@@ -70,9 +70,11 @@ export const SingleProject = ({ navigation, route }) => {
     });
   };
 
-  return loaded ?  (
+  return loaded ? (
     <View>
-      {reduxUser._id === project.owner && <Button title="Edit Project Details" onPress={handleEditProjectMode} />}
+      {reduxUser._id === project.owner && (
+        <Button title="Edit Project Details" onPress={handleEditProjectMode} />
+      )}
       <Text>{project.title}</Text>
       <Text>{project.description}</Text>
       <Text>Current team size: {project.team_members?.length + 1}</Text>
@@ -86,5 +88,5 @@ export const SingleProject = ({ navigation, route }) => {
     </View>
   ) : (
     <Text>Loading...</Text>
-  )
+  );
 };

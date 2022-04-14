@@ -10,26 +10,24 @@ import { createProject, editProject } from '../services/api/projects';
 export const EditProject = ({ navigation, route }) => {
   const currentUser = useSelector((state) => state.ui.user);
   const allTools = useSelector((state) => state.tools.allTools);
-  
   const { createNewProject, project } = route.params;
-
   const [projectInfo, setProjectInfo] = useState({});
   const [loadedProject, toggleLoadedProject] = useState(false);
   const [currentTool, setCurrentTool] = useState('');
   const [designerCount, setDesignerCount] = useState(0);
   const [engineerCount, setEngineerCount] = useState(0);
   const timeCommitments = ['no preference', 'hobby', 'part-time', 'full-time'];
-  
-  const buttonText = createNewProject ? 'Create Project' : 'Update Project';
-  const header = createNewProject ? {
-    text: 'Fill in the project details and click Create Project.',
-    title: 'Create a New Project',
-  } :
-  {
-    text: 'Edit the fields below and click Update Project to save your changes.',
-    title: 'Edit Project Details',
-  }
 
+  const buttonText = createNewProject ? 'Create Project' : 'Update Project';
+  const header = createNewProject
+    ? {
+        text: 'Fill in the project details and click Create Project.',
+        title: 'Create a New Project',
+      }
+    : {
+        text: 'Edit the fields below and click Update Project to save your changes.',
+        title: 'Edit Project Details',
+      };
 
   useEffect(() => {
     if (createNewProject) {
@@ -82,46 +80,46 @@ export const EditProject = ({ navigation, route }) => {
       />
       <Header headerText={header.text} headerTitle={header.title} />
       <View>
-      <Text>Project Title:</Text>
-      <TextInput
-        onChangeText={(title) => handleTextChange(title, 'title', setProjectInfo)}
-        value={projectInfo.title}
-      />
-      <Text>Project Description:</Text>
-      <TextInput
-        onChangeText={(description) => handleTextChange(description, 'description', setProjectInfo)}
-        value={projectInfo.description}
-      />
-      <EditTools
-        currentTool={currentTool}
-        allTools={allTools}
-        projectInfo={projectInfo}
-        setProjectInfo={setProjectInfo}
-        setCurrentTool={setCurrentTool}
-      />
-      <EditTeamCount
-        designerCount={designerCount}
-        engineerCount={engineerCount}
-        projectInfo={projectInfo}
-        setDesignerCount={setDesignerCount}
-        setEngineerCount={setEngineerCount}
-        setProjectInfo={setProjectInfo}
-      />
+        <Text>Project Title:</Text>
+        <TextInput
+          onChangeText={(title) => handleTextChange(title, 'title', setProjectInfo)}
+          value={projectInfo.title}
+        />
+        <Text>Project Description:</Text>
+        <TextInput
+          onChangeText={(description) =>
+            handleTextChange(description, 'description', setProjectInfo)
+          }
+          value={projectInfo.description}
+        />
+        <EditTools
+          currentTool={currentTool}
+          allTools={allTools}
+          projectInfo={projectInfo}
+          setProjectInfo={setProjectInfo}
+          setCurrentTool={setCurrentTool}
+        />
+        <EditTeamCount
+          designerCount={designerCount}
+          engineerCount={engineerCount}
+          projectInfo={projectInfo}
+          setDesignerCount={setDesignerCount}
+          setEngineerCount={setEngineerCount}
+          setProjectInfo={setProjectInfo}
+        />
 
-      <EditTimeCommitment
-        projectInfo={projectInfo}
-        setProjectInfo={setProjectInfo}
-        timeCommitments={timeCommitments}
-      />
-      <SingleActionButton payload={updateProjectPayload} />
-    </View>
+        <EditTimeCommitment
+          projectInfo={projectInfo}
+          setProjectInfo={setProjectInfo}
+          timeCommitments={timeCommitments}
+        />
+        <SingleActionButton payload={updateProjectPayload} />
+      </View>
     </ScrollView>
   );
 };
 
-
 //subcomponents:
-
 const EditTools = ({ currentTool, allTools, projectInfo, setProjectInfo }) => {
   const selectTool = (selectedTool) => {
     const toolInList = allTools.find((tool) => tool.name === selectedTool);
@@ -139,7 +137,7 @@ const EditTools = ({ currentTool, allTools, projectInfo, setProjectInfo }) => {
 
   const removeTool = (id) => {
     const removeIndex = projectInfo.tools.findIndex((tool) => tool._id === id);
-    let tempToolsList = projectInfo.tools.map(tool => tool);
+    let tempToolsList = projectInfo.tools.map((tool) => tool);
     tempToolsList.splice(removeIndex, 1);
     setProjectInfo({
       ...projectInfo,
@@ -154,7 +152,7 @@ const EditTools = ({ currentTool, allTools, projectInfo, setProjectInfo }) => {
         <View>
           <Text>Current tools list:</Text>
           <FlatList
-            data={projectInfo.tools?.map((tool) => new Object({ key: tool.name, id: tool._id}))}
+            data={projectInfo.tools?.map((tool) => new Object({ key: tool.name, id: tool._id }))}
             renderItem={({ item }) => {
               return (
                 <View>
