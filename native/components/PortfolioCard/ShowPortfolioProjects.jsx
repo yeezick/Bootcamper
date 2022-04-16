@@ -5,8 +5,7 @@ import { uiActions } from '../../services/redux/slices/uiSlice';
 import { updateUser } from '../../services/api/users';
 import { useEffect } from 'react';
 
-export const ShowPortfolioProjects = (props) => {
-  const { currUser } = props;
+export const ShowPortfolioProjects = ({ currUser }) => {
   const dispatch = useDispatch();
 
   const updateEditedProject = async (editedProject, updateType) => {

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import uuid from 'react-native-uuid';
 import { Button, Text, TextInput, View } from 'react-native';
 import { handleTextChange, handleToggle } from '../../services/utils/handlers';
-import { useSelector } from 'react-redux';
 
 export const SinglePortfolioProject = ({ updateEditedProject, project }) => {
   const [currProject, setCurrProject] = useState({
@@ -27,7 +27,7 @@ export const SinglePortfolioProject = ({ updateEditedProject, project }) => {
     handleToggle(toggleEditProject);
   };
 
-  if (editMode === false) {
+  if (!editMode) {
     return <DefaultView currProject={currProject} />;
   } else if (editMode && editProject) {
     return (

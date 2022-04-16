@@ -65,7 +65,6 @@ const ProjectInfo = ({ project }) => {
 };
 
 const RouletteButtons = ({ navigation, rouletteButtonProps }) => {
-  // const navigate = useNavigate();
   const dispatch = useDispatch();
   const { blacklisted_projects, finishedRegistration, user } = useSelector((state) => state.ui);
   const { availableProjects, currIndex, currProject, setCurrIndex, setCurrProject } =
@@ -89,7 +88,7 @@ const RouletteButtons = ({ navigation, rouletteButtonProps }) => {
       project: {
         projectId,
         projectUpdate: {
-          interested_applicants: [...interested_applicants, userId],
+          interested_applicants: [...interested_applicants, userId], // user ID , or a user instance // [...interested_applicants, {userID: userId, message?: 'hello'}]
         },
       },
       user: {
