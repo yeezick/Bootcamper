@@ -9,6 +9,10 @@ export const handleTextChange = (text, property, setterFunction) => {
     return { ...state, [property]: text };
   });
 };
+
+export const handleToggle = (setterFunction) => {
+  setterFunction((currState) => !currState);
+};
 /**
  * function is located in: [EditProfile, ]
  * would be nice to make this function reusable like the one above

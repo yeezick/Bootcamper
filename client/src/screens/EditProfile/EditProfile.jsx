@@ -37,7 +37,7 @@ export const EditProfile = ({ currUser }) => {
 };
 
 const AboutUser = () => {
-  const { toggleEditUser, user } = useSelector((state) => state.ui);
+  const { editMode, user } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
   const [userInfo, setUserInfo] = useState({
     about: '',
@@ -47,7 +47,7 @@ const AboutUser = () => {
   });
 
   useEffect(() => {
-    if (toggleEditUser) {
+    if (editMode) {
       const { about, fun_fact, portfolio_link, role } = user;
       setUserInfo({
         about,
@@ -56,7 +56,7 @@ const AboutUser = () => {
         role,
       });
     }
-  }, [toggleEditUser]);
+  }, [editMode]);
   const handleUserUpdate = async (e) => {
     e.preventDefault();
     try {

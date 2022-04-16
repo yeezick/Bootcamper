@@ -10,7 +10,7 @@ import './UserProfile.scss';
 import { getOneUser } from '../../services/api/users';
 
 export const UserProfile = () => {
-  const { user: reduxUser, toggleEditUser } = useSelector((state) => state.ui);
+  const { user: reduxUser, editMode } = useSelector((state) => state.ui);
   const [currUser, setCurrUser] = useState({
     first_name: '',
     last_name: '',
@@ -37,10 +37,10 @@ export const UserProfile = () => {
   }, [params]);
 
   const handleToggleMode = () => {
-    dispatch(uiActions.toggleEditUser());
+    dispatch(uiActions.toggleEditMode());
   };
 
-  if (toggleEditUser) {
+  if (editMode) {
     return (
       <>
         <button onClick={handleToggleMode}>back to profile</button>

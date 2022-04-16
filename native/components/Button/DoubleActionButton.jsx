@@ -1,34 +1,11 @@
-import { Button } from "react-native";
-import { Alert } from "react-native-web";
-import "./DoubleActionButton.scss";
+import { Button, Text, View } from 'react-native';
 
-export const DoubleActionButton = ({
-  leftText,
-  leftOnClick,
-  leftType = "button",
-  rightText,
-  rightOnClick,
-  rightType = "button",
-  onClick,
-}) => {
+export const DoubleActionButton = ({ leftText, leftOnClick, rightText, rightOnClick }) => {
   return (
-    <div className="double-button" onClick={onClick}>
-      <Button
-        title="button"
-        onPress={() => Alert.alert("Simple button pressed")}
-      />
-      <button className="left" onClick={leftOnClick} type={leftType}>
-        {leftText}
-      </button>
-      <div className="separator">|</div>
-      <button
-        className="right"
-        onClick={rightOnClick}
-        type={rightType}
-        value={rightText}
-      >
-        {rightText}
-      </button>
-    </div>
+    <View className="double-button">
+      <Button className="left" onPress={leftOnClick} title={leftText} />
+      <Text className="separator">|</Text>
+      <Button className="right" onPress={rightOnClick} title={rightText} />
+    </View>
   );
 };

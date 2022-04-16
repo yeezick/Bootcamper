@@ -92,20 +92,8 @@ export const SideMenu = () => {
           component={UserDashboard}
           // options={{ title: "welcome" }}
         />
-        <Drawer.Screen
-          name="UserProfile"
-          // component={() => <UserProfile userId={user._id} />}
-          initialParams={{ userId: user._id }}
-        >
-          {() => <UserProfile userId={user._id} />}
-        </Drawer.Screen>
-        <Drawer.Screen
-          name="EditProfile"
-          // component={() => <UserProfile userId={user._id} />}
-          initialParams={{ userId: user._id }}
-        >
-          {() => <EditProfile userId={user._id} />}
-        </Drawer.Screen>
+        <Drawer.Screen name="UserProfile" component={UserProfile} />
+        <Drawer.Screen name="EditProfile" component={EditProfile} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

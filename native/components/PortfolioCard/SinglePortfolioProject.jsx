@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import uuid from 'react-native-uuid';
-import { handleTextChange } from '../../services/utils/handlers';
 import { Button, Text, TextInput, View } from 'react-native';
+import { handleTextChange, handleToggle } from '../../services/utils/handlers';
 
 export const SinglePortfolioProject = ({ updateEditedProject, project }) => {
   const [currProject, setCurrProject] = useState({
@@ -12,7 +13,7 @@ export const SinglePortfolioProject = ({ updateEditedProject, project }) => {
     project_id: uuid.v4(),
   });
   const [editProject, toggleEditProject] = useState(false);
-  const { image, project_description, project_link, project_title } = currProject;
+  const { editMode, user } = useSelector((state) => state.ui);
 
   useEffect(() => {
     const onLoad = () => {
@@ -23,56 +24,51 @@ export const SinglePortfolioProject = ({ updateEditedProject, project }) => {
 
   const handleProjectUpdate = (updateType) => {
     updateEditedProject(currProject, updateType);
-    toggleEditProject(!editProject);
+    handleToggle(toggleEditProject);
   };
 
-  if (editProject) {
+  if (!editMode) {
+    return <DefaultView currProject={currProject} />;
+  } else if (editMode && editProject) {
     return (
-      // className="edit-portfolio-project"
-      <View>
-        <Button title="toggle edit" onPress={() => toggleEditProject(!editProject)} />
-        <Button title="delete" onPress={() => handleProjectUpdate('remove project')} />
-        {/* each view here is a label-input pair */}
-        <View>
-          <Text>Title:</Text>
-          <TextInput
-            placeholder="My Project"
-            value={project_title}
-            onChangeText={(e) => handleTextChange(e, 'project_title', setCurrProject)}
-          />
-        </View>
-
-        <View>
-          <Text>Description:</Text>
-          <TextInput
-            placeholder="It's super cool..."
-            value={project_description}
-            onChangeText={(e) => handleTextChange(e, 'project_description', setCurrProject)}
-          />
-        </View>
-
-        <View>
-          <Text>Link:</Text>
-          <TextInput
-            placeholder="www.myproject.com"
-            value={project_link}
-            onChangeText={(e) => handleTextChange(e, 'project_link', setCurrProject)}
-          />
-        </View>
-
-        <Button title="SAVE EDIT" onPress={handleProjectUpdate} />
-      </View>
+      <EditableProject
+        currProject={currProject}
+        handleProjectUpdate={handleProjectUpdate}
+        setCurrProject={setCurrProject}
+        toggleEditProject={toggleEditProject}
+      />
     );
+  } else {
+    return <EditModeView currProject={currProject} toggleEditProject={toggleEditProject} />;
   }
+};
+
+const DefaultView = ({ currProject }) => {
+  const { image, project_description, project_link, project_title } = currProject;
 
   return (
-    // className="portfolio-project"
+    <View>
+      <Text>IMAGE: PORTFOLIO PROJECT</Text>
+      {/* className="portfolio-content" */}
+      <View>
+        <Text>{project_title}</Text>
+        <Text>{project_description}</Text>
+        <Text>{project_link}</Text>
+      </View>
+    </View>
+  );
+};
+
+const EditModeView = ({ currProject, toggleEditProject }) => {
+  const { image, project_description, project_link, project_title } = currProject;
+
+  return (
     <View>
       <Button
         style={{ width: '45px' }}
         title="edit project"
         onPress={() => {
-          toggleEditProject(!editProject);
+          handleToggle(toggleEditProject);
         }}
       />
       <Text>IMAGE: PORTFOLIO PROJECT</Text>
@@ -82,6 +78,49 @@ export const SinglePortfolioProject = ({ updateEditedProject, project }) => {
         <Text>{project_description}</Text>
         <Text>{project_link}</Text>
       </View>
+    </View>
+  );
+};
+
+const EditableProject = ({
+  currProject,
+  handleProjectUpdate,
+  setCurrProject,
+  toggleEditProject,
+}) => {
+  const { image, project_description, project_link, project_title } = currProject;
+
+  return (
+    // className="edit-portfolio-project"
+    <View>
+      <Button title="delete" onPress={() => handleProjectUpdate('remove project')} />
+      <Button title="cancel" onPress={() => handleToggle(toggleEditProject)} />
+      {/* each view here is a label-input pair, should be replaced with custom component*/}
+      <View>
+        <Text>Title:</Text>
+        <TextInput
+          placeholder="My Project"
+          value={project_title}
+          onChangeText={(e) => handleTextChange(e, 'project_title', setCurrProject)}
+        />
+      </View>
+      <View>
+        <Text>Description:</Text>
+        <TextInput
+          placeholder="It's super cool..."
+          value={project_description}
+          onChangeText={(e) => handleTextChange(e, 'project_description', setCurrProject)}
+        />
+      </View>
+      <View>
+        <Text>Link:</Text>
+        <TextInput
+          placeholder="www.myproject.com"
+          value={project_link}
+          onChangeText={(e) => handleTextChange(e, 'project_link', setCurrProject)}
+        />
+      </View>
+      <Button title="SAVE EDIT" onPress={handleProjectUpdate} />
     </View>
   );
 };

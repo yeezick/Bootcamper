@@ -19,7 +19,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   blacklisted_projects: [],
   finishedRegistration: false,
-  toggleEditUser: false,
+  editMode: false,
   user: '',
   visibleMobileMenu: false,
 };
@@ -31,8 +31,16 @@ export const uiSlice = createSlice({
     toggleMobileMenu(state) {
       state.visibleMobileMenu = !state.visibleMobileMenu;
     },
-    toggleEditUser(state) {
-      state.toggleEditUser = !state.toggleEditUser;
+    toggleEditMode(state, action) {
+      switch (action.payload) {
+        case true:
+          state.editMode = true;
+          break;
+
+        default:
+          state.editMode = false;
+          break;
+      }
     },
     updateUser(state, action) {
       if (action.payload) {
