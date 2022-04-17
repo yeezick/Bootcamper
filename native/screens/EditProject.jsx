@@ -8,26 +8,26 @@ import { handleTextChange } from '../services/utils/handlers';
 import { createProject, editProject } from '../services/api/projects';
 
 export const EditProject = ({ navigation, route }) => {
-  const currentUser = useSelector((state) => state.ui.user);
-  const allTools = useSelector((state) => state.tools.allTools);
   const { createNewProject, project } = route.params;
   const [projectInfo, setProjectInfo] = useState({});
   const [loadedProject, toggleLoadedProject] = useState(false);
-  const [currentTool, setCurrentTool] = useState('');
   const [designerCount, setDesignerCount] = useState(0);
   const [engineerCount, setEngineerCount] = useState(0);
-  const timeCommitments = ['no preference', 'hobby', 'part-time', 'full-time'];
-
-  const buttonText = createNewProject ? 'Create Project' : 'Update Project';
-  const header = createNewProject
-    ? {
-        text: 'Fill in the project details and click Create Project.',
-        title: 'Create a New Project',
-      }
-    : {
-        text: 'Edit the fields below and click Update Project to save your changes.',
-        title: 'Edit Project Details',
-      };
+  const currentUser = useSelector((state) => state.ui.user);
+  let [buttonText, header] = [undefined, undefined];
+  if (createNewProject) {
+    buttonText = 'Create Project';
+    header = {
+      text: 'Fill in the project details and click Create Project.',
+      title: 'Create a New Project',
+    };
+  } else {
+    buttonText = 'Update Project';
+    header = {
+      text: 'Edit the fields below and click Update Project to save your changes.',
+      title: 'Edit Project Details',
+    };
+  }
 
   useEffect(() => {
     if (createNewProject) {
@@ -60,6 +60,7 @@ export const EditProject = ({ navigation, route }) => {
       navigation.navigate('SingleProject', { projectID: projectInfo._id });
     }
   };
+
   const updateProjectPayload = {
     handler: handleSubmit,
     text: buttonText,
@@ -92,35 +93,26 @@ export const EditProject = ({ navigation, route }) => {
           }
           value={projectInfo.description}
         />
-        <EditTools
-          currentTool={currentTool}
-          allTools={allTools}
-          projectInfo={projectInfo}
-          setProjectInfo={setProjectInfo}
-          setCurrentTool={setCurrentTool}
-        />
+        <EditTools allTools={allTools} projectInfo={projectInfo} setProjectInfo={setProjectInfo} />
         <EditTeamCount
           designerCount={designerCount}
           engineerCount={engineerCount}
-          projectInfo={projectInfo}
           setDesignerCount={setDesignerCount}
           setEngineerCount={setEngineerCount}
           setProjectInfo={setProjectInfo}
         />
 
-        <EditTimeCommitment
-          projectInfo={projectInfo}
-          setProjectInfo={setProjectInfo}
-          timeCommitments={timeCommitments}
-        />
+        <EditTimeCommitment projectInfo={projectInfo} setProjectInfo={setProjectInfo} />
         <SingleActionButton payload={updateProjectPayload} />
       </View>
     </ScrollView>
   );
 };
 
-//subcomponents:
-const EditTools = ({ currentTool, allTools, projectInfo, setProjectInfo }) => {
+const EditTools = ({ projectInfo, setProjectInfo }) => {
+  const allTools = useSelector((state) => state.tools.allTools);
+  allTools = ['Select a tool', ...allTools];
+  const [currentTool, setCurrentTool] = useState('');
   const selectTool = (selectedTool) => {
     const toolInList = allTools.find((tool) => tool.name === selectedTool);
     const toolInProject = projectInfo.tools.includes(toolInList);
@@ -180,7 +172,6 @@ const EditTools = ({ currentTool, allTools, projectInfo, setProjectInfo }) => {
 
 const EditTeamCount = ({
   designerCount,
-  projectInfo,
   setDesignerCount,
   engineerCount,
   setProjectInfo,
@@ -191,18 +182,13 @@ const EditTeamCount = ({
   const updateDesignerCount = (change) => {
     const newDesCount = designerCount + change;
     if (newDesCount > -1) setDesignerCount(newDesCount); // need to figure out better error handling for if count drops below 0, works on UI but console logging the values from projectInfo shows -1
-    setProjectInfo({
-      ...projectInfo,
-      designer_count: newDesCount,
-    });
+    handleTextChange(newDesCount, 'designer_count', setProjectInfo);
   };
+
   const updateEngineerCount = (change) => {
     const newEngCount = engineerCount + change;
     if (newEngCount > -1) setEngineerCount(newEngCount);
-    setProjectInfo({
-      ...projectInfo,
-      engineer_count: newEngCount,
-    });
+    handleTextChange(newEngCount, 'engineer_count', setProjectInfo);
   };
 
   return (
@@ -219,10 +205,10 @@ const EditTeamCount = ({
   );
 };
 
-const EditTimeCommitment = ({ createNewProject, projectInfo, setProjectInfo, timeCommitments }) => {
+const EditTimeCommitment = ({ createNewProject, projectInfo, setProjectInfo }) => {
+  const timeCommitments = ['no preference', 'hobby', 'part-time', 'full-time'];
   return (
     <>
-      {/* time collab */}
       <Text>What is the requested time commitment for collaborators?</Text>
       <Text>{`Current time commitment: ${projectInfo.time_commitment}`}</Text>
       <Picker
