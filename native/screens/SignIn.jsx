@@ -59,8 +59,8 @@ export const SignIn = ({ navigation }) => {
           onBlur={() => validEmail()}
           returnKeyType="next"
           onSubmitEditing={() => {
-            console.log(passwordInputRef.current);
-            console.log(passwordInputRef.current.focus());
+            passwordInputRef.current;
+            passwordInputRef.current.focus();
           }}
         />
       </View>

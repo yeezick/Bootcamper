@@ -118,7 +118,9 @@ const RouletteButtons = ({ navigation, rouletteButtonProps }) => {
   };
 
   const redirectToCreateProject = () => {
-    navigation.navigate('CreateProject');
+    navigation.navigate('EditProject', {
+      createNewProject: true,
+    });
   };
 
   return (

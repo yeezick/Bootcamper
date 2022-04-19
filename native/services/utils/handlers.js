@@ -1,12 +1,16 @@
-// import { updateUser } from '../api/users';
-// import { uiActions } from '../redux/slices/uiSlice';
-// import { useDispatch } from 'react-redux';
-
-// const dispatch = useDispatch;
-
-export const handleTextChange = (text, property, setterFunction) => {
+/**
+ * @func handleTextChange
+ * @author Erick Manrique <erickmanriqpro@gmail.com>
+ * @desc This function replaces multi-line updates to objects in state with a one-line function call that receives the new value, property name, and value.
+ * @param {String} value The new value to replace the existing one in state.
+ * @param {String} property The name of the property who's value will get replaced.
+ * @param {Function} setterFunction The setter function that will fetch and update its respective object in state.
+ * @constraint All arguments must belong to an existing OBJECT in state.
+ */
+// TODO: rename this function to 'handleObjectChange'
+export const handleTextChange = (value, property, setterFunction) => {
   setterFunction((state) => {
-    return { ...state, [property]: text };
+    return { ...state, [property]: value };
   });
 };
 

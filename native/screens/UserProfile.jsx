@@ -19,7 +19,6 @@ export const UserProfile = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const validUrl = `http://${reduxUser.portfolio_link}`;
   const { about, email, fun_fact, first_name, last_name, role, _id: currUserID } = currUser;
-
   useEffect(() => {
     const setUser = async () => {
       if (route.params === undefined || route.params.userID === reduxUser._id) {
@@ -32,7 +31,7 @@ export const UserProfile = ({ route, navigation }) => {
       dispatch(uiActions.toggleEditMode());
     };
     setUser();
-  }, []);
+  }, [route.params]);
 
   const handleToggleMode = () => {
     dispatch(uiActions.toggleEditMode(true));
@@ -43,7 +42,7 @@ export const UserProfile = ({ route, navigation }) => {
 
   return (
     <ScrollView>
-      <Button title="toggle edit mode" onPress={handleToggleMode} />
+      {reduxUser._id === currUser._id && <Button title="toggle edit mode" onPress={handleToggleMode} />}
       {/* TITLE WRAPPER */}
       <View>
         <Text>

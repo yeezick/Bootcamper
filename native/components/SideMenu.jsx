@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 // components
 import { Landing } from '../screens/Landing';
 import { CreateProject } from '../screens/CreateProject';
-import { EditProject } from '../screens/EditProject';
+import { EditProject } from '../screens/EditProject/EditProject';
 import { SingleProject } from '../screens/SingleProject';
 import { Roulette } from '../screens/Roulette';
 import { SignIn } from '../screens/SignIn';

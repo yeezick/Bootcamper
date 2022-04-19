@@ -18,6 +18,8 @@ export const SingleActionButton = ({ payload }) => {
   };
 
   const apiReroute = (apiUrl, path) => {
+    const { handler } = payload;
+    handler();
     // calls an API
     // consider when the request may have a body
     // then reroutes
