@@ -1,24 +1,23 @@
 import 'react-native-gesture-handler';
 // packages
-import { useEffect } from 'react';
-import { Provider, useSelector } from 'react-redux';
+// import { useEffect } from 'react';
+import { Provider } from 'react-redux';
 import store from './services/redux/store.js';
 // native components
-import { NavigationContainer } from '@react-navigation/native';
+// import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet, Text, View } from 'react-native';
 import { SideMenu } from './components/SideMenu';
 // custom components
-import { Landing } from './screens/Landing';
-import { CreateProject } from './screens/CreateProject';
-import { EditProject } from './screens/EditProject';
-import { SingleProject } from './screens/SingleProject';
-import { Roulette } from './screens/Roulette';
-import { SignIn } from './screens/SignIn';
-import { SignUp } from './screens/SignUp';
-import { UserDashboard } from './screens/UserDashboard';
-import { UserProfile } from './screens/UserProfile';
-import { EditProfile } from './screens/EditProfile';
+// import { Landing } from './screens/Landing';
+// import { CreateProject } from './screens/CreateProject';
+// import { EditProject } from './screens/EditProject';
+// import { SingleProject } from './screens/SingleProject';
+// import { Roulette } from './screens/Roulette';
+// import { SignIn } from './screens/SignIn';
+// import { SignUp } from './screens/SignUp';
+// import { UserDashboard } from './screens/UserDashboard';
+// import { UserProfile } from './screens/UserProfile';
+// import { EditProfile } from './screens/EditProfile/EditProfile';
 // assets
 
 const Stack = createNativeStackNavigator();
@@ -87,12 +86,3 @@ export default function App() {
     // </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
