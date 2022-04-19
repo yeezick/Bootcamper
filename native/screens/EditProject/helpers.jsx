@@ -11,19 +11,24 @@ export const EditTools = ({ projectInfoTools, setProjectInfo }) => {
 
   useEffect(() => {
     setAvailableTools(() => {
-      let toolsNotInProject = allTools.filter((tool) =>
-        projectInfoTools.find((projectTool) => projectTool._id !== tool._id)
+      let toolsNotInProject = allTools.filter(
+        (allTool) =>
+          projectInfoTools.find((projectTool) => projectTool._id === allTool._id) === undefined
       );
-      return [{ name: 'Select a tool', id: 123 }, ...toolsNotInProject];
+      return [{ name: 'Select a tool', _id: 123 }, ...toolsNotInProject];
     });
   }, [projectInfoTools]);
 
   const selectTool = (selectedTool) => {
-    const toolInList = allTools.find((tool) => tool.name === selectedTool);
-    if (projectInfoTools.includes(toolInList) || toolInList.id === 123) {
+    selectedTool = availableTools.find((tool) => tool.name === selectedTool);
+    const toolInProject = projectInfoTools.find((projectTool) => {
+      return projectTool.name === selectedTool.name;
+    });
+
+    if (toolInProject || selectedTool._id === 123) {
       return;
     } else {
-      const updatedToolList = [...projectInfoTools, toolInList];
+      const updatedToolList = [...projectInfoTools, selectedTool];
       handleTextChange(updatedToolList, 'tools', setProjectInfo);
     }
   };

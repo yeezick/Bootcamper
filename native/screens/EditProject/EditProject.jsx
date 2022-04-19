@@ -48,7 +48,7 @@ export const EditProject = ({ navigation, route }) => {
       setEngineerCount(project.engineer_count);
       toggleLoadedProject(true);
     }
-  }, [currentUser]);
+  }, [currentUser, createNewProject]);
 
   const handleSubmit = async () => {
     if (createNewProject) {

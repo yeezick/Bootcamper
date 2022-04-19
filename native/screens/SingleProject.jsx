@@ -9,7 +9,6 @@ export const SingleProject = ({ navigation, route }) => {
   const [project, setProject] = useState({});
   const [edit, setEdit] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  console.log(project.owner);
 
   const showUser = (applicantID) => {
     navigation.navigate('UserProfile', {
