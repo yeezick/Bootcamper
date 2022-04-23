@@ -1,24 +1,25 @@
 // utilities
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-// components
-import { Landing } from '../screens/Landing';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+// screens
+import { Applications } from '../screens/Applications/Applications';
 import { CreateProject } from '../screens/CreateProject';
+import { EditProfile } from '../screens/EditProfile';
 import { EditProject } from '../screens/EditProject/EditProject';
-import { SingleProject } from '../screens/SingleProject';
+import { Landing } from '../screens/Landing';
 import { Roulette } from '../screens/Roulette';
 import { SignIn } from '../screens/SignIn';
 import { SignUp } from '../screens/SignUp';
+import { SingleProject } from '../screens/SingleProject';
 import { UserDashboard } from '../screens/UserDashboard';
 import { UserProfile } from '../screens/UserProfile';
-import { EditProfile } from '../screens/EditProfile';
 // assets
-import { signOut, verify } from '../services/api/users';
-import { uiActions } from '../services/redux/slices/uiSlice';
 import { fetchAllProjects } from '../services/redux/actions/projectActions.js';
 import { fetchAllTools } from '../services/redux/actions/toolActions.js';
+import { signOut, verify } from '../services/api/users';
+import { uiActions } from '../services/redux/slices/uiSlice';
 
 const Drawer = createDrawerNavigator();
 
@@ -52,48 +53,17 @@ export const SideMenu = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator>
-        <Drawer.Screen
-          name="Landing"
-          component={Landing}
-          // options={{ title: "welcome" }}
-        />
-        <Drawer.Screen
-          name="CreateProject"
-          component={CreateProject}
-          // options={{ title: "welcome" }}
-        />
-        <Drawer.Screen
-          name="EditProject"
-          component={EditProject}
-          // options={{ title: "welcome" }}
-        />
-        <Drawer.Screen
-          name="SingleProject"
-          component={SingleProject}
-          // options={{ title: "welcome" }}
-        />
-        <Drawer.Screen
-          name="Roulette"
-          component={Roulette}
-          // options={{ title: "welcome" }}
-        />
-        <Drawer.Screen
-          name="SignIn"
-          component={SignIn}
-          // options={{ title: "welcome" }}
-        />
-        <Drawer.Screen
-          name="SignUp"
-          component={SignUp}
-          // options={{ title: "welcome" }}
-        />
-        <Drawer.Screen
-          name="UserDashboard"
-          component={UserDashboard}
-          // options={{ title: "welcome" }}
-        />
-        <Drawer.Screen name="UserProfile" component={UserProfile} />
+        <Drawer.Screen name="Applications" component={Applications} />
+        <Drawer.Screen name="CreateProject" component={CreateProject} />
         <Drawer.Screen name="EditProfile" component={EditProfile} />
+        <Drawer.Screen name="EditProject" component={EditProject} />
+        <Drawer.Screen name="Landing" component={Landing} />
+        <Drawer.Screen name="Roulette" component={Roulette} />
+        <Drawer.Screen name="SingleProject" component={SingleProject} />
+        <Drawer.Screen name="SignIn" component={SignIn} />
+        <Drawer.Screen name="SignUp" component={SignUp} />
+        <Drawer.Screen name="UserDashboard" component={UserDashboard} />
+        <Drawer.Screen name="UserProfile" component={UserProfile} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
