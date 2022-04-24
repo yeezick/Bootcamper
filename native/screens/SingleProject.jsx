@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import { TeamView } from '../components/TeamView/TeamView.jsx';
 import { getOneProject } from '../services/api/projects.js';
 
 export const SingleProject = ({ navigation, route }) => {
@@ -28,7 +29,8 @@ export const SingleProject = ({ navigation, route }) => {
     fetchProject();
     setLoaded(true);
   }, [route]);
-
+  console.log(project);
+  console.log('user: ', reduxUser);
   let hours;
   const option = project.time_commitment;
   switch (option) {
@@ -44,7 +46,7 @@ export const SingleProject = ({ navigation, route }) => {
     default:
       hours = 'any';
   }
-
+  // break this out into OwnerView component:
   const OwnerView = () => (
     <View>
       {project.interested_applicants?.length ? (
@@ -76,7 +78,11 @@ export const SingleProject = ({ navigation, route }) => {
       )}
       <Text>{project.title}</Text>
       <Text>{project.description}</Text>
-      <Text>Current team size: {project.team_members?.length + 1}</Text>
+      {project.team_members?.some((member) => member._id === reduxUser._id) ? (
+        <TeamView project={project} />
+      ) : (
+        <Text>Current team size: {project.team_members?.length + 1}</Text>
+      )}
       {project.tools?.length ? <Text>Built with:</Text> : null}
       <FlatList
         data={project.tools?.map((tool) => new Object({ key: tool.name }))}
