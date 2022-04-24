@@ -1,23 +1,10 @@
-/**
- * Params:
- * - Project ID
- *
- * * check if Project owner is redux user =====> DONE
- * * create 2 lists in state; one to hold each role; pass to ROLE COMPONENT =======> DON
- *
- * ROLE COMPONENT
- * * only show 3 users initially ======> DONE
- * * "Load more" will show all other users =======> DONE
- * * OnPress user: lead to Applicant profile with custom modal component ======> DONE
- * * Add "application_message" to schema
- */
 import { Button, Text, TouchableOpacity, ScrollView, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import uuid from 'react-native-uuid';
 import { handleToggle } from '../../services/utils/handlers';
 
-export const Applications = ({ navigation }) => {
+export const Applicants = ({ navigation }) => {
   const soloProject = useSelector((state) => state.projects.allProjects[0]);
   const reduxUserID = useSelector((state) => state.ui.user._id);
   const [engineers, setEngineers] = useState([]);
