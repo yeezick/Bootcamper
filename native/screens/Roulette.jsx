@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import uuid from 'react-native-uuid';
 // components
+import { Button, StyleSheet, Text, View } from 'react-native';
 import { DoubleActionButton } from '../components/Button/DoubleActionButton';
 // assets
 import { addRejectedProject } from '../services/redux/actions/uiActions';
 import { showInterestInRoulette } from '../services/redux/actions/projectActions';
-import { Button, StyleSheet, Text, View } from 'react-native';
 
 // currently rerendering 5x
 export const Roulette = ({ navigation }) => {
@@ -56,7 +57,7 @@ const ProjectInfo = ({ project }) => {
       <View className="roulette-tools">
         <Text> Built with:</Text>
         {project.tools?.map((tool) => (
-          <Text>{tool}</Text>
+          <Text key={uuid.v4()}>{tool.name}</Text>
         ))}
       </View>
       <Text>{`Looking for collaborators who can commit at least X hours per week`}</Text>

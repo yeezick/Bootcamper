@@ -53,11 +53,12 @@ export const SideMenu = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator>
+        <Drawer.Screen name="Landing" component={Landing} />
+        {/* Landing is at the top of the list therefore is loaded fist on application open & refresh*/}
         <Drawer.Screen name="Applications" component={Applications} />
         <Drawer.Screen name="CreateProject" component={CreateProject} />
         <Drawer.Screen name="EditProfile" component={EditProfile} />
         <Drawer.Screen name="EditProject" component={EditProject} />
-        <Drawer.Screen name="Landing" component={Landing} />
         <Drawer.Screen name="Roulette" component={Roulette} />
         <Drawer.Screen name="SingleProject" component={SingleProject} />
         <Drawer.Screen name="SignIn" component={SignIn} />
