@@ -19,6 +19,7 @@ export const UserProfile = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const validUrl = `http://${reduxUser.portfolio_link}`;
   const { about, email, fun_fact, first_name, last_name, role, _id: currUserID } = currUser;
+
   useEffect(() => {
     const setUser = async () => {
       if (route.params === undefined || route.params.userID === reduxUser._id) {
@@ -42,7 +43,9 @@ export const UserProfile = ({ route, navigation }) => {
 
   return (
     <ScrollView>
-      {reduxUser._id === currUser._id && <Button title="toggle edit mode" onPress={handleToggleMode} />}
+      {reduxUser._id === currUser._id && (
+        <Button title="toggle edit mode" onPress={handleToggleMode} />
+      )}
       {/* TITLE WRAPPER */}
       <View>
         <Text>
@@ -71,4 +74,30 @@ export const UserProfile = ({ route, navigation }) => {
       <ShowPortfolioProjects currUser={currUser} />
     </ScrollView>
   );
+};
+
+const OwnerViewingApplicant = () => {
+  return (
+    <View>
+      <Text>{'REQUEST TO JOIN MESSAGE GOES HEREN LOREM IPSUM LATINN MORE LATIN IPSUM LOREM'}</Text>
+      <Button title="Approve Request" />
+      <Button title="Reject Request" />
+    </View>
+  );
+};
+
+const ApplicantReviewModal = ({ addToProject, applicantName }) => {
+  if (addToProject) {
+    return (
+      <View>
+        <Text>{`${applicantName} has been added to your project!`}</Text>
+      </View>
+    );
+  } else {
+    <View>
+      <Text>{`Reject ${applicantName}`}</Text>
+      <Button title="Yes, reject." />
+      <Button title="Cancel" />
+    </View>;
+  }
 };
