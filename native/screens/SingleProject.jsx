@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Button, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
+import { OwnerView } from '../components/OwnerView/OwnerView.jsx';
 import { TeamView } from '../components/TeamView/TeamView.jsx';
 import { getOneProject } from '../services/api/projects.js';
 
@@ -11,11 +12,6 @@ export const SingleProject = ({ navigation, route }) => {
   const [edit, setEdit] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
-  const showUser = (applicantID) => {
-    navigation.navigate('UserProfile', {
-      userID: applicantID,
-    });
-  };
   useEffect(() => {
     const fetchProject = async () => {
       if (route.params) {
@@ -30,7 +26,18 @@ export const SingleProject = ({ navigation, route }) => {
     setLoaded(true);
   }, [route]);
   console.log(project);
-  console.log('user: ', reduxUser);
+  let rolesSought;
+  if (project.designer_count && project.engineer_count) {
+    rolesSought = 'UX Designer, Software Engineer';
+  } else if (project.designer_count && !project.engineer_count) {
+    rolesSought = 'UX Designer';
+  } else if (!project.designer_count && project.engineer_count) {
+    rolesSought = 'Software Engineer';
+  } else {
+    rolesSought = null;
+  }
+
+  // for time commitment section:
   let hours;
   const option = project.time_commitment;
   switch (option) {
@@ -46,21 +53,6 @@ export const SingleProject = ({ navigation, route }) => {
     default:
       hours = 'any';
   }
-  // break this out into OwnerView component:
-  const OwnerView = () => (
-    <View>
-      {project.interested_applicants?.length ? (
-        <View>
-          <Text>These users are interested in joining the project:</Text>
-          {project.interested_applicants.map((applicant) => (
-            <Pressable key={applicant._id} onPress={() => showUser(applicant._id)}>
-              <Text>{`${applicant.first_name} ${applicant.last_name}, ${applicant.role}`}</Text>
-            </Pressable>
-          ))}
-        </View>
-      ) : null}
-    </View>
-  );
 
   const handleEditProjectMode = () => {
     setEdit(true);
@@ -73,12 +65,20 @@ export const SingleProject = ({ navigation, route }) => {
 
   return loaded ? (
     <View>
-      {reduxUser._id === project.owner && (
+      {reduxUser._id === project.owner._id && (
         <Button title="Edit Project Details" onPress={handleEditProjectMode} />
       )}
       <Text>{project.title}</Text>
+      {project.seeking ? (
+        <View>
+          <Text>Seeking</Text>
+          <Text>{`${rolesSought}`}</Text>
+        </View>
+      ) : null}
+      <Text>Description</Text>
       <Text>{project.description}</Text>
-      {project.team_members?.some((member) => member._id === reduxUser._id) ? (
+      {project.team_members?.some((member) => member._id === reduxUser._id) ||
+      reduxUser._id === project.owner._id ? (
         <TeamView project={project} />
       ) : (
         <Text>Current team size: {project.team_members?.length + 1}</Text>
@@ -89,7 +89,7 @@ export const SingleProject = ({ navigation, route }) => {
         renderItem={({ item }) => <Text>{item.key}</Text>}
       />
       <Text>{`Looking for collaborators who can commit ${hours} hours per week.`}</Text>
-      {reduxUser._id === project.owner ? <OwnerView /> : null}
+      {reduxUser._id === project.owner._id ? <OwnerView project={project} /> : null}
     </View>
   ) : (
     <Text>Loading...</Text>

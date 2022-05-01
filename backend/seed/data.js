@@ -70,12 +70,42 @@ const insertData = async () => {
   });
   await user4.save();
 
+  const user5 = new User({
+    about: "I'm an engineer and I like it",
+    email: "engineer1@mail.com",
+    first_name: "Dude",
+    interested_projects: [],
+    last_name: "Guy",
+    member_of_projects: [],
+    password_digest: await bcrypt.hash("donkeyballs", 11),
+    portfolio_link: "www.myportfoliostuff.com",
+    portfolio_projects: [],
+    rejected_projects: [],
+    role: "Software Engineer",
+  });
+  await user5.save();
+
+  const user6 = new User({
+    about: "I like nerd stuff. A lot.",
+    email: "lady@mail.com",
+    first_name: "Maria",
+    interested_projects: [],
+    last_name: "Lastname",
+    member_of_projects: [],
+    password_digest: await bcrypt.hash("usbdongle", 11),
+    portfolio_link: "www.nerds4nerds.com",
+    portfolio_projects: [],
+    rejected_projects: [],
+    role: "Software Engineer",
+  });
+  await user6.save();
+  
   const projects = [
     {
       description: "building gaming app",
-      designer_count: 0,
-      engineer_count: 0,
-      interested_applicants: [user3, user4], // projects[0]
+      designer_count: 1,
+      engineer_count: 1,
+      interested_applicants: [user3, user4, user5, user6], // projects[0]
       seeking: true,
       team_members: [user2],
       time_commitment: 'no preference',
@@ -85,8 +115,8 @@ const insertData = async () => {
     },
     {
       description: "Painting app",
-      designer_count: 0,
-      engineer_count: 0,
+      designer_count: 1,
+      engineer_count: 1,
       interested_applicants: [user4], //projects[1]
       seeking: true,
       team_members: [user1, user3],
@@ -97,8 +127,8 @@ const insertData = async () => {
     },
     {
       description: "gardening app",
-      designer_count: 0,
-      engineer_count: 0,
+      designer_count: 2,
+      engineer_count: 2,
       interested_applicants: [user4], //projects[2]
       seeking: false,
       team_members: [user2, user1],
@@ -109,8 +139,8 @@ const insertData = async () => {
     },
     {
       description: "babysitter app",
-      designer_count: 0,
-      engineer_count: 0,
+      designer_count: 1,
+      engineer_count: 2,
       interested_applicants: [user2], //projects[3]
       seeking: true,
       team_members: [user3],
@@ -121,8 +151,8 @@ const insertData = async () => {
     },
     {
       description: "finance app",
-      designer_count: 0,
-      engineer_count: 0,
+      designer_count: 1,
+      engineer_count: 3,
       interested_applicants: [user2], //projects[4]
       seeking: true,
       team_members: [user1, user3],
