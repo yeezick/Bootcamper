@@ -18,9 +18,13 @@ export const CreateProfile = () => {
 
 
     const finish = {
-        text: '',
-        type: '',
-        options: [],
+        text: 'Finish',
+        type: 'trigger-alert',
+        options: [
+            {
+                
+            }
+        ],
     }
 
     return (

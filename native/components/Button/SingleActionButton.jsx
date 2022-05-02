@@ -26,7 +26,8 @@ export const SingleActionButton = ({ payload }) => {
   };
 
   const triggerAlert = () => {
-    
+    const { title, message, options } = payload;
+    Alert.alert(title, message, options);
   }
 
   switch (type) {
@@ -50,6 +51,13 @@ export const SingleActionButton = ({ payload }) => {
           <Text style={styles.text}>{text}</Text>
         </Pressable>
       );
+
+    case 'trigger-alert':
+      return (
+        <Pressable style={[styles.button, styles.default]} onPress={triggerAlert}>
+          <Text style={styles.text}>{text}</Text>
+        </Pressable>
+      )
 
     default:
       return (
