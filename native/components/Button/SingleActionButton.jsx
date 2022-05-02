@@ -25,6 +25,10 @@ export const SingleActionButton = ({ payload }) => {
     // then reroutes
   };
 
+  const triggerAlert = () => {
+    
+  }
+
   switch (type) {
     case 'reroute':
       return (

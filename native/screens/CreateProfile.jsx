@@ -9,26 +9,38 @@ import { userForm } from '../services/formData';
 import { Form } from '../components/Form/Form';
 import { AddPortfolioProject } from '../components/PortfolioCard/AddPortfolioProject';
 import { ShowPortfolioProjects } from '../components/PortfolioCard/ShowPortfolioProjects';
+import { SingleActionButton } from '../components/Button/SingleActionButton';
 
 export const CreateProfile = () => {
     const { user: reduxUser, editMode } = useSelector((state) => state.ui);
     const dispatch = useDispatch();
+    const [ isCreated, setIsCreated ] = useState(false);
 
-    const header = {
-        title: "About Me",
-        text: null,
+
+    const finish = {
+        text: '',
+        type: '',
+        options: [],
     }
 
     return (
         <ScrollView>
-            <Header headerTitle={header.title} headerText={header.text} />
-            <AboutUser />
+            { !isCreated ? 
+                <AboutUser setIsCreated={setIsCreated} /> 
+                :
+                (
+                <>
+                    <AddPortfolioProject />
+                    <SingleActionButton payload={finish} />
+                </>)
+            }
+            
         </ScrollView>
     )
 };
 
 
-const AboutUser = () => {
+const AboutUser = ({setIsCreated}) => {
     const { editMode, user } = useSelector((state) => state.ui);
     const dispatch = useDispatch();
     const [userInfo, setUserInfo] = useState({
@@ -54,14 +66,21 @@ const AboutUser = () => {
         try {
             const res = await updateUser(user._id, userInfo);
             dispatch(uiActions.updateUser(res));
+            setIsCreated(true);
         } catch (error) {
             console.error(error);
         }
         };
+
+        const header = {
+            title: "Create Profile",
+            text: null,
+        }
     
         return (
         // className="about-user"
         <View>
+            <Header headerTitle={header.title} headerText={header.text} />
             <Form formData={userForm} formState={[userInfo, setUserInfo, handleUserUpdate]} />
         </View>
         );

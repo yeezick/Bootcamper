@@ -1,3 +1,5 @@
+
+
 /* 
   authentication forms
  */
@@ -105,7 +107,7 @@ export const userForm = {
 
 export const portfolioProjectForm = {
   button: {
-    text: 'Add New Project',
+    text: 'Save',
     type: 'single',
   },
   handlers: {
@@ -119,17 +121,29 @@ export const portfolioProjectForm = {
       type: 'text',
     },
     {
-      labelText: 'Describe the project',
+      labelText: 'Role',
+      name: 'role',
+      required: true,
+      type: 'text',
+    },
+    {
+      labelText: 'Tools Used',
+      name: 'tools',
+      required: true,
+      type: 'text',
+    },
+    {
+      labelText: 'About',
       name: 'project_description',
       required: true,
       type: 'textarea',
     },
-    {
-      labelText: 'Link to your project',
-      name: 'project_link',
-      required: true,
-      type: 'text',
-    },
+    // {
+    //   labelText: 'Link to your project',
+    //   name: 'project_link',
+    //   required: true,
+    //   type: 'text',
+    // },
   ],
 };
 
