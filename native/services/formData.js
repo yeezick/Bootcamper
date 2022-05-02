@@ -61,7 +61,7 @@ export const signUpForm = {
 */
 export const userForm = {
   button: {
-    text: 'Update Your Info',
+    text: 'Next',
     type: 'single',
   },
   handlers: {
@@ -70,30 +70,36 @@ export const userForm = {
   },
   inputs: [
     {
-      labelText: 'Tell us a bit about you (max 250 characters)',
-      name: 'about',
-      max_chars: 250,
-      required: true,
-      type: 'textarea',
-    },
-    {
-      labelText: 'Include a fun fact!   (optional, max 250 characters) ',
-      name: 'fun_fact',
-      max_chars: 250,
-      type: 'textarea',
-    },
-    {
-      labelText: 'I am a...',
+      labelText: 'Occupation',
       name: 'role',
       required: true,
       type: 'select',
       options: ['Select role', 'UX Designer', 'Software Engineer'],
     },
     {
-      labelText: 'Link to your portfolio (optional)',
+      labelText: 'Bio',
+      name: 'about',
+      max_chars: 250,
+      required: true,
+      type: 'textarea',
+    },
+    // {
+    //   labelText: 'Include a fun fact!   (optional, max 250 characters) ',
+    //   name: 'fun_fact',
+    //   max_chars: 250,
+    //   type: 'textarea',
+    // },
+
+    {
+      labelText: 'Portfolio Link',
       name: 'portfolio_link',
       type: 'text',
     },
+    {
+      labelText: 'Share on Profile?',
+      name: 'show_portolio',
+      type: 'checkbox',
+    }
   ],
 };
 

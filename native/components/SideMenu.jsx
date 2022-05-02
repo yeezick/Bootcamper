@@ -15,6 +15,7 @@ import { SignUp } from '../screens/SignUp';
 import { SingleProject } from '../screens/SingleProject';
 import { UserDashboard } from '../screens/UserDashboard';
 import { UserProfile } from '../screens/UserProfile';
+import { CreateProfile } from '../screens/CreateProfile';
 // assets
 import { fetchAllProjects } from '../services/redux/actions/projectActions.js';
 import { fetchAllTools } from '../services/redux/actions/toolActions.js';
@@ -65,6 +66,7 @@ export const SideMenu = () => {
         <Drawer.Screen name="SignUp" component={SignUp} />
         <Drawer.Screen name="UserDashboard" component={UserDashboard} />
         <Drawer.Screen name="UserProfile" component={UserProfile} />
+        <Drawer.Screen name="CreateProfile" component={CreateProfile} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
