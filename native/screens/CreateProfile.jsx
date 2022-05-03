@@ -1,6 +1,6 @@
 // import React from 'react'
 import { useState} from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Button } from 'react-native';
 import { Header } from '../components/Header/Header';
 import { useSelector, useDispatch } from 'react-redux';
 import { uiActions } from '../services/redux/slices/uiSlice';
@@ -32,6 +32,7 @@ export const CreateProfile = ({navigation}) => {
         <ScrollView>
             <Header headerTitle="Create Profile" headerText="" />
             <Form formData={createProfile} formState={[userInfo, setUserInfo, handleUserUpdate]} />
+            <Button title="Complete later" onPress={() => navigation.navigate('Roulette')} />
         </ScrollView>
     )
 };
