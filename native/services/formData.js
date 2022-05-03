@@ -61,6 +61,45 @@ export const signUpForm = {
 /* 
   user related forms 
 */
+
+export const createProfile = {
+  button: {
+      text: 'Next',
+      type: 'single',
+      },
+  handlers: {
+    // setterFunction: ,
+    // onSubmit: ,
+  },
+  inputs: [
+      {
+          labelText: 'I am a',
+          name: 'role',
+          required: true,
+          type: 'select',
+          options: ['Select Occupation', 'UX Designer', 'Software Engineer'],
+      },
+      {
+          labelText: 'About Me',
+          name: 'about',
+          max_chars: 250,
+          required: true,
+          type: 'textarea',
+      },
+      {
+          labelText: 'Portfolio Link',
+          name: 'portfolio_link',
+          type: 'text',
+      },
+      {
+          labelText: 'Share on Profile?',
+          name: 'show_portfolio',
+          type: 'switch',
+      }
+  ],
+};
+
+
 export const userForm = {
   button: {
     text: 'Next',
