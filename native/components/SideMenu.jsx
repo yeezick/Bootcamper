@@ -21,6 +21,7 @@ import { fetchAllProjects } from '../services/redux/actions/projectActions.js';
 import { fetchAllTools } from '../services/redux/actions/toolActions.js';
 import { signOut, verify } from '../services/api/users';
 import { uiActions } from '../services/redux/slices/uiSlice';
+import { AddPortfolioProjects } from '../screens/AddPortfolioProjects';
 
 const Drawer = createDrawerNavigator();
 
@@ -67,6 +68,7 @@ export const SideMenu = () => {
         <Drawer.Screen name="UserDashboard" component={UserDashboard} />
         <Drawer.Screen name="UserProfile" component={UserProfile} />
         <Drawer.Screen name="CreateProfile" component={CreateProfile} />
+        <Drawer.Screen name="AddPortfolioProjects" component={AddPortfolioProjects} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
