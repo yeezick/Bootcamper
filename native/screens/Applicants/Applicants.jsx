@@ -31,9 +31,19 @@ export const Applicants = ({ navigation }) => {
     return (
       <ScrollView>
         <Text>Applications</Text>
-        <RoleList applicants={engineers} navigation={navigation} role={'Software Developers'} />
+        <RoleList
+          applicants={engineers}
+          navigation={navigation}
+          role={'Software Developers'}
+          soloProject={soloProject}
+        />
         <Text>{'\nJUST A DIVIDER \n DONT MIND ME \n DELETE ME AFTER \n'}</Text>
-        <RoleList applicants={designers} navigation={navigation} role={'UX Designers'} />
+        <RoleList
+          applicants={designers}
+          navigation={navigation}
+          role={'UX Designers'}
+          soloProject={soloProject}
+        />
       </ScrollView>
     );
   } else {
@@ -41,7 +51,7 @@ export const Applicants = ({ navigation }) => {
   }
 };
 
-const RoleList = ({ applicants, navigation, role }) => {
+const RoleList = ({ applicants, navigation, role, soloProject }) => {
   const [loadMore, toggleLoadMore] = useState(false);
   const [visibleList, setVisibleList] = useState([]);
 
@@ -65,8 +75,9 @@ const RoleList = ({ applicants, navigation, role }) => {
             key={uuid.v4()}
             onPress={() => {
               navigation.navigate('UserProfile', {
-                userID: applicant._id,
                 ownerViewingApplicant: true,
+                project: soloProject,
+                userID: applicant._id,
               });
             }}
           >
