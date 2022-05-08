@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // screens
+import { AccountSettings } from '../screens/AccountSettings';
 import { Applicants } from '../screens/Applicants/Applicants';
 import { CreateProject } from '../screens/CreateProject';
 import { EditProfile } from '../screens/EditProfile';
@@ -56,6 +57,7 @@ export const SideMenu = () => {
       <Drawer.Navigator>
         <Drawer.Screen name="Landing" component={Landing} />
         {/* Landing is at the top of the list therefore is loaded fist on application open & refresh*/}
+        <Drawer.Screen name="AccountSettings" component={AccountSettings} />
         <Drawer.Screen name="Applicants" component={Applicants} />
         <Drawer.Screen name="CreateProject" component={CreateProject} />
         <Drawer.Screen name="EditProfile" component={EditProfile} />

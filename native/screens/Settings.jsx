@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { Button, View } from 'react-native';
+import { Text, Button, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 export const Settings = ({ navigation }) => {
@@ -13,7 +12,6 @@ export const Settings = ({ navigation }) => {
         <Text>User Image</Text>
         <Text>{`${first_name} ${last_name}`}</Text>
       </View>
-      {/* list of options */}
       <View>
         <Text>Setting 1</Text>
         <Text>Setting 2</Text>
@@ -23,7 +21,7 @@ export const Settings = ({ navigation }) => {
         />
         <Button
           title="Account Settings"
-          onPress={() => navigation.navigate('Account Settings', { userID })}
+          onPress={() => navigation.navigate('AccountSettings', { userID })}
         />
       </View>
       <Button title="Log Out" />
