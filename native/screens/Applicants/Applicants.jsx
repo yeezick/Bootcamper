@@ -3,31 +3,36 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import uuid from 'react-native-uuid';
 import { handleToggle } from '../../services/utils/handlers';
+import { getOneProject } from '../../services/api/projects';
 
-export const Applicants = ({ navigation }) => {
+export const Applicants = ({ navigation, route }) => {
   const soloProject = useSelector((state) => state.projects.allProjects[0]);
-  const reduxUserID = useSelector((state) => state.ui.user._id);
+  const [currProject, setCurrProject] = useState(null);
   const [engineers, setEngineers] = useState([]);
   const [designers, setDesigners] = useState([]);
-  const [verifiedOwner, toggleVerifiedOwner] = useState(false);
 
   useEffect(() => {
-    if (soloProject && soloProject.owner === reduxUserID) {
-      toggleVerifiedOwner(true);
-    } else {
-      toggleVerifiedOwner(false);
-      return;
-    }
+    const setProject = async () => {
+      let fetchedProject;
 
-    const filterRoles = (role) => {
-      return soloProject.interested_applicants?.filter((applicant) => applicant.role === role);
+      if (!route.params) {
+        fetchedProject = soloProject;
+      } else {
+        fetchedProject = await getOneProject(route.params.projectID); // must be tested
+      }
+
+      const filterRoles = (role) => {
+        return fetchedProject.interested_applicants?.filter((applicant) => applicant.role === role);
+      };
+
+      setCurrProject(fetchedProject);
+      setEngineers(() => filterRoles('Software Engineer'));
+      setDesigners(() => filterRoles('UX Designer'));
     };
+    setProject();
+  }, [route.params]);
 
-    setEngineers(() => filterRoles('Software Engineer'));
-    setDesigners(() => filterRoles('UX Designer'));
-  }, [reduxUserID, soloProject]);
-
-  if (verifiedOwner) {
+  if (currProject) {
     return (
       <ScrollView>
         <Text>Applications</Text>
@@ -35,14 +40,14 @@ export const Applicants = ({ navigation }) => {
           applicants={engineers}
           navigation={navigation}
           role={'Software Developers'}
-          soloProject={soloProject}
+          currProject={currProject}
         />
         <Text>{'\nJUST A DIVIDER \n DONT MIND ME \n DELETE ME AFTER \n'}</Text>
         <RoleList
           applicants={designers}
           navigation={navigation}
           role={'UX Designers'}
-          soloProject={soloProject}
+          currProject={currProject}
         />
       </ScrollView>
     );
@@ -51,7 +56,7 @@ export const Applicants = ({ navigation }) => {
   }
 };
 
-const RoleList = ({ applicants, navigation, role, soloProject }) => {
+const RoleList = ({ applicants, navigation, role, currProject }) => {
   const [loadMore, toggleLoadMore] = useState(false);
   const [visibleList, setVisibleList] = useState([]);
 
@@ -76,7 +81,7 @@ const RoleList = ({ applicants, navigation, role, soloProject }) => {
             onPress={() => {
               navigation.navigate('UserProfile', {
                 ownerViewingApplicant: true,
-                project: soloProject,
+                project: currProject,
                 userID: applicant._id,
               });
             }}

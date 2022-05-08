@@ -73,6 +73,7 @@ export const UserProfile = ({ route, navigation }) => {
       {renderDecisionModal && (
         <DecisionModal
           applicant={currUser}
+          navigation={navigation}
           reviewStatus={reviewStatus}
           setReviewStatus={setReviewStatus}
         />
@@ -126,7 +127,7 @@ const OwnerOptions = ({ setReviewStatus }) => {
   );
 };
 
-const DecisionModal = ({ applicant, reviewStatus, setReviewStatus }) => {
+const DecisionModal = ({ applicant, navigation, reviewStatus, setReviewStatus }) => {
   const { _id: userID, first_name, interested_projects } = applicant;
   const { ownerDecision, renderDecisionModal } = reviewStatus;
   const {
@@ -166,6 +167,9 @@ const DecisionModal = ({ applicant, reviewStatus, setReviewStatus }) => {
   const endReviewSequence = () => {
     handleTextChange(false, 'renderDecisionModal', setReviewStatus);
     handleTextChange(false, 'ownerViewingApplicant', setReviewStatus);
+    navigation.navigate('Applicants', {
+      projectID,
+    });
   };
 
   const rejectApplicant = async () => {
