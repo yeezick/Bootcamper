@@ -9,7 +9,6 @@ export const SingleProject = ({ navigation, route }) => {
   const allProjects = useSelector((state) => state.projects.allProjects);
   const reduxUser = useSelector((state) => state.ui.user);
   const [project, setProject] = useState({});
-  const [edit, setEdit] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -55,7 +54,6 @@ export const SingleProject = ({ navigation, route }) => {
   }
 
   const handleEditProjectMode = () => {
-    setEdit(true);
     navigation.navigate('EditProject', {
       projectID: project._id,
       project,

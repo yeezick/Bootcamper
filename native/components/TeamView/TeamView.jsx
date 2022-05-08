@@ -9,7 +9,7 @@ export const TeamView = ({ project }) => {
         <Text>{project.owner.role}</Text>
       </View>
       {project.team_members.map((member) => (
-        <View style={styles.memberCard}>
+        <View key={member._id} style={styles.memberCard}>
           <Text>{`${member.first_name} ${member.last_name}`}</Text>
           <Text>{member.role}</Text>
         </View>
