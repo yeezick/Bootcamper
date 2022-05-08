@@ -5,7 +5,6 @@ import { AddPortfolioProject } from '../components/PortfolioCard/AddPortfolioPro
 import { ShowPortfolioProjects } from '../components/PortfolioCard/ShowPortfolioProjects';
 import { Form } from '../components/Form/Form';
 import { Header } from '../components/Header/Header';
-import { Modal } from '../components/Modal/Modal';
 
 import { uiActions } from '../services/redux/slices/uiSlice';
 import { updateUser } from '../services/api/users';

@@ -66,7 +66,7 @@ const RoleList = ({ applicants, navigation, role }) => {
             onPress={() => {
               navigation.navigate('UserProfile', {
                 userID: applicant._id,
-                projectOwnerView: true,
+                ownerViewingApplicant: true,
               });
             }}
           >
