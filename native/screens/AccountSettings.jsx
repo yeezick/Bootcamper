@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Text, View } from 'react-native';
+import { Button, Text, TextInput, View } from 'react-native';
 import { handleTextChange, handleToggle } from '../services/utils/handlers';
 
 export const AccountSettings = ({ route }) => {
