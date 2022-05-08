@@ -175,7 +175,6 @@ const DecisionModal = ({ applicant, reviewStatus, setReviewStatus }) => {
   };
 
   const addToTeam = async () => {
-    console.log('requestBody', requestBody);
     requestBody = {
       ...requestBody,
       project: {
@@ -183,8 +182,8 @@ const DecisionModal = ({ applicant, reviewStatus, setReviewStatus }) => {
         team_members: [...projectMembers, userID],
       },
     };
-    fetchAllProjects();
     await updateUserAndProject(requestBody);
+    fetchAllProjects();
   };
 
   return (
