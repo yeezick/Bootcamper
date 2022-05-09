@@ -33,14 +33,27 @@ export const UserProfile = ({ route, navigation }) => {
   const { ownerViewingApplicant, ownerSubmittedDecision, renderDecisionModal } = reviewStatus;
 
   useEffect(() => {
-    const toggleReviewSequence = () => {
-      if (route.params.ownerViewingApplicant && !ownerSubmittedDecision) {
-        handleTextChange(true, 'ownerViewingApplicant', setReviewStatus);
-        handleTextChange(route.params.project, 'ownerProject', setReviewStatus);
-      }
-    };
-    toggleReviewSequence();
-  }, []);
+    if (route.params.project && currUserID != route.params.project.owner) {
+      const toggleReviewSequence = () => {
+        const userInInterestedApplicants = route.params.project.interested_applicants.filter(
+          (applicant) => applicant._id === currUser._id
+        );
+        if (route.params.ownerViewingApplicant && !ownerSubmittedDecision) {
+          handleTextChange(true, 'ownerViewingApplicant', setReviewStatus);
+          handleTextChange(route.params.project, 'ownerProject', setReviewStatus);
+        } else if (route.params.ownerViewingApplicant && userInInterestedApplicants.length > 0) {
+          setReviewStatus({
+            renderDecisionModal: false,
+            ownerViewingApplicant: true, // is it best practice to leave "owner" or to remove it? (save 5 keystrokes)
+            ownerDecision: false,
+            ownerSubmittedDecision: false,
+            ownerProject: route.params.project,
+          });
+        }
+      };
+      toggleReviewSequence();
+    }
+  }, [route.params]);
 
   useEffect(() => {
     const setUser = async () => {
