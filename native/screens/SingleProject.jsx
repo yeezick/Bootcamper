@@ -24,7 +24,7 @@ export const SingleProject = ({ navigation, route }) => {
     fetchProject();
     setLoaded(true);
   }, [route]);
-  console.log(project);
+
   let rolesSought;
   if (project.designer_count && project.engineer_count) {
     rolesSought = 'UX Designer, Software Engineer';
