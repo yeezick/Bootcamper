@@ -63,7 +63,7 @@ export const SingleProject = ({ navigation, route }) => {
 
   return loaded ? (
     <View>
-      {reduxUser._id === project.owner._id && (
+      {reduxUser._id === project.owner && (
         <Button title="Edit Project Details" onPress={handleEditProjectMode} />
       )}
       <Text>{project.title}</Text>
@@ -75,8 +75,8 @@ export const SingleProject = ({ navigation, route }) => {
       ) : null}
       <Text>Description</Text>
       <Text>{project.description}</Text>
-      {project.team_members?.some((member) => member._id === reduxUser._id) ||
-      reduxUser._id === project.owner._id ? (
+      {project.team_members?.some((member) => member === reduxUser._id) ||
+      reduxUser._id === project.owner ? (
         <TeamView project={project} />
       ) : (
         <Text>Current team size: {project.team_members?.length + 1}</Text>
@@ -87,7 +87,7 @@ export const SingleProject = ({ navigation, route }) => {
         renderItem={({ item }) => <Text>{item.key}</Text>}
       />
       <Text>{`Looking for collaborators who can commit ${hours} hours per week.`}</Text>
-      {reduxUser._id === project.owner._id ? <OwnerView project={project} /> : null}
+      {reduxUser._id === project.owner ? <OwnerView project={project} /> : null}
     </View>
   ) : (
     <Text>Loading...</Text>
