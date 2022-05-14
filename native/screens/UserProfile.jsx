@@ -33,7 +33,7 @@ export const UserProfile = ({ route, navigation }) => {
   const { ownerViewingApplicant, ownerSubmittedDecision, renderDecisionModal } = reviewStatus;
 
   useEffect(() => {
-    if (route.params.project && currUserID != route.params.project.owner) {
+    if (route.params && currUserID != route.params.project.owner) {
       const toggleReviewSequence = () => {
         const userInInterestedApplicants = route.params.project.interested_applicants.filter(
           (applicant) => applicant._id === currUser._id
