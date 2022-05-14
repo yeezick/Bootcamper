@@ -9,7 +9,7 @@ const getToken = async () => {
 export const api = axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
-      ? 'http://localhost:8000/api'
+      ? 'https://bootcamper-dev-backend.herokuapp.com/api'
       : 'http://localhost:8000/api',
 });
 
