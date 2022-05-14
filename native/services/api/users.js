@@ -28,6 +28,15 @@ export const updateUser = async (id, userUpdate) => {
   }
 };
 
+export const deleteUser = async (id) => {
+  try {
+    const res = await api.delete(`/users/${id}`);
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const addPortfolioProject = async (id, newProject) => {
   try {
     const res = await api.patch(`/users/${id}`, newProject);
@@ -93,4 +102,12 @@ export const verify = async () => {
     return user;
   }
   return false;
+};
+
+// tokens may be different every time the JWT formula is used
+// foolproof this solution
+export const confirmPassword = async (credentials, userID) => {
+  const secureStoreToken = await SecureStore.getItemAsync('token');
+  const backendToken = api.post(`/confirmPassword/${userID}`, credentials);
+  return secureStoreToken === backendToken ? true : false;
 };

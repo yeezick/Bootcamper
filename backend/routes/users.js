@@ -10,6 +10,7 @@ router.get('/users/:id', controllers.getOneUser);
 router.post("/sign-up", controllers.signUp);
 router.put("/users/:id", controllers.updateUserInfo);
 router.patch('/users/:id', controllers.addPortfolioProject);
+router.delete('/users/:id', controllers.deleteUser);
 
 // auth
 router.post("/sign-in", controllers.signIn);

@@ -42,6 +42,21 @@ export const getOneUser = async (req, res) => {
   }
 }
 
+export const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedUser = await User.findByIdAndDelete(id);
+    if (deletedUser) {
+      console.log("deletedUser:", deletedUser)
+      return res.status(200).send({deletionStatus: true, message: "Project deleted."});
+    }
+    throw new Error("Project not found.");
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ deletionState: false, error: error.message });
+  }
+}; // works
+
 export const addPortfolioProject = async (req, res) => {
   try {
     const { id } = req.params;
@@ -107,7 +122,7 @@ export const signUp = async (req, res) => {
 export const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
-    let user = await User.findOne({ email: email }).select(
+    let user = await User.findOne({ email }).select(
       "about email first_name fun_fact interested_projects last_name member_of_projects password_digest portfolio_projects portfolio_link rejected_projects role"
     ); // to avoid setting `select` to true on the user model, i select all properties here then copy the user object without the password_digest below
     let secureUser = Object.assign({}, user._doc, {"password_digest": undefined})
@@ -140,3 +155,22 @@ export const verify = async (req, res) => {
     res.status(401).send("Not authorized");
   }
 };
+
+export const confirmPassword = async (req, res) => {
+  const { credentials} = req;
+  const { email, password } = credentials;
+  let user = await User.findOne({ email }).select(
+    "about email first_name fun_fact interested_projects last_name member_of_projects password_digest portfolio_projects portfolio_link rejected_projects role"
+  ); // to avoid setting `select` to true on the user model, i select all properties here then copy the user object without the password_digest below
+  if (await bcrypt.compare(password, user.password_digest)) {
+    const payload = {
+      id: user._id,
+      email: user.email,
+      exp: parseInt(exp.getTime() / 1000),
+    };
+    const token = jwt.sign(payload, TOKEN_KEY);
+    res.status(201).json({ token });
+  } else {
+    res.status(401).json({ error: error.message });
+  }
+}
