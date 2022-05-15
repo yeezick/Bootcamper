@@ -107,7 +107,22 @@ export const verify = async () => {
 // tokens may be different every time the JWT formula is used
 // foolproof this solution
 export const confirmPassword = async (credentials, userID) => {
-  const secureStoreToken = await SecureStore.getItemAsync('token');
-  const backendToken = api.post(`/confirmPassword/${userID}`, credentials);
-  return secureStoreToken === backendToken ? true : false;
+  try {
+    const { data: passwordConfirmed } = await api.post(`/confirm-password/${userID}`, credentials);
+    return passwordConfirmed;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+export const updatePassword = async (newPassword, userID) => {
+  const { message, status, token, user } = api.post(`/update-password/${userID}`, { newPassword });
+  if (status) {
+    await SecureStore.setItemAsync('token', token);
+    return { status, user };
+  } else {
+    console.log('API Error:', message);
+    return false;
+  }
 };

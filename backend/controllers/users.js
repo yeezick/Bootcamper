@@ -26,7 +26,7 @@ export const getAllUsers = async (req, res) => {
     console.log(error.message);
     res.status(500).json({ error: error.message });
   }
-}; //works
+}; 
 
 export const getOneUser = async (req, res) => {
   try {
@@ -55,7 +55,7 @@ export const deleteUser = async (req, res) => {
     console.log(error.message);
     res.status(500).json({ deletionState: false, error: error.message });
   }
-}; // works
+}; 
 
 export const addPortfolioProject = async (req, res) => {
   try {
@@ -80,7 +80,7 @@ export const updateUserInfo = async (req, res) => {
   } catch (error) {
     res.status(500).send(error.message);
   }
-}; // works
+};
 
 export const checkEmail = async (req, res) => {
   try {
@@ -117,7 +117,7 @@ export const signUp = async (req, res) => {
     console.error(error.message);
     res.status(400).json({ error: error.message });
   }
-}; // works
+};
 
 export const signIn = async (req, res) => {
   try {
@@ -141,7 +141,7 @@ export const signIn = async (req, res) => {
     console.log(error.message);
     res.status(500).json({ error: error.message });
   }
-}; // works
+}; 
 
 export const verify = async (req, res) => {
   try {
@@ -157,20 +157,30 @@ export const verify = async (req, res) => {
 };
 
 export const confirmPassword = async (req, res) => {
-  const { credentials} = req;
-  const { email, password } = credentials;
+  const { email, password} = req.body;
   let user = await User.findOne({ email }).select(
-    "about email first_name fun_fact interested_projects last_name member_of_projects password_digest portfolio_projects portfolio_link rejected_projects role"
-  ); // to avoid setting `select` to true on the user model, i select all properties here then copy the user object without the password_digest below
+    "password_digest"
+  );
   if (await bcrypt.compare(password, user.password_digest)) {
-    const payload = {
-      id: user._id,
-      email: user.email,
-      exp: parseInt(exp.getTime() / 1000),
-    };
-    const token = jwt.sign(payload, TOKEN_KEY);
-    res.status(201).json({ token });
+    res.status(201).send(true);
   } else {
-    res.status(401).json({ error: error.message });
+    res.status(401).send(false);
   }
 }
+
+export const updatePassword = async (req, res) => {
+  try {
+    const newPasswordDigest = await bcrypt.hash(req.newPassword, SALT_ROUNDS);
+    const user = await User.findByIdAndUpdate(id, {password_digest: newPasswordDigest }, { new: true });
+    const payload = {
+        id: user._id,
+        email: user.email,
+        exp: parseInt(exp.getTime() / 1000),
+      };
+    const token = jwt.sign(payload, TOKEN_KEY);
+    res.status(201).json({status: true, message: "Password Updated", user, token});
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: false, message: error.message });
+  }
+};
