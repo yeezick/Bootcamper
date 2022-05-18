@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
+import { Button, FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { OwnerView } from '../components/OwnerView/OwnerView.jsx';
 import { TeamView } from '../components/TeamView/TeamView.jsx';
 import { getOneProject } from '../services/api/projects.js';
@@ -66,30 +66,57 @@ export const SingleProject = ({ navigation, route }) => {
       {reduxUser._id === project.owner && (
         <Button title="Edit Project Details" onPress={handleEditProjectMode} />
       )}
-      <Text>{project.title}</Text>
+      <Text style={styles.title}>{project.title}</Text>
       {project.seeking ? (
         <View>
-          <Text>Seeking</Text>
+          <Text style={styles.heading}>Seeking</Text>
           <Text>{`${rolesSought}`}</Text>
         </View>
       ) : null}
-      <Text>Description</Text>
-      <Text>{project.description}</Text>
+      <Text style={styles.heading}>Description</Text>
+      <Text style={styles.paragraph}>{project.description}</Text>
       {project.team_members?.some((member) => member === reduxUser._id) ||
       reduxUser._id === project.owner ? (
         <TeamView project={project} />
       ) : (
-        <Text>Current team size: {project.team_members?.length + 1}</Text>
+        <Text style={styles.heading}>Current team size: {project.team_members?.length + 1}</Text>
       )}
-      {project.tools?.length ? <Text>Built with:</Text> : null}
-      <FlatList
-        data={project.tools?.map((tool) => new Object({ key: tool.name }))}
-        renderItem={({ item }) => <Text>{item.key}</Text>}
-      />
-      <Text>{`Looking for collaborators who can commit ${hours} hours per week.`}</Text>
+      {project.tools?.length ? <Text style={styles.heading}>Built with:</Text> : null}
+      <SafeAreaView style={styles.container}>
+        <FlatList
+          data={project.tools?.map((tool) => new Object({ key: tool.name }))}
+          renderItem={({ item }) => <Text style={styles.tool}>{item.key}</Text>}
+        />
+      </SafeAreaView>
+      <Text
+        style={styles.heading}
+      >{`Looking for collaborators who can commit ${hours} hours per week.`}</Text>
       {reduxUser._id === project.owner ? <OwnerView project={project} /> : null}
     </View>
   ) : (
     <Text>Loading...</Text>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    margin: 2,
+  },
+  heading: {
+    marginTop: 5,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 2,
+  },
+  paragraph: {
+    marginBottom: 5,
+  },
+  tool: {
+    margin: 2,
+  },
+});

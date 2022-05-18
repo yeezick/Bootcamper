@@ -22,14 +22,16 @@ export const TeamView = ({ project }) => {
   return (
     <View className="team-view">
       <Text>Team Members:</Text>
-      <View style={styles.memberCard}>
-        <Text>{`Project Owner: ${owner.first_name} ${owner.last_name}`}</Text>
-        <Text>{owner.role}</Text>
+      <View>
+        <Text
+          style={styles.member}
+        >{`Owner: ${owner.first_name} ${owner.last_name}, ${owner.role}`}</Text>
       </View>
       {team.map((member) => (
-        <View key={member._id} style={styles.memberCard}>
-          <Text>{`${member.first_name} ${member.last_name}`}</Text>
-          <Text>{member.role}</Text>
+        <View key={member._id}>
+          <Text
+            style={styles.member}
+          >{`${member.first_name} ${member.last_name}, ${member.role}`}</Text>
         </View>
       ))}
     </View>
@@ -37,9 +39,7 @@ export const TeamView = ({ project }) => {
 };
 
 const styles = StyleSheet.create({
-  memberCard: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+  member: {
+    margin: 2,
   },
 });

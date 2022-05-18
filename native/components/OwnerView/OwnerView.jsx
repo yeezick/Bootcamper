@@ -1,4 +1,4 @@
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { getAllUsers } from '../../services/api/users';
@@ -37,7 +37,9 @@ export function OwnerView({ project }) {
           <Text>These users are interested in joining the project:</Text>
           {applicants.slice(0, 3).map((applicant) => (
             <Pressable key={applicant._id} onPress={() => showUser(applicant._id)}>
-              <Text>{`${applicant.first_name} ${applicant.last_name}, ${applicant.role}`}</Text>
+              <Text
+                style={styles.applicant}
+              >{`${applicant.first_name} ${applicant.last_name}, ${applicant.role}`}</Text>
             </Pressable>
           ))}
           {project.interested_applicants.length > 3 ? (
@@ -50,3 +52,10 @@ export function OwnerView({ project }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  applicant: {
+    marginLeft: 5,
+    marginVertical: 2,
+  },
+});
