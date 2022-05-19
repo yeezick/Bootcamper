@@ -8,7 +8,7 @@ export const Settings = ({ navigation }) => {
   const { _id: userID, first_name, last_name } = reduxUser;
   const dispatch = useDispatch();
 
-  const handleLogout = async () => {
+  const handleSignOut = async () => {
     await signOut();
     dispatch(uiActions.resetUser());
     navigation.navigate('Landing');
@@ -33,7 +33,7 @@ export const Settings = ({ navigation }) => {
           onPress={() => navigation.navigate('AccountSettings', { userID })}
         />
       </View>
-      <Button title="Log Out" onPress={handleLogout} />
+      <Button title="Log Out" onPress={handleSignOut} />
     </View>
   );
 };
