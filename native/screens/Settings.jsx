@@ -1,9 +1,18 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { Text, Button, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { signOut } from '../services/api/users';
+import { uiActions } from '../services/redux/slices/uiSlice';
 
 export const Settings = ({ navigation }) => {
   const reduxUser = useSelector((state) => state.ui.user);
   const { _id: userID, first_name, last_name } = reduxUser;
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    await signOut();
+    dispatch(uiActions.resetUser());
+    navigation.navigate('Landing');
+  };
 
   return (
     <View>
@@ -24,7 +33,7 @@ export const Settings = ({ navigation }) => {
           onPress={() => navigation.navigate('AccountSettings', { userID })}
         />
       </View>
-      <Button title="Log Out" />
+      <Button title="Log Out" onPress={handleLogout} />
     </View>
   );
 };
