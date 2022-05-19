@@ -117,7 +117,8 @@ export const confirmPassword = async (credentials, userID) => {
 };
 
 export const updatePassword = async (newPassword, userID) => {
-  const { message, status, token, user } = api.post(`/update-password/${userID}`, { newPassword });
+  const res = await api.patch(`/update-password/${userID}`, { newPassword });
+  const { message, status, token, user } = res.data;
   if (status) {
     await SecureStore.setItemAsync('token', token);
     return { status, user };

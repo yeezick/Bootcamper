@@ -162,18 +162,20 @@ export const confirmPassword = async (req, res) => {
     "password_digest"
   );
   if (await bcrypt.compare(password, user.password_digest)) {
-    res.status(201).send(true);
+    res.status(201).json({passwordConfirmed: true});
   } else {
-    res.status(401).send(false);
+    res.status(406).json({passwordConfirmed: false}); // status code: unnacceptable lol
   }
 }
 
 export const updatePassword = async (req, res) => {
   try {
-    const newPasswordDigest = await bcrypt.hash(req.newPassword, SALT_ROUNDS);
-    const user = await User.findByIdAndUpdate(id, {password_digest: newPasswordDigest }, { new: true });
+    const {newPassword} = req.body
+    const {userID} = req.params
+    const newPasswordDigest = await bcrypt.hash(newPassword, SALT_ROUNDS);
+    const user = await User.findByIdAndUpdate(userID, {password_digest: newPasswordDigest }, { new: true });
     const payload = {
-        id: user._id,
+        userID: user._id,
         email: user.email,
         exp: parseInt(exp.getTime() / 1000),
       };

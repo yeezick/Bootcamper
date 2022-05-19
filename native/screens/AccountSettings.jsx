@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Text, TextInput, View } from 'react-native';
-import { confirmPassword, deleteUser, signIn, signOut } from '../services/api/users';
+import { Button, Text, TextInput, Modal, View } from 'react-native';
+import { confirmPassword, deleteUser, signOut, updatePassword } from '../services/api/users';
+import { uiActions } from '../services/redux/slices/uiSlice';
 import { handleTextChange, handleToggle } from '../services/utils/handlers';
 
 export const AccountSettings = ({ navigation, route }) => {
@@ -14,7 +15,14 @@ export const AccountSettings = ({ navigation, route }) => {
     <View>
       <Text>Account Settings</Text>
 
-      {deleteModal && <DeleteModal userID={userID} email={email} navigation={navigation} />}
+      {deleteModal && (
+        <DeleteModal
+          userID={userID}
+          email={email}
+          navigation={navigation}
+          toggleDeleteModal={toggleDeleteModal}
+        />
+      )}
       <Button
         title={resetPassword ? 'Cancel' : 'Reset password'}
         onPress={() => handleToggle(toggleResetPassword)}
@@ -68,31 +76,35 @@ const UpdatePasswordForm = ({ email, toggleResetPassword, userID }) => {
   }, [toggleRerender]);
 
   useEffect(() => {
-    setTimeout(async () => {
-      const { currentPassword, newPassword, confirmNewPassword } = newPasswordForm;
-      const credentials = {
-        email,
-        password: newPasswordForm.currentPassword,
-      };
-      const res = await confirmPassword(credentials, userID);
-      if (res) {
-        setConfirmedPassword(true);
-        if (confirmNewPassword.length > 0 && newPassword === confirmNewPassword) {
+    const { currentPassword, newPassword, confirmNewPassword } = newPasswordForm;
+    if (currentPassword.length > 0) {
+      setTimeout(async () => {
+        const credentials = {
+          email,
+          password: currentPassword,
+        };
+        const res = await confirmPassword(credentials, userID); // pings API for every new character, once password security is enforced with minimum char amount, should restrict pinging this API to the minimum char #
+        if (res) {
+          setConfirmedPassword(true);
+          if (confirmNewPassword.length > 0 && newPassword === confirmNewPassword) {
+            setNewPasswordMatch(true);
+            setActiveUpdateButton(true);
+          } else {
+            setNewPasswordMatch(false);
+          }
+        } else {
+          setConfirmedPassword(false);
+        }
+        res ? setConfirmedPassword(true) : setConfirmedPassword(false);
+        if (newPassword === confirmNewPassword) {
           setNewPasswordMatch(true);
-          setActiveUpdateButton(true);
         } else {
           setNewPasswordMatch(false);
         }
-      } else {
-        setConfirmedPassword(false);
-      }
-      res ? setConfirmedPassword(true) : setConfirmedPassword(false);
-      if (newPassword === confirmNewPassword) {
-        setNewPasswordMatch(true);
-      } else {
-        setNewPasswordMatch(false);
-      }
-    }, 2000);
+      }, 2000);
+    } else {
+      setConfirmedPassword(null);
+    }
   }, [newPasswordForm]);
 
   useEffect(() => {
@@ -104,7 +116,7 @@ const UpdatePasswordForm = ({ email, toggleResetPassword, userID }) => {
   }, []);
 
   const handlePasswordUpdate = async () => {
-    const res = await updatePassword(newPassword, userID); // i feel that backend should also error check to confirm current password
+    const res = await updatePassword(newPasswordForm.newPassword, userID); // i feel that backend should also error check to confirm current password
     if (res) {
       setUpdateStatus('Success');
       dispatch(uiActions.updateUser(res.user));
@@ -129,7 +141,8 @@ const UpdatePasswordForm = ({ email, toggleResetPassword, userID }) => {
       UpdatePasswordStatusModal = (
         <Modal>
           <View>
-            <Text>Incorrect Password or !</Text>
+            <Text>Incorrect Password, try again</Text>
+            <Button title="OK" onPress={() => setUpdateStatus('Pending')} />
           </View>
         </Modal>
       );
@@ -185,10 +198,9 @@ const UpdatePasswordForm = ({ email, toggleResetPassword, userID }) => {
   );
 };
 
-const DeleteModal = ({ userID, email, navigation }) => {
+const DeleteModal = ({ userID, email, navigation, toggleDeleteModal }) => {
   const [deletePassword, setDeletePassword] = useState('');
   const [deletionStatus, setDeletionStatus] = useState('Pending');
-  let ModalMessage;
 
   useEffect(() => {
     if (deletionStatus === 'Confirmed') {
@@ -210,40 +222,51 @@ const DeleteModal = ({ userID, email, navigation }) => {
       setDeletionStatus('Unauthorized');
     }
   };
-
+  let ModalMessage;
   switch (deletionStatus) {
     case 'Pending':
-      <View>
-        <Text>Type in your password to confirm your profile's deletion.</Text>
-        <TextInput
-          onChangeText={(confirmPassword) => {
-            setDeletePassword(confirmPassword);
-          }}
-          value={deletePassword}
-        />
-        <Button title="Delete your profile" onPress={handleProfileDeletion} />
-      </View>;
+      ModalMessage = (
+        <View>
+          <Button
+            title="Cancel Deletion"
+            onPress={() => {
+              toggleDeleteModal(false);
+            }}
+          />
+          <Text>Type in your password to confirm your profile's deletion.</Text>
+          <TextInput
+            onChangeText={(confirmPassword) => {
+              setDeletePassword(confirmPassword);
+            }}
+            value={deletePassword}
+          />
+          <Button title="Delete your profile" onPress={handleProfileDeletion} />
+        </View>
+      );
       break;
     case 'Confirmed':
-      <View>
-        <Text>Your Profile has been deleted.</Text>
-      </View>;
+      ModalMessage = (
+        <View>
+          <Text>Your Profile has been deleted.</Text>
+        </View>
+      );
       break;
     case 'Unauthorized':
-      <View>
-        <Text>Incorrect password or unauthorized, please try again. </Text>
-        <Button title="OK" onPress={() => setDeletionStatus('Pending')} />
-      </View>;
+      ModalMessage = (
+        <View>
+          <Text>Incorrect password or unauthorized, please try again. </Text>
+          <Button title="OK" onPress={() => setDeletionStatus('Pending')} />
+        </View>
+      );
       break;
     default:
-      <View>
-        <Text> Loading.... I shouldn't be displayed tbh</Text>;
-      </View>;
+      ModalMessage = (
+        <View>
+          <Text> Loading.... I shouldn't be displayed tbh</Text>;
+        </View>
+      );
       break;
   }
-  return (
-    <Modal>
-      <View>{ModalMessage}</View>
-    </Modal>
-  );
+
+  return <Modal>{ModalMessage}</Modal>;
 };
