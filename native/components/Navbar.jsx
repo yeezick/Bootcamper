@@ -16,7 +16,8 @@ import { SignUp } from '../screens/SignUp';
 import { SingleProject } from '../screens/SingleProject';
 import { UserDashboard } from '../screens/UserDashboard';
 import { UserProfile } from '../screens/UserProfile';
-import  Messages  from '../screens/Messages'
+import Messages from '../screens/Messages'
+import Settings from '../screens/Settings';
 
 //Screen names
 
@@ -24,7 +25,7 @@ const userDashboard = 'Dashboard';
 const rouletteName = "Roulette";
 const userProfile = 'Profile';
 const messages = 'Messages';
-// const settings = 'Settings'; 
+const settings = 'Settings'; 
 
 const Tab = createBottomTabNavigator();
 
@@ -49,9 +50,9 @@ function NavBar() {
             } else if (rn === messages) {
               iconName = focused ? 'mail' : 'mail-outline';
             }
-            // else if (rn === settings) {
-            //   iconName = focused ? 'settings' : 'settings-outline';
-            // }
+            else if (rn === settings) {
+              iconName = focused ? 'settings' : 'settings-outline';
+            }
 
 
             // You can return any component that you like here!
@@ -65,7 +66,7 @@ function NavBar() {
         <Tab.Screen name={rouletteName} component={ Roulette } />
         <Tab.Screen name={userProfile} component={ UserProfile } />
         <Tab.Screen name={messages} component={ Messages } />
-        {/* <Tab.Screen name={settings} component={ Settings } /> */}
+        <Tab.Screen name={settings} component={ Settings } />
 
       </Tab.Navigator>
     </NavigationContainer>
