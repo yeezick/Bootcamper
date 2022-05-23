@@ -83,12 +83,12 @@ export const deleteProject = async (req, res) => {
 
 export const updateUserAndProject = async (req, res) => {
   try {
-    const { projectId, projectUpdate } = req.body.project;
-    const { userUpdate, userId } = req.body.user;
-    const project = await Project.findByIdAndUpdate(projectId, projectUpdate, {
+    const { projectID, projectUpdate } = req.body.project;
+    const { userUpdate, userID } = req.body.user;
+    const project = await Project.findByIdAndUpdate(projectID, projectUpdate, {
       new: true,
     }); // .populate({ path: "team_members", model: User }); //review
-    const user = await User.findByIdAndUpdate(userId, userUpdate, {
+    const user = await User.findByIdAndUpdate(userID, userUpdate, {
       new: true,
     });
     res.status(200).json({ message: "Success!", user, project });
