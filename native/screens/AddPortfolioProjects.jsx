@@ -1,11 +1,16 @@
-import { ScrollView, Alert } from 'react-native';
+// packages, libraries
 import uuid from 'react-native-uuid';
+import { ScrollView, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
+
+//components
 import { Header } from '../components/Header/Header';
 import { portfolioProjectForm } from '../services/formData';
-import { useState } from 'react';
 import { Form } from '../components/Form/Form';
 import { SingleActionButton } from '../components/Button/SingleActionButton';
+
+//assets
 import { addPortfolioProject } from '../services/api/users';
 import { uiActions } from '../services/redux/slices/uiSlice';
 

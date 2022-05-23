@@ -1,11 +1,15 @@
-// import React from 'react'
+// packages, libraries
 import { useState} from 'react';
 import { ScrollView, Button } from 'react-native';
-import { Header } from '../components/Header/Header';
 import { useSelector, useDispatch } from 'react-redux';
+
+// components
+import { Header } from '../components/Header/Header';
+import { Form } from '../components/Form/Form';
+
+// assets
 import { uiActions } from '../services/redux/slices/uiSlice';
 import { updateUser } from '../services/api/users';
-import { Form } from '../components/Form/Form';
 import { createProfile } from '../services/formData';
 
 export const CreateProfile = ({navigation}) => {
