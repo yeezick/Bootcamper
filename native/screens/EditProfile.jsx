@@ -5,28 +5,34 @@ import { AddPortfolioProject } from '../components/PortfolioCard/AddPortfolioPro
 import { ShowPortfolioProjects } from '../components/PortfolioCard/ShowPortfolioProjects';
 import { Form } from '../components/Form/Form';
 import { Header } from '../components/Header/Header';
-import { Modal } from '../components/Modal/Modal';
+// import { Modal } from '../components/Modal/ModalDep';
+
 
 import { uiActions } from '../services/redux/slices/uiSlice';
 import { updateUser } from '../services/api/users';
 import { userForm } from '../services/formData';
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { Alert, Modal, Pressable} from "react-native";
+import ModalComp from '../components/Modal/ModalComp';
 
 export const EditProfile = ({ navigation, route }) => {
   const { user: reduxUser, editMode } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
+  
 
   const header = {
     text: "Before you can create or join a project, we'll need to finish your profile first.",
     title: 'About You',
-  };
+  }; 
 
   return (
     //  edit profile
     <ScrollView>
       <Header headerTitle={header.title} headerText={header.text} />
       <AboutUser />
-      <AddPortfolioProject />
+      <AddPortfolioModal />
+      {/* <AddPortfolioProject /> */}
       <ShowPortfolioProjects currUser={reduxUser} />
       <Button title="start collaborating" onPress={() => navigation.navigate('Roulette')} />
       <Button
@@ -39,6 +45,8 @@ export const EditProfile = ({ navigation, route }) => {
     </ScrollView>
   );
 };
+
+
 
 const AboutUser = () => {
   const { editMode, user } = useSelector((state) => state.ui);
@@ -74,7 +82,95 @@ const AboutUser = () => {
   return (
     // className="about-user"
     <View>
+      {/* <ModalComp /> */}
       <Form formData={userForm} formState={[userInfo, setUserInfo, handleUserUpdate]} />
     </View>
   );
 };
+
+const AddPortfolioModal = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  return (
+    <View style={styles.centeredView}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Add Your Project Below!</Text>
+            
+            <AddPortfolioProject  modalVisible={modalVisible} setModalVisible={ setModalVisible} />
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.textStyle}>Add Project</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+      <Pressable
+        style={[styles.button, styles.buttonOpen]}
+        onPress={() => setModalVisible(true)}
+      >
+        <Text style={styles.textStyle}>Add a Project</Text>
+      </Pressable>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    height: 400,
+    width: 300,
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  buttonOpen: {
+    backgroundColor: "lightgreen",
+  },
+  buttonClose: {
+    backgroundColor: "orange",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  }
+});
+
+
+
+// <--------------------------------->

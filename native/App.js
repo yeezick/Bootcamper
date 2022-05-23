@@ -4,8 +4,9 @@ import 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
 import store from './services/redux/store.js';
 // native components
-// import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import  Navbar  from './components/NavBar';
 import { SideMenu } from './components/SideMenu';
 // custom components
 // import { Landing } from './screens/Landing';
@@ -26,6 +27,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <SideMenu />
+      {/* <Navbar /> */}
       {/* <Stack.Navigator>
         <Stack.Screen
         name="Landing"

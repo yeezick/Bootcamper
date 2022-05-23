@@ -10,7 +10,9 @@ export const CreateProject = () => {
   return (
     <View>
       <Text>Create Project</Text>
+      
     </View>
+   
   );
 };
 

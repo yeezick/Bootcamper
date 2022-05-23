@@ -8,7 +8,7 @@ import { uiActions } from '../../services/redux/slices/uiSlice';
 import { portfolioProjectForm } from '../../services/formData';
 import { addPortfolioProject } from '../../services/api/users.js';
 
-export const AddPortfolioProject = () => {
+export const AddPortfolioProject = ({modalVisible, setModalVisible }) => {
   const { _id: userId } = useSelector((state) => state.ui.user);
   const dispatch = useDispatch();
   const [newProject, setNewProject] = useState({
@@ -24,13 +24,14 @@ export const AddPortfolioProject = () => {
     try {
       const res = await addPortfolioProject(userId, newProject);
       dispatch(uiActions.updateUser(res));
+      setModalVisible(!modalVisible)
       setNewProject({
         image: 'https://pbs.twimg.com/media/E5KGFT9X0AQzzaR?format=jpg&name=240x240',
         project_description: '',
         project_link: '',
         project_title: '',
         project_id: uuid.v4(),
-      });
+      }); 
     } catch (error) {
       console.error(error);
     }

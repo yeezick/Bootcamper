@@ -10,10 +10,13 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-community/masked-view": "^0.1.11",
     "@react-native-picker/picker": "2.2.1",
+    "@react-navigation/bottom-tabs": "^6.3.1",
     "@react-navigation/drawer": "^6.3.1",
-    "@react-navigation/native": "^6.0.8",
+    "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.5.0",
+    "@react-navigation/stack": "^6.2.1",
     "@reduxjs/toolkit": "^1.8.0",
     "axios": "^0.26.1",
     "expo": "~44.0.2",
@@ -24,6 +27,7 @@
     "jwt-decode": "^3.1.2",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-hook-form": "^7.31.1",
     "react-icons": "^4.3.1",
     "react-native": "0.64.3",
     "react-native-gesture-handler": "~2.1.0",
