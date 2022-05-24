@@ -1,7 +1,6 @@
-import React from 'react'
 import {Text} from 'react-native'
 
-export default function Messages() {
+export const Messages = () => {
   return (
     <Text>Messages</Text>
   )
