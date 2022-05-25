@@ -8,7 +8,9 @@ const getToken = async () => {
 
 export const api = axios.create({
   baseURL:
-    process.env.NODE_ENV === 'production' ? 'deployed URL goes hhere' : 'http://localhost:8000/api',
+    process.env.NODE_ENV === 'production'
+      ? 'https://bootcamper-dev-backend.herokuapp.com/api'
+      : 'http://localhost:8000/api',
 });
 
 api.interceptors.request.use(
