@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Button, Text, View } from 'react-native';
-import { handleToggle } from '../../services/utils/handlers';
 import { UpdatePasswordForm } from './UpdatePassword';
 import { DeleteModal } from './DeleteProfile';
+import { Button, Text, View } from 'react-native';
+import { handleToggle } from '../../services/utils/handlers';
 
 export const AccountSettings = ({ navigation, route }) => {
   const [resetPassword, toggleResetPassword] = useState(false);
