@@ -157,7 +157,9 @@ export const verify = async (req, res) => {
 };
 
 export const confirmPassword = async (req, res) => {
-  const { email, password} = req.body;
+  const { credentials} = req.body;
+  const {email, password} = credentials;
+  // is it better to find the user by their email or id? 
   let user = await User.findOne({ email }).select(
     "password_digest"
   );

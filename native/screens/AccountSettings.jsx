@@ -152,18 +152,15 @@ const UpdatePasswordForm = ({ email, toggleResetPassword, userID }) => {
       break;
   }
 
-  const ConfirmedPasswordMessage = ({ status }) => {
-    if (status) {
-      return <Text>Password is confirmed</Text>;
-    } else return <Text>INCORRECT PASSWORD</Text>;
-  };
-
   // this feels WET
   return (
     <View>
       {updateStatus !== 'Pending' && UpdatePasswordStatusModal}
       <Text>Confirm your password:</Text>
       <TextInput
+        autoCapitalize="none"
+        returnKeyType="next"
+        secureTextEntry={true}
         onChangeText={(currPassword) =>
           handleTextChange(currPassword, 'currentPassword', setNewPasswordForm)
         }
@@ -172,6 +169,9 @@ const UpdatePasswordForm = ({ email, toggleResetPassword, userID }) => {
       {confirmedPassword !== null && <ConfirmedPasswordMessage status={confirmedPassword} />}
       <Text>Create new password:</Text>
       <TextInput
+        autoCapitalize="none"
+        returnKeyType="next"
+        secureTextEntry={true}
         onChangeText={(newPassword) =>
           handleTextChange(newPassword, 'newPassword', setNewPasswordForm)
         }
@@ -179,6 +179,9 @@ const UpdatePasswordForm = ({ email, toggleResetPassword, userID }) => {
       />
       <Text>Confirm new password:</Text>
       <TextInput
+        autoCapitalize="none"
+        returnKeyType="next"
+        secureTextEntry={true}
         onChangeText={(confirmNewPassword) =>
           handleTextChange(confirmNewPassword, 'confirmNewPassword', setNewPasswordForm)
         }
@@ -201,27 +204,42 @@ const UpdatePasswordForm = ({ email, toggleResetPassword, userID }) => {
 const DeleteModal = ({ userID, email, navigation, toggleDeleteModal }) => {
   const [deletePassword, setDeletePassword] = useState('');
   const [deletionStatus, setDeletionStatus] = useState('Pending');
+  const [confirmedPassword, setConfirmedPassword] = useState(null);
 
   useEffect(() => {
     if (deletionStatus === 'Confirmed') {
       signOut();
       navigation.navigate('Landing');
+      toggleDeleteModal(false);
+      console.log(navigation);
     }
   }, [deletionStatus]);
 
+  useEffect(() => {
+    if (deletePassword.length > 3) {
+      setTimeout(() => {
+        const credentials = {
+          email,
+          password: deletePassword,
+        };
+        setConfirmedPassword(async () => {
+          return await confirmPassword({ credentials, userID });
+        });
+      }, 2000);
+    } else {
+      setConfirmedPassword(null);
+    }
+  }, [deletePassword]);
+
   const handleProfileDeletion = async () => {
-    const credentials = {
-      email,
-      password: deletePassword,
-    };
-    const passwordVerified = await confirmPassword({ credentials, userID });
-    if (passwordVerified) {
+    if (confirmedPassword) {
       await deleteUser(userID);
       setDeletionStatus('Confirmed');
     } else {
       setDeletionStatus('Unauthorized');
     }
   };
+
   let ModalMessage;
   switch (deletionStatus) {
     case 'Pending':
@@ -235,12 +253,20 @@ const DeleteModal = ({ userID, email, navigation, toggleDeleteModal }) => {
           />
           <Text>Type in your password to confirm your profile's deletion.</Text>
           <TextInput
+            autoCapitalize="none"
+            returnKeyType="next"
+            secureTextEntry={true}
             onChangeText={(confirmPassword) => {
               setDeletePassword(confirmPassword);
             }}
             value={deletePassword}
           />
-          <Button title="Delete your profile" onPress={handleProfileDeletion} />
+          {confirmedPassword !== null && <ConfirmedPasswordMessage status={confirmedPassword} />}
+          <Button
+            disabled={!confirmedPassword}
+            title="Delete your profile"
+            onPress={handleProfileDeletion}
+          />
         </View>
       );
       break;
@@ -269,4 +295,10 @@ const DeleteModal = ({ userID, email, navigation, toggleDeleteModal }) => {
   }
 
   return <Modal>{ModalMessage}</Modal>;
+};
+
+const ConfirmedPasswordMessage = ({ status }) => {
+  if (status) {
+    return <Text>Password is confirmed</Text>;
+  } else return <Text>INCORRECT PASSWORD</Text>;
 };
