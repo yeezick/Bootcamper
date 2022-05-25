@@ -27,14 +27,16 @@ export const AddPortfolioProjects = ({navigation}) => {
         project_id: uuid.v4(),
     });
 
-    const empty = 
-        newProject.project_title === '' &&
-        newProject.role === '' &&
-        newProject.tools === '' &&
+    const emptyFields = 
+        newProject.project_title === '' ||
+        newProject.role === '' ||
+        newProject.tools === '' ||
         newProject.project_description === ''
 
     const handleNewProject = async () => {
-        try {
+        if ( emptyFields ) {
+            Alert.alert("Please fill in all fields.")
+        } else try {
             const res = await addPortfolioProject(userId, newProject);
             dispatch(uiActions.updateUser(res));
 
@@ -63,7 +65,13 @@ export const AddPortfolioProjects = ({navigation}) => {
         }
     };
 
-    const finish = !empty ? {
+    const unsavedProject = 
+        newProject.project_title !== '' ||
+        newProject.role !== '' ||
+        newProject.tools !== '' ||
+        newProject.project_description !== ''
+
+    const finish = unsavedProject ? {
         text: 'Finish',
         type: 'trigger-alert',
         message: "Finish without saving project?",
