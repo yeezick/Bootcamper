@@ -1,52 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Button, Text, TextInput, Modal, View } from 'react-native';
-import { confirmPassword, deleteUser, signOut, updatePassword } from '../services/api/users';
-import { uiActions } from '../services/redux/slices/uiSlice';
-import { handleTextChange, handleToggle } from '../services/utils/handlers';
+import { confirmPassword, updatePassword } from '../../services/api/users';
+import { uiActions } from '../../services/redux/slices/uiSlice';
+import { handleTextChange, handleToggle } from '../../services/utils/handlers';
 
-export const AccountSettings = ({ navigation, route }) => {
-  const [resetPassword, toggleResetPassword] = useState(false);
-  const [deleteModal, toggleDeleteModal] = useState(false);
-  const { _id: userID, email } = useSelector((state) => state.ui.user);
-
-  // would be a good idea to replace the modals below with a generic modal
-  return (
-    <View>
-      <Text>Account Settings</Text>
-
-      {deleteModal && (
-        <DeleteModal
-          userID={userID}
-          email={email}
-          navigation={navigation}
-          toggleDeleteModal={toggleDeleteModal}
-        />
-      )}
-      <Button
-        title={resetPassword ? 'Cancel' : 'Reset password'}
-        onPress={() => handleToggle(toggleResetPassword)}
-      />
-
-      {resetPassword && (
-        <UpdatePasswordForm
-          email={email}
-          toggleResetPassword={toggleResetPassword}
-          userID={userID}
-        />
-      )}
-
-      <Button
-        title="Delete Profile"
-        onPress={() => {
-          toggleDeleteModal(true);
-        }}
-      />
-    </View>
-  );
-};
-
-const UpdatePasswordForm = ({ email, toggleResetPassword, userID }) => {
+export const UpdatePasswordForm = ({ email, toggleResetPassword, userID }) => {
   const [newPasswordForm, setNewPasswordForm] = useState({
     confirmNewPassword: '',
     currentPassword: '',
@@ -199,106 +158,4 @@ const UpdatePasswordForm = ({ email, toggleResetPassword, userID }) => {
       />
     </View>
   );
-};
-
-const DeleteModal = ({ userID, email, navigation, toggleDeleteModal }) => {
-  const [deletePassword, setDeletePassword] = useState('');
-  const [deletionStatus, setDeletionStatus] = useState('Pending');
-  const [confirmedPassword, setConfirmedPassword] = useState(null);
-
-  useEffect(() => {
-    if (deletionStatus === 'Confirmed') {
-      signOut();
-      navigation.navigate('Landing');
-      toggleDeleteModal(false);
-      console.log(navigation);
-    }
-  }, [deletionStatus]);
-
-  useEffect(() => {
-    if (deletePassword.length > 3) {
-      setTimeout(() => {
-        const credentials = {
-          email,
-          password: deletePassword,
-        };
-        setConfirmedPassword(async () => {
-          return await confirmPassword({ credentials, userID });
-        });
-      }, 2000);
-    } else {
-      setConfirmedPassword(null);
-    }
-  }, [deletePassword]);
-
-  const handleProfileDeletion = async () => {
-    if (confirmedPassword) {
-      await deleteUser(userID);
-      setDeletionStatus('Confirmed');
-    } else {
-      setDeletionStatus('Unauthorized');
-    }
-  };
-
-  let ModalMessage;
-  switch (deletionStatus) {
-    case 'Pending':
-      ModalMessage = (
-        <View>
-          <Button
-            title="Cancel Deletion"
-            onPress={() => {
-              toggleDeleteModal(false);
-            }}
-          />
-          <Text>Type in your password to confirm your profile's deletion.</Text>
-          <TextInput
-            autoCapitalize="none"
-            returnKeyType="next"
-            secureTextEntry={true}
-            onChangeText={(confirmPassword) => {
-              setDeletePassword(confirmPassword);
-            }}
-            value={deletePassword}
-          />
-          {confirmedPassword !== null && <ConfirmedPasswordMessage status={confirmedPassword} />}
-          <Button
-            disabled={!confirmedPassword}
-            title="Delete your profile"
-            onPress={handleProfileDeletion}
-          />
-        </View>
-      );
-      break;
-    case 'Confirmed':
-      ModalMessage = (
-        <View>
-          <Text>Your Profile has been deleted.</Text>
-        </View>
-      );
-      break;
-    case 'Unauthorized':
-      ModalMessage = (
-        <View>
-          <Text>Incorrect password or unauthorized, please try again. </Text>
-          <Button title="OK" onPress={() => setDeletionStatus('Pending')} />
-        </View>
-      );
-      break;
-    default:
-      ModalMessage = (
-        <View>
-          <Text> Loading.... I shouldn't be displayed tbh</Text>;
-        </View>
-      );
-      break;
-  }
-
-  return <Modal>{ModalMessage}</Modal>;
-};
-
-const ConfirmedPasswordMessage = ({ status }) => {
-  if (status) {
-    return <Text>Password is confirmed</Text>;
-  } else return <Text>INCORRECT PASSWORD</Text>;
 };

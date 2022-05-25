@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // screens
-import { AccountSettings } from '../screens/AccountSettings';
+import { AccountSettings } from '../screens/AccountSettings/AccountSettings';
 import { Applicants } from '../screens/Applicants/Applicants';
 import { CreateProject } from '../screens/CreateProject';
 import { EditProfile } from '../screens/EditProfile';
