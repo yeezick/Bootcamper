@@ -67,7 +67,7 @@ export const SingleProject = ({ navigation, route }) => {
         <Button title="Edit Project Details" onPress={handleEditProjectMode} />
       )}
       <Text style={styles.title}>{project.title}</Text>
-      {project.seeking ? (
+      {project.seeking && rolesSought ? (
         <View>
           <Text style={styles.heading}>Seeking</Text>
           <Text>{`${rolesSought}`}</Text>
@@ -88,10 +88,12 @@ export const SingleProject = ({ navigation, route }) => {
           renderItem={({ item }) => <Text style={styles.tool}>{item.key}</Text>}
         />
       </SafeAreaView>
-      <Text
-        style={styles.heading}
-      >{`Looking for collaborators who can commit ${hours} hours per week.`}</Text>
-      {reduxUser._id === project.owner ? <OwnerView project={project} /> : null}
+      {project.seeking && rolesSought && (
+        <Text
+          style={styles.heading}
+        >{`Looking for collaborators who can commit ${hours} hours per week.`}</Text>
+      )}
+      {reduxUser._id === project.owner && <OwnerView project={project} />}
     </View>
   ) : (
     <Text>Loading...</Text>
