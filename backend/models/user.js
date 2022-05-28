@@ -18,6 +18,7 @@ const User = new Schema(
     password_digest: { type: String, required: true, select: false },
     portfolio_projects: [{ type: Object }],
     portfolio_link: { type: String },
+    show_portfolio: { type: Boolean },
     rejected_projects: [{ type: Schema.Types.ObjectId, ref: "Project" }],
     role: { type: String, enum: ["Software Engineer", "UX Designer"] },
   },

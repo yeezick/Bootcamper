@@ -98,10 +98,10 @@ export const SignUp = ({ navigation }) => {
           {/* Replace these with SingleButton or DoubleButton component*/}
           <TouchableOpacity
             style={styles.singleButton}
-            onPress={() => handleReroute('EditProfile')}
+            onPress={() => handleReroute('CreateProfile')}
             color="white"
           >
-            <Text style={styles.buttonText}>Edit Profile</Text>
+            <Text style={styles.buttonText}>Create Profile</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.singleButton}

@@ -1,3 +1,5 @@
+
+
 /* 
   authentication forms
  */
@@ -59,9 +61,48 @@ export const signUpForm = {
 /* 
   user related forms 
 */
+
+export const createProfile = {
+  button: {
+      text: 'Next',
+      type: 'single',
+      },
+  handlers: {
+    // setterFunction: ,
+    // onSubmit: ,
+  },
+  inputs: [
+      {
+          labelText: 'I am a',
+          name: 'role',
+          required: true,
+          type: 'select',
+          options: ['Select Occupation', 'UX Designer', 'Software Engineer'],
+      },
+      {
+          labelText: 'About Me',
+          name: 'about',
+          max_chars: 250,
+          required: true,
+          type: 'textarea',
+      },
+      {
+          labelText: 'Portfolio Link',
+          name: 'portfolio_link',
+          type: 'text',
+      },
+      {
+          labelText: 'Share on Profile?',
+          name: 'show_portfolio',
+          type: 'switch',
+      }
+  ],
+};
+
+
 export const userForm = {
   button: {
-    text: 'Update Your Info',
+    text: 'Next',
     type: 'single',
   },
   handlers: {
@@ -70,36 +111,42 @@ export const userForm = {
   },
   inputs: [
     {
-      labelText: 'Tell us a bit about you (max 250 characters)',
-      name: 'about',
-      max_chars: 250,
-      required: true,
-      type: 'textarea',
-    },
-    {
-      labelText: 'Include a fun fact!   (optional, max 250 characters) ',
-      name: 'fun_fact',
-      max_chars: 250,
-      type: 'textarea',
-    },
-    {
-      labelText: 'I am a...',
+      labelText: 'Occupation',
       name: 'role',
       required: true,
       type: 'select',
       options: ['Select role', 'UX Designer', 'Software Engineer'],
     },
     {
-      labelText: 'Link to your portfolio (optional)',
+      labelText: 'Bio',
+      name: 'about',
+      max_chars: 250,
+      required: true,
+      type: 'textarea',
+    },
+    // {
+    //   labelText: 'Include a fun fact!   (optional, max 250 characters) ',
+    //   name: 'fun_fact',
+    //   max_chars: 250,
+    //   type: 'textarea',
+    // },
+
+    {
+      labelText: 'Portfolio Link',
       name: 'portfolio_link',
       type: 'text',
     },
+    {
+      labelText: 'Share on Profile?',
+      name: 'show_portolio',
+      type: 'checkbox',
+    }
   ],
 };
 
 export const portfolioProjectForm = {
   button: {
-    text: 'Add New Project',
+    text: 'Save',
     type: 'single',
   },
   handlers: {
@@ -113,17 +160,29 @@ export const portfolioProjectForm = {
       type: 'text',
     },
     {
-      labelText: 'Describe the project',
+      labelText: 'Role',
+      name: 'role',
+      required: true,
+      type: 'text',
+    },
+    {
+      labelText: 'Tools Used',
+      name: 'tools',
+      required: true,
+      type: 'text',
+    },
+    {
+      labelText: 'About',
       name: 'project_description',
       required: true,
       type: 'textarea',
     },
-    {
-      labelText: 'Link to your project',
-      name: 'project_link',
-      required: true,
-      type: 'text',
-    },
+    // {
+    //   labelText: 'Link to your project',
+    //   name: 'project_link',
+    //   required: true,
+    //   type: 'text',
+    // },
   ],
 };
 
