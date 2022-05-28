@@ -20,26 +20,30 @@ import { UserProfile } from '../screens/UserProfile';
 // assets
 import { fetchAllProjects } from '../services/redux/actions/projectActions.js';
 import { fetchAllTools } from '../services/redux/actions/toolActions.js';
-import { signOut, verify } from '../services/api/users';
+import { verify } from '../services/api/users';
 import { uiActions } from '../services/redux/slices/uiSlice';
+import * as SecureStore from 'expo-secure-store';
 
 const Drawer = createDrawerNavigator();
 
 export const SideMenu = () => {
   const dispatch = useDispatch();
-  const { blacklisted_projects, user } = useSelector((state) => state.ui);
+  const { blacklisted_projects } = useSelector((state) => state.ui);
   const [userLoaded, toggleUserLoaded] = useState(false);
 
   useEffect(() => {
     const setupReduxStore = async () => {
-      const verifiedUser = await verify();
-      if (verifiedUser) {
-        dispatch(uiActions.updateUser(verifiedUser));
-      } else {
-        dispatch(uiActions.updateUser(null));
+      const userTokenExists = await SecureStore.getItemAsync('token');
+      if (userTokenExists) {
+        const verifiedUser = await verify();
+        if (verifiedUser) {
+          dispatch(uiActions.updateUser(verifiedUser));
+        } else {
+          dispatch(uiActions.updateUser(null));
+        }
+        dispatch(fetchAllTools());
+        toggleUserLoaded(true);
       }
-      dispatch(fetchAllTools());
-      toggleUserLoaded(true);
     };
     setupReduxStore();
   }, []);

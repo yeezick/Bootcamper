@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button, Text, TextInput, Modal, View } from 'react-native';
+import { ConfirmedPasswordMessage } from './Helpers';
 import { confirmPassword, updatePassword } from '../../services/api/users';
 import { uiActions } from '../../services/redux/slices/uiSlice';
 import { handleTextChange, handleToggle } from '../../services/utils/handlers';
@@ -24,6 +25,7 @@ export const UpdatePasswordForm = ({ email, toggleResetPassword, userID }) => {
         setUpdateStatus('Pending');
         handleTextChange('', 'currentPassword', setNewPasswordForm);
       } else if (updateStatus === 'Success') {
+        setUpdateStatus(null);
         toggleResetPassword(false);
         setNewPasswordForm({
           confirmNewPassword: '',
@@ -36,7 +38,7 @@ export const UpdatePasswordForm = ({ email, toggleResetPassword, userID }) => {
 
   useEffect(() => {
     const { currentPassword, newPassword, confirmNewPassword } = newPasswordForm;
-    if (currentPassword.length > 0) {
+    if (currentPassword.length > 3) {
       setTimeout(async () => {
         const credentials = {
           email,
@@ -80,6 +82,7 @@ export const UpdatePasswordForm = ({ email, toggleResetPassword, userID }) => {
       setUpdateStatus('Success');
       dispatch(uiActions.updateUser(res.user));
       handleToggle(toggleRerender);
+      toggleResetPassword(false);
     } else {
       setUpdateStatus('Failed');
     }

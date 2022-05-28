@@ -1,98 +1,105 @@
 import { useEffect, useState } from 'react';
 import { Button, Text, TextInput, Modal, View } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { uiActions } from '../../services/redux/slices/uiSlice';
+import { ConfirmedPasswordMessage } from './Helpers';
 import { confirmPassword, deleteUser, signOut } from '../../services/api/users';
 
-export const DeleteModal = ({ userID, email, navigation, toggleDeleteModal }) => {
+export const DeleteForm = ({ userID, email, navigation, toggleDeleteForm }) => {
   const [deletePassword, setDeletePassword] = useState('');
-  const [deletionStatus, setDeletionStatus] = useState('Pending');
+  const [deletionStatus, setDeletionStatus] = useState(null);
   const [confirmedPassword, setConfirmedPassword] = useState(null);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
+  useEffect(async () => {
     if (deletionStatus === 'Confirmed') {
-      signOut();
       navigation.navigate('Landing');
-      toggleDeleteModal(false);
+      toggleDeleteForm(false);
     }
   }, [deletionStatus]);
 
   useEffect(() => {
     if (deletePassword.length > 3) {
-      setTimeout(() => {
+      setTimeout(async () => {
         const credentials = {
           email,
           password: deletePassword,
         };
-        setConfirmedPassword(async () => {
-          return await confirmPassword({ credentials, userID });
-        });
+        const res = await confirmPassword(credentials, userID);
+        setConfirmedPassword(res);
       }, 2000);
     } else {
       setConfirmedPassword(null);
     }
   }, [deletePassword]);
-
   const handleProfileDeletion = async () => {
     if (confirmedPassword) {
-      await deleteUser(userID);
-      setDeletionStatus('Confirmed');
+      const { deletionStatus, message } = await deleteUser(userID);
+      if (deletionStatus) {
+        setDeletionStatus('Confirmed');
+        dispatch(uiActions.resetUser());
+        await signOut();
+      } else {
+        setDeletionStatus('Unauthorized');
+        console.log('Error:', message);
+      }
     } else {
       setDeletionStatus('Unauthorized');
     }
   };
 
   let ModalMessage;
-  switch (deletionStatus) {
-    case 'Pending':
-      ModalMessage = (
-        <View>
-          <Button
-            title="Cancel Deletion"
-            onPress={() => {
-              toggleDeleteModal(false);
-            }}
-          />
-          <Text>Type in your password to confirm your profile's deletion.</Text>
-          <TextInput
-            autoCapitalize="none"
-            returnKeyType="next"
-            secureTextEntry={true}
-            onChangeText={(confirmPassword) => {
-              setDeletePassword(confirmPassword);
-            }}
-            value={deletePassword}
-          />
-          {confirmedPassword !== null && <ConfirmedPasswordMessage status={confirmedPassword} />}
-          <Button
-            disabled={!confirmedPassword}
-            title="Delete your profile"
-            onPress={handleProfileDeletion}
-          />
-        </View>
-      );
-      break;
-    case 'Confirmed':
-      ModalMessage = (
+  if (deletionStatus === 'Confirmed') {
+    ModalMessage = (
+      <Modal>
         <View>
           <Text>Your Profile has been deleted.</Text>
         </View>
-      );
-      break;
-    case 'Unauthorized':
-      ModalMessage = (
+      </Modal>
+    );
+  } else if (deletionStatus === 'Unauthorized') {
+    ModalMessage = (
+      <Modal>
         <View>
           <Text>Incorrect password or unauthorized, please try again. </Text>
           <Button title="OK" onPress={() => setDeletionStatus('Pending')} />
         </View>
-      );
-      break;
-    default:
-      ModalMessage = (
+      </Modal>
+    );
+  } else {
+    ModalMessage = (
+      <Modal>
         <View>
-          <Text> Loading.... I shouldn't be displayed tbh</Text>;
+          <Text> Loading.... I shouldn't be displayed tbh</Text>
         </View>
-      );
-      break;
+      </Modal>
+    );
   }
-
-  return <Modal>{ModalMessage}</Modal>;
+  return (
+    <View>
+      {deletionStatus !== null && ModalMessage}
+      <Button
+        title="Cancel Deletion"
+        onPress={() => {
+          toggleDeleteForm(false);
+        }}
+      />
+      <Text>Type in your password to confirm your profile's deletion.</Text>
+      <TextInput
+        autoCapitalize="none"
+        returnKeyType="next"
+        secureTextEntry={true}
+        onChangeText={(confirmPassword) => {
+          setDeletePassword(confirmPassword);
+        }}
+        value={deletePassword}
+      />
+      {confirmedPassword !== null && <ConfirmedPasswordMessage status={confirmedPassword} />}
+      <Button
+        disabled={!confirmedPassword}
+        title="Delete your profile"
+        onPress={handleProfileDeletion}
+      />
+    </View>
+  );
 };
