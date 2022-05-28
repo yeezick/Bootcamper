@@ -7,6 +7,8 @@ import store from './services/redux/store.js';
 // import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SideMenu } from './components/SideMenu';
+import { NavBar } from './components/NavBar'
+
 // custom components
 // import { Landing } from './screens/Landing';
 // import { CreateProject } from './screens/CreateProject';
@@ -26,6 +28,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <SideMenu />
+      {/* <NavBar /> */}
       {/* <Stack.Navigator>
         <Stack.Screen
         name="Landing"
