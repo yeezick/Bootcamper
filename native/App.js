@@ -7,7 +7,7 @@ import store from './services/redux/store.js';
 // import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SideMenu } from './components/SideMenu';
-// import { NavBar } from './components/NavBar'
+import { NavBar } from './components/NavBar'
 
 // custom components
 // import { Landing } from './screens/Landing';
