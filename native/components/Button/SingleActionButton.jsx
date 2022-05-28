@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Pressable, StyleSheet, Text, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 export const SingleActionButton = ({ payload }) => {
@@ -25,6 +25,11 @@ export const SingleActionButton = ({ payload }) => {
     // then reroutes
   };
 
+  const triggerAlert = () => {
+    const { title, message, options } = payload;
+    Alert.alert(title, message, options);
+  }
+
   switch (type) {
     case 'reroute':
       return (
@@ -46,6 +51,13 @@ export const SingleActionButton = ({ payload }) => {
           <Text style={styles.text}>{text}</Text>
         </Pressable>
       );
+
+    case 'trigger-alert':
+      return (
+        <Pressable style={[styles.button, styles.default]} onPress={triggerAlert}>
+          <Text style={styles.text}>{text}</Text>
+        </Pressable>
+      )
 
     default:
       return (
