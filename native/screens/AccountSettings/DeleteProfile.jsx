@@ -12,10 +12,12 @@ export const DeleteForm = ({ userID, email, navigation, toggleDeleteForm }) => {
   const dispatch = useDispatch();
 
   useEffect(async () => {
-    if (deletionStatus === 'Confirmed') {
-      navigation.navigate('Landing');
-      toggleDeleteForm(false);
-    }
+    setTimeout(() => {
+      if (deletionStatus === 'Confirmed') {
+        navigation.navigate('Landing');
+        toggleDeleteForm(false);
+      }
+    }, 3000);
   }, [deletionStatus]);
 
   useEffect(() => {
