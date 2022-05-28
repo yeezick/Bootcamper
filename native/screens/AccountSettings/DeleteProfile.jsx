@@ -64,7 +64,7 @@ export const DeleteForm = ({ userID, email, navigation, toggleDeleteForm }) => {
       <Modal>
         <View>
           <Text>Incorrect password or unauthorized, please try again. </Text>
-          <Button title="OK" onPress={() => setDeletionStatus('Pending')} />
+          <Button title="OK" onPress={() => setDeletionStatus(null)} />
         </View>
       </Modal>
     );
