@@ -37,7 +37,7 @@ export const getOneUser = async (req, res) => {
     }
     return res.status(404).json({message: 'User not found.'})
   } catch (error) {
-    console.error(error).message
+    console.error(error.message)
     res.status(500).json({ error: error.message });
   }
 }
