@@ -10,6 +10,7 @@ import { CreateProject } from '../screens/CreateProject';
 import { EditProfile } from '../screens/EditProfile';
 import { EditProject } from '../screens/EditProject/EditProject';
 import { Landing } from '../screens/Landing';
+import { Messages } from '../screens/Messages';
 import { Roulette } from '../screens/Roulette';
 import { Settings } from '../screens/Settings';
 import { SignIn } from '../screens/SignIn';
@@ -68,6 +69,7 @@ export const SideMenu = () => {
         <Drawer.Screen name="CreateProject" component={CreateProject} />
         <Drawer.Screen name="EditProfile" component={EditProfile} />
         <Drawer.Screen name="EditProject" component={EditProject} />
+        <Drawer.Screen name="Messages" component={Messages} />
         <Drawer.Screen name="Roulette" component={Roulette} />
         <Drawer.Screen name="Settings" component={Settings} />
         <Drawer.Screen name="SingleProject" component={SingleProject} />
