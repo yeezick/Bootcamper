@@ -57,7 +57,17 @@ export const UserProfile = ({ route, navigation }) => {
 
   useEffect(() => {
     const setUser = async () => {
-      if (!route.params || route.params.userID === reduxUser._id) {
+      if (!route.params && !reduxUser) {
+        setCurrUser({
+          first_name: 'NO',
+          last_name: 'USER',
+          role: '',
+          email: '',
+          about: '',
+          fun_fact: '',
+          portfolio_link: '',
+        });
+      } else if (!route.params || route.params.userID === reduxUser._id) {
         setCurrUser(reduxUser);
       } else {
         const res = await getOneUser(route.params.userID); // must be tested
@@ -66,7 +76,7 @@ export const UserProfile = ({ route, navigation }) => {
       dispatch(uiActions.toggleEditMode());
     };
     setUser();
-  }, [route.params]);
+  }, [route.params, reduxUser]);
 
   const handleEditMode = () => {
     dispatch(uiActions.toggleEditMode(true));
