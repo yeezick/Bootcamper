@@ -13,71 +13,31 @@ import { useNavigation } from '@react-navigation/native';
  */
 // todo: remove switch case and have onPress functions defined in executor component
 
-export const SingleActionButton = ({ payload }, ...propStyles) => {
-  const { text, type } = payload;
-  const navigation = useNavigation();
+export const SingleActionButton = (props) => {
+  const { title, handler } = props.payload;
+  const buttonStyles = [styles.button];
+  const textStyles = [];
 
-  const reroute = () => {
-    const { path } = payload;
-    navigation.navigate(path);
-  };
-
-  const callApi = () => {
-    const { handler } = payload;
-    handler();
-    // calls an API
-    // consider when the request may have a body
-  };
-
-  const apiReroute = (apiUrl, path) => {
-    const { handler } = payload;
-    handler();
-    // calls an API
-    // consider when the request may have a body
-    // then reroutes
-  };
-
-  const triggerAlert = () => {
-    const { title, message, options } = payload;
-    Alert.alert(title, message, options);
-  };
-
-  switch (type) {
-    case 'reroute':
-      return (
-        <Pressable style={[styles.button, styles.default]} onPress={reroute}>
-          <Text style={styles.text}>{text}</Text>
-        </Pressable>
-      );
-
-    case 'api':
-      return (
-        <Pressable style={[styles.button, styles.default]} onPress={callApi}>
-          <Text style={styles.text}>{text}</Text>
-        </Pressable>
-      );
-
-    case 'api-reroute':
-      return (
-        <Pressable style={[styles.button, styles.default]} onPress={apiReroute}>
-          <Text style={styles.text}>{text}</Text>
-        </Pressable>
-      );
-
-    case 'trigger-alert':
-      return (
-        <Pressable style={[styles.button, styles.default]} onPress={triggerAlert}>
-          <Text style={styles.text}>{text}</Text>
-        </Pressable>
-      );
-
-    default:
-      return (
-        <Pressable style={[styles.button, styles.error]} onPress={reroute}>
-          <Text style={styles.text}>{text}</Text>
-        </Pressable>
-      );
+  if (props.long) {
+    buttonStyles.push(styles.long);
   }
+
+  if (props.light) {
+    buttonStyles.push(styles.light);
+    textStyles.push(text.light);
+  } else if (props.disabled) {
+    buttonStyles.push(styles.disabled);
+    textStyles.push(text.disabled);
+  } else {
+    buttonStyles.push(styles.default);
+    textStyles.push(text.default);
+  }
+
+  return (
+    <Pressable style={buttonStyles} onPress={handler}>
+      <Text style={textStyles}>{title}</Text>
+    </Pressable>
+  );
 };
 
 // ideally, the styling does not live in this file
@@ -89,14 +49,18 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     marginBottom: 10,
-    // width: 200,
+    width: 102,
   },
   default: {
     backgroundColor: '#000',
-    width: 102,
   },
   disabled: {
     backgroundColor: '#EBEBE4',
+  },
+  light: {
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#000',
   },
   long: {
     width: 250,
