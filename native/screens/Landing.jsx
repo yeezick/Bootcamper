@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { SingleActionButton } from '../components/Button/SingleActionButton.jsx';
 
 export const Landing = () => {
@@ -21,23 +22,28 @@ export const Landing = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.placeholderImage}></View>
-      <Text>Bootcamper</Text>
-      <SingleActionButton payload={routeToSignUp} />
-      <SingleActionButton payload={routeToSignIn} />
-      <Text>Want to take a test drive first?</Text>
-      <SingleActionButton payload={routeToRoulette} />
-      <Text> Help | Contact</Text>
+    <View style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.placeholderImage}></View>
+        <Text>Bootcamper</Text>
+        <SingleActionButton payload={routeToSignUp} />
+        <SingleActionButton payload={routeToSignIn} light />
+        <Text>Want to take a test drive first?</Text>
+        <SingleActionButton payload={routeToRoulette} disabled />
+        <SingleActionButton payload={routeToRoulette} long />
+        <SingleActionButton payload={routeToRoulette} long light />
+        <Text> Help | Contact</Text>
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
+    backgroundColor: '#fff',
+    // flex: 1,
+    height: '100%',
   },
   placeholderImage: {
     backgroundColor: 'black',

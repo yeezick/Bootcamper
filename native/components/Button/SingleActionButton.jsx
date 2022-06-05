@@ -1,7 +1,19 @@
 import { Pressable, StyleSheet, Text, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-export const SingleActionButton = ({ payload }) => {
+/**
+ * needs to handle following styles as props:
+ * - disabled: grayed out styling, light gray test (invisible) and actually disables
+ * - whiteout: white background, dark text, black border
+ * - darkMode: black background, light text
+ *
+ * can be used in conjuction with types:
+ * - short: 1/4 of screen width
+ * - long: 1/2 width
+ */
+// todo: remove switch case and have onPress functions defined in executor component
+
+export const SingleActionButton = ({ payload }, ...propStyles) => {
   const { text, type } = payload;
   const navigation = useNavigation();
 
@@ -28,7 +40,7 @@ export const SingleActionButton = ({ payload }) => {
   const triggerAlert = () => {
     const { title, message, options } = payload;
     Alert.alert(title, message, options);
-  }
+  };
 
   switch (type) {
     case 'reroute':
@@ -57,7 +69,7 @@ export const SingleActionButton = ({ payload }) => {
         <Pressable style={[styles.button, styles.default]} onPress={triggerAlert}>
           <Text style={styles.text}>{text}</Text>
         </Pressable>
-      )
+      );
 
     default:
       return (
@@ -74,19 +86,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 4,
     display: 'flex',
-    height: 30,
+    height: 50,
     justifyContent: 'center',
     marginBottom: 10,
-    width: 200,
+    // width: 200,
   },
   default: {
     backgroundColor: '#000',
+    width: 102,
   },
-  error: {
-    backgroundColor: 'red',
+  disabled: {
+    backgroundColor: '#EBEBE4',
   },
-  text: {
+  long: {
+    width: 250,
+  },
+});
+
+const text = StyleSheet.create({
+  default: {
     color: '#fff',
-    margin: 'auto',
+  },
+  disabled: {
+    color: '#a9a9a9',
+  },
+  light: {
+    color: '#000',
   },
 });
