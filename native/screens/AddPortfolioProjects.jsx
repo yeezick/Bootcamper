@@ -97,7 +97,7 @@ export const AddPortfolioProjects = ({navigation}) => {
 
     return (
         <ScrollView>
-            <Header headerTitle="Add Projects to Profile" />
+            <Header title="Add Projects to Profile" />
             <Form formData={portfolioProjectForm} formState={[newProject, setNewProject, handleNewProject]} />
             <SingleActionButton payload={finish}/>
         </ScrollView>

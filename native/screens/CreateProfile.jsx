@@ -34,7 +34,7 @@ export const CreateProfile = ({navigation}) => {
 
     return (
         <ScrollView>
-            <Header headerTitle="Create Profile" headerText="" />
+            <Header title="Create Profile" />
             <Form formData={createProfile} formState={[userInfo, setUserInfo, handleUserUpdate]} />
             <Button title="Complete later" onPress={() => navigation.navigate('Roulette')} />
         </ScrollView>
