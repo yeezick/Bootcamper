@@ -85,7 +85,6 @@ export const SignIn = ({ navigation }) => {
   );
 };
 
-
 const styles = StyleSheet.create({
   accountForms: {
     alignItems: 'center',
