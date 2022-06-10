@@ -24,7 +24,7 @@ export const AddPortfolioProject = ({modalVisible, setModalVisible }) => {
     try {
       const res = await addPortfolioProject(userId, newProject);
       dispatch(uiActions.updateUser(res));
-      setModalVisible(!modalVisible)
+      if (setModalVisible) setModalVisible(!modalVisible)
       setNewProject({
         image: 'https://pbs.twimg.com/media/E5KGFT9X0AQzzaR?format=jpg&name=240x240',
         project_description: '',
