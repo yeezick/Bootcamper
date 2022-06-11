@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { ShowPortfolioProjects } from '../components/PortfolioCard/ShowPortfolioProjects.jsx';
 import { uiActions } from '../services/redux/slices/uiSlice';
 import { getOneUser } from '../services/api/users';
@@ -7,6 +8,7 @@ import { Button, Modal, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { handleTextChange } from '../services/utils/handlers.js';
 import { updateUserAndProject } from '../services/api/projects.js';
 import { fetchAllProjects } from '../services/redux/actions/projectActions.js';
+
 
 export const UserProfile = ({ route, navigation }) => {
   const [reviewStatus, setReviewStatus] = useState({
@@ -87,9 +89,14 @@ export const UserProfile = ({ route, navigation }) => {
 
   return (
     <ScrollView>
-      {reduxUser._id === currUser._id && (
+      {/* {reduxUser._id === currUser._id && (
         <Button title="toggle edit mode" onPress={handleEditMode} />
+      )} */}
+
+      {reduxUser._id === currUser._id && (
+        <Ionicons name="create" onPress={handleEditMode} style={styles.editButton} />
       )}
+      
 
       {ownerViewingApplicant && <OwnerOptions setReviewStatus={setReviewStatus} />}
 
@@ -101,32 +108,36 @@ export const UserProfile = ({ route, navigation }) => {
           setReviewStatus={setReviewStatus}
         />
       )}
-      <View>
-        <Text>
+      <View style={styles.nameContainer}>
+      <View style={styles.placeholderImage}></View>
+        <Text style={styles.name}>
           {first_name} {last_name}
         </Text>
         <Text>{role}</Text>
       </View>
 
-      <Text> I AM AN IMAGE</Text>
-
-      <View>
+      {/* <View>
         <Text>{email}</Text>
         <Text>PORTFOLIO LINK</Text>
+      </View> */}
+
+      <View style={styles.wordContainer}>
+        <Text style={styles.title}>ABOUT</Text>
+        <Text style={styles.words}>{about}</Text>
       </View>
 
-      <View>
-        <Text>{about}</Text>
-      </View>
-
-      <View>
-        <Text>{fun_fact}</Text>
+      <View style={styles.wordContainer}>
+      <Text style={styles.title}>FUN FACT</Text>
+        <Text style={styles.words}>{fun_fact}</Text>
       </View>
 
       <ShowPortfolioProjects currUser={currUser} />
     </ScrollView>
   );
 };
+
+
+
 
 const OwnerOptions = ({ setReviewStatus }) => {
   return (
@@ -138,14 +149,14 @@ const OwnerOptions = ({ setReviewStatus }) => {
           handleTextChange(true, 'renderDecisionModal', setReviewStatus);
           handleTextChange(true, 'ownerDecision', setReviewStatus);
         }}
-      />
+        />
       <Button
         title="Reject Request"
         onPress={() => {
           handleTextChange(true, 'renderDecisionModal', setReviewStatus);
           handleTextChange(false, 'ownerDecision', setReviewStatus);
         }}
-      />
+        />
     </View>
   );
 };
@@ -158,7 +169,7 @@ const DecisionModal = ({ applicant, navigation, reviewStatus, setReviewStatus })
     team_members: projectMembers,
     interested_applicants,
   } = reviewStatus.ownerProject;
-
+  
   let requestBody = {
     project: {
       projectID,
@@ -173,62 +184,100 @@ const DecisionModal = ({ applicant, navigation, reviewStatus, setReviewStatus })
         // interested proejcts ONLY has project ID
         interested_projects: interested_projects.filter(
           (interestedProjectID) => interestedProjectID != projectID
-        ),
-      },
-    },
-  };
-
-  useEffect(() => {
-    if (ownerDecision) {
-      setTimeout(() => {
-        addToTeam();
-        endReviewSequence();
-      }, 5000);
-    }
-  }, [ownerDecision]);
-
-  const endReviewSequence = () => {
-    handleTextChange(false, 'renderDecisionModal', setReviewStatus);
-    handleTextChange(false, 'ownerViewingApplicant', setReviewStatus);
-    navigation.navigate('Applicants', {
-      projectID,
-    });
-  };
-
-  const rejectApplicant = async () => {
-    await updateUserAndProject(requestBody);
-    fetchAllProjects();
-    endReviewSequence();
-  };
-
-  const addToTeam = async () => {
-    requestBody = {
-      ...requestBody,
-      project: {
-        ...requestBody.project,
-        team_members: [...projectMembers, userID],
+          ),
+        },
       },
     };
-    await updateUserAndProject(requestBody);
-    fetchAllProjects();
-  };
-
-  return (
-    <Modal visible={renderDecisionModal}>
+    
+    useEffect(() => {
+      if (ownerDecision) {
+        setTimeout(() => {
+          addToTeam();
+          endReviewSequence();
+        }, 5000);
+      }
+    }, [ownerDecision]);
+    
+    const endReviewSequence = () => {
+      handleTextChange(false, 'renderDecisionModal', setReviewStatus);
+      handleTextChange(false, 'ownerViewingApplicant', setReviewStatus);
+      navigation.navigate('Applicants', {
+        projectID,
+      });
+    };
+    
+    const rejectApplicant = async () => {
+      await updateUserAndProject(requestBody);
+      fetchAllProjects();
+      endReviewSequence();
+    };
+    
+    const addToTeam = async () => {
+      requestBody = {
+        ...requestBody,
+        project: {
+          ...requestBody.project,
+          team_members: [...projectMembers, userID],
+        },
+      };
+      await updateUserAndProject(requestBody);
+      fetchAllProjects();
+    };
+    
+    return (
+      <Modal visible={renderDecisionModal}>
       <View>
         {ownerDecision ? (
           <Text>{`${first_name} has been added to your project!`}</Text>
-        ) : (
-          <>
+          ) : (
+            <>
             <Text>{`Reject ${first_name}`}</Text>
             <Button title="Yes, reject." onPress={rejectApplicant} />
             <Button
               title="Cancel"
               onPress={() => handleTextChange(false, 'renderDecisionModal', setReviewStatus)}
-            />
+              />
           </>
         )}
       </View>
     </Modal>
   );
 };
+
+const styles = StyleSheet.create({
+  editButton: {
+    fontSize: 45,
+    textAlign: 'right',
+    marginRight: 10,
+  },
+  name: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
+  nameContainer: {
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  placeholderImage: {
+    borderRadius: 100,
+    backgroundColor: '#c4c4c4',
+    height: 150,
+    width: 150,
+  },
+  title: {
+    color: 'white',
+    fontWeight: 'bold',
+    marginLeft: 10,
+  },
+  words: {
+    color: 'white',
+    margin: 'left',
+    marginHorizontal:10
+  },
+  wordContainer: {
+    backgroundColor: '#313131',
+    marginHorizontal: 15,
+    marginTop: 15,
+  }
+});
