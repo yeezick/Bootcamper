@@ -11,6 +11,9 @@ import { updateUser } from '../services/api/users';
 import { userForm } from '../services/formData';
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 
+import ModalComp from '../components/ModalComp';
+
+
 export const EditProfile = ({ navigation, route }) => {
   const { user: reduxUser, editMode } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
@@ -25,7 +28,7 @@ export const EditProfile = ({ navigation, route }) => {
     <ScrollView>
       <Header headerTitle={header.title} headerText={header.text} />
       <AboutUser />
-      <AddPortfolioProject />
+      {/* <AddPortfolioProject /> */}
       <ShowPortfolioProjects currUser={reduxUser} />
       <Button title="start collaborating" onPress={() => navigation.navigate('Roulette')} />
       <Button
@@ -73,7 +76,8 @@ const AboutUser = () => {
   return (
     // className="about-user"
     <View>
-      <Form formData={userForm} formState={[userInfo, setUserInfo, handleUserUpdate]} />
+    <ModalComp />
+    <Form formData={userForm} formState={[userInfo, setUserInfo, handleUserUpdate]} />
     </View>
   );
 };
