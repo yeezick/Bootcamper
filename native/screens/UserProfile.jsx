@@ -272,7 +272,6 @@ const styles = StyleSheet.create({
   },
   words: {
     color: 'white',
-    margin: 'left',
     marginHorizontal:10
   },
   wordContainer: {
