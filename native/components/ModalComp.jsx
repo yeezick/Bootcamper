@@ -4,7 +4,9 @@ import { Alert, Modal, Text, View, StyleSheet, Pressable, Appearance  } from "re
 
 export default function ModalComp() {
   const [modalVisible, setModalVisible] = useState(false);
+  
   const [theme, setTheme] = useState(Appearance.getColorScheme());
+  
   Appearance.addChangeListener((scheme) => {
     console.log(scheme.colorScheme)
     setTheme(scheme.colorScheme)
