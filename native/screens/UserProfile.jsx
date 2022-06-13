@@ -94,7 +94,10 @@ export const UserProfile = ({ route, navigation }) => {
       )} */}
 
       {reduxUser._id === currUser._id && (
-        <Ionicons name="create" onPress={handleEditMode} style={styles.editButton} />
+        <View style={styles.editContainer}>
+          <Ionicons name="create" onPress={handleEditMode} style={styles.editButton} />
+          <Text>Edit Profile</Text>
+        </View>
       )}
       
 
@@ -245,9 +248,12 @@ const DecisionModal = ({ applicant, navigation, reviewStatus, setReviewStatus })
 };
 
 const styles = StyleSheet.create({
+  editContainer: {
+    alignItems: "flex-end",
+    marginRight: 5
+  },
   editButton: {
     fontSize: 45,
-    textAlign: 'right',
     marginRight: 10,
   },
   name: {
