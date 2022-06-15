@@ -13,9 +13,10 @@ export function OwnerView({ project }) {
     });
   };
 
-  const showApplicants = (id) => {
+  const showApplicants = (project, applicants) => {
     navigation.navigate('Applicants', {
-      projectID: id,
+      project: project,
+      applicants: applicants,
     });
   };
   useEffect(() => {
@@ -43,7 +44,7 @@ export function OwnerView({ project }) {
             </Pressable>
           ))}
           {project.interested_applicants.length > 3 ? (
-            <Pressable onPress={() => showApplicants(project._id)}>
+            <Pressable onPress={() => showApplicants(project, applicants)}>
               <Text>{`See all ${project.interested_applicants.length} applicants`}</Text>
             </Pressable>
           ) : null}

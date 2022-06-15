@@ -1,4 +1,4 @@
-import { Button, Text, TouchableOpacity, ScrollView, View } from 'react-native';
+import { Button, Text, TouchableOpacity, ScrollView, StyleSheet, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import uuid from 'react-native-uuid';
@@ -13,19 +13,16 @@ export const Applicants = ({ navigation, route }) => {
 
   useEffect(() => {
     const setProject = async () => {
-      let fetchedProject;
-
       if (!route.params) {
-        fetchedProject = soloProject;
+        setCurrProject(soloProject); // ultimately we shouldn't need this, since this screen only comes from SingleProject screen
       } else {
-        fetchedProject = await getOneProject(route.params.projectID); // must be tested
+        setCurrProject(route.params.project);
       }
 
       const filterRoles = (role) => {
-        return fetchedProject.interested_applicants?.filter((applicant) => applicant.role === role);
+        return route.params.applicants.filter((applicant) => applicant.role === role);
       };
 
-      setCurrProject(fetchedProject);
       setEngineers(() => filterRoles('Software Engineer'));
       setDesigners(() => filterRoles('UX Designer'));
     };
@@ -39,10 +36,9 @@ export const Applicants = ({ navigation, route }) => {
         <RoleList
           applicants={engineers}
           navigation={navigation}
-          role={'Software Developers'}
+          role={'Software Engineers'}
           currProject={currProject}
         />
-        <Text>{'\nJUST A DIVIDER \n DONT MIND ME \n DELETE ME AFTER \n'}</Text>
         <RoleList
           applicants={designers}
           navigation={navigation}
@@ -87,12 +83,12 @@ const RoleList = ({ applicants, navigation, role, currProject }) => {
             }}
           >
             <View>
-              <View>
+              <View style={styles.applicantInfo}>
                 <Text>IMAGE</Text>
+                <Text>{`${applicant.first_name} ${applicant.last_name}`}</Text>
+                <Text>{`${applicant.role}`}</Text>
               </View>
-              <Text>{`${applicant.first_name} ${applicant.last_name}`}</Text>
-              <Text>{applicant.role}</Text>
-              <Text>PERSONAL MESSAGE FROM APPLICANT</Text>
+              <Text style={styles.applicantMessage}>PERSONAL MESSAGE FROM APPLICANT</Text>
             </View>
           </TouchableOpacity>
         ))}
@@ -105,3 +101,18 @@ const RoleList = ({ applicants, navigation, role, currProject }) => {
     return <Text>Loading or no applicants.</Text>;
   }
 };
+
+const styles = StyleSheet.create({
+  applicantInfo: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+    marginBottom: 10,
+    paddingLeft: 5,
+    paddingRight: 5,
+  },
+  applicantMessage: {
+    textAlign: 'center',
+  },
+});
