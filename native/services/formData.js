@@ -124,12 +124,12 @@ export const userForm = {
       required: true,
       type: 'textarea',
     },
-    // {
-    //   labelText: 'Include a fun fact!   (optional, max 250 characters) ',
-    //   name: 'fun_fact',
-    //   max_chars: 250,
-    //   type: 'textarea',
-    // },
+    {
+      labelText: 'Include a fun fact!   (optional, max 250 characters) ',
+      name: 'fun_fact',
+      max_chars: 250,
+      type: 'textarea',
+    },
 
     {
       labelText: 'Portfolio Link',
@@ -139,7 +139,7 @@ export const userForm = {
     {
       labelText: 'Share on Profile?',
       name: 'show_portolio',
-      type: 'checkbox',
+      type: 'switch',
     }
   ],
 };
