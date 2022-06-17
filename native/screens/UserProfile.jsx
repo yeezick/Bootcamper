@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { ShowPortfolioProjects } from '../components/PortfolioCard/ShowPortfolioProjects.jsx';
 import { uiActions } from '../services/redux/slices/uiSlice';
 import { getOneUser } from '../services/api/users';
-import { Button, Modal, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button, Linking, Modal, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { handleTextChange } from '../services/utils/handlers.js';
 import { updateUserAndProject } from '../services/api/projects.js';
 import { fetchAllProjects } from '../services/redux/actions/projectActions.js';
@@ -31,7 +31,7 @@ export const UserProfile = ({ route, navigation }) => {
   const { user: reduxUser } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
   const validUrl = `http://${reduxUser.portfolio_link}`;
-  const { about, email, fun_fact, first_name, last_name, role, _id: currUserID } = currUser;
+  const { about, email, fun_fact, first_name, last_name, portfolio_link, role, _id: currUserID } = currUser;
   const { ownerViewingApplicant, ownerSubmittedDecision, renderDecisionModal } = reviewStatus;
 
   useEffect(() => {
@@ -119,10 +119,6 @@ export const UserProfile = ({ route, navigation }) => {
         <Text>{role}</Text>
       </View>
 
-      {/* <View>
-        <Text>{email}</Text>
-        <Text>PORTFOLIO LINK</Text>
-      </View> */}
 
       <View style={styles.wordContainer}>
         <Text style={styles.title}>ABOUT</Text>
@@ -134,7 +130,11 @@ export const UserProfile = ({ route, navigation }) => {
         <Text style={styles.words}>{fun_fact}</Text>
       </View>
 
-      <ShowPortfolioProjects currUser={currUser} />
+      <View style={styles.wordContainer}>
+        <Text style={styles.portfolio }
+      onPress={() => Linking.openURL(`${portfolio_link}`)}> Portfolio </Text>
+      </View>
+
     </ScrollView>
   );
 };
@@ -270,6 +270,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#c4c4c4',
     height: 150,
     width: 150,
+  },
+  portfolio: {
+    color: 'white',
+    fontSize: 35,
+    textAlign: 'center',
+    textDecorationLine: 'underline'
   },
   title: {
     color: 'white',
