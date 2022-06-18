@@ -104,7 +104,7 @@ export const AddPortfolioProjects = ({ navigation }) => {
         formData={portfolioProjectForm}
         formState={[newProject, setNewProject, handleNewProject]}
       />
-      <SingleActionButton payload={finish} />
+      <SingleActionButton payload={finish} style="light" type="long" />
     </ScrollView>
   );
 };

@@ -101,7 +101,7 @@ export const EditProject = ({ navigation, route }) => {
         />
 
         <EditTimeCommitment projectInfo={projectInfo} setProjectInfo={setProjectInfo} />
-        <SingleActionButton payload={updateProjectPayload} />
+        <SingleActionButton payload={updateProjectPayload} type="long" />
       </View>
     </ScrollView>
   );
