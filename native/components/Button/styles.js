@@ -17,8 +17,7 @@ const baseContainerStyles = {
   width: 102,
 };
 
-// styles
-const defaultStyle = StyleSheet.create({
+const defaultStyle = {
   container: {
     ...baseContainerStyles,
     backgroundColor: '#000',
@@ -26,9 +25,9 @@ const defaultStyle = StyleSheet.create({
   text: {
     color: '#fff',
   },
-});
+};
 
-const disabledStyle = StyleSheet.create({
+const disabledStyle = {
   container: {
     ...baseContainerStyles,
     backgroundColor: '#EBEBE4',
@@ -36,9 +35,9 @@ const disabledStyle = StyleSheet.create({
   text: {
     color: '#a9a9a9',
   },
-});
+};
 
-const lightStyle = StyleSheet.create({
+const lightStyle = {
   container: {
     ...baseContainerStyles,
     backgroundColor: '#fff',
@@ -48,7 +47,7 @@ const lightStyle = StyleSheet.create({
   text: {
     color: '#000',
   },
-});
+};
 
 export const getButtonStyles = (style, type) => {
   let finalStyleSheet = {

@@ -62,8 +62,7 @@ export const EditProject = ({ navigation, route }) => {
 
   const updateProjectPayload = {
     handler: handleSubmit,
-    text: buttonText,
-    type: 'api-reroute',
+    title: buttonText,
   };
 
   if (!loadedProject) {
