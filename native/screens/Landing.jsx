@@ -28,13 +28,10 @@ export const Landing = ({ navigation }) => {
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.placeholderImage}></View>
       <Text>Bootcamper</Text>
-      <SingleActionButton payload={routeToSignUp} />
-      <SingleActionButton payload={routeToSignIn} style={'light'} />
+      <SingleActionButton payload={routeToSignUp} type="long" />
+      <SingleActionButton payload={routeToSignIn} style="light" type="long" />
       <Text>Want to take a test drive first?</Text>
-      <SingleActionButton payload={routeToRoulette} style={'disabled'} />
-      <SingleActionButton payload={routeToRoulette} type={'long'} />
-      <SingleActionButton payload={routeToRoulette} style={'light'} type={'long'} />
-      <SingleActionButton payload={routeToRoulette} style={'disabled'} type={'long'} />
+      <SingleActionButton payload={routeToRoulette} />
       <Text> Help | Contact</Text>
     </ScrollView>
   );
