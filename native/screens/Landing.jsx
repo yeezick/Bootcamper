@@ -29,11 +29,12 @@ export const Landing = ({ navigation }) => {
       <View style={styles.placeholderImage}></View>
       <Text>Bootcamper</Text>
       <SingleActionButton payload={routeToSignUp} />
-      <SingleActionButton payload={routeToSignIn} light long />
+      <SingleActionButton payload={routeToSignIn} style={'light'} />
       <Text>Want to take a test drive first?</Text>
-      <SingleActionButton payload={routeToRoulette} disabled />
-      <SingleActionButton payload={routeToRoulette} long />
-      <SingleActionButton payload={routeToRoulette} light long />
+      <SingleActionButton payload={routeToRoulette} style={'disabled'} />
+      <SingleActionButton payload={routeToRoulette} type={'long'} />
+      <SingleActionButton payload={routeToRoulette} style={'light'} type={'long'} />
+      <SingleActionButton payload={routeToRoulette} style={'disabled'} type={'long'} />
       <Text> Help | Contact</Text>
     </ScrollView>
   );
