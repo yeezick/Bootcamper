@@ -1,11 +1,4 @@
 import { StyleSheet } from 'react-native';
-/**
- * Format seems to be:
- * 1. Base / general styles that won't change regardless of type or style
- * 2. Styles that alter the aesthetic of the component
- * 3. Types that alter the shape of the component
- * 4. Function definition that will determine which stylesheet to use
- */
 
 const baseContainerStyles = {
   alignItems: 'center',
@@ -14,13 +7,13 @@ const baseContainerStyles = {
   height: 50,
   justifyContent: 'center',
   marginBottom: 10,
-  width: 102,
+  width: 90,
 };
 
 const defaultStyle = {
   container: {
     ...baseContainerStyles,
-    backgroundColor: '#000',
+    backgroundColor: '#1b1b1b',
   },
   text: {
     color: '#fff',
@@ -33,14 +26,14 @@ const disabledStyle = {
     backgroundColor: '#EBEBE4',
   },
   text: {
-    color: '#a9a9a9',
+    color: '#5c5c5c',
   },
 };
 
 const lightStyle = {
   container: {
     ...baseContainerStyles,
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(0,0,0,0)',
     borderWidth: 1,
     borderColor: '#000',
   },
@@ -56,21 +49,14 @@ export const getButtonStyles = (style, type) => {
   };
 
   if (style === 'light') {
-    finalStyleSheet = {
-      ...lightStyle,
-    };
+    finalStyleSheet = lightStyle;
   } else if (style === 'disabled') {
-    finalStyleSheet = {
-      ...disabledStyle,
-    };
+    finalStyleSheet = disabledStyle;
   } else {
-    finalStyleSheet = {
-      ...defaultStyle,
-    };
+    finalStyleSheet = defaultStyle;
   }
 
   if (type === 'long') {
-    // todo: hard to read, please improve.
     finalStyleSheet = {
       ...finalStyleSheet,
       container: {
