@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import uuid from 'react-native-uuid';
 import { handleToggle } from '../../services/utils/handlers';
-import { getOneProject } from '../../services/api/projects';
 
 export const Applicants = ({ navigation, route }) => {
   const soloProject = useSelector((state) => state.projects.allProjects[0]);
@@ -32,7 +31,6 @@ export const Applicants = ({ navigation, route }) => {
   if (currProject) {
     return (
       <ScrollView>
-        <Text>Applications</Text>
         <RoleList
           applicants={engineers}
           navigation={navigation}
@@ -70,7 +68,7 @@ const RoleList = ({ applicants, navigation, role, currProject }) => {
     return (
       <View>
         {loadMore && <Button title="Show less" onPress={() => handleToggle(toggleLoadMore)} />}
-        <Text>{role}</Text>
+        <Text style={styles.largerText}>{role}</Text>
         {visibleList.map((applicant) => (
           <TouchableOpacity
             key={uuid.v4()}
@@ -85,15 +83,21 @@ const RoleList = ({ applicants, navigation, role, currProject }) => {
             <View>
               <View style={styles.applicantInfo}>
                 <Text>IMAGE</Text>
-                <Text>{`${applicant.first_name} ${applicant.last_name}`}</Text>
-                <Text>{`${applicant.role}`}</Text>
+                <Text
+                  style={styles.boldText}
+                >{`${applicant.first_name} ${applicant.last_name}`}</Text>
+                <Text style={styles.boldText}>{`${applicant.role}`}</Text>
               </View>
-              <Text style={styles.applicantMessage}>PERSONAL MESSAGE FROM APPLICANT</Text>
+              <Text
+                style={styles.applicantMessage}
+              >{`here is a personal message from ${applicant.first_name} about their application for this project and expressing their interest`}</Text>
             </View>
           </TouchableOpacity>
         ))}
         {!loadMore && applicants.length > 3 && (
-          <Button title="Load more..." onPress={() => handleToggle(toggleLoadMore)} />
+          <View style={styles.buttonContainer}>
+            <Button title="Load more..." onPress={() => handleToggle(toggleLoadMore)} />
+          </View>
         )}
       </View>
     );
@@ -109,10 +113,24 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 10,
     marginBottom: 10,
-    paddingLeft: 5,
-    paddingRight: 5,
+    paddingLeft: 15,
+    paddingRight: 15,
   },
   applicantMessage: {
-    textAlign: 'center',
+    textAlign: 'justify',
+    paddingRight: 25,
+    paddingLeft: 30,
+  },
+  boldText: {
+    fontWeight: 'bold',
+  },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    paddingLeft: 10,
+  },
+  largerText: {
+    fontSize: 16,
   },
 });
