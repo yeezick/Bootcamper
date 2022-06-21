@@ -82,7 +82,7 @@ const RoleList = ({ applicants, navigation, role, currProject }) => {
           >
             <View>
               <View style={styles.applicantInfo}>
-                <Text>IMAGE</Text>
+                <View style={styles.imagePlaceholder}></View>
                 <Text
                   style={styles.boldText}
                 >{`${applicant.first_name} ${applicant.last_name}`}</Text>
@@ -130,7 +130,16 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingLeft: 10,
   },
+  imagePlaceholder: {
+    backgroundColor: '#505050',
+    borderRadius: 9,
+    height: 18,
+    width: 18,
+  },
   largerText: {
-    fontSize: 16,
+    color: '#505050',
+    fontSize: 18,
+    marginLeft: 15,
+    marginRight: 15,
   },
 });
