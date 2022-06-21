@@ -81,12 +81,14 @@ const RoleList = ({ applicants, navigation, role, currProject }) => {
             }}
           >
             <View>
-              <View style={styles.applicantInfo}>
+              <View style={styles.applicantInfoContainer}>
                 <View style={styles.imagePlaceholder}></View>
-                <Text
-                  style={styles.boldText}
-                >{`${applicant.first_name} ${applicant.last_name}`}</Text>
-                <Text style={styles.boldText}>{`${applicant.role}`}</Text>
+                <View style={styles.applicantInfo}>
+                  <Text
+                    style={styles.boldText}
+                  >{`${applicant.first_name} ${applicant.last_name}`}</Text>
+                  <Text style={styles.boldText}>{`${applicant.role}`}</Text>
+                </View>
               </View>
               <Text
                 style={styles.applicantMessage}
@@ -110,11 +112,12 @@ const styles = StyleSheet.create({
   applicantInfo: {
     display: 'flex',
     flexDirection: 'row',
+    fontSize: 14,
     justifyContent: 'space-between',
-    marginTop: 10,
-    marginBottom: 10,
-    paddingLeft: 15,
-    paddingRight: 15,
+  },
+  applicantInfoContainer: {
+    display: 'flex',
+    flexDirection: 'row',
   },
   applicantMessage: {
     textAlign: 'justify',
@@ -131,7 +134,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   imagePlaceholder: {
-    backgroundColor: '#505050',
+    backgroundColor: '#c4c4c4',
     borderRadius: 9,
     height: 18,
     width: 18,
