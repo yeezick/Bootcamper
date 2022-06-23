@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   applicantMessage: {
     textAlign: 'justify',
     paddingRight: 25,
-    paddingLeft: 30,
+    paddingLeft: 40,
   },
   boldText: {
     fontWeight: 'bold',
