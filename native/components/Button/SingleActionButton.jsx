@@ -1,92 +1,28 @@
-import { Pressable, StyleSheet, Text, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
+import { Text, TouchableHighlight } from 'react-native';
+import { getButtonStyles } from './styles';
 
-export const SingleActionButton = ({ payload }) => {
-  const { text, type } = payload;
-  const navigation = useNavigation();
+export const SingleActionButton = (props) => {
+  const [pressed, togglePressed] = useState(false);
+  const { handler, title } = props.payload;
+  const { style, type } = props;
+  const styles = getButtonStyles(style, type);
 
-  const reroute = () => {
-    const { path } = payload;
-    navigation.navigate(path);
+  const touchProps = {
+    onPress: handler,
+    style: { ...styles.container, borderWidth: pressed ? 0 : styles.container.borderWidth },
+    underlayColor: '#999999',
+    onShowUnderlay() {
+      togglePressed(true);
+    },
+    onHideUnderlay() {
+      togglePressed(false);
+    },
   };
 
-  const callApi = () => {
-    const { handler } = payload;
-    handler();
-    // calls an API
-    // consider when the request may have a body
-  };
-
-  const apiReroute = (apiUrl, path) => {
-    const { handler } = payload;
-    handler();
-    // calls an API
-    // consider when the request may have a body
-    // then reroutes
-  };
-
-  const triggerAlert = () => {
-    const { title, message, options } = payload;
-    Alert.alert(title, message, options);
-  }
-
-  switch (type) {
-    case 'reroute':
-      return (
-        <Pressable style={[styles.button, styles.default]} onPress={reroute}>
-          <Text style={styles.text}>{text}</Text>
-        </Pressable>
-      );
-
-    case 'api':
-      return (
-        <Pressable style={[styles.button, styles.default]} onPress={callApi}>
-          <Text style={styles.text}>{text}</Text>
-        </Pressable>
-      );
-
-    case 'api-reroute':
-      return (
-        <Pressable style={[styles.button, styles.default]} onPress={apiReroute}>
-          <Text style={styles.text}>{text}</Text>
-        </Pressable>
-      );
-
-    case 'trigger-alert':
-      return (
-        <Pressable style={[styles.button, styles.default]} onPress={triggerAlert}>
-          <Text style={styles.text}>{text}</Text>
-        </Pressable>
-      )
-
-    default:
-      return (
-        <Pressable style={[styles.button, styles.error]} onPress={reroute}>
-          <Text style={styles.text}>{text}</Text>
-        </Pressable>
-      );
-  }
+  return (
+    <TouchableHighlight {...touchProps} disabled={style === 'disabled' && true}>
+      <Text style={styles.text}>{title}</Text>
+    </TouchableHighlight>
+  );
 };
-
-// ideally, the styling does not live in this file
-const styles = StyleSheet.create({
-  button: {
-    alignItems: 'center',
-    borderRadius: 4,
-    display: 'flex',
-    height: 30,
-    justifyContent: 'center',
-    marginBottom: 10,
-    width: 200,
-  },
-  default: {
-    backgroundColor: '#000',
-  },
-  error: {
-    backgroundColor: 'red',
-  },
-  text: {
-    color: '#fff',
-    margin: 'auto',
-  },
-});
