@@ -4,12 +4,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // screens
+import { AddPortfolioProjects } from '../screens/AddPortfolioProjects';
 import { AccountSettings } from '../screens/AccountSettings/AccountSettings';
 import { Applicants } from '../screens/Applicants/Applicants';
+import { ChatRooms } from '../screens/Messaging/ChatRooms';
+import { SingleChat } from '../screens/Messaging/SingleChat';
+import { CreateProfile } from '../screens/CreateProfile';
 import { EditProfile } from '../screens/EditProfile';
 import { EditProject } from '../screens/EditProject/EditProject';
 import { Landing } from '../screens/Landing';
-import { Messages } from '../screens/Messages';
 import { Roulette } from '../screens/Roulette';
 import { Settings } from '../screens/Settings';
 import { SignIn } from '../screens/SignIn';
@@ -17,8 +20,6 @@ import { SignUp } from '../screens/SignUp';
 import { SingleProject } from '../screens/SingleProject';
 import { UserDashboard } from '../screens/UserDashboard';
 import { UserProfile } from '../screens/UserProfile';
-import { CreateProfile } from '../screens/CreateProfile';
-import { AddPortfolioProjects } from '../screens/AddPortfolioProjects';
 // assets
 import { fetchAllProjects } from '../services/redux/actions/projectActions.js';
 import { fetchAllTools } from '../services/redux/actions/toolActions.js';
@@ -64,10 +65,13 @@ export const SideMenu = () => {
         <Drawer.Screen name="Landing" component={Landing} />
         {/* Landing is at the top of the list therefore is loaded fist on application open & refresh*/}
         <Drawer.Screen name="AccountSettings" component={AccountSettings} />
+        <Drawer.Screen name="AddPortfolioProjects" component={AddPortfolioProjects} />
         <Drawer.Screen name="Applicants" component={Applicants} />
+        <Drawer.Screen name="CreateProfile" component={CreateProfile} />
+        <Drawer.Screen name="ChatRooms" component={ChatRooms} />
+        <Drawer.Screen name="SingleChat" component={SingleChat} />
         <Drawer.Screen name="EditProfile" component={EditProfile} />
         <Drawer.Screen name="EditProject" component={EditProject} />
-        <Drawer.Screen name="Messages" component={Messages} />
         <Drawer.Screen name="Roulette" component={Roulette} />
         <Drawer.Screen name="Settings" component={Settings} />
         <Drawer.Screen name="SingleProject" component={SingleProject} />
@@ -75,8 +79,6 @@ export const SideMenu = () => {
         <Drawer.Screen name="SignUp" component={SignUp} />
         <Drawer.Screen name="UserDashboard" component={UserDashboard} />
         <Drawer.Screen name="UserProfile" component={UserProfile} />
-        <Drawer.Screen name="CreateProfile" component={CreateProfile} />
-        <Drawer.Screen name="AddPortfolioProjects" component={AddPortfolioProjects} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

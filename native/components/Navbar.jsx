@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 //screens
-import { Messages } from '../screens/Messages';
+import { ChatRooms } from '../screens/Messaging/ChatRooms';
 import { Roulette } from '../screens/Roulette';
 import { Settings } from '../screens/Settings';
 import { UserDashboard } from '../screens/UserDashboard';
@@ -27,17 +27,17 @@ export const Navbar = () => {
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
-            let rn = route.name;
+            let routeName = route.name;
 
-            if (rn === messages) {
+            if (routeName === messages) {
               iconName = focused ? 'mail' : 'mail-outline';
-            } else if (rn === rouletteName) {
+            } else if (routeName === rouletteName) {
               iconName = focused ? 'shuffle' : 'shuffle-outline';
-            } else if (rn === userDashboard) {
+            } else if (routeName === userDashboard) {
               iconName = focused ? 'home' : 'home-outline';
-            } else if (rn === userProfile) {
+            } else if (routeName === userProfile) {
               iconName = focused ? 'person' : 'person-outline';
-            } else if (rn === settings) {
+            } else if (routeName === settings) {
               iconName = focused ? 'settings' : 'settings-outline';
             }
 
@@ -48,7 +48,7 @@ export const Navbar = () => {
         <Tab.Screen name={userDashboard} component={UserDashboard} />
         <Tab.Screen name={rouletteName} component={Roulette} />
         <Tab.Screen name={userProfile} component={UserProfile} />
-        <Tab.Screen name={messages} component={Messages} />
+        <Tab.Screen name={messages} component={ChatRooms} />
         <Tab.Screen name={settings} component={Settings} />
       </Tab.Navigator>
     </NavigationContainer>

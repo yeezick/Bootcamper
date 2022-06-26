@@ -8,25 +8,25 @@ export default {
     orientation: 'portrait',
     icon: './assets/jira-rocket.png', //todo: image will most likely be copyrighted
     splash: {
-      image: './assets/jira-rocket.png', // the image that pops up on initial app load
+      image: './assets/conference-photo.png', // the image that pops up on initial app load
       resizeMode: 'contain',
-      backgroundColor: '#ffffff'
+      backgroundColor: '#ffffff',
     },
     updates: {
-      fallbackToCacheTimeout: 0
+      fallbackToCacheTimeout: 0,
     },
     assetBundlePatterns: ['**/*'],
     ios: {
-      supportsTablet: true
+      supportsTablet: true,
     },
     android: {
       adaptiveIcon: {
         foregroundImage: './assets/jira-rocket.png',
-        backgroundColor: '#FFFFFF'
-      }
+        backgroundColor: '#FFFFFF',
+      },
     },
     web: {
-      favicon: './assets/jira-rocket .png'
+      favicon: './assets/jira-rocket .png',
     },
     extra: {
       apiKey: process.env.API_KEY,
@@ -34,7 +34,7 @@ export default {
       projectId: process.env.PROJECT_ID,
       storageBucket: process.env.STORAGE_BUCKET,
       messagingSenderId: process.env.MESSAGING_SENDER_ID,
-      appId: process.env.APP_ID
-    }
-  }
+      appId: process.env.APP_ID,
+    },
+  },
 };
