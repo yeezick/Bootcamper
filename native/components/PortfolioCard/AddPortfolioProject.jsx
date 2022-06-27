@@ -41,8 +41,7 @@ export const AddPortfolioProject = () => {
   };
 
   const header = {
-    title: 'Add Projects to Profile',
-    text: null,
+    title: 'Add Projects to Profile'
   };
 
 
@@ -50,7 +49,7 @@ export const AddPortfolioProject = () => {
   return (
     // className="add-portfolio-project"
     <View>
-      <Header headerTitle={header.title} headerText={header.text} />
+      <Header title={header.title} />
       <Form
         formData={portfolioProjectForm}
         formState={[newProject, setNewProject, handleNewProject]}

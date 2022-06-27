@@ -78,7 +78,7 @@ export const EditProject = ({ navigation, route }) => {
           navigation.navigate('SingleProject');
         }}
       />
-      <Header headerText={header.text} headerTitle={header.title} />
+      <Header subtext={header.text} title={header.title} />
       <View>
         <Text>Project Title:</Text>
         <TextInput
