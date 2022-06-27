@@ -8,7 +8,7 @@ import { Messages } from '../screens/Messages';
 import { Roulette } from '../screens/Roulette';
 import { Settings } from '../screens/Settings';
 import { UserDashboard } from '../screens/UserDashboard';
-import { UserProfile } from '../screens/UserProfile';
+import { UserProfile } from '../screens/UserProfile/UserProfile';
 
 //Screen names
 const messages = 'Messages';
