@@ -23,7 +23,7 @@ export const EditProfile = ({ navigation, route }) => {
   return (
     //  edit profile
     <ScrollView>
-      <Header headerTitle={header.title} headerText={header.text} />
+      <Header title={header.title} subtext={header.text} />
       <AboutUser />
       <AddPortfolioProject />
       <ShowPortfolioProjects currUser={reduxUser} />

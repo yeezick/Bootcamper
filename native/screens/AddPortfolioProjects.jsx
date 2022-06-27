@@ -97,9 +97,10 @@ export const AddPortfolioProjects = ({ navigation }) => {
         title: 'Finish',
       };
 
+
   return (
     <ScrollView>
-      <Header headerTitle="Add Projects to Profile" />
+      <Header title="Add Projects to Profile" />
       <Form
         formData={portfolioProjectForm}
         formState={[newProject, setNewProject, handleNewProject]}
@@ -108,3 +109,4 @@ export const AddPortfolioProjects = ({ navigation }) => {
     </ScrollView>
   );
 };
+
