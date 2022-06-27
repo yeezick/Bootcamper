@@ -9,7 +9,6 @@ import { handleTextChange } from '../services/utils/handlers.js';
 import { updateUserAndProject } from '../services/api/projects.js';
 import { fetchAllProjects } from '../services/redux/actions/projectActions.js';
 
-
 export const UserProfile = ({ route, navigation }) => {
   const [reviewStatus, setReviewStatus] = useState({
     renderDecisionModal: false,
@@ -31,7 +30,16 @@ export const UserProfile = ({ route, navigation }) => {
   const { user: reduxUser } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
   const validUrl = `http://${reduxUser.portfolio_link}`;
-  const { about, email, fun_fact, first_name, last_name, portfolio_link, role, _id: currUserID } = currUser;
+  const {
+    about,
+    email,
+    fun_fact,
+    first_name,
+    last_name,
+    portfolio_link,
+    role,
+    _id: currUserID,
+  } = currUser;
   const { ownerViewingApplicant, ownerSubmittedDecision, renderDecisionModal } = reviewStatus;
 
   useEffect(() => {
@@ -89,17 +97,12 @@ export const UserProfile = ({ route, navigation }) => {
 
   return (
     <ScrollView>
-      {/* {reduxUser._id === currUser._id && (
-        <Button title="toggle edit mode" onPress={handleEditMode} />
-      )} */}
-
       {reduxUser._id === currUser._id && (
         <View style={styles.editContainer}>
           <Ionicons name="create" onPress={handleEditMode} style={styles.editButton} />
           <Text>Edit Profile</Text>
         </View>
       )}
-      
 
       {ownerViewingApplicant && <OwnerOptions setReviewStatus={setReviewStatus} />}
 
@@ -112,13 +115,12 @@ export const UserProfile = ({ route, navigation }) => {
         />
       )}
       <View style={styles.nameContainer}>
-      <View style={styles.placeholderImage}></View>
+        <View style={styles.placeholderImage}></View>
         <Text style={styles.name}>
           {first_name} {last_name}
         </Text>
         <Text>{role}</Text>
       </View>
-
 
       <View style={styles.wordContainer}>
         <Text style={styles.title}>ABOUT</Text>
@@ -126,21 +128,19 @@ export const UserProfile = ({ route, navigation }) => {
       </View>
 
       <View style={styles.wordContainer}>
-      <Text style={styles.title}>FUN FACT</Text>
+        <Text style={styles.title}>FUN FACT</Text>
         <Text style={styles.words}>{fun_fact}</Text>
       </View>
 
       <View style={styles.wordContainer}>
-        <Text style={styles.portfolio }
-      onPress={() => Linking.openURL(`${portfolio_link}`)}> Portfolio </Text>
+        <Text style={styles.portfolio} onPress={() => Linking.openURL(`${portfolio_link}`)}>
+          {' '}
+          Portfolio{' '}
+        </Text>
       </View>
-
     </ScrollView>
   );
 };
-
-
-
 
 const OwnerOptions = ({ setReviewStatus }) => {
   return (
@@ -152,14 +152,14 @@ const OwnerOptions = ({ setReviewStatus }) => {
           handleTextChange(true, 'renderDecisionModal', setReviewStatus);
           handleTextChange(true, 'ownerDecision', setReviewStatus);
         }}
-        />
+      />
       <Button
         title="Reject Request"
         onPress={() => {
           handleTextChange(true, 'renderDecisionModal', setReviewStatus);
           handleTextChange(false, 'ownerDecision', setReviewStatus);
         }}
-        />
+      />
     </View>
   );
 };
@@ -172,7 +172,7 @@ const DecisionModal = ({ applicant, navigation, reviewStatus, setReviewStatus })
     team_members: projectMembers,
     interested_applicants,
   } = reviewStatus.ownerProject;
-  
+
   let requestBody = {
     project: {
       projectID,
@@ -187,59 +187,59 @@ const DecisionModal = ({ applicant, navigation, reviewStatus, setReviewStatus })
         // interested proejcts ONLY has project ID
         interested_projects: interested_projects.filter(
           (interestedProjectID) => interestedProjectID != projectID
-          ),
-        },
+        ),
+      },
+    },
+  };
+
+  useEffect(() => {
+    if (ownerDecision) {
+      setTimeout(() => {
+        addToTeam();
+        endReviewSequence();
+      }, 5000);
+    }
+  }, [ownerDecision]);
+
+  const endReviewSequence = () => {
+    handleTextChange(false, 'renderDecisionModal', setReviewStatus);
+    handleTextChange(false, 'ownerViewingApplicant', setReviewStatus);
+    navigation.navigate('Applicants', {
+      projectID,
+    });
+  };
+
+  const rejectApplicant = async () => {
+    await updateUserAndProject(requestBody);
+    fetchAllProjects();
+    endReviewSequence();
+  };
+
+  const addToTeam = async () => {
+    requestBody = {
+      ...requestBody,
+      project: {
+        ...requestBody.project,
+        team_members: [...projectMembers, userID],
       },
     };
-    
-    useEffect(() => {
-      if (ownerDecision) {
-        setTimeout(() => {
-          addToTeam();
-          endReviewSequence();
-        }, 5000);
-      }
-    }, [ownerDecision]);
-    
-    const endReviewSequence = () => {
-      handleTextChange(false, 'renderDecisionModal', setReviewStatus);
-      handleTextChange(false, 'ownerViewingApplicant', setReviewStatus);
-      navigation.navigate('Applicants', {
-        projectID,
-      });
-    };
-    
-    const rejectApplicant = async () => {
-      await updateUserAndProject(requestBody);
-      fetchAllProjects();
-      endReviewSequence();
-    };
-    
-    const addToTeam = async () => {
-      requestBody = {
-        ...requestBody,
-        project: {
-          ...requestBody.project,
-          team_members: [...projectMembers, userID],
-        },
-      };
-      await updateUserAndProject(requestBody);
-      fetchAllProjects();
-    };
-    
-    return (
-      <Modal visible={renderDecisionModal}>
+    await updateUserAndProject(requestBody);
+    fetchAllProjects();
+  };
+
+  return (
+    <Modal visible={renderDecisionModal}>
       <View>
         {ownerDecision ? (
           <Text>{`${first_name} has been added to your project!`}</Text>
-          ) : (
-            <>
+        ) : (
+          <>
             <Text>{`Reject ${first_name}`}</Text>
             <Button title="Yes, reject." onPress={rejectApplicant} />
             <Button
               title="Cancel"
               onPress={() => handleTextChange(false, 'renderDecisionModal', setReviewStatus)}
-              />
+            />
           </>
         )}
       </View>
@@ -249,8 +249,8 @@ const DecisionModal = ({ applicant, navigation, reviewStatus, setReviewStatus })
 
 const styles = StyleSheet.create({
   editContainer: {
-    alignItems: "flex-end",
-    marginRight: 5
+    alignItems: 'flex-end',
+    marginRight: 5,
   },
   editButton: {
     fontSize: 45,
@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 35,
     textAlign: 'center',
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
   },
   title: {
     color: 'white',
@@ -284,11 +284,11 @@ const styles = StyleSheet.create({
   },
   words: {
     color: 'white',
-    marginHorizontal:10
+    marginHorizontal: 10,
   },
   wordContainer: {
     backgroundColor: '#313131',
     marginHorizontal: 15,
     marginTop: 15,
-  }
+  },
 });
