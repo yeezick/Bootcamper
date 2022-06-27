@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 // screens
 import { AccountSettings } from '../screens/AccountSettings/AccountSettings';
 import { Applicants } from '../screens/Applicants/Applicants';
-import { CreateProject } from '../screens/CreateProject';
 import { EditProfile } from '../screens/EditProfile';
 import { EditProject } from '../screens/EditProject/EditProject';
 import { Landing } from '../screens/Landing';
@@ -66,7 +65,6 @@ export const SideMenu = () => {
         {/* Landing is at the top of the list therefore is loaded fist on application open & refresh*/}
         <Drawer.Screen name="AccountSettings" component={AccountSettings} />
         <Drawer.Screen name="Applicants" component={Applicants} />
-        <Drawer.Screen name="CreateProject" component={CreateProject} />
         <Drawer.Screen name="EditProfile" component={EditProfile} />
         <Drawer.Screen name="EditProject" component={EditProject} />
         <Drawer.Screen name="Messages" component={Messages} />

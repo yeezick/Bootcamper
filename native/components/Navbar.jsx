@@ -19,7 +19,7 @@ const userDashboard = 'Dashboard';
 
 const Tab = createBottomTabNavigator();
 
-export const NavBar = () => {
+export const Navbar = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -28,7 +28,7 @@ export const NavBar = () => {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             let rn = route.name;
-            
+
             if (rn === messages) {
               iconName = focused ? 'mail' : 'mail-outline';
             } else if (rn === rouletteName) {
@@ -39,7 +39,7 @@ export const NavBar = () => {
               iconName = focused ? 'person' : 'person-outline';
             } else if (rn === settings) {
               iconName = focused ? 'settings' : 'settings-outline';
-            } 
+            }
 
             return <Ionicons name={iconName} size={size} color={color} />;
           },

@@ -7,7 +7,6 @@ import { View } from 'react-native';
 import { uiActions } from '../../services/redux/slices/uiSlice';
 import { portfolioProjectForm } from '../../services/formData';
 import { addPortfolioProject } from '../../services/api/users.js';
-import { SingleActionButton } from '../Button/SingleActionButton';
 
 export const AddPortfolioProject = () => {
   const { _id: userId } = useSelector((state) => state.ui.user);
@@ -43,8 +42,6 @@ export const AddPortfolioProject = () => {
   const header = {
     title: 'Add Projects to Profile'
   };
-
-
 
   return (
     // className="add-portfolio-project"

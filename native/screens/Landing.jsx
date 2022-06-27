@@ -1,47 +1,52 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { SingleActionButton } from '../components/Button/SingleActionButton.jsx';
 
-export const Landing = () => {
+export const Landing = ({ navigation }) => {
   const routeToSignUp = {
-    path: 'SignUp',
-    text: 'Sign Up',
-    type: 'reroute',
+    handler() {
+      navigation.navigate('SignUp');
+    },
+    title: 'Sign Up',
   };
 
   const routeToSignIn = {
-    path: 'SignIn',
-    text: 'Sign in',
-    type: 'reroute',
+    handler() {
+      navigation.navigate('SignIn');
+    },
+    title: 'Sign In',
   };
 
   const routeToRoulette = {
-    path: 'Roulette',
-    text: 'Try it!',
-    type: 'reroute',
+    handler() {
+      navigation.navigate('Roulette');
+    },
+    title: 'Try it!',
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.placeholderImage}></View>
       <Text>Bootcamper</Text>
-      <SingleActionButton payload={routeToSignUp} />
-      <SingleActionButton payload={routeToSignIn} />
+      <SingleActionButton payload={routeToSignUp} type="long" />
+      <SingleActionButton payload={routeToSignIn} style="light" type="long" />
       <Text>Want to take a test drive first?</Text>
       <SingleActionButton payload={routeToRoulette} />
       <Text> Help | Contact</Text>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
+    backgroundColor: '#fff',
+    flex: 1,
+    height: '100%',
   },
   placeholderImage: {
     backgroundColor: 'black',
-    height: '60%',
+    height: 200,
     width: '100%',
   },
 });
