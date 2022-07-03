@@ -51,7 +51,7 @@ const ProjectBanner = ({ title, role, projectID, navigation }) => {
         })
       }
     >
-      <View>
+      <View style={styles.banner}>
         <Text>{title}</Text>
         <Text>{role}</Text>
       </View>
@@ -59,4 +59,15 @@ const ProjectBanner = ({ title, role, projectID, navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  banner: {
+    alignSelf: 'center',
+    backgroundColor: '#cccccc',
+    borderRadius: 5,
+    margin: 7,
+    padding: 7,
+    width: '90%',
+    height: 60,
+    justifyContent: 'center'
+  }
+});
