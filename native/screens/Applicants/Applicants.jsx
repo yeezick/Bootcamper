@@ -1,9 +1,8 @@
-import { Button, Text, TouchableOpacity, ScrollView, View } from 'react-native';
+import { Button, Text, TouchableOpacity, ScrollView, StyleSheet, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import uuid from 'react-native-uuid';
 import { handleToggle } from '../../services/utils/handlers';
-import { getOneProject } from '../../services/api/projects';
 
 export const Applicants = ({ navigation, route }) => {
   const soloProject = useSelector((state) => state.projects.allProjects[0]);
@@ -13,19 +12,16 @@ export const Applicants = ({ navigation, route }) => {
 
   useEffect(() => {
     const setProject = async () => {
-      let fetchedProject;
-
       if (!route.params) {
-        fetchedProject = soloProject;
+        setCurrProject(soloProject); // ultimately we shouldn't need this, since this screen only comes from SingleProject screen
       } else {
-        fetchedProject = await getOneProject(route.params.projectID); // must be tested
+        setCurrProject(route.params.project);
       }
 
       const filterRoles = (role) => {
-        return fetchedProject.interested_applicants?.filter((applicant) => applicant.role === role);
+        return route.params.applicants.filter((applicant) => applicant.role === role);
       };
 
-      setCurrProject(fetchedProject);
       setEngineers(() => filterRoles('Software Engineer'));
       setDesigners(() => filterRoles('UX Designer'));
     };
@@ -35,14 +31,12 @@ export const Applicants = ({ navigation, route }) => {
   if (currProject) {
     return (
       <ScrollView>
-        <Text>Applications</Text>
         <RoleList
           applicants={engineers}
           navigation={navigation}
-          role={'Software Developers'}
+          role={'Software Engineers'}
           currProject={currProject}
         />
-        <Text>{'\nJUST A DIVIDER \n DONT MIND ME \n DELETE ME AFTER \n'}</Text>
         <RoleList
           applicants={designers}
           navigation={navigation}
@@ -74,7 +68,7 @@ const RoleList = ({ applicants, navigation, role, currProject }) => {
     return (
       <View>
         {loadMore && <Button title="Show less" onPress={() => handleToggle(toggleLoadMore)} />}
-        <Text>{role}</Text>
+        <Text style={styles.largerText}>{role}</Text>
         {visibleList.map((applicant) => (
           <TouchableOpacity
             key={uuid.v4()}
@@ -87,17 +81,25 @@ const RoleList = ({ applicants, navigation, role, currProject }) => {
             }}
           >
             <View>
-              <View>
-                <Text>IMAGE</Text>
+              <View style={styles.applicantInfoContainer}>
+                <View style={styles.imagePlaceholder}></View>
+                <View style={styles.applicantInfo}>
+                  <Text
+                    style={styles.boldText}
+                  >{`${applicant.first_name} ${applicant.last_name}`}</Text>
+                  <Text style={styles.boldText}>{`${applicant.role}`}</Text>
+                </View>
               </View>
-              <Text>{`${applicant.first_name} ${applicant.last_name}`}</Text>
-              <Text>{applicant.role}</Text>
-              <Text>PERSONAL MESSAGE FROM APPLICANT</Text>
+              <Text
+                style={styles.applicantMessage}
+              >{`here is a personal message from ${applicant.first_name} about their application for this project and expressing their interest`}</Text>
             </View>
           </TouchableOpacity>
         ))}
         {!loadMore && applicants.length > 3 && (
-          <Button title="Load more..." onPress={() => handleToggle(toggleLoadMore)} />
+          <View style={styles.buttonContainer}>
+            <Button title="Load more..." onPress={() => handleToggle(toggleLoadMore)} />
+          </View>
         )}
       </View>
     );
@@ -105,3 +107,46 @@ const RoleList = ({ applicants, navigation, role, currProject }) => {
     return <Text>Loading or no applicants.</Text>;
   }
 };
+
+const styles = StyleSheet.create({
+  applicantInfo: {
+    display: 'flex',
+    flexDirection: 'row',
+    fontSize: 14,
+    justifyContent: 'space-between',
+    paddingLeft: 10,
+    width: '85%',
+  },
+  applicantInfoContainer: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  applicantMessage: {
+    textAlign: 'justify',
+    paddingRight: 25,
+    paddingLeft: 40,
+  },
+  boldText: {
+    fontWeight: 'bold',
+  },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    marginBottom: 40,
+    paddingLeft: 10,
+  },
+  imagePlaceholder: {
+    backgroundColor: '#c4c4c4',
+    borderRadius: 20,
+    height: 40,
+    width: 40,
+  },
+  largerText: {
+    color: '#505050',
+    fontSize: 18,
+    marginLeft: 15,
+    marginRight: 15,
+  },
+});
