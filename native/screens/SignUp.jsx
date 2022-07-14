@@ -5,6 +5,7 @@ import { uiActions } from '../services/redux/slices/uiSlice';
 import { checkEmailAuth, verify } from '../services/api/users.js';
 import { handleTextChange } from '../services/utils/handlers';
 import { StyleSheet, Text, TextInput, View, TouchableOpacity, Alert, Modal } from 'react-native';
+import { Header } from '../components/Header/Header.jsx';
 
 export const SignUp = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -98,10 +99,10 @@ export const SignUp = ({ navigation }) => {
           {/* Replace these with SingleButton or DoubleButton component*/}
           <TouchableOpacity
             style={styles.singleButton}
-            onPress={() => handleReroute('EditProfile')}
+            onPress={() => handleReroute('CreateProfile')}
             color="white"
           >
-            <Text style={styles.buttonText}>Edit Profile</Text>
+            <Text style={styles.buttonText}>Create Profile</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.singleButton}
@@ -112,7 +113,7 @@ export const SignUp = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </Modal>
-      <Text style={styles.title}>Create an Account</Text>
+      <Header title="Sign Up" />
       {/* Replace with Form componenet? */}
       <View style={styles.inputContainer}>
         <Text>Name</Text>

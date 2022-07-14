@@ -13,9 +13,12 @@ export const AddPortfolioProject = ({modalVisible, setModalVisible }) => {
   const dispatch = useDispatch();
   const [newProject, setNewProject] = useState({
     image: 'https://pbs.twimg.com/media/E5KGFT9X0AQzzaR?format=jpg&name=240x240',
-    project_description: '',
-    project_link: '',
     project_title: '',
+    role: '',
+    tools: '',
+    project_description: '',
+    // project_link: '',
+    // project_title: '',
     project_id: uuid.v4(),
   });
   // ideally updates the database on each new project without slowing the app down
@@ -38,14 +41,13 @@ export const AddPortfolioProject = ({modalVisible, setModalVisible }) => {
   };
 
   const header = {
-    title: 'Portfolio Projects',
-    text: ' Add your personal projects here. You can add as many as you want, but to avoid cluttering we recommend a maximum of 3.',
+    title: 'Add Projects to Profile'
   };
 
   return (
     // className="add-portfolio-project"
     <View>
-      <Header headerTitle={header.title} headerText={header.text} />
+      <Header title={header.title} />
       <Form
         formData={portfolioProjectForm}
         formState={[newProject, setNewProject, handleNewProject]}

@@ -19,7 +19,7 @@ import Tool from '../models/tool.js';
 //basic CRUD functions:
 export const getAllProjects = async (req, res) => {
   try {
-    const projects = await Project.find().populate([{path: 'team_members', model: User}, {path: 'tools', model: Tool}, {path: 'interested_applicants', model: User}]); // .populate({path: "interested_applicants",model: User,  });
+    const projects = await Project.find().populate({path: 'tools', model: Tool}); // .populate({path: "interested_applicants",model: User,  });
     res.json(projects);
   } catch (error) {
     console.log(error.message);
@@ -30,7 +30,7 @@ export const getAllProjects = async (req, res) => {
 export const getOneProject = async (req, res) => {
   try {
     const { id } = req.params;
-    const project = await Project.findById(id).populate([{path: 'tools', model: Tool}, {path: 'interested_applicants', model: User }, {path: 'team_members', model: User}]) //.populate({path:'interested_applicants', model: User});
+    const project = await Project.findById(id).populate({path: 'tools', model: Tool}) 
     if (project) {
       return res.json(project);
     }
@@ -83,12 +83,12 @@ export const deleteProject = async (req, res) => {
 
 export const updateUserAndProject = async (req, res) => {
   try {
-    const { projectId, projectUpdate } = req.body.project;
-    const { userUpdate, userId } = req.body.user;
-    const project = await Project.findByIdAndUpdate(projectId, projectUpdate, {
+    const { projectID, projectUpdate } = req.body.project;
+    const { userUpdate, userID } = req.body.user;
+    const project = await Project.findByIdAndUpdate(projectID, projectUpdate, {
       new: true,
     }); // .populate({ path: "team_members", model: User }); //review
-    const user = await User.findByIdAndUpdate(userId, userUpdate, {
+    const user = await User.findByIdAndUpdate(userID, userUpdate, {
       new: true,
     });
     res.status(200).json({ message: "Success!", user, project });

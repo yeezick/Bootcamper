@@ -6,6 +6,7 @@ import { uiActions } from '../services/redux/slices/uiSlice';
 
 // Native Components
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Alert } from 'react-native';
+import { Header } from '../components/Header/Header.jsx';
 
 export const SignIn = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -45,7 +46,7 @@ export const SignIn = ({ navigation }) => {
 
   return (
     <View style={styles.accountForms}>
-      <Text style={styles.title}>Welcome Back!</Text>
+      <Header title="Log In" />
       <View style={styles.inputContainer}>
         <Text>Email</Text>
         <TextInput

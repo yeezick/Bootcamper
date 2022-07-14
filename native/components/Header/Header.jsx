@@ -1,11 +1,20 @@
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
-export const Header = ({ headerTitle, headerText }) => {
+export const Header = ({ title, subtext }) => {
   return (
-    // classname header, title, text
     <View>
-      <Text>{headerTitle}</Text>
-      <Text>{headerText}</Text>
+      <Text style={styles.title}>{title}</Text>
+      <Text>{subtext}</Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  title: {
+    // fontFamily: 'TBD'
+    alignSelf: 'center',
+    fontSize: 20,
+    fontWeight: '700',
+    margin: 10,
+  }
+})

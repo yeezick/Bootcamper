@@ -5,7 +5,6 @@ import { AddPortfolioProject } from '../components/PortfolioCard/AddPortfolioPro
 import { ShowPortfolioProjects } from '../components/PortfolioCard/ShowPortfolioProjects';
 import { Form } from '../components/Form/Form';
 import { Header } from '../components/Header/Header';
-// import { Modal } from '../components/Modal/ModalDep';
 
 import { uiActions } from '../services/redux/slices/uiSlice';
 import { updateUser } from '../services/api/users';
@@ -27,7 +26,7 @@ export const EditProfile = ({ navigation, route }) => {
   return (
     //  edit profile
     <ScrollView>
-      <Header headerTitle={header.title} headerText={header.text} />
+      <Header title={header.title} subtext={header.text} />
       <AboutUser />
       {modalVisible && <AddPortfolioModal modalVisible={modalVisible} setModalVisible={setModalVisible} />}
       <Pressable style={[styles.button, styles.buttonOpen]} onPress={() => setModalVisible(true)}>
@@ -157,5 +156,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-// <--------------------------------->

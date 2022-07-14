@@ -8,9 +8,10 @@
  * @constraint All arguments must belong to an existing OBJECT in state.
  */
 // TODO: rename this function to 'handleObjectChange'
-export const handleTextChange = (value, property, setterFunction) => {
+// TODO: args would be more intuitive as: propToUpdate, newValue, setterFunction
+export const handleTextChange = (newValue, propertyToUpdate, setterFunction) => {
   setterFunction((state) => {
-    return { ...state, [property]: value };
+    return { ...state, [propertyToUpdate]: newValue };
   });
 };
 

@@ -62,8 +62,7 @@ export const EditProject = ({ navigation, route }) => {
 
   const updateProjectPayload = {
     handler: handleSubmit,
-    text: buttonText,
-    type: 'api-reroute',
+    title: buttonText,
   };
 
   if (!loadedProject) {
@@ -78,7 +77,7 @@ export const EditProject = ({ navigation, route }) => {
           navigation.navigate('SingleProject');
         }}
       />
-      <Header headerText={header.text} headerTitle={header.title} />
+      <Header subtext={header.text} title={header.title} />
       <View>
         <Text>Project Title:</Text>
         <TextInput
@@ -102,7 +101,7 @@ export const EditProject = ({ navigation, route }) => {
         />
 
         <EditTimeCommitment projectInfo={projectInfo} setProjectInfo={setProjectInfo} />
-        <SingleActionButton payload={updateProjectPayload} />
+        <SingleActionButton payload={updateProjectPayload} type="long" />
       </View>
     </ScrollView>
   );

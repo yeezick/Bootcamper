@@ -57,6 +57,9 @@ export const uiSlice = createSlice({
         ];
       }
     },
+    resetUser(state) {
+      state.user = '';
+    },
   },
 });
 

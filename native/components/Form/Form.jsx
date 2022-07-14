@@ -1,16 +1,15 @@
-import { handleTextChange } from '../../services/utils/handlers';
+import { handleTextChange, handleToggle } from '../../services/utils/handlers';
 import { SingleActionButton } from '../Button/SingleActionButton';
-import { Text, TextInput, View } from 'react-native';
+import { Text, TextInput, View, Switch } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
 export const Form = ({ formData, formState }) => {
-  const { button, handlers, inputs } = formData;
+  const { button, inputs } = formData;
   const [stateObject, setterFunction, handleSubmit] = formState;
 
   const submitForm = {
     handler: handleSubmit,
-    text: button.text,
-    type: 'api',
+    title: button.text,
   };
 
   return (
@@ -29,6 +28,11 @@ export const Form = ({ formData, formState }) => {
                 <Picker.Item key={`${input.name}-${option}`} label={option} value={option} />
               ))}
             </Picker>
+          ) : input.type === 'switch' ? (
+            <Switch
+              value={stateObject[input.name]}
+              onValueChange={(e) => handleTextChange(e, input.name, setterFunction)}
+            />
           ) : (
             <TextInput
               placeholder={input.name}
@@ -38,7 +42,7 @@ export const Form = ({ formData, formState }) => {
           )}
         </View>
       ))}
-      <SingleActionButton text={button.text} payload={submitForm} />
+      <SingleActionButton payload={submitForm} />
     </View>
   );
 };
