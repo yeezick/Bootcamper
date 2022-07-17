@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import uuid from 'react-native-uuid';
-import { Button, Text, TextInput, View } from 'react-native';
+import { Button, Image, StyleSheet, Text, TextInput, View } from 'react-native';
 import { handleTextChange, handleToggle } from '../../services/utils/handlers';
 
 export const SinglePortfolioProject = ({ updateEditedProject, project }) => {
@@ -47,14 +47,15 @@ const DefaultView = ({ currProject }) => {
   const { image, project_description, project_link, project_title } = currProject;
 
   return (
-    <View>
-      <Text>IMAGE: PORTFOLIO PROJECT</Text>
-      {/* className="portfolio-content" */}
+    <View style={styles.default}>
       <View>
-        <Text>{project_title}</Text>
+        <Text style={styles.title}>{project_title}</Text>
         <Text>{project_description}</Text>
         <Text>{project_link}</Text>
       </View>
+      {/* <Text>IMAGE: PORTFOLIO PROJECT</Text> */}
+      <Image style={styles.image}></Image>
+      {/* className="portfolio-content" */}
     </View>
   );
 };
@@ -124,3 +125,28 @@ const EditableProject = ({
     </View>
   );
 };
+
+
+const styles = StyleSheet.create({
+  default: {
+    backgroundColor: '#C4C4C4',
+    borderRadius: 3,
+    margin: 10,
+    padding: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignContent: 'center',
+  },
+  image: {
+    backgroundColor: '#313131',
+    borderRadius: 50,
+    width: 50,
+    height: 50,
+    alignSelf: 'center',
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 5,
+  }
+})
