@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ShowPortfolioProjects } from '../components/PortfolioCard/ShowPortfolioProjects.jsx';
 import { uiActions } from '../services/redux/slices/uiSlice';
 import { getOneUser } from '../services/api/users';
-import { Button, Image, Modal, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { handleTextChange } from '../services/utils/handlers.js';
 import { updateUserAndProject } from '../services/api/projects.js';
 import { fetchAllProjects } from '../services/redux/actions/projectActions.js';
+import { Octicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export const UserProfile = ({ route, navigation }) => {
   const [reviewStatus, setReviewStatus] = useState({
@@ -88,7 +90,14 @@ export const UserProfile = ({ route, navigation }) => {
   return (
     <ScrollView contentContainerStyle={styles.screenContainer}>
       {reduxUser._id === currUser._id && (
-        <Button title="EDIT PROFILE" onPress={handleEditMode} />
+        // <Button title="EDIT PROFILE" onPress={handleEditMode} />
+        <TouchableOpacity style={styles.iconButtonContainer} onPress={handleEditMode} >
+          <View style={styles.iconButton}>
+            <Octicons name="pencil" size={20} />
+          </View>
+          <Text style={styles.buttonText}>EDIT PROFILE</Text>
+        </TouchableOpacity>
+
       )}
 
       {ownerViewingApplicant && <OwnerOptions setReviewStatus={setReviewStatus} />}
@@ -234,17 +243,39 @@ const DecisionModal = ({ applicant, navigation, reviewStatus, setReviewStatus })
 
 
 const styles = StyleSheet.create({
+  buttonText: {
+    fontSize: 12,
+  },
+  iconButton: {
+    borderWidth: 2,
+    borderRadius: 100,
+    padding: 5,
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 5,
+    marginHorizontal: 15,
+    color: 'black',
+  },
+  iconButtonContainer: {
+    alignItems: 'center',
+    alignSelf: 'flex-end',
+    marginHorizontal: 10,
+    marginTop: 5,
+  },
   profilePhoto: {
     backgroundColor: '#C4C4C4',
     borderRadius: 80,
-    width: 130,
-    height: 130,
+    width: 140,
+    height: 140,
+    top: -50,
   },
   screenContainer: {
     alignItems: 'center',
     width: '100%',
     height: '100%',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     margin: 0
   },
   sectionContainer: {
@@ -266,7 +297,8 @@ const styles = StyleSheet.create({
   userHeader: {
     justifyContent: 'center',
     alignContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    top: -40,
   },
   userName: {
     fontSize: 20,
