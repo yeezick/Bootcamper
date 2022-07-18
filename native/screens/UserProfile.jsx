@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ShowPortfolioProjects } from '../components/PortfolioCard/ShowPortfolioProjects.jsx';
 import { uiActions } from '../services/redux/slices/uiSlice';
 import { getOneUser } from '../services/api/users';
-import { Button, Modal, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, Modal, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { handleTextChange } from '../services/utils/handlers.js';
 import { updateUserAndProject } from '../services/api/projects.js';
 import { fetchAllProjects } from '../services/redux/actions/projectActions.js';
@@ -86,9 +86,9 @@ export const UserProfile = ({ route, navigation }) => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={styles.screenContainer}>
       {reduxUser._id === currUser._id && (
-        <Button title="toggle edit mode" onPress={handleEditMode} />
+        <Button title="EDIT PROFILE" onPress={handleEditMode} />
       )}
 
       {ownerViewingApplicant && <OwnerOptions setReviewStatus={setReviewStatus} />}
@@ -101,29 +101,28 @@ export const UserProfile = ({ route, navigation }) => {
           setReviewStatus={setReviewStatus}
         />
       )}
-      <View>
-        <Text>
-          {first_name} {last_name}
-        </Text>
+      <Image style={styles.profilePhoto}/>
+      <View style={styles.userHeader}>
+        <Text style={styles.userName}>{first_name} {last_name}</Text>
         <Text>{role}</Text>
       </View>
 
-      <Text> I AM AN IMAGE</Text>
 
-      <View>
+      {/* <View>
         <Text>{email}</Text>
         <Text>PORTFOLIO LINK</Text>
-      </View>
+      </View> */}
 
-      <View>
-        <Text>{about}</Text>
+      <View style={styles.sectionContainer}>
+        <Text style={styles.title}>ABOUT USER</Text>
+        <Text style={styles.text}>{about}</Text>
       </View>
 
       <View>
         <Text>{fun_fact}</Text>
       </View>
 
-      <ShowPortfolioProjects currUser={currUser} />
+      <ShowPortfolioProjects currUser={currUser} navigation={navigation}/>
     </ScrollView>
   );
 };
@@ -232,3 +231,46 @@ const DecisionModal = ({ applicant, navigation, reviewStatus, setReviewStatus })
     </Modal>
   );
 };
+
+
+const styles = StyleSheet.create({
+  profilePhoto: {
+    backgroundColor: '#C4C4C4',
+    borderRadius: 80,
+    width: 130,
+    height: 130,
+  },
+  screenContainer: {
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    justifyContent: 'space-between',
+    margin: 0
+  },
+  sectionContainer: {
+    backgroundColor: '#2F3030',
+    borderRadius: 3,
+    padding: 10,
+    width: 340
+  },
+  text: {
+    color: 'white',
+    marginVertical: 5,
+    fontSize: 12,
+  },
+  title: {
+    color: 'white',
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+  userHeader: {
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center'
+  },
+  userName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    margin: 5,
+  }
+})

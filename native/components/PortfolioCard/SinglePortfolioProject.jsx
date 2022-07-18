@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import uuid from 'react-native-uuid';
-import { Button, Image, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { handleTextChange, handleToggle } from '../../services/utils/handlers';
 
 export const SinglePortfolioProject = ({ updateEditedProject, project }) => {
@@ -47,7 +47,7 @@ const DefaultView = ({ currProject }) => {
   const { image, project_description, project_link, project_title } = currProject;
 
   return (
-    <View style={styles.default}>
+    <TouchableOpacity style={styles.default} onPress={() => (project_link)}>
       <View>
         <Text style={styles.title}>{project_title}</Text>
         <Text>{project_description}</Text>
@@ -56,7 +56,7 @@ const DefaultView = ({ currProject }) => {
       {/* <Text>IMAGE: PORTFOLIO PROJECT</Text> */}
       <Image style={styles.image}></Image>
       {/* className="portfolio-content" */}
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -64,7 +64,7 @@ const EditModeView = ({ currProject, toggleEditProject }) => {
   const { image, project_description, project_link, project_title } = currProject;
 
   return (
-    <View>
+    <View style={styles.default}>
       <Button
         style={{ width: '45px' }}
         title="edit project"
@@ -72,13 +72,15 @@ const EditModeView = ({ currProject, toggleEditProject }) => {
           handleToggle(toggleEditProject);
         }}
       />
-      <Text>IMAGE: PORTFOLIO PROJECT</Text>
+{/*       
+      <Text>IMAGE: PORTFOLIO PROJECT</Text> */}
       {/* className="portfolio-content" */}
       <View>
-        <Text>{project_title}</Text>
+        <Text style={styles.title}>{project_title}</Text>
         <Text>{project_description}</Text>
         <Text>{project_link}</Text>
       </View>
+      <Image style={styles.image}></Image>
     </View>
   );
 };
@@ -131,11 +133,13 @@ const styles = StyleSheet.create({
   default: {
     backgroundColor: '#C4C4C4',
     borderRadius: 3,
-    margin: 10,
+    // margin: 10,
+    marginVertical: 8,
     padding: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignContent: 'center',
+    width: 320
   },
   image: {
     backgroundColor: '#313131',
