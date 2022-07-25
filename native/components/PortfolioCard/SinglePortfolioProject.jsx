@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   title: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '600',
     marginBottom: 5,
   }

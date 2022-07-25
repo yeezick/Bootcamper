@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button, ScrollView, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, Text, View, Button, ScrollView, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 
 export const UserDashboard = ({ navigation }) => {
@@ -22,9 +22,10 @@ export const UserDashboard = ({ navigation }) => {
 
   return (
     <ScrollView>
-      <Text>Bootcamper logo Placeholder</Text>
-      <View>
-        <Text>My Projects:</Text>
+      <View style={styles.fullPageContainer}>
+      <Text style={styles.logo}>Bootcamper</Text>
+      <View style={styles.section}>
+        <Text style={styles.subtitle}>My Projects:</Text>
         {myProjects.map((project, idx) => {
           return (
             <ProjectBanner
@@ -38,6 +39,7 @@ export const UserDashboard = ({ navigation }) => {
         })}
       </View>
       <Button title="Start a Project" onPress={() => navigation.navigate('CreateProject')} />
+      </View>
     </ScrollView>
   );
 };
@@ -52,8 +54,11 @@ const ProjectBanner = ({ title, role, projectID, navigation }) => {
       }
     >
       <View style={styles.banner}>
-        <Text>{title}</Text>
-        <Text>{role}</Text>
+        <View>
+          <Text style={styles.title}>{title}</Text>
+          <Text>{role}</Text>
+        </View>
+        <Image style={styles.image}></Image>
       </View>
     </TouchableOpacity>
   );
@@ -65,9 +70,35 @@ const styles = StyleSheet.create({
     backgroundColor: '#cccccc',
     borderRadius: 5,
     margin: 7,
-    padding: 7,
+    padding: 10,
     width: '90%',
-    height: 60,
-    justifyContent: 'center'
+    // height: 60,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+
+  }, 
+  image: {
+    backgroundColor: '#313131',
+    borderRadius: 50,
+    width: 50,
+    height: 50,
+    alignSelf: 'center',
+  },
+  logo: {
+    alignSelf: 'center',
+    fontSize: 24,
+    fontWeight: "900",
+    margin: 20,
+  },
+  subtitle: {
+    marginHorizontal: 20,
+    marginVertical: 15,
+    fontSize: 24,
+    fontWeight: '600',
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: '600',
+    marginBottom: 5,
   }
 });
