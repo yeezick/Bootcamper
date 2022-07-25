@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Image, StyleSheet, Text, View, Button, ScrollView, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, Text, View, Button, ScrollView, TouchableOpacity, Touchable } from 'react-native';
 import { useSelector } from 'react-redux';
+import { SingleActionButton } from '../components/Button/SingleActionButton';
 
 export const UserDashboard = ({ navigation }) => {
   const { allProjects } = useSelector((state) => state.projects);
@@ -20,6 +21,11 @@ export const UserDashboard = ({ navigation }) => {
     setMyProjects(filterProjects(allProjects));
   }, [user]);
 
+  const startProjectPayload = {
+    handler: () => navigation.navigate('AddPortfolioProjects'),
+    title: 'Start a Project'
+  }
+
   return (
     <ScrollView>
       <View style={styles.fullPageContainer}>
@@ -38,7 +44,14 @@ export const UserDashboard = ({ navigation }) => {
           );
         })}
       </View>
-      <Button title="Start a Project" onPress={() => navigation.navigate('CreateProject')} />
+      {/* <TouchableOpacity onPress={() => navigation.navigate('CreateProject')}>
+        <Text>Start a Project</Text>
+      </TouchableOpacity> */}
+      <View style={styles.centered}>
+        <SingleActionButton  type="long" style="light" payload={startProjectPayload}></SingleActionButton>
+      </View>
+
+      {/* <Button title="Start a Project" onPress={() => navigation.navigate('AddPortfolioProjects')} /> */}
       </View>
     </ScrollView>
   );
@@ -75,8 +88,11 @@ const styles = StyleSheet.create({
     // height: 60,
     justifyContent: 'space-between',
     flexDirection: 'row',
-
   }, 
+  centered: {
+    alignSelf: 'center',
+    marginVertical: 30,
+  },
   image: {
     backgroundColor: '#313131',
     borderRadius: 50,
