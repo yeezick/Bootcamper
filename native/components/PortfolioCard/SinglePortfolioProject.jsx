@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import uuid from 'react-native-uuid';
 import { Button, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { handleTextChange, handleToggle } from '../../services/utils/handlers';
+import { Octicons } from '@expo/vector-icons';
 
 export const SinglePortfolioProject = ({ updateEditedProject, project }) => {
   const [currProject, setCurrProject] = useState({
@@ -65,6 +66,12 @@ const EditModeView = ({ currProject, toggleEditProject }) => {
 
   return (
     <View style={styles.default}>
+      <TouchableOpacity style={styles.iconButtonContainer} onPress={handleToggle(toggleEditProject)} >
+          <View style={styles.iconButton}>
+            <Octicons name="pencil" size={20} />
+          </View>
+          <Text style={styles.buttonText}>EDIT PROFILE</Text>
+        </TouchableOpacity>
       <Button
         style={{ width: '45px' }}
         title="edit project"
@@ -140,6 +147,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignContent: 'center',
     width: 320
+  },
+  iconButton: {
+    borderWidth: 2,
+    borderRadius: 100,
+    padding: 5,
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 5,
+    marginHorizontal: 15,
+    color: 'black',
   },
   image: {
     backgroundColor: '#313131',

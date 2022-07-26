@@ -44,14 +44,9 @@ export const UserDashboard = ({ navigation }) => {
           );
         })}
       </View>
-      {/* <TouchableOpacity onPress={() => navigation.navigate('CreateProject')}>
-        <Text>Start a Project</Text>
-      </TouchableOpacity> */}
       <View style={styles.centered}>
         <SingleActionButton  type="long" style="light" payload={startProjectPayload}></SingleActionButton>
       </View>
-
-      {/* <Button title="Start a Project" onPress={() => navigation.navigate('AddPortfolioProjects')} /> */}
       </View>
     </ScrollView>
   );
@@ -109,7 +104,7 @@ const styles = StyleSheet.create({
   subtitle: {
     marginHorizontal: 20,
     marginVertical: 15,
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: '600',
   },
   title: {
