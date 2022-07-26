@@ -5,7 +5,7 @@ import { Button, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } fr
 import { handleTextChange, handleToggle } from '../../services/utils/handlers';
 import { Octicons } from '@expo/vector-icons';
 
-export const SinglePortfolioProject = ({ updateEditedProject, project }) => {
+export const SinglePortfolioProject = ({ updateEditedProject, project, isEditable }) => {
   const [currProject, setCurrProject] = useState({
     image: 'https://pbs.twimg.com/media/E5KGFT9X0AQzzaR?format=jpg&name=240x240',
     project_description: '',
@@ -14,7 +14,7 @@ export const SinglePortfolioProject = ({ updateEditedProject, project }) => {
     project_id: uuid.v4(),
   });
   const [editProject, toggleEditProject] = useState(false);
-  const { editMode, user } = useSelector((state) => state.ui);
+  // const { editMode, user } = useSelector((state) => state.ui);
 
   useEffect(() => {
     const onLoad = () => {
@@ -28,19 +28,24 @@ export const SinglePortfolioProject = ({ updateEditedProject, project }) => {
     handleToggle(toggleEditProject);
   };
 
-  if (!editMode) {
+  if (!isEditable) {
     return <DefaultView currProject={currProject} />;
-  } else if (editMode && editProject) {
+  } 
+  // else if (isEditable && editProject) {
+  //   return (
+  //     <EditableProject
+  //       currProject={currProject}
+  //       handleProjectUpdate={handleProjectUpdate}
+  //       setCurrProject={setCurrProject}
+  //       toggleEditProject={toggleEditProject}
+  //     />
+  //   );
+  // } 
+  else {
     return (
-      <EditableProject
-        currProject={currProject}
-        handleProjectUpdate={handleProjectUpdate}
-        setCurrProject={setCurrProject}
-        toggleEditProject={toggleEditProject}
-      />
-    );
-  } else {
-    return <EditModeView currProject={currProject} toggleEditProject={toggleEditProject} />;
+      <EditModeView 
+        currProject={currProject} 
+        toggleEditProject={() => toggleEditProject()} />)
   }
 };
 
@@ -50,6 +55,7 @@ const DefaultView = ({ currProject }) => {
   return (
     <TouchableOpacity style={styles.default} onPress={() => (project_link)}>
       <View>
+        <Text></Text>
         <Text style={styles.title}>{project_title}</Text>
         <Text>{project_description}</Text>
         <Text>{project_link}</Text>
@@ -70,15 +76,15 @@ const EditModeView = ({ currProject, toggleEditProject }) => {
           <View style={styles.iconButton}>
             <Octicons name="pencil" size={20} />
           </View>
-          <Text style={styles.buttonText}>EDIT PROFILE</Text>
+          <Text style={styles.buttonText}>EDIT PROJECT</Text>
         </TouchableOpacity>
-      <Button
+      {/* <Button
         style={{ width: '45px' }}
         title="edit project"
         onPress={() => {
           handleToggle(toggleEditProject);
         }}
-      />
+      /> */}
 {/*       
       <Text>IMAGE: PORTFOLIO PROJECT</Text> */}
       {/* className="portfolio-content" */}
@@ -101,7 +107,6 @@ const EditableProject = ({
   const { image, project_description, project_link, project_title } = currProject;
 
   return (
-    // className="edit-portfolio-project"
     <View>
       <Button title="delete" onPress={() => handleProjectUpdate('remove project')} />
       <Button title="cancel" onPress={() => handleToggle(toggleEditProject)} />

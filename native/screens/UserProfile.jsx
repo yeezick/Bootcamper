@@ -130,8 +130,8 @@ export const UserProfile = ({ route, navigation }) => {
         <Text>{fun_fact}</Text>
       </View>
 
-      <ShowPortfolioProjects currUser={currUser} navigation={navigation}/>
-      
+      <ShowPortfolioProjects currUser={currUser} navigation={navigation} editMode={false}/>
+
     </ScrollView>
   );
 };

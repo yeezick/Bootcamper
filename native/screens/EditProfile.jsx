@@ -26,7 +26,7 @@ export const EditProfile = ({ navigation, route }) => {
       <Header headerTitle={header.title} headerText={header.text} />
       <AboutUser />
       <AddPortfolioProject />
-      <ShowPortfolioProjects currUser={reduxUser} />
+      <ShowPortfolioProjects currUser={reduxUser} editMode={true}/>
       <Button title="start collaborating" onPress={() => navigation.navigate('Roulette')} />
       <Button
         title="back to user profile"

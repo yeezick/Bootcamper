@@ -5,7 +5,7 @@ import { uiActions } from '../../services/redux/slices/uiSlice';
 import { updateUser } from '../../services/api/users';
 import { useEffect } from 'react';
 
-export const ShowPortfolioProjects = ({ currUser, navigation }) => {
+export const ShowPortfolioProjects = ({ currUser, navigation, editMode }) => {
   const dispatch = useDispatch();
 
   const updateEditedProject = async (editedProject, updateType) => {
@@ -37,6 +37,7 @@ export const ShowPortfolioProjects = ({ currUser, navigation }) => {
             project={project}
             updateEditedProject={updateEditedProject}
             navigation={navigation}
+            isEditable={editMode}
           />
         ))}
       </View>
