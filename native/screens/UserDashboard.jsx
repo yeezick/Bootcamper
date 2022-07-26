@@ -29,38 +29,36 @@ export const UserDashboard = ({ navigation }) => {
   return (
     <ScrollView>
       <View style={styles.fullPageContainer}>
-      <Text style={styles.logo}>Bootcamper</Text>
-      <View style={styles.section}>
-        <Text style={styles.subtitle}>My Projects:</Text>
-        {myProjects.map((project, idx) => {
-          return (
-            <ProjectBanner
-              key={`myProject-${project._id}`}
-              navigation={navigation}
-              projectID={project._id}
-              role={project.owner === userId ? 'Project Owner' : 'Collaborator'}
-              title={project.title}
-            />
-          );
-        })}
-      </View>
-      <View style={styles.centered}>
-        <SingleActionButton  type="long" style="light" payload={startProjectPayload}></SingleActionButton>
-      </View>
+        <Text style={styles.logo}>Bootcamper</Text>
+        <View style={styles.section}>
+          <Text style={styles.subtitle}>My Projects:</Text>
+            {myProjects.map((project) => {
+              return (
+                <BootcamperProjectBanner
+                  key={`myProject-${project._id}`}
+                  navigation={navigation}
+                  projectID={project._id}
+                  role={project.owner === userId ? 'Project Owner' : 'Collaborator'}
+                  title={project.title}
+                />
+              );
+            })}
+        </View>
+        <View style={styles.centered}>
+          <SingleActionButton type="long" style="light" payload={startProjectPayload}/>
+        </View>
       </View>
     </ScrollView>
   );
 };
 
-const ProjectBanner = ({ title, role, projectID, navigation }) => {
+const BootcamperProjectBanner = ({ title, role, projectID, navigation  }) => {
   return (
     <TouchableOpacity
       onPress={() =>
         navigation.navigate('SingleProject', {
           projectID: projectID,
-        })
-      }
-    >
+        })}>
       <View style={styles.banner}>
         <View>
           <Text style={styles.title}>{title}</Text>
@@ -80,7 +78,6 @@ const styles = StyleSheet.create({
     margin: 7,
     padding: 10,
     width: '90%',
-    // height: 60,
     justifyContent: 'space-between',
     flexDirection: 'row',
   }, 
