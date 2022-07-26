@@ -30,7 +30,7 @@ export const ShowPortfolioProjects = ({ currUser, navigation }) => {
     currUser?.portfolio_projects?.length > 0 && (
       // className="show-portfolio-wrapper
       <View style={styles.sectionContainer}>
-        <Text style={styles.title}>PORTFOLIO</Text>
+        <Text style={styles.title}>PORTFOLIO PROJECTS</Text>
         {currUser?.portfolio_projects?.map((project, idx) => (
           <SinglePortfolioProject
             key={`portfolioProject-${idx}`}

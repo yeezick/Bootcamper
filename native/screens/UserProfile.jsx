@@ -3,12 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ShowPortfolioProjects } from '../components/PortfolioCard/ShowPortfolioProjects.jsx';
 import { uiActions } from '../services/redux/slices/uiSlice';
 import { getOneUser } from '../services/api/users';
-import { Button, Image, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, Image, Modal, ScrollView, StyleSheet, Text, Linking, TouchableOpacity, View } from 'react-native';
 import { handleTextChange } from '../services/utils/handlers.js';
 import { updateUserAndProject } from '../services/api/projects.js';
 import { fetchAllProjects } from '../services/redux/actions/projectActions.js';
 import { Octicons } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export const UserProfile = ({ route, navigation }) => {
   const [reviewStatus, setReviewStatus] = useState({
@@ -97,7 +96,6 @@ export const UserProfile = ({ route, navigation }) => {
           </View>
           <Text style={styles.buttonText}>EDIT PROFILE</Text>
         </TouchableOpacity>
-
       )}
 
       {ownerViewingApplicant && <OwnerOptions setReviewStatus={setReviewStatus} />}
@@ -107,8 +105,7 @@ export const UserProfile = ({ route, navigation }) => {
           applicant={currUser}
           navigation={navigation}
           reviewStatus={reviewStatus}
-          setReviewStatus={setReviewStatus}
-        />
+          setReviewStatus={setReviewStatus} />
       )}
       <Image style={styles.profilePhoto}/>
       <View style={styles.userHeader}>
@@ -116,22 +113,25 @@ export const UserProfile = ({ route, navigation }) => {
         <Text>{role}</Text>
       </View>
 
-
-      {/* <View>
-        <Text>{email}</Text>
-        <Text>PORTFOLIO LINK</Text>
-      </View> */}
-
       <View style={styles.sectionContainer}>
         <Text style={styles.title}>ABOUT USER</Text>
         <Text style={styles.text}>{about}</Text>
       </View>
+
+      <TouchableOpacity 
+        style={styles.sectionContainer} 
+        onPress={() => Linking.openURL(validUrl)}>
+        <Text style={styles.title}>
+          VISIT {first_name.toUpperCase()} {last_name.toUpperCase()}'S PORTFOLIO
+        </Text>
+      </TouchableOpacity>
 
       <View>
         <Text>{fun_fact}</Text>
       </View>
 
       <ShowPortfolioProjects currUser={currUser} navigation={navigation}/>
+      
     </ScrollView>
   );
 };
@@ -274,15 +274,14 @@ const styles = StyleSheet.create({
   screenContainer: {
     alignItems: 'center',
     width: '100%',
-    height: '100%',
-    // justifyContent: 'space-between',
     margin: 0
   },
   sectionContainer: {
     backgroundColor: '#2F3030',
     borderRadius: 3,
     padding: 10,
-    width: 340
+    width: 340,
+    marginTop: 15,
   },
   text: {
     color: 'white',
