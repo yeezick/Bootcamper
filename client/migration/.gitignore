@@ -5,6 +5,12 @@
 /.pnp
 .pnp.js
 
+# Expo
+.expo/
+web-build/
+dist/
+
+
 # testing
 /coverage
 
