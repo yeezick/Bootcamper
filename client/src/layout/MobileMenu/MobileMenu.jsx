@@ -16,7 +16,7 @@ const MobileMenu = ({ isOpen, toggleMobileMenu }) => {
   return (
     <div className={isOpen ? 'mobile-menu-container active ' : 'mobile-menu-container'}>
       <div className="mobile-menu">
-        <Link className="nav-link" to="/" onClick={toggleMobileMenu}>
+        <Link data-testid="navlink" className="nav-link" to="/" onClick={toggleMobileMenu}>
           Home
         </Link>
         <Link className="nav-link" to="/dashboard" onClick={toggleMobileMenu}>
