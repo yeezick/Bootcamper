@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
 import store from '../../services/redux/store';
@@ -10,11 +10,11 @@ describe('MobileMenu Component', () => {
   test('Nav links are not displayed if toggle btn is not clicked', () => {
     render(
       <Provider store={store}>
-        <BrowserRouter>
+        <Router>
           <Routes>
             <Route path="*" element={<MobileMenu isOpen={false} />} />
           </Routes>
-        </BrowserRouter>
+        </Router>
       </Provider>
     );
   });
@@ -24,11 +24,11 @@ describe('MobileMenu Component', () => {
   test('renders nav links upon click event', () => {
     render(
       <Provider store={store}>
-        <BrowserRouter>
+        <Router>
           <Routes>
             <Route path="*" element={<MobileMenu isOpen={false} />} />
           </Routes>
-        </BrowserRouter>
+        </Router>
       </Provider>
     );
   });
