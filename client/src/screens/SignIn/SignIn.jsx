@@ -7,6 +7,7 @@ import '../SignUp/SignUp.scss';
 import { handleChange } from '../../services/utils/formHandlers';
 import { SingleActionButton } from '../../components/Button/SingleActionButton';
 import { checkEmailAuth, signOut, verify } from '../../services/api/users';
+import { LocationDisplay } from '../../components/LocationDisplay.jsx';
 
 export const SignIn = () => {
   const navigate = useNavigate();
