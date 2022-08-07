@@ -10,7 +10,6 @@ import { checkEmailAuth, verify } from '../../services/api/users.js';
 import { handleChange } from '../../services/utils/formHandlers';
 import { SingleActionButton } from '../../components/Button/SingleActionButton.jsx';
 import { DoubleActionModal } from '../../components/Modal/DoubleActionModal.jsx';
-import { LocationDisplay } from '../../components/LocationDisplay.jsx';
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -158,7 +157,7 @@ export const SignUp = () => {
             </h6>
           )}
         </div>
-        <SingleActionButton text="Register" type="submit" />
+        <SingleActionButton text="Register" type="submit" data-testid='register button' />
       </form>
       <h6>
         Already have an account? <Link to="/sign-in">Sign in.</Link>
