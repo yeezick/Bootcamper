@@ -83,28 +83,7 @@ export const SignIn = () => {
         <div className="form-error">
           <h6>{authError}</h6>
         </div>
-        {/* <SingleActionButton text="Log In" type="submit" /> */}
-        <button
-          onClick={async () => {
-            const signedInUser = await signIn(loginInfo);
-            if (signedInUser) {
-              dispatch(uiActions.updateUser(signedInUser));
-              // check this params functionality on edit land
-              navigate('EditProfile', {
-                userID: signedInUser._id,
-              });
-            } else {
-              setLoginInfo((prevState) => {
-                return {
-                  ...prevState,
-                  password: '',
-                };
-              });
-            }
-          }}
-        >
-          Log in
-        </button>
+        <SingleActionButton text="Log In" type="submit" />
       </form>
       {/* Placeholder for future functionality  */}
       <a href="#">Forgot Password?</a>

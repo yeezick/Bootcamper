@@ -3,7 +3,7 @@
  * Clicking signin button will:
  *    - navigate to user profile
  */
-import { SignInTest } from './SignInTest';
+import { SignIn } from './SignIn';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -16,7 +16,7 @@ describe('Testing the SignIn screen & functionality', () => {
     render(
       <Provider store={store}>
         <BrowserRouter>
-          <SignInTest />
+          <SignIn />
         </BrowserRouter>
       </Provider>
     );
