@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 // assets
 import { useDispatch } from 'react-redux';
 import { signUpUser } from '../../services/redux/actions/uiActions.js';
-import { GenericModal } from '../../components/Modal/GenericModal.jsx';
+// import { GenericModal } from '../../components/Modal/GenericModal.jsx';
 import './SignUp.scss';
 import { checkEmailAuth, verify } from '../../services/api/users.js';
 import { handleChange } from '../../services/utils/formHandlers';
@@ -83,9 +83,9 @@ export const SignUp = () => {
           rightOnClick={() => navigate('/roulette')}
         />
       )}
-      {showModal && (
+      {/* {showModal && (
         <GenericModal bodyText={modalError} buttonText="Ok" setShowModal={setShowModal} />
-      )}
+      )} */}
       <h4>Create an account</h4>
       <form className="form sign-up" onSubmit={handleSignUp}>
         <div className="input-wrapper">

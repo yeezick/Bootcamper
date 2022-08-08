@@ -10,7 +10,7 @@ export const api = axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
       ? 'https://bootcamper-dev-backend.herokuapp.com/api'
-      : 'http://localhost:8000/api',
+      : 'http://localhost:8001/api',
 });
 
 api.interceptors.request.use(
