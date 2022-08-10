@@ -1,5 +1,4 @@
-// dep?
-// import { DoubleActionButton } from '../Button/DoubleActionButton';
+import { DoubleActionButton } from '../Button/DoubleActionButton';
 import './Modal.scss';
 
 export const DoubleActionModal = ({
@@ -18,13 +17,13 @@ export const DoubleActionModal = ({
       <div className="modal-wrapper">
         <div className="modal-content">
           <p>{bodyText}</p>
-          {/* <DoubleActionButton
+          <DoubleActionButton
             leftText={leftText}
             leftOnClick={leftOnClick}
             rightText={rightText}
             rightOnClick={rightOnClick}
             onClick={handleModal}
-          /> */}
+          />
         </div>
       </div>
     </div>
