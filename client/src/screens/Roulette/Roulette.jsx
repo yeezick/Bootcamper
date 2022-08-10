@@ -41,7 +41,7 @@ export const Roulette = () => {
   return (
     <div>
       <ProjectInfo project={currProject} />
-      <RouletteButtons rouletteButtonProps={rouletteButtonProps} />
+      <RouletteButtons rouletteButtonProps={rouletteButtonProps}/>
     </div>
   );
 };

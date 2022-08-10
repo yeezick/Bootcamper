@@ -79,9 +79,11 @@ export const signOut = async () => {
 
 export const verify = async () => {
   const token = localStorage.getItem('token');
+  console.log("Here", token)
   if (token) {
     const { data: payload } = await api.get('/verify');
-    const { data: user } = await api.get(`/users/${payload.id}`);
+    console.log("payload here", payload)
+    const { data: user } = await api.get(`/users/${payload.userID}`);
     return user;
   }
   return false;

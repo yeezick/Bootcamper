@@ -37,16 +37,16 @@ describe('On initial render, there should be an image and 4 buttons', () => {
     renderLandingScreen();
   });
 
-  it('Should have a placeholder image of 82x82 pixels', async () => {
-    const landingImg = screen.queryByTestId(/landing-image/i);
-    const style = window.getComputedStyle(landingImg);
-    expect(landingImg).toBeInTheDocument();
-  });
+  // it('Should have a placeholder image of 82x82 pixels', async () => {
+  //   const landingImg = screen.queryByTestId(/landing-image/i);
+  //   const style = window.getComputedStyle(landingImg);
+  //   expect(landingImg).toBeInTheDocument();
+  // });
 
   it('Log in button exists & navigates to sign in screen', async () => {
     const loginButton = screen.queryByText(/log in/i);
     expect(loginButton).toBeInTheDocument();
-    await user.click(loginButton);
+    userEvent.click(loginButton);
     const formButton = screen.getByRole('button');
     expect(formButton).toBeInTheDocument();
     expect(signinButton.innerText).toBe(/sign in/i);
@@ -55,7 +55,7 @@ describe('On initial render, there should be an image and 4 buttons', () => {
   it('Sign up button exists & navigates to sign up screen', async () => {
     const signupButton = screen.queryByText(/sign up/i);
     expect(signupButton).toBeInTheDocument();
-    await user.click(signupButton);
+    userEvent.click(signupButton);
     const formButton = screen.getByRole('button');
     expect(formButton).toBeInTheDocument();
     expect(formButton.innerText).toBe(/sign in/i);
@@ -64,9 +64,10 @@ describe('On initial render, there should be an image and 4 buttons', () => {
   it('Continue without logging in button exists & navigates to roulette screen', async () => {
     const continueButton = screen.queryByText(/continue without logging in/i);
     expect(continueButton).toBeInTheDocument();
-    await user.click(continueButton);
+    userEvent.click(continueButton);
     const declineButton = screen.getByRole('roulette-decline');
     expect(declineButton).toBeInTheDocument();
     // what else to test if decline button exists
   });
 });
+
