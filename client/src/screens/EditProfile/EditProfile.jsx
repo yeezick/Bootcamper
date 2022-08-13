@@ -57,6 +57,7 @@ const AboutUser = () => {
       });
     }
   }, [editMode]);
+
   const handleUserUpdate = async (e) => {
     e.preventDefault();
     try {
