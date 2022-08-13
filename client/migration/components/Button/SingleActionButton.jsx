@@ -6,7 +6,7 @@ import { getButtonStyles } from './styles';
  * @name SingleActionButton
  * @param {Object} payload - Contains the handler and button text
  * @param {string} style -  Decides which color scheme (disabled/light) should be applied. If empty, default style is applied.
- * @param {string} type - Decides whether the width of the button (long). If empty, button is short.
+ * @param {string} width - Decides whether the width of the button (long). If empty, button is short.
  */
 export const SingleActionButton = (props) => {
   const [pressed, togglePressed] = useState(false);
