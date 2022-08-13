@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 // components
-import { DoubleActionButton } from '../../components/Button/DoubleActionButton';
+// import { DoubleActionButton } from '../../components/Button/DoubleActionButton';
 // assets
 import { addRejectedProject } from '../../services/redux/actions/uiActions';
 import { showInterestInRoulette } from '../../services/redux/actions/projectActions';
@@ -127,12 +127,12 @@ const RouletteButtons = ({ rouletteButtonProps }) => {
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       {finishedRegistration ? (
         <>
-          <DoubleActionButton
+          {/* <DoubleActionButton
             leftText="I'll Pass"
             leftOnClick={declineProject}
             rightText="I'm Interested"
             rightOnClick={showInterest}
-          />
+          /> */}
           {availableProjects.length === 1 ? null : (
             <button onClick={skipProject}>Skip for now</button>
           )}
