@@ -83,7 +83,7 @@ export const SignIn = () => {
         <div className="form-error">
           <h6>{authError}</h6>
         </div>
-        <SingleActionButton text="Log In" type="submit" data-testid="login button" />
+        <SingleActionButton text="Log In" type="submit" />
       </form>
       {/* Placeholder for future functionality  */}
       <a href="#">Forgot Password?</a>

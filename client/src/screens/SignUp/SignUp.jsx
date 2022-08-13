@@ -157,7 +157,7 @@ export const SignUp = () => {
             </h6>
           )}
         </div>
-        <SingleActionButton text="Register" type="submit" data-testid='register button' />
+        <SingleActionButton text="Register" type="submit" />
       </form>
       <h6>
         Already have an account? <Link to="/sign-in">Sign in.</Link>
