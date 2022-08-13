@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
 .responsive-wrapper {
   display: flex;
   justify-content: center;
@@ -5,9 +7,10 @@
 
 .layout-container {
   border: 1px solid green;
-  height: 667px;
-  max-height: 667px;
-  max-width: 375px;
+  font-family: 'nunito', sans-serif;
+  height: 568px;
+  max-height: 568px;
+  max-width: 320px;
   overflow: scroll;
-  width: 375px;
+  width: 320px;
 }

@@ -12,7 +12,7 @@ import { UserDashboard } from './screens/UserDashboard/UserDashboard.jsx';
 import { UserProfile } from './screens/UserProfile/UserProfile.jsx';
 import Layout from './layout/Layout';
 // assets
-import './App.css';
+import './assets/fonts.css';
 import { verify } from './services/api/users';
 import { useDispatch, useSelector } from 'react-redux';
 import { uiActions } from './services/redux/slices/uiSlice';

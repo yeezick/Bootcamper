@@ -1,21 +1,39 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Landing.scss';
 import { SingleActionButton } from '../../components/Button/SingleActionButton';
 
-
-
 export const Landing = () => {
   const navigate = useNavigate();
+  const routeToSignUp = {
+    handler() {
+      navigate('SignUp');
+    },
+    title: 'Sign Up',
+  };
+
+  const routeToSignIn = {
+    handler() {
+      navigate('SignIn');
+    },
+    title: 'Sign In',
+  };
+
   return (
     <div className="landing-page">
-      <div className="img-placeholder" data-testid="landing-image"></div>
-      <h1 className="logo-placeholder">Bootcamper</h1>
-      <SingleActionButton text="Sign Up" onClick={() => navigate('/sign-up')} />
-      <SingleActionButton text="Log In" onClick={() => navigate('/sign-in')} />
-      <h5>Want to take a test drive first?</h5>
-      <a onClick={() => navigate('/roulette')}>continue without logging in</a>
-      <h6>Help | Contact</h6>
+      <div className="img-placeholder"></div>
+      <h1 className="title">Bootcamper</h1>
+      <h3 className="subtitle">Find your next project!</h3>
+      <SingleActionButton payload={routeToSignUp} type="long" />
+      <SingleActionButton payload={routeToSignIn} style="light" type="long" />
+      <p>Continue with</p>
+      <div className="sso-wrapper">
+        <div className="sso-item"></div>
+        <div className="sso-item"></div>
+        <div className="sso-item"></div>
+      </div>
+      <a className="trial-link" href="/roulette">
+        Continue without logging in
+      </a>
     </div>
   );
 };
