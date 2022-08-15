@@ -1,36 +1,29 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-// assets
-import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../../services/redux/actions/uiActions.js';
-import '../SignUp/SignUp.scss';
-import { handleChange } from '../../services/utils/formHandlers';
-import { SingleActionButton } from '../../components/Button/SingleActionButton';
-import { checkEmailAuth, signOut, verify } from '../../services/api/users';
+import { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+// import { signIn, checkEmailAuth } from '../services/api/users.js';
+// import { handleTextChange } from '../services/utils/handlers.js';
+// import { uiActions } from '../services/redux/slices/uiSlice';
+// import { uiActions } from '../../services/utils/';
 
-export const SignIn = () => {
-  const navigate = useNavigate();
+export const SignIn = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { _id: userId } = useSelector((state) => state.ui.user);
-  const [authError, setAuthError] = useState(null);
   const [noAccountError, setNoAccountError] = useState(null);
   const [loginInfo, setLoginInfo] = useState({
-    email: 'test@test.com',
-    password: 'test',
+    email: '',
+    password: '',
   });
+  const { emailInputRef, passwordInputRef } = useRef();
 
-  useEffect(() => {
-    signOut();
-  }, []);
-
-  const handleSignIn = async (event) => {
-    event.preventDefault();
-    await dispatch(loginUser(loginInfo));
-    const user = await verify();
-    if (user.email === loginInfo.email) {
-      navigate(`/users/${userId}/edit`);
+  const handleSignIn = async () => {
+    const signedInUser = await signIn(loginInfo);
+    if (signedInUser) {
+      dispatch(uiActions.updateUser(signedInUser));
+      // check this params functionality on edit land
+      navigation.navigate('EditProfile', {
+        userID: signedInUser._id,
+      });
     } else {
-      setAuthError('Invalid credentials. Please check your details and try again.');
+      alert('Invalid credentials. Please check your details and try again.');
       setLoginInfo((prevState) => {
         return {
           ...prevState,
@@ -44,49 +37,47 @@ export const SignIn = () => {
     const emailReq = { email: loginInfo.email };
     const res = await checkEmailAuth(emailReq);
     if (!res) {
-      setNoAccountError('Account not found.');
+      setNoAccountError('No user found with this email address.');
     }
   };
 
   return (
-    <div className="sign-in-screen auth-form">
-      <h4>Welcome Back!</h4>
-      <form className="form sign-in" onSubmit={handleSignIn}>
-        <div className="input-wrapper">
-          <label htmlFor="email">Email</label>
-          <input
-            required
-            id="email"
-            name="email"
-            onChange={(e) => handleChange(e, 'email', setLoginInfo)}
-            type="email"
-            value={loginInfo['email']}
-            onFocus={() => setNoAccountError(false)}
-            onBlur={() => validEmail()}
-          />
-        </div>
-        <div className="form-error">
-          <h6>{noAccountError}</h6>
-        </div>
-        <div className="input-wrapper">
-          <label htmlFor="password">Password</label>
-          <input
-            required
-            id="password"
-            name="password"
-            onChange={(e) => handleChange(e, 'password', setLoginInfo)}
-            type="password"
-            value={loginInfo['password']}
-            onFocus={() => setAuthError(null)}
-          />
-        </div>
-        <div className="form-error">
-          <h6>{authError}</h6>
-        </div>
-        <SingleActionButton text="Log In" type="submit" />
-      </form>
-      {/* Placeholder for future functionality  */}
-      <a href="#">Forgot Password?</a>
-    </div>
+    <View className="account-forms">
+      <Text className="title">Welcome Back!</Text>
+      <View className="input-container">
+        <Text>Email</Text>
+        <TextInput
+          value={loginInfo.email}
+          className="input"
+          onChangeText={(email) => handleTextChange(email, 'email', setLoginInfo)}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          ref={emailInputRef}
+          onFocus={() => setNoAccountError(null)}
+          onBlur={() => validEmail()}
+          returnKeyType="next"
+          onSubmitEditing={() => {
+            passwordInputRef.current();
+            passwordInputRef.current.focus();
+          }}
+        />
+      </View>
+      <Text>{noAccountError}</Text>
+      <View className="input-container">
+        <Text>Password</Text>
+        <TextInput
+          value={loginInfo.password}
+          className="input"
+          onChangeText={(password) => handleTextChange(password, 'password', setLoginInfo)}
+          ref={passwordInputRef}
+          returnKeyType="next"
+          secureTextEntry={true}
+        />
+      </View>
+      <TouchableOpacity className="single-button" onPress={handleSignIn} color="white">
+        <Text className="button-text">Log In</Text>
+      </TouchableOpacity>
+      <Button title="Forgot Password?" />
+    </View>
   );
 };
