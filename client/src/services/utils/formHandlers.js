@@ -4,3 +4,9 @@ export const handleChange = (e, property, setterFunction) => {
     return { ...state, [property]: value };
   });
 };
+
+export const handleTextChange = (newValue, propertyToUpdate, setterFunction) => {
+  setterFunction((state) => {
+    return { ...state, [propertyToUpdate]: newValue };
+  });
+};
