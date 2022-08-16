@@ -9,7 +9,6 @@ export const DoubleActionButton = ({
   rightType = 'button',
   onClick,
 }) => {
-  // remove onClick, let the right/left onClicks handle the modal closing instead
   return (
     <div className="double-button" onClick={onClick}>
       <button className="left" onClick={leftOnClick} type={leftType}>

@@ -1,27 +1,27 @@
 .nav-container{
+  align-items: center;
+  background-color: #efefef;
   display: flex;
   height: 50px;
   justify-content: space-between;
-  align-items: center;
-  background-color: #efefef;
 }
 
 .logo{
-  margin-left: 20px;
   cursor: pointer;
+  margin-left: 20px;
 }
 
 .menu-btn{
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   padding-right: 10px;
-  cursor: pointer;
 }
 i {
   background-color: black;
-  width: 32px;
+  border-radius: 2px;
   height: 4px;
   margin: 4px;
-  border-radius: 2px;
+  width: 32px;
 }
 

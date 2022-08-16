@@ -1,9 +1,9 @@
 .landing-page {
-    font-family: 'nunito', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-family: 'nunito', sans-serif;
+  justify-content: space-between;
 
     .img-placeholder {
       background-color: #d6d6d6;
@@ -33,8 +33,8 @@
         color: white;
         padding: 10px 20px;
         margin: 9px;
-        width: 90px;
         font-size: 12px;
+        width: 90px;
     }
 
     p {
