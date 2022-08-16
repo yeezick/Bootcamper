@@ -41,43 +41,37 @@ export const SignIn = ({ navigation }) => {
   };
 
   return (
-    <>Signin</>
-    // <View className="account-forms">
-    //   <Text className="title">Welcome Back!</Text>
-    //   <View className="input-container">
-    //     <Text>Email</Text>
-    //     <TextInput
-    //       value={loginInfo.email}
-    //       className="input"
-    //       onChangeText={(email) => handleTextChange(email, 'email', setLoginInfo)}
-    //       keyboardType="email-address"
-    //       autoCapitalize="none"
-    //       ref={emailInputRef}
-    //       onFocus={() => setNoAccountError(null)}
-    //       onBlur={() => validEmail()}
-    //       returnKeyType="next"
-    //       onSubmitEditing={() => {
-    //         passwordInputRef.current();
-    //         passwordInputRef.current.focus();
-    //       }}
-    //     />
-    //   </View>
-    //   <Text>{noAccountError}</Text>
-    //   <View className="input-container">
-    //     <Text>Password</Text>
-    //     <TextInput
-    //       value={loginInfo.password}
-    //       className="input"
-    //       onChangeText={(password) => handleTextChange(password, 'password', setLoginInfo)}
-    //       ref={passwordInputRef}
-    //       returnKeyType="next"
-    //       secureTextEntry={true}
-    //     />
-    //   </View>
-    //   <TouchableOpacity className="single-button" onPress={handleSignIn} color="white">
-    //     <Text className="button-text">Log In</Text>
-    //   </TouchableOpacity>
-    //   <Button title="Forgot Password?" />
-    // </View>
+    <div className="account-forms">
+      <h1 className="title">Log In</h1>
+      <div className="input-container">
+        <label>Email</label>
+        <input
+          value={loginInfo.email}
+          className="input"
+          onChangeText={(email) => handleTextChange(email, 'email', setLoginInfo)}
+          type="email"
+          ref={emailInputRef}
+          onSubmitEditing={() => {
+            passwordInputRef.current();
+            passwordInputRef.current.focus();
+          }}
+        />
+      </div>
+      <span>{noAccountError}</span>
+      <div className="input-container">
+        <label>Password</label>
+        <input
+          type="password"
+          value={loginInfo.password}
+          className="input"
+          onChangeText={(password) => handleTextChange(password, 'password', setLoginInfo)}
+          ref={passwordInputRef}
+          secureTextEntry={true}
+        />
+      </div>
+      <button className="single-button" onPress={handleSignIn}>
+        Sign In
+      </button>
+    </div>
   );
 };
