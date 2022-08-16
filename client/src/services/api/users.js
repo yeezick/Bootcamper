@@ -43,7 +43,7 @@ export const checkEmailAuth = async (email) => {
   } catch (error) {
     throw error;
   }
-}
+};
 
 export const signUp = async (credentials) => {
   try {
@@ -81,7 +81,7 @@ export const verify = async () => {
   const token = localStorage.getItem('token');
   if (token) {
     const { data: payload } = await api.get('/verify');
-    const { data: user } = await api.get(`/users/${payload.id}`);
+    const { data: user } = await api.get(`/users/${payload.userID}`);
     return user;
   }
   return false;
