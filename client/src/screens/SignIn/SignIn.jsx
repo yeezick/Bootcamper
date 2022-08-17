@@ -6,6 +6,7 @@ import { loginUser } from '../../services/redux/actions/uiActions.js';
 import { uiActions } from '../../services/redux/slices/uiSlice';
 import { SingleActionButton } from '../../components/Button/SingleActionButton';
 import { checkEmailAuth, verify } from '../../services/api/users.js';
+import './SignIn.scss';
 
 export const SignIn = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export const SignIn = () => {
 
   const handleSignIn = async (event) => {
     event.preventDefault();
-    dispatch(loginUser(loginInfo));
+    await dispatch(loginUser(loginInfo));
     const user = await verify();
     if (user.email === loginInfo.email) {
       navigate(`/users/${userId}/edit`);
@@ -35,6 +36,7 @@ export const SignIn = () => {
       });
     }
   };
+
   const handleTextChange = (event) => {
     setLoginInfo({
       ...loginInfo,
@@ -57,13 +59,14 @@ export const SignIn = () => {
         <div className="input-container">
           <label htmlFor="email">Email</label>
           <input
-            defaultValue={loginInfo.email}
+            // defaultValue={loginInfo.email}
             className="input"
+            name="email"
             onChange={handleTextChange}
             onFocus={() => setNoAccountError(false)}
             onBlur={() => validEmail()}
             type="email"
-            ref={emailInputRef}
+            // ref={emailInputRef}
             autoComplete="on"
           />
         </div>
@@ -72,10 +75,11 @@ export const SignIn = () => {
           <label htmlFor="password">Password</label>
           <input
             type="password"
-            defaultValue={loginInfo.password}
+            // defaultValue={loginInfo.password}
             className="input"
+            name="password"
             onChange={handleTextChange}
-            ref={passwordInputRef}
+            // ref={passwordInputRef}
             onFocus={() => setAuthError(null)}
           />
         </div>
