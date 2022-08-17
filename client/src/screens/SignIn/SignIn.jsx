@@ -1,24 +1,27 @@
-import { useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+// assets
 import { useDispatch, useSelector } from 'react-redux';
-import { handleTextChange } from '../../services/utils/formHandlers';
 import { loginUser } from '../../services/redux/actions/uiActions.js';
-import { uiActions } from '../../services/redux/slices/uiSlice';
+import '../SignUp/SignUp.scss';
+import { handleChange } from '../../services/utils/formHandlers';
 import { SingleActionButton } from '../../components/Button/SingleActionButton';
-import { checkEmailAuth, verify } from '../../services/api/users.js';
-import './SignIn.scss';
+import { checkEmailAuth, signOut, verify } from '../../services/api/users';
 
 export const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { _id: userId } = useSelector((state) => state.ui.user);
-  const [noAccountError, setNoAccountError] = useState(null);
   const [authError, setAuthError] = useState(null);
+  const [noAccountError, setNoAccountError] = useState(null);
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
   });
-  const { emailInputRef, passwordInputRef } = useRef();
+
+  useEffect(() => {
+    signOut();
+  }, []);
 
   const handleSignIn = async (event) => {
     event.preventDefault();
@@ -37,57 +40,53 @@ export const SignIn = () => {
     }
   };
 
-  const handleTextChange = (event) => {
-    setLoginInfo({
-      ...loginInfo,
-      [event.target.name]: event.target.value,
-    });
-  };
-
   const validEmail = async () => {
     const emailReq = { email: loginInfo.email };
     const res = await checkEmailAuth(emailReq);
     if (!res) {
-      setNoAccountError('No user found with this email address.');
+      setNoAccountError('Account not found.');
     }
   };
 
   return (
-    <div className="account-forms">
-      <h1 className="title">Log In</h1>
+    <div className="sign-in-screen auth-form">
+      <h4>Welcome Back!</h4>
       <form className="form sign-in" onSubmit={handleSignIn}>
-        <div className="input-container">
+        <div className="input-wrapper">
           <label htmlFor="email">Email</label>
           <input
-            // defaultValue={loginInfo.email}
-            className="input"
+            required
+            id="email"
             name="email"
-            onChange={handleTextChange}
+            onChange={(e) => handleChange(e, 'email', setLoginInfo)}
+            type="email"
+            value={loginInfo['email']}
             onFocus={() => setNoAccountError(false)}
             onBlur={() => validEmail()}
-            type="email"
-            // ref={emailInputRef}
-            autoComplete="on"
           />
         </div>
-        <span>{noAccountError}</span>
-        <div className="input-container">
+        <div className="form-error">
+          <h6>{noAccountError}</h6>
+        </div>
+        <div className="input-wrapper">
           <label htmlFor="password">Password</label>
           <input
-            type="password"
-            // defaultValue={loginInfo.password}
-            className="input"
+            required
+            id="password"
             name="password"
-            onChange={handleTextChange}
-            // ref={passwordInputRef}
+            onChange={(e) => handleChange(e, 'password', setLoginInfo)}
+            type="password"
+            value={loginInfo['password']}
             onFocus={() => setAuthError(null)}
           />
         </div>
         <div className="form-error">
           <h6>{authError}</h6>
         </div>
-        <SingleActionButton text="Sign In" type="submit" />
+        <SingleActionButton text="Log In" type="submit" />
       </form>
+      {/* Placeholder for future functionality  */}
+      <a href="#">Forgot Password?</a>
     </div>
   );
 };
