@@ -1,0 +1,14 @@
+.responsive-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.layout-container {
+  border: 1px solid green;
+  font-family: 'nunito', sans-serif;
+  height: 568px;
+  max-height: 568px;
+  max-width: 320px;
+  overflow: scroll;
+  width: 320px;
+}
