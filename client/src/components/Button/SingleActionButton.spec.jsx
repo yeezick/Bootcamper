@@ -9,7 +9,16 @@
 //         expect(buttonElement).toBeInTheDocument()
 //     })
 // })
+
+
+import React from 'react';
+import { SingleActionButton } from "./SingleActionButton"
+import { render } from '@testing-library/react';
+import '@testing-library/jest-dom';
+
+
 /*
+*TEST PLAN:
 -renders successfully
 -passsing in a string to the title prop should also be rendered
 -passing in a handler to the button will successfully execute it on press
@@ -19,15 +28,25 @@
 -if type="long", check if width is set to 250
  */
 
-import React from 'react';
-import { SingleActionButton } from "./SingleActionButton"
-import { render } from '@testing-library/react';
-import '@testing-library/jest-dom';
-
-
-
 it('renders', () => {
   const { asFragment } = render(<SingleActionButton />);
   expect(asFragment()).toMatchSnapshot();
 
 });
+
+test('It has to contain My Button', () => {
+  render(
+    <div>
+      <SingleActionButton />
+    </div>
+  )
+
+  const buttonClass = SingleActionButton().type.styledComponentId
+  const MyButtonRoots = document.getElementsByClassName(buttonClass)
+  console.log(MyButtonRoots)
+  const style = window.getComputedStyle(MyButtonRoots[0])
+  
+  expect(style.position).toBe('fixed')
+  expect(style.top).toBe('0px')
+})
+

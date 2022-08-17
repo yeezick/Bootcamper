@@ -19,3 +19,5 @@ it('renders', () => {
   const { asFragment } = render(<SingleActionButton />);
   expect(asFragment()).toMatchSnapshot();
 });
+
+
