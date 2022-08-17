@@ -12,7 +12,7 @@ import { UserDashboard } from './screens/UserDashboard/UserDashboard.jsx';
 import { UserProfile } from './screens/UserProfile/UserProfile.jsx';
 import Layout from './layout/Layout';
 // assets
-import './App.css';
+import './assets/fonts.css';
 import { verify } from './services/api/users';
 import { useDispatch, useSelector } from 'react-redux';
 import { uiActions } from './services/redux/slices/uiSlice';
@@ -50,7 +50,7 @@ function App() {
         <Route path="/roulette" element={<Roulette />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route exact path='/dashboard' element={<UserDashboard />}></Route>
+        <Route exact path="/dashboard" element={<UserDashboard />}></Route>
         <Route exact path="/users/:id" element={<UserProfile />} />
         <Route exact path="/users/:id/edit" element={<EditProfile currUser={user} />} />
       </Routes>
