@@ -44,35 +44,37 @@ export const SignIn = ({ navigation }) => {
   return (
     <div className="account-forms">
       <h1 className="title">Log In</h1>
-      <div className="input-container">
-        <label>Email</label>
-        <input
-          value={loginInfo.email}
-          className="input"
-          onChangeText={(email) => handleTextChange(email, 'email', setLoginInfo)}
-          type="email"
-          ref={emailInputRef}
-          onSubmitEditing={() => {
-            passwordInputRef.current();
-            passwordInputRef.current.focus();
-          }}
-        />
-      </div>
-      <span>{noAccountError}</span>
-      <div className="input-container">
-        <label>Password</label>
-        <input
-          type="password"
-          value={loginInfo.password}
-          className="input"
-          onChangeText={(password) => handleTextChange(password, 'password', setLoginInfo)}
-          ref={passwordInputRef}
-          secureTextEntry={true}
-        />
-      </div>
-      <button className="single-button" onPress={handleSignIn}>
-        Sign In
-      </button>
+      <form className="form sign-in" onSubmit={handleSignIn}>
+        <div className="input-container">
+          <label htmlFor="email">Email</label>
+          <input
+            defaultValue={loginInfo.email}
+            className="input"
+            onChangeText={(email) => handleTextChange(email, 'email', setLoginInfo)}
+            type="email"
+            ref={emailInputRef}
+            onSubmitEditing={() => {
+              passwordInputRef.current();
+              passwordInputRef.current.focus();
+            }}
+          />
+        </div>
+        <span>{noAccountError}</span>
+        <div className="input-container">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            defaultValue={loginInfo.password}
+            className="input"
+            onChangeText={(password) => handleTextChange(password, 'password', setLoginInfo)}
+            ref={passwordInputRef}
+            secureTextEntry={true}
+          />
+        </div>
+        <button className="single-button" onPress={handleSignIn}>
+          Sign In
+        </button>
+      </form>
     </div>
   );
 };
