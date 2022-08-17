@@ -10,3 +10,5 @@ export const handleTextChange = (newValue, propertyToUpdate, setterFunction) => 
     return { ...state, [propertyToUpdate]: newValue };
   });
 };
+
+
