@@ -1,4 +1,3 @@
-
 import { useNavigate } from 'react-router-dom';
 import './Landing.scss';
 import { SingleActionButton } from '../../components/Button/SingleActionButton';
@@ -24,8 +23,10 @@ export const Landing = () => {
       <div className="img-placeholder"></div>
       <h1 className="title">Bootcamper</h1>
       <h3 className="subtitle">Find your next project!</h3>
-      <SingleActionButton payload={routeToSignUp} width="long" />
-      <SingleActionButton payload={routeToSignIn} style="light" width="long" />
+      <SingleActionButton payload={routeToSignUp} style="default" />
+      <SingleActionButton payload={routeToSignIn} style="light" size="long" />
+      <SingleActionButton payload={routeToSignIn} style="disabled" size="long" />
+      <SingleActionButton payload={routeToSignIn} style="default" size="long" />
       <p>Continue with</p>
       <div className="sso-wrapper">
         <div className="sso-item"></div>
