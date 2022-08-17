@@ -1,28 +1,32 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { signIn, checkEmailAuth } from '../../services/api/users.js';
+import { useDispatch, useSelector } from 'react-redux';
 import { handleTextChange } from '../../services/utils/formHandlers';
+import { loginUser } from '../../services/redux/actions/uiActions.js';
 import { uiActions } from '../../services/redux/slices/uiSlice';
+import { SingleActionButton } from '../../components/Button/SingleActionButton';
+import { checkEmailAuth, verify } from '../../services/api/users.js';
 
-export const SignIn = ({ navigation }) => {
+export const SignIn = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { _id: userId } = useSelector((state) => state.ui.user);
   const [noAccountError, setNoAccountError] = useState(null);
+  const [authError, setAuthError] = useState(null);
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
   });
   const { emailInputRef, passwordInputRef } = useRef();
 
-  const handleSignIn = async () => {
-    const signedInUser = await signIn(loginInfo);
-    if (signedInUser) {
-      dispatch(uiActions.updateUser(signedInUser));
-      navigation.navigate('EditProfile', {
-        userID: signedInUser._id,
-      });
+  const handleSignIn = async (event) => {
+    event.preventDefault();
+    dispatch(loginUser(loginInfo));
+    const user = await verify();
+    if (user.email === loginInfo.email) {
+      navigate(`/users/${userId}/edit`);
     } else {
-      alert('Invalid credentials. Please check your details and try again.');
+      setAuthError('Invalid credentials. Please check your details and try again.');
       setLoginInfo((prevState) => {
         return {
           ...prevState,
@@ -30,6 +34,12 @@ export const SignIn = ({ navigation }) => {
         };
       });
     }
+  };
+  const handleTextChange = (event) => {
+    setLoginInfo({
+      ...loginInfo,
+      [event.target.name]: event.target.value,
+    });
   };
 
   const validEmail = async () => {
@@ -49,16 +59,12 @@ export const SignIn = ({ navigation }) => {
           <input
             defaultValue={loginInfo.email}
             className="input"
-            onChange={(email) => {
-              handleTextChange(email, 'email', setLoginInfo);
-              validEmail();
-            }}
+            onChange={handleTextChange}
+            onFocus={() => setNoAccountError(false)}
+            onBlur={() => validEmail()}
             type="email"
             ref={emailInputRef}
-            onSubmitEditing={() => {
-              passwordInputRef.current();
-              passwordInputRef.current.focus();
-            }}
+            autoComplete="on"
           />
         </div>
         <span>{noAccountError}</span>
@@ -68,14 +74,15 @@ export const SignIn = ({ navigation }) => {
             type="password"
             defaultValue={loginInfo.password}
             className="input"
-            onChange={(password) => handleTextChange(password, 'password', setLoginInfo)}
+            onChange={handleTextChange}
             ref={passwordInputRef}
-            secureTextEntry={true}
+            onFocus={() => setAuthError(null)}
           />
         </div>
-        <button className="single-button" onPress={handleSignIn}>
-          Sign In
-        </button>
+        <div className="form-error">
+          <h6>{authError}</h6>
+        </div>
+        <SingleActionButton text="Sign In" type="submit" />
       </form>
     </div>
   );
