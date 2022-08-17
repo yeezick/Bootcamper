@@ -18,7 +18,6 @@ export const SignIn = ({ navigation }) => {
     const signedInUser = await signIn(loginInfo);
     if (signedInUser) {
       dispatch(uiActions.updateUser(signedInUser));
-      // check this params functionality on edit land
       navigation.navigate('EditProfile', {
         userID: signedInUser._id,
       });
@@ -50,7 +49,10 @@ export const SignIn = ({ navigation }) => {
           <input
             defaultValue={loginInfo.email}
             className="input"
-            onChangeText={(email) => handleTextChange(email, 'email', setLoginInfo)}
+            onChange={(email) => {
+              handleTextChange(email, 'email', setLoginInfo);
+              validEmail();
+            }}
             type="email"
             ref={emailInputRef}
             onSubmitEditing={() => {
@@ -66,7 +68,7 @@ export const SignIn = ({ navigation }) => {
             type="password"
             defaultValue={loginInfo.password}
             className="input"
-            onChangeText={(password) => handleTextChange(password, 'password', setLoginInfo)}
+            onChange={(password) => handleTextChange(password, 'password', setLoginInfo)}
             ref={passwordInputRef}
             secureTextEntry={true}
           />
