@@ -85,7 +85,9 @@ export const SignIn = () => {
         <div className="form-error">
           <h6>{authError}</h6>
         </div>
-        <SingleActionButton text="Sign In" type="submit" />
+        <div>
+          <SingleActionButton text="Sign In" type="submit" />
+        </div>
       </form>
       {/* Placeholder for future functionality  */}
     </div>
