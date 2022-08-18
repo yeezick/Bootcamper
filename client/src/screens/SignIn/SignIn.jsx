@@ -63,6 +63,7 @@ export const SignIn = () => {
             value={loginInfo['email']}
             onFocus={() => setNoAccountError(false)}
             onBlur={() => validEmail()}
+            autoComplete="on"
           />
         </div>
         <div className="form-error">
@@ -78,12 +79,13 @@ export const SignIn = () => {
             type="password"
             value={loginInfo['password']}
             onFocus={() => setAuthError(null)}
+            autoComplete="current-password"
           />
         </div>
         <div className="form-error">
           <h6>{authError}</h6>
         </div>
-        <SingleActionButton text="Log In" type="submit" />
+        <SingleActionButton text="Sign In" type="submit" />
       </form>
       {/* Placeholder for future functionality  */}
     </div>

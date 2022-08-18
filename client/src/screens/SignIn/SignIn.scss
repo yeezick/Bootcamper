@@ -1,21 +1,23 @@
 .auth-form {
   display: flex;
   flex-direction: column;
-  font-family: 'Nunito', sans-serif;
+  // font-family: 'Nunito', sans-serif;
   justify-content: center;
   padding-top: 80px;
 
   p {
     align-self: center;
-    text-align: center;
-    width: max-content;
     font-size: 24px;
     font-weight: 700;
+    height: 33px;
+    text-align: center;
+    width: 72px;
   }
 
   label {
-    font-weight: 300;
-    font-size: 14px;
+    font-size: 16px;
+    // font-weight: 500;
+    line-height: 21.86px;
   }
 
   input {
