@@ -85,7 +85,7 @@ export const SignIn = () => {
         <div className="form-error">
           <h6>{authError}</h6>
         </div>
-        <div>
+        <div className="action-btn-container">
           <SingleActionButton text="Sign In" type="submit" />
         </div>
       </form>
