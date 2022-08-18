@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 // assets
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../services/redux/actions/uiActions.js';
-import '../SignUp/SignUp.scss';
+import './SignIn.scss';
 import { handleChange } from '../../services/utils/formHandlers';
 import { SingleActionButton } from '../../components/Button/SingleActionButton';
 import { checkEmailAuth, signOut, verify } from '../../services/api/users';
@@ -50,7 +50,7 @@ export const SignIn = () => {
 
   return (
     <div className="sign-in-screen auth-form">
-      <h4>Welcome Back!</h4>
+      <p>Log In</p>
       <form className="form sign-in" onSubmit={handleSignIn}>
         <div className="input-wrapper">
           <label htmlFor="email">Email</label>
@@ -86,7 +86,6 @@ export const SignIn = () => {
         <SingleActionButton text="Log In" type="submit" />
       </form>
       {/* Placeholder for future functionality  */}
-      <a href="#">Forgot Password?</a>
     </div>
   );
 };

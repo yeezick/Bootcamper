@@ -1,0 +1,47 @@
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Nunito', sans-serif;
+  justify-content: center;
+  padding-top: 80px;
+
+  p {
+    align-self: center;
+    text-align: center;
+    width: max-content;
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  label {
+    font-weight: 300;
+    font-size: 14px;
+  }
+
+  input {
+    width: 100%;
+    height: 28px;
+    border: solid black 1px;
+    padding-left: 7px;
+  }
+
+  .input-wrapper {
+    width: 100%;
+    margin-top: 7px;
+  }
+
+  h6 {
+    align-self: center;
+  }
+
+  a {
+    color: black;
+    font-size: 12px;
+    font-style: italic;
+    align-self: center;
+  }
+}
+
+.form-error {
+  margin-top: 5px;
+}
