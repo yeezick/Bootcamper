@@ -9,14 +9,15 @@ import './SingleActionButton.scss';
 export const SingleActionButton = (props) => {
   const { handler, title } = props.payload;
   const { style, size } = props;
-
-  // const styleSheet = `single-button ${style} ${size}`;
+  const isDisabled = style === 'disabled' ? true : false;
 
   return (
-    <div className={`single-button ${style} ${size}`}>
-      <button onClick={handler}>
-        <p>{title}</p>
-      </button>
-    </div>
+    <button
+      className={`single-button ${style} ${size ? size : ''}`}
+      disabled={isDisabled}
+      onClick={handler}
+    >
+      {title}
+    </button>
   );
 };

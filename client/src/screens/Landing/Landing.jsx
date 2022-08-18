@@ -27,7 +27,7 @@ export const Landing = () => {
       <SingleActionButton payload={routeToSignIn} style="light" size="long" />
       <SingleActionButton payload={routeToSignIn} style="disabled" size="long" />
       <SingleActionButton payload={routeToSignIn} style="default" size="long" />
-      <p>Continue with</p>
+      <p className="text">Continue with</p>
       <div className="sso-wrapper">
         <div className="sso-item"></div>
         <div className="sso-item"></div>
