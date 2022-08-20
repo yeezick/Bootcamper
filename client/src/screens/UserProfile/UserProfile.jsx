@@ -8,17 +8,18 @@ import { EditProfile } from '../EditProfile/EditProfile';
 import { uiActions } from '../../services/redux/slices/uiSlice';
 import './UserProfile.scss';
 import { getOneUser } from '../../services/api/users';
+import { Header } from '../../components/Header/Header';
 
 export const UserProfile = () => {
   const { user: reduxUser, editMode } = useSelector((state) => state.ui);
   const [currUser, setCurrUser] = useState({
-    first_name: '',
-    last_name: '',
-    role: '',
-    email: '',
     about: '',
+    email: '',
+    first_name: '',
     fun_fact: '',
+    last_name: '',
     portfolio_link: '',
+    role: '',
   });
   const dispatch = useDispatch();
   const params = useParams();
@@ -39,6 +40,8 @@ export const UserProfile = () => {
   const handleToggleMode = () => {
     dispatch(uiActions.toggleEditMode());
   };
+  const AboutUser = () => <p>{currUser.about}</p>;
+  const FunFact = () => <p>{currUser.fun_fact}</p>;
 
   if (editMode) {
     return (
@@ -51,40 +54,34 @@ export const UserProfile = () => {
     const { about, email, fun_fact, first_name, last_name, role, _id: currUserId } = currUser;
     return (
       <div className="user-profile">
-        <div className="title-wrapper">
-          {currUserId === reduxUser._id && <button onClick={handleToggleMode}>edit profile</button>}
-          <h2 className="title-name">
-            {first_name} {last_name}
-          </h2>
-          <h2 className="title-role">{role}</h2>
-        </div>
-        <div className="image">im an image</div>
-
-        <div className="links">
-          <a href={`mailto:${email}`} target="">
-            E-mail
-          </a>
-          <a href={validUrl} target="_blank">
-            Portfolio
-          </a>
-        </div>
-
-        <div className="content">
-          <div className="about">
-            <h3>About</h3>
-            <p>{about}</p>
+        <header>PROFILE</header>
+        <div className="contact">
+          <p>
+            EDIT <br /> PENCIL
+          </p>
+          <p>IMAGE</p>
+          <p>FIRST/LAST NAME</p>
+          <p>TITLE</p>
+          <div className="media">
+            <div>X</div>
+            <div>X</div>
+            <div>X</div>
           </div>
-
-          {fun_fact && (
-            <div className="fun-fact">
-              <h3>Fun Fact</h3>
-              <p>{fun_fact}</p>
-            </div>
-          )}
         </div>
 
-        <ShowPortfolioProjects currUser={currUser} />
+        <InfoCard header="about user" children={<AboutUser />} />
+        <InfoCard header="fun fact" children={<FunFact />} />
+        <InfoCard header="portfolio" children={<ShowPortfolioProjects currUser={currUser} />} />
       </div>
     );
   }
+};
+
+const InfoCard = ({ children, header }) => {
+  return (
+    <div className="info-card">
+      <h4>{header}</h4>
+      {children}
+    </div>
+  );
 };
