@@ -1,9 +1,9 @@
 .landing-page {
-    font-family: 'nunito', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-family: 'nunito', sans-serif;
+  justify-content: space-between;
 
     .img-placeholder {
       background-color: #d6d6d6;
@@ -48,7 +48,6 @@
         width: 70px;
       }
     }
-
     .trial-link {
       color: #999999;
       margin-top: 10px;

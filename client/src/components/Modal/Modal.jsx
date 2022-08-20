@@ -1,7 +1,7 @@
 import { SingleActionButton } from '../Button/SingleActionButton';
 import './Modal.scss';
 
-export const Modal = ({ setShowModal }) => {
+export const Modal = ({ setShowModal, bodyText, buttonText }) => {
   const handleModal = () => {
     setShowModal((state) => !state);
   };
@@ -9,8 +9,8 @@ export const Modal = ({ setShowModal }) => {
     <div className="modal-background">
       <div className="modal-wrapper">
         <div className="modal-content">
-          <p>Would you like to finish setting up your account?</p>
-          <SingleActionButton text="Finish Account" onClick={handleModal} />
+          <p>{bodyText}</p>
+          <SingleActionButton text={buttonText} onClick={handleModal} />
         </div>
       </div>
     </div>

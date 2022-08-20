@@ -2,20 +2,21 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 // components
-import { DoubleActionButton } from '../../components/Button/DoubleActionButton';
+// import { DoubleActionButton } from '../../components/Button/DoubleActionButton';
 // assets
 import { addRejectedProject } from '../../services/redux/actions/uiActions';
 import { showInterestInRoulette } from '../../services/redux/actions/projectActions';
+// helpers
+const selectProjects = (state) => state.projects
 
 // currently rerendering 5x
 export const Roulette = () => {
   const [currProject, setCurrProject] = useState(null);
   const [currIndex, setCurrIndex] = useState(null);
-
-  const { availableProjects, isLoaded } = useSelector((state) => state.projects);
+  const { availableProjects, isLoaded } = useSelector(selectProjects);
 
   useEffect(() => {
-    const showAvailableProjects = async () => {
+    const showAvailableProjects = () => {
       setCurrProject(availableProjects[0]);
       setCurrIndex(0);
     };
@@ -24,6 +25,7 @@ export const Roulette = () => {
 
   useEffect(() => {
     // how do i eliminate the need to fetch all projects again?
+    // not doing anything
   }, [currIndex]);
 
   const rouletteButtonProps = {
@@ -70,7 +72,7 @@ const RouletteButtons = ({ rouletteButtonProps }) => {
   const { availableProjects, currIndex, currProject, setCurrIndex, setCurrProject } =
     rouletteButtonProps;
 
-  const declineProject = async () => {
+  const declineProject = () => {
     const blacklistedProjects = [...blacklisted_projects, currProject._id];
     const body = {
       rejected_projects: [...user.rejected_projects, currProject._id],
@@ -80,7 +82,7 @@ const RouletteButtons = ({ rouletteButtonProps }) => {
     skipProject();
   };
 
-  const showInterest = async () => {
+  const showInterest = () => {
     const { _id: projectId, interested_applicants } = currProject;
     const { _id: userId, interested_projects } = user;
     const blacklistedProjects = [...blacklisted_projects, currProject._id];
@@ -125,12 +127,12 @@ const RouletteButtons = ({ rouletteButtonProps }) => {
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       {finishedRegistration ? (
         <>
-          <DoubleActionButton
+          {/* <DoubleActionButton
             leftText="I'll Pass"
             leftOnClick={declineProject}
             rightText="I'm Interested"
             rightOnClick={showInterest}
-          />
+          /> */}
           {availableProjects.length === 1 ? null : (
             <button onClick={skipProject}>Skip for now</button>
           )}
