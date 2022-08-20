@@ -19,6 +19,11 @@ export const SignIn = () => {
     password: '',
   });
 
+  const routeToEditProfile = {
+    handler: null,
+    title: 'Sign In',
+  };
+
   useEffect(() => {
     signOut();
   }, []);
@@ -86,7 +91,14 @@ export const SignIn = () => {
           <h6>{authError}</h6>
         </div>
         <div className="action-btn-container">
-          <SingleActionButton text="Sign In" type="submit" />
+          {/* Remove text setting once singleActionButton is merged */}
+          <SingleActionButton
+            payload={routeToEditProfile}
+            type="submit"
+            text="Sign In"
+            style="default"
+            size="long"
+          />
         </div>
       </form>
       {/* Placeholder for future functionality  */}
