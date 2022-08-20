@@ -4,18 +4,24 @@
   flex-direction: column;
   justify-content: center;
 
+  header {
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+
   .contact {
     display: flex;
     flex: 40px 1;
     justify-content: space-between; 
     padding: 10px;
+    margin-bottom: 30px;
     width: 100%;
   }
   
   // Left side of user contact
   .contact-left {
     position: relative;
-    width: 40%;
   }
 
   .toggle-edit {
@@ -35,9 +41,9 @@
   .image {
     background-color: #c4c4c4;
     border-radius: 100%;
-    height: 120px;
+    height: 125px;
     margin: auto;
-    width: 120px;
+    width: 125px;
   }
 
   // Right side of user contact

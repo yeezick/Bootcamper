@@ -8,6 +8,7 @@ import { EditProfile } from '../EditProfile/EditProfile';
 import './UserProfile.scss';
 import { BiPencil } from 'react-icons/bi';
 import { BsBriefcaseFill, BsGithub, BsLinkedin } from 'react-icons/bs';
+import { SiMaildotru } from 'react-icons/si';
 import { uiActions } from '../../services/redux/slices/uiSlice';
 import { getOneUser } from '../../services/api/users';
 
@@ -25,6 +26,7 @@ export const UserProfile = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const validUrl = `http://${reduxUser.portfolio_link}`;
+  const { about, email, fun_fact, first_name, last_name, role } = currUser;
 
   useEffect(() => {
     const setUser = async () => {
@@ -41,8 +43,12 @@ export const UserProfile = () => {
   const handleToggleMode = () => {
     dispatch(uiActions.toggleEditMode());
   };
-  const AboutUser = () => <p>{currUser.about}</p>;
-  const FunFact = () => <p>{currUser.fun_fact}</p>;
+
+  const sendEmail = () => (window.location = `mailto:${email}`);
+  const routeToPortfolio = () => window.open(validUrl, '_blank');
+
+  const AboutUser = () => <p>{about}</p>;
+  const FunFact = () => <p>{fun_fact}</p>;
 
   if (editMode) {
     return (
@@ -52,10 +58,9 @@ export const UserProfile = () => {
       </>
     );
   } else {
-    const { about, email, fun_fact, first_name, last_name, role, _id: currUserId } = currUser;
     return (
       <div className="user-profile">
-        <header>PROFILE</header>
+        <header>Profile</header>
         <div className="contact">
           <div className="contact-left">
             <div className="toggle-edit">
@@ -72,9 +77,9 @@ export const UserProfile = () => {
               <p className="role">{role}</p>
             </div>
             <div className="media">
-              <BsGithub size={25} />
+              <SiMaildotru size={30} onClick={sendEmail} />
               <BsLinkedin size={25} />
-              <BsBriefcaseFill size={25} />
+              <BsBriefcaseFill size={25} onClick={routeToPortfolio} />
             </div>
           </div>
         </div>
