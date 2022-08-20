@@ -6,13 +6,16 @@
 
   .contact {
     display: flex;
-    justify-content:space-around;
+    flex: 40px 1;
+    justify-content: space-between; 
     padding: 10px;
     width: 100%;
   }
   
+  // Left side of user contact
   .contact-left {
     position: relative;
+    width: 40%;
   }
 
   .toggle-edit {
@@ -32,9 +35,39 @@
   .image {
     background-color: #c4c4c4;
     border-radius: 100%;
-    height: 140px;
+    height: 120px;
     margin: auto;
-    width: 140px;
+    width: 120px;
+  }
+
+  // Right side of user contact
+  .contact-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: center;
+  }
+
+  .name {
+    font-size: 24px;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+  
+  .role {
+    font-size: 18px;
+  }
+
+  .media {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
+
+    div {
+      background-color: #d9d9d9;
+      height: 30px;
+      width: 30px;
+    }
   }
 }
 

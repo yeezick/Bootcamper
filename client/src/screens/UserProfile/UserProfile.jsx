@@ -7,6 +7,7 @@ import { EditProfile } from '../EditProfile/EditProfile';
 // assets
 import './UserProfile.scss';
 import { BiPencil } from 'react-icons/bi';
+import { BsBriefcaseFill, BsGithub, BsLinkedin } from 'react-icons/bs';
 import { uiActions } from '../../services/redux/slices/uiSlice';
 import { getOneUser } from '../../services/api/users';
 
@@ -65,13 +66,15 @@ export const UserProfile = () => {
 
           <div className="contact-right">
             <div>
-              <p className="name">FIRST/LAST NAME</p>
-              <p className="role">TITLE</p>
+              <p className="name">
+                {first_name} {last_name}
+              </p>
+              <p className="role">{role}</p>
             </div>
             <div className="media">
-              <div>X</div>
-              <div>X</div>
-              <div>X</div>
+              <BsGithub size={25} />
+              <BsLinkedin size={25} />
+              <BsBriefcaseFill size={25} />
             </div>
           </div>
         </div>
