@@ -5,10 +5,10 @@ import { useParams } from 'react-router-dom';
 import { ShowPortfolioProjects } from '../../components/Projects/PortfolioCard/PortfolioCard';
 import { EditProfile } from '../EditProfile/EditProfile';
 // assets
-import { uiActions } from '../../services/redux/slices/uiSlice';
 import './UserProfile.scss';
+import { BiPencil } from 'react-icons/bi';
+import { uiActions } from '../../services/redux/slices/uiSlice';
 import { getOneUser } from '../../services/api/users';
-import { Header } from '../../components/Header/Header';
 
 export const UserProfile = () => {
   const { user: reduxUser, editMode } = useSelector((state) => state.ui);
@@ -56,16 +56,23 @@ export const UserProfile = () => {
       <div className="user-profile">
         <header>PROFILE</header>
         <div className="contact">
-          <p>
-            EDIT <br /> PENCIL
-          </p>
-          <p>IMAGE</p>
-          <p>FIRST/LAST NAME</p>
-          <p>TITLE</p>
-          <div className="media">
-            <div>X</div>
-            <div>X</div>
-            <div>X</div>
+          <div className="contact-left">
+            <div className="toggle-edit">
+              <BiPencil size={25} />
+            </div>
+            <div className="image"></div>
+          </div>
+
+          <div className="contact-right">
+            <div>
+              <p className="name">FIRST/LAST NAME</p>
+              <p className="role">TITLE</p>
+            </div>
+            <div className="media">
+              <div>X</div>
+              <div>X</div>
+              <div>X</div>
+            </div>
           </div>
         </div>
 
