@@ -15,7 +15,7 @@ export const SingleActionButton = (props) => {
     <button
       className={`single-button ${style} ${size ? size : ''}`}
       disabled={isDisabled}
-      onClick={handler}
+      onClick={handler ? handler : undefined}
     >
       {title}
     </button>
