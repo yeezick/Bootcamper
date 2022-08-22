@@ -64,7 +64,7 @@ export const UserProfile = () => {
         <div className="contact">
           <div className="contact-left">
             <div className="toggle-edit">
-              <BiPencil size={25} />
+              <BiPencil size={25} onClick={handleToggleMode} />
             </div>
             <div className="image"></div>
           </div>
@@ -77,9 +77,9 @@ export const UserProfile = () => {
               <p className="role">{role}</p>
             </div>
             <div className="media">
-              <SiMaildotru size={30} onClick={sendEmail} />
-              <BsLinkedin size={25} />
-              <BsBriefcaseFill size={25} onClick={routeToPortfolio} />
+              <SiMaildotru style={{ cursor: 'pointer' }} size={30} onClick={sendEmail} />
+              <BsLinkedin style={{ cursor: 'pointer' }} size={25} />
+              <BsBriefcaseFill style={{ cursor: 'pointer' }} size={25} onClick={routeToPortfolio} />
             </div>
           </div>
         </div>

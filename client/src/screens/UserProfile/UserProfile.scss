@@ -30,6 +30,7 @@
     border: 2px solid #000;
     border-radius: 100%;
     bottom: 0;
+    cursor: pointer;
     display: flex;
     justify-content: center;
     height: 40px;
@@ -68,7 +69,7 @@
     display: flex;
     justify-content: space-evenly;
     margin-top: 10px;
-
+    
     div {
       background-color: #d9d9d9;
       height: 30px;
