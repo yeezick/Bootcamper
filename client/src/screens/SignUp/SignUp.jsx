@@ -86,10 +86,10 @@ export const SignUp = () => {
       {/* {showModal && (
         <GenericModal bodyText={modalError} buttonText="Ok" setShowModal={setShowModal} />
       )} */}
-      <h4>Create an account</h4>
+      <h3>Sign Up</h3>
       <form className="form sign-up" onSubmit={handleSignUp}>
         <div className="input-wrapper">
-          <label htmlFor="first_name">Name</label>
+          <label htmlFor="first_name">First Name</label>
           <input
             required
             id="first_name"
@@ -111,7 +111,7 @@ export const SignUp = () => {
           />
         </div>
         <div className="input-wrapper">
-          <label htmlFor="email">Email Address</label>
+          <label htmlFor="email">Email</label>
           <input
             required
             id="email"
