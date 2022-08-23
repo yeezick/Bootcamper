@@ -1,13 +1,15 @@
 .user-profile {
+  font-family: 'Nunito', sans-serif;
   .title-wrapper {
     margin-top: 1rem;
     text-align: center;
     .title-name {
-      font-size: 2rem;
-      text-decoration: underline;
+      font-weight: 600;
+      font-size: 24px;
     }
     .title-role {
-      font-weight: 400;
+      font-weight: normal;
+      font-size: 18px;
     }
   }
 

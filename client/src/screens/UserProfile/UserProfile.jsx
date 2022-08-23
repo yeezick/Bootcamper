@@ -51,6 +51,8 @@ export const UserProfile = () => {
     const { about, email, fun_fact, first_name, last_name, role, _id: currUserId } = currUser;
     return (
       <div className="user-profile">
+        <h3 className="header">Profile</h3>
+        <div className="image">im an image</div>
         <div className="title-wrapper">
           {currUserId === reduxUser._id && <button onClick={handleToggleMode}>edit profile</button>}
           <h2 className="title-name">
@@ -58,8 +60,7 @@ export const UserProfile = () => {
           </h2>
           <h2 className="title-role">{role}</h2>
         </div>
-        <div className="image">im an image</div>
-
+        {/*
         <div className="links">
           <a href={`mailto:${email}`} target="">
             E-mail
@@ -68,7 +69,7 @@ export const UserProfile = () => {
             Portfolio
           </a>
         </div>
-
+        */}
         <div className="content">
           <div className="about">
             <h3>About</h3>
