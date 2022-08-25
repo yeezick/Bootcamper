@@ -31,3 +31,21 @@
 .long {
   width: 250px;
 }
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  button {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    background-color: black;
+    height: 35px;
+    width: 110px;
+    padding: 5px;
+    color: white;
+    border-style: none;
+    border-radius: 4px;
+    font-size: 14px;
+    margin: 5px;
+    cursor: pointer;
+  }
+}
