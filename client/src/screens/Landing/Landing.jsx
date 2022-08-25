@@ -23,9 +23,9 @@ export const Landing = () => {
       <div className="img-placeholder"></div>
       <h1 className="title">Bootcamper</h1>
       <h3 className="subtitle">Find your next project!</h3>
-      <SingleActionButton payload={routeToSignUp} width="long" />
-      <SingleActionButton payload={routeToSignIn} style="light" width="long" />
-      <p>Continue with</p>
+      <SingleActionButton payload={routeToSignUp} style="default" size="long" />
+      <SingleActionButton payload={routeToSignIn} style="light" size="long" />
+      <p className="text">Continue with</p>
       <div className="sso-wrapper">
         <div className="sso-item"></div>
         <div className="sso-item"></div>
