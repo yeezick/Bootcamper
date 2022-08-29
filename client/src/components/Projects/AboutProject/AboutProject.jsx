@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { SingleActionButton } from '../../Button/SingleActionButton';
+import './AboutProject.scss';
 
 export const AboutProject = ({ createNewProject, handleSubmit, project, setEdit }) => {
   const currentUser = useSelector(state => state.ui.user)
@@ -67,7 +68,7 @@ useEffect(() => {
         value={projectInfo.title}
         onChange={handleChange}
        />
-       <label htmlFor='description'>Project Description (max 300 characters)</label>
+       <label className='description' htmlFor='description'>Description</label>
        <textarea
         id='description' 
         name='description'

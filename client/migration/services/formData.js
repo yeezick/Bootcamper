@@ -62,7 +62,7 @@ export const signUpForm = {
   user related forms 
 */
 
-export const createProfile = {
+export const createProfileForm = {
   button: {
       text: 'Next',
       type: 'single',

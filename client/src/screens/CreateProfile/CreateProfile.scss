@@ -1,0 +1,27 @@
+.create-profile {
+height: 100%;
+width: 100%;
+
+
+}
+.about-user {
+  display: flex;
+  flex-direction: column;
+}
+.add-portfolio-project {
+  display: flex;
+  flex-direction: column;
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+}
+h3 {
+  text-align: center;
+}
+
+a {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

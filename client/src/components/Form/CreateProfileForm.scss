@@ -1,0 +1,48 @@
+.form {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 5% 0;
+  button {
+    background-color: black;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    height: 2.5em;
+    margin: 5% 0;
+    margin-top: 3.5rem;
+    padding: 0 8px;
+  }
+  
+}  
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin: 5% 2% 0 2%;
+  padding: 0 1em;
+  width: 95%;
+  input {
+    height: 2.5em;
+    width: 95%;
+  }
+  #about {
+    height: 5rem;
+  }
+  select {
+    width: 95%;
+        height: 2.5em;
+
+  }
+}
+    
+label {
+  font-size: .9rem;
+  display: flex;
+  width: 95%;
+  justify-content: start;
+}
+

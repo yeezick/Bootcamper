@@ -59,6 +59,38 @@ export const signUpForm = {
 /* 
   user related forms 
 */
+export const createProfileForm = {
+  button: {
+    text: 'Next',
+    type: 'single',
+  },
+  handlers: {
+    // setterFunction: ,
+    // onSubmit: ,
+  },
+  inputs: [
+    {
+      labelText: 'I am a',
+      name: 'role',
+      required: true,
+      type: 'select',
+      options: ['Select Occupation', 'UX Designer', 'Software Engineer'],
+    },
+    {
+      labelText: 'About me',
+      name: 'about',
+      max_chars: 250,
+      required: true,
+      type: 'textarea',
+    },
+    {
+      labelText: 'Portfolio Link',
+      name: 'portfolio_link',
+      type: 'text',
+    },
+  ],
+};
+
 export const userForm = {
   button: {
     text: 'Update Your Info',

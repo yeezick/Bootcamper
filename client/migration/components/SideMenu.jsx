@@ -9,7 +9,7 @@ import { AccountSettings } from '../screens/AccountSettings/AccountSettings';
 import { Applicants } from '../screens/Applicants/Applicants';
 import { ChatRooms } from '../screens/Messaging/ChatRooms';
 import { SingleChat } from '../screens/Messaging/SingleChat';
-import { CreateProfile } from '../screens/CreateProfile';
+import { CreateProfile } from '../screens/CreateProfile/';
 import { EditProfile } from '../screens/EditProfile';
 import { EditProject } from '../screens/EditProject/EditProject';
 import { Landing } from '../screens/Landing';

@@ -1,17 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { AboutProject } from '../../components/Projects/AboutProject/AboutProject.jsx'
-import { Header } from '../../components/Header/Header.jsx';
 import { SingleActionButton } from '../../components/Button/SingleActionButton.jsx';
 import { editProject, deleteProject } from '../../services/api/projects.js';
+import './EditProject.scss';
 
 export const EditProject = ({ project, setEdit }) => {
   const navigate = useNavigate();
   const createNewProject = false;
-
-  const header = {
-    text: 'Edit the fields below and click Update Project to save your changes.',
-    title: 'Edit Project Details',
-  }
 
   const handleSubmit = async (e, projectInfo) => {
     e.preventDefault();
@@ -25,9 +20,9 @@ export const EditProject = ({ project, setEdit }) => {
   }
 
   return (
-    <div>
-      <Header headerText={header.text} headerTitle={header.title} />
-      <AboutProject createNewProject={createNewProject} project={project} setEdit={setEdit} handleSubmit={handleSubmit}/>
+    <div className='edit-project'>
+      <h3>Edit Project</h3>
+      <AboutProject createNewProject={createNewProject} project={project} setEdit={setEdit} handleSubmit={handleSubmit}/>     
       <SingleActionButton onClick={handleDelete} text={'Delete Project'} />
     </div>
   )

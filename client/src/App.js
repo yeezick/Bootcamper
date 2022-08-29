@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { CreateProject } from './screens/CreateProject/CreateProject.jsx';
+import { CreateProfile } from './screens/CreateProfile/CreateProfile.jsx';
 import { EditProfile } from './screens/EditProfile/EditProfile.jsx';
 // import { EditProject } from './screens/EditProject/EditProject.jsx';
 import { Landing } from './screens/Landing/Landing.jsx';
@@ -52,6 +53,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route exact path="/dashboard" element={<UserDashboard />}></Route>
         <Route exact path="/users/:id" element={<UserProfile />} />
+        <Route exact path="/users/:id/create" element={<CreateProfile currUser={user} />} />
         <Route exact path="/users/:id/edit" element={<EditProfile currUser={user} />} />
       </Routes>
     </Layout>
