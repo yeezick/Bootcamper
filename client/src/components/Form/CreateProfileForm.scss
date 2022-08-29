@@ -1,8 +1,8 @@
 .cpForm {
   align-items: center;
   display: flex;
-  justify-content: center;
   flex-direction: column;
+  justify-content: center;
   margin: 5% 0;
   button {
     background-color: black;
@@ -14,42 +14,40 @@
     margin-top: 3.5rem;
     padding: 0 8px;
   }
-  
-}  
+}
 
 .input-wrapper {
-  display: flex;
   align-items: center;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   margin: 5% 2% 0 2%;
   padding: 0 1em;
   width: 95%;
+  #about {
+    height: 5rem;
+  }
   input {
     height: 2.5em;
     width: 95%;
   }
-  #about {
-    height: 5rem;
-  }
   select {
+    height: 2.5em;
     width: 95%;
-        height: 2.5em;
-
   }
 }
-.textarea-wrapper{
+
+label {
   display: flex;
+  font-size: 0.9rem;
+  justify-content: start;
+  width: 95%;
+}
+
+.textarea-wrapper {
   align-items: center;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   width: 95%;
 }
-
-label {
-  font-size: .9rem;
-  display: flex;
-  width: 95%;
-  justify-content: start;
-}
-

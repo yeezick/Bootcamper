@@ -15,7 +15,7 @@ import { createProfileForm } from '../../services/formData';
 import './CreateProfile.scss';
 import { useEffect } from 'react';
 
-//aboutuser
+//CreateUserProfile
 
 export const CreateProfile = ({ currUser }) => {
   const header = {
@@ -28,18 +28,18 @@ export const CreateProfile = ({ currUser }) => {
       <div className="create-profile">
         {/* <Header headerTitle={header.title} headerText={header.text} /> */}
         <h3>Create Profile</h3>
-        <AboutUser />
+        <CreateUserProfile />
         {/* <AddPortfolioProject /> */}
         <ShowPortfolioProjects currUser={currUser} />
         <Link to="/roulette">
-          <a className='complete-later'>Complete later</a>
+          <a className="complete-later">Complete later</a>
         </Link>
       </div>
     </>
   );
 };
 
-const AboutUser = () => {
+const CreateUserProfile = () => {
   const { editMode, user } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
   const [userInfo, setUserInfo] = useState({
@@ -73,7 +73,10 @@ const AboutUser = () => {
 
   return (
     <div className="create-user">
-      <CreateProfileForm formData={createProfileForm} formState={[userInfo, setUserInfo, handleUserUpdate]} />
+      <CreateProfileForm
+        formData={createProfileForm}
+        formState={[userInfo, setUserInfo, handleUserUpdate]}
+      />
     </div>
   );
 };
