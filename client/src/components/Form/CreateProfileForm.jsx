@@ -9,7 +9,7 @@ export const CreateProfileForm = ({ formData, formState }) => {
   const [stateObject, setterFunction, handleSubmit] = formState;
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    <form className="cpForm" onSubmit={handleSubmit}>
       {inputs.map((input) => (
         <div key={input.name} className="input-wrapper">
           <label htmlFor={input.name}>{parseHtml(input.labelText)}</label>
@@ -25,7 +25,7 @@ export const CreateProfileForm = ({ formData, formState }) => {
               ))}
             </select>
           ) : (
-            <input
+            <textarea className="textarea-wrapper"
               id={input.name}
               name={input.name}
               onChange={(e) => handleChange(e, input.name, setterFunction)}
@@ -36,7 +36,7 @@ export const CreateProfileForm = ({ formData, formState }) => {
           )}
         </div>
       ))}
-      <SingleActionButton className='next-button-create-prof' text={button.text} type="submit" />
+      <SingleActionButton text={button.text} type="submit" />
     </form>
   );
 };

@@ -1,4 +1,4 @@
-.form {
+.cpForm {
   align-items: center;
   display: flex;
   justify-content: center;
@@ -38,7 +38,14 @@
 
   }
 }
-    
+.textarea-wrapper{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 95%;
+}
+
 label {
   font-size: .9rem;
   display: flex;
