@@ -11,7 +11,7 @@
   text-align: center;
   width: 102px;
 }
-    
+
 .default {
   background-color: #1b1b1b;
   color: #fff;
@@ -19,18 +19,18 @@
 
 .disabled {
   background-color: #ebebe4;
-  color: #5c5c5c
+  color: #5c5c5c;
 }
 
 .light {
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
   border: 1px solid #000;
   color: #000;
 }
 
 .long {
   width: 250px;
-}
+
   display: flex;
   justify-content: center;
   margin: 10px;
