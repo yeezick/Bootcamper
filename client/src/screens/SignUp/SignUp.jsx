@@ -10,6 +10,7 @@ import { checkEmailAuth, verify } from '../../services/api/users.js';
 import { handleChange } from '../../services/utils/formHandlers';
 import { SingleActionButton } from '../../components/Button/SingleActionButton.jsx';
 import { DoubleActionModal } from '../../components/Modal/DoubleActionModal.jsx';
+import { Header } from '../../components/Header/Header';
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export const SignUp = () => {
 
   const routeToCreateProfile = {
     handler: null,
-    title: 'Registration',
+    title: 'Register',
   };
 
   const handleSignUp = async (event) => {
@@ -77,7 +78,7 @@ export const SignUp = () => {
   };
 
   return (
-    <div className="sign-up-screen auth-form">
+    <div className="sign-up-screen">
       {showSuccessModal && (
         <DoubleActionModal
           setShowModal={setShowSuccessModal}
@@ -91,7 +92,7 @@ export const SignUp = () => {
       {/* {showModal && (
         <GenericModal bodyText={modalError} buttonText="Ok" setShowModal={setShowModal} />
       )} */}
-      <h4>Create an account</h4>
+      <Header headerTitle="Sign Up" />
       <form className="form sign-up" onSubmit={handleSignUp}>
         <div className="input-wrapper">
           <label htmlFor="first_name">Name</label>

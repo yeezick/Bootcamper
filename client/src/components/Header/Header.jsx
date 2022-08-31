@@ -2,7 +2,6 @@ import React from 'react';
 import './Header.scss';
 
 /**
- *
  * @name Header
  * @param {string} title - contains the title text of the Header
  */

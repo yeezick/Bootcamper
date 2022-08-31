@@ -10,6 +10,7 @@ export const Form = ({ formData, formState }) => {
 
   const submitFormPayload = {
     handlers: handleSubmit,
+    title: button.text,
   };
 
   return (
@@ -40,7 +41,7 @@ export const Form = ({ formData, formState }) => {
           )}
         </div>
       ))}
-      <SingleActionButton payload={submitFormPayload} text={button.text} type="submit" />
+      <SingleActionButton payload={submitFormPayload} />
     </form>
   );
 };

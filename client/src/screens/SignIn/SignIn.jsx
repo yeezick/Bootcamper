@@ -54,7 +54,7 @@ export const SignIn = () => {
   };
 
   return (
-    <div className="sign-in-screen auth-form">
+    <div className="sign-in-screen">
       <p>Log In</p>
       <form className="form sign-in" onSubmit={handleSignIn}>
         <div className="input-wrapper">
