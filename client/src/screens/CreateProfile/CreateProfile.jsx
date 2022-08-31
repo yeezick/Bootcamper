@@ -6,8 +6,7 @@ import {
   ShowPortfolioProjects,
 } from '../../components/Projects/PortfolioCard/PortfolioCard';
 import { CreateProfileForm } from '../../components/Form/CreateProfileForm';
-import { Header } from '../../components/Header/Header';
-import { Modal } from '../../components/Modal/Modal';
+
 
 import { uiActions } from '../../services/redux/slices/uiSlice';
 import { updateUser } from '../../services/api/users';
