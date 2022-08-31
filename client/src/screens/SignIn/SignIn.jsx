@@ -54,7 +54,7 @@ export const SignIn = () => {
   };
 
   return (
-    <div className="sign-in-screen auth-form">
+    <div className="sign-in-screen">
       <p>Log In</p>
       <form className="form sign-in" onSubmit={handleSignIn}>
         <div className="input-wrapper">
@@ -92,13 +92,7 @@ export const SignIn = () => {
         </div>
         <div className="action-btn-container">
           {/* Remove text setting once singleActionButton is merged */}
-          <SingleActionButton
-            payload={routeToEditProfile}
-            type="submit"
-            text="Sign In"
-            style="default"
-            size="long"
-          />
+          <SingleActionButton payload={routeToEditProfile} type="submit" style="default" />
         </div>
       </form>
       {/* Placeholder for future functionality  */}

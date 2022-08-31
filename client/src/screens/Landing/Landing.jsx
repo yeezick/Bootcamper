@@ -6,14 +6,14 @@ export const Landing = () => {
   const navigate = useNavigate();
   const routeToSignUp = {
     handler() {
-      navigate('SignUp');
+      navigate('sign-up');
     },
     title: 'Sign Up',
   };
 
   const routeToSignIn = {
     handler() {
-      navigate('SignIn');
+      navigate('sign-in');
     },
     title: 'Sign In',
   };
