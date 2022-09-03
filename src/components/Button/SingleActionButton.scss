@@ -1,21 +1,51 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap');
-
 .single-button {
-    display: flex;
-    justify-content: center;
-    margin: 10px;
-    button {
-        font-family: 'Roboto', sans-serif;
-        font-weight: 300;
-        background-color: black;
-        height: 35px;
-        width: 110px;
-        padding: 5px;
-        color: white;
-        border-style: none;
-        border-radius: 4px;
-        font-size: 14px;
-        margin: 5px;
-        cursor: pointer;
-    }
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  font-size: 16px;
+  font-weight: 'Nunito';
+  height: 50px;
+  justify-content: center;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 102px;
+}
+
+.default {
+  background-color: #1b1b1b;
+  color: #fff;
+}
+
+.disabled {
+  background-color: #ebebe4;
+  color: #5c5c5c;
+}
+
+.light {
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #000;
+  color: #000;
+}
+
+.long {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  width: 250px;
+}
+
+button {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  background-color: black;
+  height: 35px;
+  width: 110px;
+  padding: 5px;
+  color: white;
+  border-style: none;
+  border-radius: 4px;
+  font-size: 14px;
+  margin: 5px;
+  cursor: pointer;
 }
