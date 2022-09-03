@@ -1,15 +1,11 @@
 import React from 'react';
-import './Header.scss';
+import './Header.scss'
+export const Header = ({ headerTitle, headerText }) => {
 
-/**
- * @name Header
- * @param {string} title - contains the title text of the Header
- */
-
-export const Header = ({ headerTitle }) => {
-  return (
-    <header className="header">
-      <p className="header-title">{headerTitle}</p>
-    </header>
-  );
+  return ( 
+  <header className='header'>
+    <h3 className='header-title'>{headerTitle}</h3>
+    <p className="header-text">{headerText}</p>
+  </header>
+  )
 };

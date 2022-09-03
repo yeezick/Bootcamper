@@ -8,11 +8,6 @@ export const Form = ({ formData, formState }) => {
   const { button, handlers, inputs } = formData;
   const [stateObject, setterFunction, handleSubmit] = formState;
 
-  const submitFormPayload = {
-    handlers: handleSubmit,
-    title: button.text,
-  };
-
   return (
     <form className="form" onSubmit={handleSubmit}>
       {inputs.map((input) => (
@@ -41,7 +36,7 @@ export const Form = ({ formData, formState }) => {
           )}
         </div>
       ))}
-      <SingleActionButton payload={submitFormPayload} />
+      <SingleActionButton text={button.text} type="submit" />
     </form>
   );
 };

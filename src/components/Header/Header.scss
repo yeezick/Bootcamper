@@ -1,7 +1,15 @@
 .header {
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 33px;
-  margin-top: 10px;
-  text-align: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  margin: 1% 15%;
+  .header-text {
+    padding: 2% 5%;
+  }
+  .header-title {
+    margin: 2% 0;
+    text-decoration: underline;
+  }
 }

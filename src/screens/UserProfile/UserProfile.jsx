@@ -5,28 +5,24 @@ import { useParams } from 'react-router-dom';
 import { ShowPortfolioProjects } from '../../components/Projects/PortfolioCard/PortfolioCard';
 import { EditProfile } from '../EditProfile/EditProfile';
 // assets
-import './UserProfile.scss';
-import { BiPencil } from 'react-icons/bi';
-import { BsBriefcaseFill, BsGithub, BsLinkedin } from 'react-icons/bs';
-import { SiMaildotru } from 'react-icons/si';
 import { uiActions } from '../../services/redux/slices/uiSlice';
+import './UserProfile.scss';
 import { getOneUser } from '../../services/api/users';
 
 export const UserProfile = () => {
   const { user: reduxUser, editMode } = useSelector((state) => state.ui);
   const [currUser, setCurrUser] = useState({
-    about: '',
-    email: '',
     first_name: '',
-    fun_fact: '',
     last_name: '',
-    portfolio_link: '',
     role: '',
+    email: '',
+    about: '',
+    fun_fact: '',
+    portfolio_link: '',
   });
   const dispatch = useDispatch();
   const params = useParams();
   const validUrl = `http://${reduxUser.portfolio_link}`;
-  const { about, email, fun_fact, first_name, last_name, role } = currUser;
 
   useEffect(() => {
     const setUser = async () => {
@@ -44,12 +40,6 @@ export const UserProfile = () => {
     dispatch(uiActions.toggleEditMode());
   };
 
-  const sendEmail = () => (window.location = `mailto:${email}`);
-  const routeToPortfolio = () => window.open(validUrl, '_blank');
-
-  const AboutUser = () => <p>{about}</p>;
-  const FunFact = () => <p>{fun_fact}</p>;
-
   if (editMode) {
     return (
       <>
@@ -58,46 +48,43 @@ export const UserProfile = () => {
       </>
     );
   } else {
-<<<<<<< HEAD
+    const { about, email, fun_fact, first_name, last_name, role, _id: currUserId } = currUser;
     return (
       <div className="user-profile">
-        <header>Profile</header>
-        <div className="contact">
-          <div className="contact-left">
-            <div className="toggle-edit">
-              <BiPencil size={25} onClick={handleToggleMode} />
-            </div>
-            <div className="image"></div>
-          </div>
+        <div className="title-wrapper">
+          {currUserId === reduxUser._id && <button onClick={handleToggleMode}>edit profile</button>}
+          <h2 className="title-name">
+            {first_name} {last_name}
+          </h2>
+          <h2 className="title-role">{role}</h2>
+        </div>
+        <div className="image">im an image</div>
 
-          <div className="contact-right">
-            <div>
-              <p className="name">
-                {first_name} {last_name}
-              </p>
-              <p className="role">{role}</p>
-            </div>
-            <div className="media">
-              <SiMaildotru style={{ cursor: 'pointer' }} size={30} onClick={sendEmail} />
-              <BsLinkedin style={{ cursor: 'pointer' }} size={25} />
-              <BsBriefcaseFill style={{ cursor: 'pointer' }} size={25} onClick={routeToPortfolio} />
-            </div>
-          </div>
+        <div className="links">
+          <a href={`mailto:${email}`} target="">
+            E-mail
+          </a>
+          <a href={validUrl} target="_blank">
+            Portfolio
+          </a>
         </div>
 
-        <InfoCard header="about user" children={<AboutUser />} />
-        <InfoCard header="fun fact" children={<FunFact />} />
-        <InfoCard header="portfolio" children={<ShowPortfolioProjects currUser={currUser} />} />
+        <div className="content">
+          <div className="about">
+            <h3>About</h3>
+            <p>{about}</p>
+          </div>
+
+          {fun_fact && (
+            <div className="fun-fact">
+              <h3>Fun Fact</h3>
+              <p>{fun_fact}</p>
+            </div>
+          )}
+        </div>
+
+        <ShowPortfolioProjects currUser={currUser} />
       </div>
     );
   }
-};
-
-const InfoCard = ({ children, header }) => {
-  return (
-    <div className="info-card">
-      <h4>{header}</h4>
-      {children}
-    </div>
-  );
 };

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 // assets
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../services/redux/actions/uiActions.js';
-import './SignIn.scss';
+import '../SignUp/SignUp.scss';
 import { handleChange } from '../../services/utils/formHandlers';
 import { SingleActionButton } from '../../components/Button/SingleActionButton';
 import { checkEmailAuth, signOut, verify } from '../../services/api/users';
@@ -15,14 +15,9 @@ export const SignIn = () => {
   const [authError, setAuthError] = useState(null);
   const [noAccountError, setNoAccountError] = useState(null);
   const [loginInfo, setLoginInfo] = useState({
-    email: '',
-    password: '',
+    email: 'test@test.com',
+    password: 'test',
   });
-
-  const routeToEditProfile = {
-    handler: null,
-    title: 'Sign In',
-  };
 
   useEffect(() => {
     signOut();
@@ -54,8 +49,8 @@ export const SignIn = () => {
   };
 
   return (
-    <div className="sign-in-screen">
-      <p>Log In</p>
+    <div className="sign-in-screen auth-form">
+      <h4>Welcome Back!</h4>
       <form className="form sign-in" onSubmit={handleSignIn}>
         <div className="input-wrapper">
           <label htmlFor="email">Email</label>
@@ -68,7 +63,6 @@ export const SignIn = () => {
             value={loginInfo['email']}
             onFocus={() => setNoAccountError(false)}
             onBlur={() => validEmail()}
-            autoComplete="on"
           />
         </div>
         <div className="form-error">
@@ -84,18 +78,15 @@ export const SignIn = () => {
             type="password"
             value={loginInfo['password']}
             onFocus={() => setAuthError(null)}
-            autoComplete="current-password"
           />
         </div>
         <div className="form-error">
           <h6>{authError}</h6>
         </div>
-        <div className="action-btn-container">
-          {/* Remove text setting once singleActionButton is merged */}
-          <SingleActionButton payload={routeToEditProfile} type="submit" style="default" />
-        </div>
+        <SingleActionButton text="Log In" type="submit" />
       </form>
       {/* Placeholder for future functionality  */}
+      <a href="#">Forgot Password?</a>
     </div>
   );
 };

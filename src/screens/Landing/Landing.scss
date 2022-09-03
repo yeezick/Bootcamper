@@ -26,7 +26,18 @@
         margin: 30px 0;
     }
 
-    .text {
+    button {
+        background-color: black;
+        border-style: none;
+        border-radius: 4px;
+        color: white;
+        padding: 10px 20px;
+        margin: 9px;
+        font-size: 12px;
+        width: 90px;
+    }
+
+    p {
       color: #999999;
       font-family: 'nunito', sans-serif;
       font-size: 14px;
@@ -48,6 +59,7 @@
         width: 70px;
       }
     }
+
     .trial-link {
       color: #999999;
       margin-top: 10px;
