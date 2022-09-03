@@ -58,6 +58,7 @@ export const UserProfile = () => {
       </>
     );
   } else {
+<<<<<<< HEAD
     return (
       <div className="user-profile">
         <header>Profile</header>
