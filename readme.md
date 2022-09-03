@@ -1,128 +1,70 @@
-# Bootcamper
+# Getting Started with Create React App
 
-## Description
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Bootcamper is a full-stack networking platform for bootcamp graduates. A common problem for many graduates is the limbo that arrives immediately after completing the program. Graduates often have a lot of time but no direction as to how they should spend their time. However, we commonly hear the only way to exchange a college degree is with experience & since there aren't many companies willing to hire without on-the-job experience, graduates must garner it through personal projects.
+## Available Scripts
 
-Enter <strong>Bootcamper</strong>, a platform designed specifically to match UX designers with Software Engineers. The math is simple: engineers can focus on engineering & UX designers can see their projects come to life!
+In the project directory, you can run:
 
-After signing up for the platform, users are then directed to the core-feature of the app, a tinder-like roulette page where applicants can view projects that are seeking to expand their team. The algorithm behind this feature will listen to:
+### `npm start`
 
-- What roles the project is seeking
-- How many more members it needs
-- How much time the project would demand weekly
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-Then, only users who match the seeking criteria will be able to view the projects. The users then have the ability to either show their interest or decline interest in a project. Both these actions send API requests to the back-end which updates the database, in turn updating the algorithm that handles what projects a user can view when seeking.
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-At a minimum, your project README needs a title and a short description explaining the what, why, and how. What was your motivation? Why did you build this project? (Note: The answer is not "Because it was a homework assignment.") What problem does it solve? What did you learn? What makes your project stand out?
+### `npm test`
 
-Lastly, if your project is deployed, include a link to the deployed application here.
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-If you're new to Markdown, read the GitHub guide on [Mastering Markdown](https://guides.github.com/features/mastering-markdown/).
+### `npm run build`
 
-If you need an example of a good README, check out [the VSCode repository](https://github.com/microsoft/vscode).
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## Table of Contents
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-- [Planning](#planning)
-- [Technologies Used](#technologies)
-- [Credits](#credits)
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Planning
+### `npm run eject`
 
-We have high hopes for this application, so we wanted to be thorough in our planning. By visualizing what we wanted the app to be, we were able to streamline the process. We tackled the planning stage by:
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-- Creating a user flow to be concise about the user's intentions
-  ![User Flow Diagram](/assets/images/userFlow.png)
-- Mocking up a lo-fi design to avoid needing to ask design questions during development
-  ![Lo-Fi Design](/assets/images/lofiDesign.png)
-- Detailing the lo-fi design using FigJam, allowing new team members to have a deep understanding of not only the project, but also the components that make it up.
-  ![Lo-Fi Design - Detailed](/assets/images/lofiFigjam.png)
-- Visualizing our component hierarchy based off the Figjam
-- Creating an initial file tree structure based off the component hierarchy
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-```
-File Tree Structure:
-src/
-  |__ components/
-    |__ Button/
-      |__ SingleActionButton
-      |__ DoubleActionButton
-    |__ CallToAction/
-    |__ DiceRoll/
-    |__ Form/
-      |__ Dropdown
-      |__ Form
-      |__ Input
-      |__ TextArea
-    |__ Hero/
-    |__ Header/
-    |__ Modal/
-    |__ Projects/
-      |__ ApplicantPreview/
-      |__ ApplicantList/
-      |__ ProjectCard/
-      |__ ProjectIcon/
-      |__ ProjectList/
-    |__ Tool/
-  |__ layout/
-    |__ Layout.jsx
-    |__ Nav/
-    |__ Footer/
-    |__ MobileMenu/
-  |__ screens/
-    |__ EditProfile/
-    |__ EditProject/
-    |__ Landing/
-    |__ Roulette/
-    |__ SignIn/
-    |__ SignUp/
-    |__ SingleProject/
-    |__ UserProfile/
-    |__ UserProjects/
-  |__ services
-    |__ api/
-      |__ apiConfig.js
-      |__ users.js
-      |__ projects.js
-    |__ utils
-      |__ filterRoulette.js
-    |__ redux
-      |__ store/
-      |__ reducers/
-      |__ actions/
-```
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-## Technologies
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-In order to build the app we used:
+## Learn More
 
-|    Back-End    |  Front-End   | Planing & Mgmt. |
-| :------------: | :----------: | :-------------: |
-|    Nodemon     |    React     |      Jira       |
-|     BCrypt     |    Redux     |      Agile      |
-|      Cors      |     SCSS     |      Figma      |
-|    Express     |    Axios     |     FigJam      |
-| JSON Web Token | React Router |                 |
-|    Mongoose    | React Icons  |                 |
-|     Morgan     |              |                 |
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-## Credits
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Engineering team
+### Code Splitting
 
-|                                      Name                                      |             Role             |                         GitHub                          |
-| :----------------------------------------------------------------------------: | :--------------------------: | :-----------------------------------------------------: |
-|         [Erick Manrique](https://www.linkedin.com/in/erick-manrique/)          | Founding Full-Stack Engineer |          [Yeezick](https://github.com/yeezick)          |
-| [Nicholas Rynearson](https://www.linkedin.com/in/nicholas-rynearson-88a77635/) | Founding Full-Stack Engineer | [FlexibleIdealist](https://github.com/flexibleidealist) |
-|   [ Julia Dwyer](https://www.linkedin.com/in/julia-dwyer-software-engineer/)   |     Full-Stack Engineer      |      [GooliaJulia](https://github.com/gooliajulia)      |
-|      [Aaron Harris](https://www.linkedin.com/in/aaron-harris-577867218/)       |      Front-End Engineer      |     [AaronsHarris](https://github.com/aaronsHarris)     |
-|            [Naved Rahim](https://www.linkedin.com/in/naved-rahim/)             |     Full-Stack Engineer      |       [NavedRahim](https://github.com/navedrahim)       |
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### User Experience & Design Team
+### Analyzing the Bundle Size
 
-|                              Name                               |    Role     |
-| :-------------------------------------------------------------: | :---------: |
-| [Jennifer Huddock](https://www.linkedin.com/in/jenniferhudock/) | UX Designer |
-|    [Osiris Ramos](https://www.linkedin.com/in/osirisramos/)     | UX Designer |
-|    [ Jordan Chan](https://www.linkedin.com/in/jordanzchan/)     | UX Designer |
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
