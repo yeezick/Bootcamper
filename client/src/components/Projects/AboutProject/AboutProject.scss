@@ -1,0 +1,57 @@
+.project-form {
+  #time-commitment {
+    width: 100%;
+  }
+  .input-wrapper {
+    width: 100%;
+    #description {
+      height: 4rem;
+      width: 100%;
+    }
+    .count-container {
+      display: flex;
+      justify-content: space-between;
+      #designer-count {
+        margin-right: 0.5rem;
+        width: 2.5rem;
+      }
+      #engineer-count {
+        margin-right: 0.5rem;
+        width: 2.5rem;
+      }
+    }
+    input {
+      width: 100%;
+    }
+    label {
+      margin-bottom: -0.07rem;
+    }
+    .tech-stack {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      margin-top: -0.9rem;
+      width: 100%;
+      button {
+        background-color: lightgrey;
+        color: black;
+        font-family: "Nunito", sans-serif;
+        font-weight: 600;
+      }
+      input {
+        width: 80%;
+      }
+    }
+  }
+  .single-button{
+    width: 100%;
+    button {
+      background-color: lightgrey;
+      color: black;
+      font-family: "Nunito", sans-serif;
+      font-weight: 600;
+      width: 60%;
+    }
+  }
+}
+

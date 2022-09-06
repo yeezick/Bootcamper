@@ -9,10 +9,12 @@ export const CreateProject = () => {
 
   const createNewProject = true;
   const navigate = useNavigate();
+  /*
   const header = {
     text: "Have a vision? Let's make it real!",
     title: 'Create a Project',
   };
+  */
 
   const handleNewProject = async (e, projectInfo) => {
     e.preventDefault();
@@ -22,8 +24,15 @@ export const CreateProject = () => {
 
   return (
     <div className='create-project-screen'>
+      {/*
       <Header headerText={header.text} headerTitle={header.title} />
+      */}
+      <div className = "create-project-header">
+        <h3>Create a Project</h3>
+      </div>
+      <div className="createAboutProject">
       <AboutProject handleSubmit={handleNewProject} createNewProject={createNewProject} />
+        </div>
     </div>
   )
 }
