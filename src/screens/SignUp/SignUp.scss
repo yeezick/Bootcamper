@@ -1,0 +1,78 @@
+.sign-up-screen {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Nunito', sans-serif;
+  justify-content: center;
+<<<<<<< HEAD:client/src/screens/SignUp/SignUp.scss
+  padding-top: 80px;
+=======
+
+  h4 {
+    align-self: center;
+    font-weight: 500;
+    text-align: center;
+    width: max-content;
+  }
+  
+  label {
+    font-size: 14px;
+    font-weight: 300;
+  }
+  
+  input {
+    border: solid black 1px;
+    height: 28px;
+    padding-left: 7px;
+    width: 100%;
+  }
+  
+>>>>>>> daeeb7d0384a73c8086eccf564aa112be575e28a:src/screens/SignUp/SignUp.scss
+  .input-wrapper {
+    margin-top: 7px;
+    width: 100%;
+  }
+<<<<<<< HEAD:client/src/screens/SignUp/SignUp.scss
+=======
+  
+  h6 {
+    align-self: center;
+  }
+  
+>>>>>>> daeeb7d0384a73c8086eccf564aa112be575e28a:src/screens/SignUp/SignUp.scss
+  a {
+    align-self: center;
+    color: black;
+    font-size: 12px;
+    font-style: italic;
+  }
+  h6 {
+    align-self: center;
+  }
+  h3 {
+    align-self: center;
+    font-weight: 700;
+    font-size: 24px;
+    margin-bottom: -6vh;
+    margin-top: -2vh;
+    text-align: center;
+    width: max-content;
+  }
+  input {
+    border: solid black 1px;
+    box-shadow: 0.3px 1px darkgrey;
+    height: 28px;
+    padding-left: 7px;
+    width: 100%;
+  }
+  label {
+    font-size: 14px;
+    font-weight: 300;
+  }
+  .SingleActionButton {
+    background-color: red;
+  }
+}
+
+.form-error {
+  margin-top: 5px;
+}

@@ -1,0 +1,55 @@
+.sign-in-screen {
+  color: #1b1b1b;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Nunito', sans-serif;
+  justify-content: center;
+  padding-top: 80px;
+
+  p {
+    align-self: center;
+    font-size: 24px;
+    font-weight: 700;
+    height: 33px;
+    letter-spacing: -0.7px;
+    text-align: center;
+    width: 72px;
+  }
+
+  .form {
+    gap: 104x;
+    margin-top: 55px;
+  }
+
+  .input-wrapper {
+    width: 100%;
+  }
+
+  label {
+    font-size: 16px;
+    font-weight: 500;
+    height: 22px;
+    line-height: 21.86px;
+    margin-bottom: 0;
+    width: 300px;
+  }
+
+  input {
+    border: solid #1b1b1b 1px;
+    height: 28px;
+    padding-left: 7px;
+    width: 100%;
+  }
+
+  h6 {
+    align-self: center;
+  }
+
+  .action-btn-container {
+    margin-top: 44px;
+  }
+}
+
+.form-error {
+  margin-top: 5px;
+}
