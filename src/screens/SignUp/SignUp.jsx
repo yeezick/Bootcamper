@@ -92,11 +92,7 @@ export const SignUp = () => {
       {/* {showModal && (
         <GenericModal bodyText={modalError} buttonText="Ok" setShowModal={setShowModal} />
       )} */}
-<<<<<<< HEAD:client/src/screens/SignUp/SignUp.jsx
-      <h3>Sign Up</h3>
-=======
       <Header headerTitle="Sign Up" />
->>>>>>> daeeb7d0384a73c8086eccf564aa112be575e28a:src/screens/SignUp/SignUp.jsx
       <form className="form sign-up" onSubmit={handleSignUp}>
         <div className="input-wrapper">
           <label htmlFor="first_name">First Name</label>

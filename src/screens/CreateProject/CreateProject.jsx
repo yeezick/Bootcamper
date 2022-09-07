@@ -18,6 +18,7 @@ export const CreateProject = () => {
 
   const handleNewProject = async (e, projectInfo) => {
     e.preventDefault();
+    console.log("hereee", projectInfo);
     const newProject = await createProject(projectInfo);
     if (newProject) navigate(`/projects/${newProject._id}`)
   }

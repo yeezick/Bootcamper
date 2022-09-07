@@ -57,20 +57,13 @@ export const AboutProject = ({ createNewProject, handleSubmit, project, setEdit 
     if (!createNewProject) setProjectInfo({...project})
   }, [currentUser])
 
-  const myobj = {
-    handler: null,
-    title: createNewProject ? 'Save Project' : 'Update Project',
-  };
 
   return (
     <div className="about-project">
-      <form onSubmit={(e) => {
-        handleSubmit(e, projectInfo)
-      }} className='project-form form'>
+      <form onSubmit={(e) => handleSubmit(e, projectInfo)} className='project-form form'>
 
         <div className="input-wrapper">
-          <label htmlFor='title' onClick={() => console.log("here")}
-          >Project Title</label>
+          <label htmlFor='title'>Project Title</label>
           <input
             id='title' 
             name='title'
@@ -118,7 +111,7 @@ export const AboutProject = ({ createNewProject, handleSubmit, project, setEdit 
         </div>
 
         <div className="input-wrapper">
-          <label htmlFor='designer-count'>Who are you seeking?</label>
+          <label htmlFor='designer-count'>How many designers are you seeking?</label>
           <div className="count-container">
             <input
               id='designer-count'
@@ -133,6 +126,7 @@ export const AboutProject = ({ createNewProject, handleSubmit, project, setEdit 
         </div>
 
         <div className="input-wrapper">
+          <label htmlFor='engineer-count'>How many engineers are you seeking?</label>
           <div className="count-container">
             <input
               id='engineer-count'
@@ -161,7 +155,7 @@ export const AboutProject = ({ createNewProject, handleSubmit, project, setEdit 
           </select>
         </div>
 
-        <SingleActionButton payload={myobj} />
+        <SingleActionButton type={'submit'} text={createNewProject ? 'Save Project' : 'Update Project'} />
       </form>
     </div>
   )
