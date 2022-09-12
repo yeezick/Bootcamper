@@ -1,18 +1,13 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {
-  AddPortfolioProject,
-  ShowPortfolioProjects,
-} from '../../components/Projects/PortfolioCard/PortfolioCard';
-// import { Form } from '../../components/Form/Form';
+import { ShowPortfolioProjects } from '../../components/Projects/PortfolioCard/PortfolioCard';
 import parseHtml from 'html-react-parser';
 import { handleChange } from '../../services/utils/formHandlers';
 import { SingleActionButton } from '../../components/Button/SingleActionButton';
 
 import { uiActions } from '../../services/redux/slices/uiSlice';
 import { updateUser } from '../../services/api/users';
-// import { createProfileForm } from '../../services/formData';
 import './CreateProfile.scss';
 import { useEffect } from 'react';
 
@@ -25,10 +20,12 @@ export const CreateProfile = ({ currUser }) => {
   return (
     <>
       <div className="create-profile">
-        <h3>Create Profile</h3>
+        <h3 className="header">Create Profile</h3>
         <AboutUser />
         <ShowPortfolioProjects currUser={currUser} />
-        
+        <a className="later-link" href="/roulette">
+          Complete later
+        </a>
       </div>
     </>
   );
@@ -108,7 +105,9 @@ const Form = ({ formData, formState }) => {
           )}
         </div>
       ))}
-      <SingleActionButton payload={submitFormPayload} />
+      <div className="action-btn-container">
+        <SingleActionButton payload={submitFormPayload} />
+      </div>
     </form>
   );
 };
@@ -128,7 +127,7 @@ export const createProfileForm = {
       name: 'role',
       required: true,
       type: 'select',
-      options: ['Select role', 'UX Designer', 'Software Engineer'],
+      options: ['Select Occupation', 'UX Designer', 'Software Engineer'],
     },
     {
       labelText: '<small>About Me</small>',

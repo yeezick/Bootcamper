@@ -1,0 +1,50 @@
+.create-profile {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Nunito', sans-serif;
+  justify-content: center;
+  
+  
+  input {
+    border: solid black 1px;
+    height: 28px;
+    padding-left: 7px;
+    width: 100%;
+  }
+  
+  .input-wrapper{
+    margin-bottom: 0;
+    width: 100%;
+  }
+  
+  select {
+    border: solid black 1px;
+    border-radius: 4px;
+    height: 28px;
+    padding-left: 7px;
+    width: 100%;
+  }
+  
+  label {
+    margin-bottom: 0;
+  }
+  
+  .later-link{
+    color: #999999;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .action-btn-container {
+    margin-top: 50px;
+  }
+  
+  #about{
+    border: solid black 1px;
+    height: 80px;
+    padding-left: 7px;
+    width: 100%;
+  }
+
+  
+}
