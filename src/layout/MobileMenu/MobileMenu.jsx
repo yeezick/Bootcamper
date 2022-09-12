@@ -37,6 +37,9 @@ const MobileMenu = ({ isOpen, toggleMobileMenu }) => {
         <Link className="nav-link" to={`/users/${userId}`} onClick={toggleMobileMenu}>
           My Profile
         </Link>
+        <Link className="nav-link" to={`/users/${userId}/create`} onClick={toggleEditMode}>
+          Create Profile
+        </Link>
         <Link className="nav-link" to={`/users/${userId}/edit`} onClick={toggleEditMode}>
           Edit My Profile
         </Link>
