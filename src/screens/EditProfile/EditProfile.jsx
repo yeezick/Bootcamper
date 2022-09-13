@@ -13,24 +13,31 @@ import { uiActions } from '../../services/redux/slices/uiSlice';
 import { updateUser } from '../../services/api/users';
 import { userForm } from '../../services/formData';
 import './EditProfile.scss';
+import { FaPen } from 'react-icons/fa';
 import { useEffect } from 'react';
 
 export const EditProfile = ({ currUser }) => {
   const header = {
-    text: "Before you can create or join a project, we'll need to finish your profile first.",
-    title: 'About You',
+    title: 'Edit Profile',
   };
 
   return (
     <>
       <div className="edit-profile">
-        <Header headerTitle={header.title} headerText={header.text} />
-        <AboutUser />
-        <AddPortfolioProject />
-        <ShowPortfolioProjects currUser={currUser} />
-        <Link to="/roulette">
-          <button>Start Collaborating!</button>
-        </Link>
+        <Header headerTitle={header.title} />
+        <div className="profile-picture">
+          <div className="toggle-edit-mode">
+            <FaPen size={15} />
+          </div>
+          <div className="image"></div>
+
+          <AboutUser />
+          <AddPortfolioProject />
+          <ShowPortfolioProjects currUser={currUser} />
+          <Link to="/roulette">
+            <button>Start Collaborating!</button>
+          </Link>
+        </div>
       </div>
     </>
   );
