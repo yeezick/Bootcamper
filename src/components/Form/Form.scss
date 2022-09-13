@@ -1,0 +1,25 @@
+.form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 5% 0;
+}
+
+.input-wrapper {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 5% 2% 0 2%;
+  padding: 0 2em;
+  width: 75%;
+  input {
+    border-radius: 4px;
+    height: 1.75em;
+    width: 85%;
+  }
+  label {
+    margin-bottom: 0.5rem;
+  }
+}
+

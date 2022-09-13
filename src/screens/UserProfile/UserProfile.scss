@@ -1,0 +1,95 @@
+.user-profile {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  header {
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+
+  .contact {
+    display: flex;
+    flex: 40px 1;
+    justify-content: space-between; 
+    padding: 10px;
+    margin-bottom: 30px;
+    width: 100%;
+  }
+  
+  // Left side of user contact
+  .contact-left {
+    position: relative;
+  }
+
+  .toggle-edit {
+    align-items: center;
+    background-color: #fff;
+    border: 2px solid #000;
+    border-radius: 100%;
+    bottom: 0;
+    cursor: pointer;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    width: 40px;
+  }
+  
+  .image {
+    background-color: #c4c4c4;
+    border-radius: 100%;
+    height: 125px;
+    margin: auto;
+    width: 125px;
+  }
+
+  // Right side of user contact
+  .contact-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: center;
+  }
+
+  .name {
+    font-size: 24px;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+  
+  .role {
+    font-size: 18px;
+  }
+
+  .media {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
+    
+    div {
+      background-color: #d9d9d9;
+      height: 30px;
+      width: 30px;
+    }
+  }
+}
+
+.info-card {
+  background-color: #313131;
+  border-radius: 4px;
+  color: white;
+  font-weight: 300;
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 300px;
+
+  h4 {
+    font-weight: 700;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+  }
+}
