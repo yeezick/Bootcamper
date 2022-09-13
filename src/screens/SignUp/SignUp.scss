@@ -2,7 +2,11 @@
   margin-top: 5px;
 }
 .single-button {
+  background-color: grey;
+  height: 50px;
   margin-top: 2rem;
+  padding: 14px 20px;
+  width: 102px;
 }
 .sign-up-screen {
   display: flex;
@@ -31,6 +35,7 @@
       border: solid black 1px;
       box-shadow: 0.3px 1px darkgrey;
       height: 28px;
+      margin-top: -.5rem;
       padding-left: 7px;
       width: 100%;
     }
