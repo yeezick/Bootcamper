@@ -20,6 +20,7 @@
   justify-content: center;
 
   .profile-picture {
+    position: relative;
     // display: flex;
     // flex: 40px 1;
     // justify-content: space-between;
@@ -36,16 +37,14 @@
   .toggle-edit-mode {
     align-items: center;
     background-color: #d9d9d9;
-    color: #fff;
-    // border: 2px solid #000;
+    color: #000;
     border-radius: 100%;
-    // bottom: 0;
     cursor: pointer;
     display: flex;
     height: 29px;
     justify-content: center;
     position: absolute;
-    right: 550px;
+    right: 100px;
     width: 29px;
   }
 
