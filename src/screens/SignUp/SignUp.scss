@@ -1,45 +1,57 @@
+.form-error {
+  margin-top: 5px;
+}
+.single-button {
+  background-color: grey;
+  height: 50px;
+  margin-top: 2rem;
+  padding: 14px 20px;
+  width: 102px;
+}
 .sign-up-screen {
   display: flex;
   flex-direction: column;
   font-family: 'Nunito', sans-serif;
+  font-weight: 700;
   justify-content: center;
+  padding-top: 80px;
 
-  h4 {
+  .footer {
     align-self: center;
-    font-weight: 500;
+  }
+
+  form {
+    a {
+      align-self: center;
+      color: black;
+      font-size: 12px;
+      font-style: italic;
+    }
+    .input-wrapper {
+      margin-top: 7px;
+      width: 100%;
+    }
+    input {
+      border: solid black 1px;
+      box-shadow: 0.3px 1px darkgrey;
+      height: 28px;
+      margin-top: -.5rem;
+      padding-left: 7px;
+      width: 100%;
+    }
+    label {
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+
+  .header {
+    align-self: center;
+    font-weight: 700;
+    font-size: 24px;
+    margin-top: -4rem;
     text-align: center;
     width: max-content;
   }
-  
-  label {
-    font-size: 14px;
-    font-weight: 300;
-  }
-  
-  input {
-    border: solid black 1px;
-    height: 28px;
-    padding-left: 7px;
-    width: 100%;
-  }
-  
-  .input-wrapper {
-    margin-top: 7px;
-    width: 100%;
-  }
-  
-  h6 {
-    align-self: center;
-  }
-  
-  a {
-    align-self: center;
-    color: black;
-    font-size: 12px;
-    font-style: italic;
-  }
 }
 
-.form-error {
-  margin-top: 5px;
-}

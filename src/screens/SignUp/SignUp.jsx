@@ -10,7 +10,7 @@ import { checkEmailAuth, verify } from '../../services/api/users.js';
 import { handleChange } from '../../services/utils/formHandlers';
 import { SingleActionButton } from '../../components/Button/SingleActionButton.jsx';
 import { DoubleActionModal } from '../../components/Modal/DoubleActionModal.jsx';
-import { Header } from '../../components/Header/Header';
+//import { Header } from '../../components/Header/Header';
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -92,10 +92,12 @@ export const SignUp = () => {
       {/* {showModal && (
         <GenericModal bodyText={modalError} buttonText="Ok" setShowModal={setShowModal} />
       )} */}
-      <Header headerTitle="Sign Up" />
+      <div className='header'>
+        <h3>Sign Up</h3>
+      </div>
       <form className="form sign-up" onSubmit={handleSignUp}>
         <div className="input-wrapper">
-          <label htmlFor="first_name">Name</label>
+          <label htmlFor="first_name">First Name</label>
           <input
             required
             id="first_name"
@@ -117,7 +119,7 @@ export const SignUp = () => {
           />
         </div>
         <div className="input-wrapper">
-          <label htmlFor="email">Email Address</label>
+          <label htmlFor="email">Email</label>
           <input
             required
             id="email"
@@ -165,9 +167,11 @@ export const SignUp = () => {
         </div>
         <SingleActionButton payload={routeToCreateProfile} text="Register" type="submit" />
       </form>
-      <h6>
-        Already have an account? <Link to="/sign-in">Sign in.</Link>
-      </h6>
+      <div className="footer">
+        <h6>
+          Already have an account? <Link to="/sign-in">Sign in.</Link>
+        </h6>
+      </div>
     </div>
   );
 };
