@@ -10,7 +10,7 @@ import { checkEmailAuth, verify } from '../../services/api/users.js';
 import { handleChange } from '../../services/utils/formHandlers';
 import { SingleActionButton } from '../../components/Button/SingleActionButton.jsx';
 import { DoubleActionModal } from '../../components/Modal/DoubleActionModal.jsx';
-import { Header } from '../../components/Header/Header';
+//import { Header } from '../../components/Header/Header';
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -92,11 +92,9 @@ export const SignUp = () => {
       {/* {showModal && (
         <GenericModal bodyText={modalError} buttonText="Ok" setShowModal={setShowModal} />
       )} */}
-<<<<<<< HEAD:client/src/screens/SignUp/SignUp.jsx
-      <h3>Sign Up</h3>
-=======
-      <Header headerTitle="Sign Up" />
->>>>>>> daeeb7d0384a73c8086eccf564aa112be575e28a:src/screens/SignUp/SignUp.jsx
+      <div className='header'>
+        <h3>Sign Up</h3>
+      </div>
       <form className="form sign-up" onSubmit={handleSignUp}>
         <div className="input-wrapper">
           <label htmlFor="first_name">First Name</label>
