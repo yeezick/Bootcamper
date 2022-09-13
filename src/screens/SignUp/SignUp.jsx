@@ -167,9 +167,11 @@ export const SignUp = () => {
         </div>
         <SingleActionButton payload={routeToCreateProfile} text="Register" type="submit" />
       </form>
-      <h6>
-        Already have an account? <Link to="/sign-in">Sign in.</Link>
-      </h6>
+      <div className="footer">
+        <h6>
+          Already have an account? <Link to="/sign-in">Sign in.</Link>
+        </h6>
+      </div>
     </div>
   );
 };
