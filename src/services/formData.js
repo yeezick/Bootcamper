@@ -70,27 +70,27 @@ export const userForm = {
   },
   inputs: [
     {
-      labelText: 'Tell us a bit about you <small>(max 250 characters)</small>',
+      labelText: 'I am a:',
+      name: 'role',
+      required: true,
+      type: 'checkbox',
+      options: ['Software Engineer', 'UX Designer'],
+    },
+    {
+      labelText: 'About me',
       name: 'about',
       max_chars: 250,
       required: true,
       type: 'textarea',
     },
     {
-      labelText: 'Include a fun fact!  <small> (optional, max 250 characters)</small> ',
+      labelText: 'Fun fact  <small> (optional)</small> ',
       name: 'fun_fact',
       max_chars: 250,
       type: 'textarea',
     },
     {
-      labelText: 'I am a...',
-      name: 'role',
-      required: true,
-      type: 'select',
-      options: ['Select role', 'UX Designer', 'Software Engineer'],
-    },
-    {
-      labelText: 'Link to your portfolio <small>(optional)</small>',
+      labelText: 'Porfolio link <small>(optional)</small>',
       name: 'portfolio_link',
       type: 'text',
     },

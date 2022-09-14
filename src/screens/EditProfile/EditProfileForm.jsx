@@ -13,22 +13,31 @@ export const EditProfileForm = ({ formData, formState }) => {
     title: button.text,
   };
 
+  console.log(inputs);
+
+  const testing = (e) => {
+    console.log(e.target.value);
+  };
+
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    <form>
       {inputs.map((input) => (
-        <div key={input.name} className="input-wrapper">
+        <div key={input.name}>
           <label htmlFor={input.name}>{parseHtml(input.labelText)}</label>
-          {input.type === 'select' ? (
-            <select
-              defaultValue={input.options[0]}
-              onChange={(e) => handleChange(e, input.name, setterFunction)}
-            >
+          {input.type === 'checkbox' ? (
+            <div>
               {input.options.map((option) => (
-                <option key={`${input.name}-${option}`} value={option}>
-                  {option}
-                </option>
+                <>
+                  <input
+                    key={input.name}
+                    value={option}
+                    onChange={(e) => handleChange(e, input.name, setterFunction)}
+                    type={input.type}
+                  />
+                  <label htmlFor={input.name}>{option}</label>
+                </>
               ))}
-            </select>
+            </div>
           ) : (
             <input
               id={input.name}
@@ -41,7 +50,6 @@ export const EditProfileForm = ({ formData, formState }) => {
           )}
         </div>
       ))}
-      <SingleActionButton payload={submitFormPayload} />
     </form>
   );
 };
