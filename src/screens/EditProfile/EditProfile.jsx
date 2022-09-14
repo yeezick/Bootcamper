@@ -5,7 +5,7 @@ import {
   AddPortfolioProject,
   ShowPortfolioProjects,
 } from '../../components/Projects/PortfolioCard/PortfolioCard';
-import { Form } from '../../components/Form/Form';
+import { EditProfileForm } from './EditProfileForm';
 import { Header } from '../../components/Header/Header';
 import { Modal } from '../../components/Modal/Modal';
 
@@ -13,7 +13,7 @@ import { uiActions } from '../../services/redux/slices/uiSlice';
 import { updateUser } from '../../services/api/users';
 import { userForm } from '../../services/formData';
 import './EditProfile.scss';
-import { FaPen } from 'react-icons/fa';
+import { HiPencil } from 'react-icons/hi';
 import { useEffect } from 'react';
 
 export const EditProfile = ({ currUser }) => {
@@ -27,7 +27,7 @@ export const EditProfile = ({ currUser }) => {
         <Header headerTitle={header.title} />
         <div className="profile-picture">
           <div className="toggle-edit-mode">
-            <FaPen size={15} />
+            <HiPencil size={22} />
           </div>
           <div className="image"></div>
 
@@ -77,7 +77,7 @@ const AboutUser = () => {
 
   return (
     <div className="about-user">
-      <Form formData={userForm} formState={[userInfo, setUserInfo, handleUserUpdate]} />
+      <EditProfileForm formData={userForm} formState={[userInfo, setUserInfo, handleUserUpdate]} />
     </div>
   );
 };
