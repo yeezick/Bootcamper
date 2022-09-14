@@ -2,7 +2,7 @@ import React from 'react';
 import parseHtml from 'html-react-parser';
 import { handleChange } from '../../services/utils/formHandlers';
 import { SingleActionButton } from '../../components/Button/SingleActionButton';
-// import './Form.scss';
+import './EditProfileForm.scss';
 
 export const EditProfileForm = ({ formData, formState }) => {
   const { button, handlers, inputs } = formData;
@@ -13,16 +13,10 @@ export const EditProfileForm = ({ formData, formState }) => {
     title: button.text,
   };
 
-  console.log(inputs);
-
-  const testing = (e) => {
-    console.log(e.target.value);
-  };
-
   return (
-    <form>
+    <form className="form" onSubmit={handleSubmit}>
       {inputs.map((input) => (
-        <div key={input.name}>
+        <div key={input.name} className="input-wrapper">
           <label htmlFor={input.name}>{parseHtml(input.labelText)}</label>
           {input.type === 'checkbox' ? (
             <div>
@@ -50,6 +44,7 @@ export const EditProfileForm = ({ formData, formState }) => {
           )}
         </div>
       ))}
+      <SingleActionButton payload={submitFormPayload} />
     </form>
   );
 };
