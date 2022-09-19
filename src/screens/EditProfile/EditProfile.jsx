@@ -34,7 +34,9 @@ export const EditProfile = ({ currUser }) => {
             <p className="currUser">
               {currUser.first_name} {currUser.last_name}
             </p>
-          ) : null}
+          ) : (
+            <p className="currUser">First, Last</p>
+          )}
           <AboutUser />
           <AddPortfolioProject />
           <ShowPortfolioProjects currUser={currUser} />

@@ -74,7 +74,7 @@ export const userForm = {
       name: 'role',
       required: true,
       type: 'checkbox',
-      options: ['Software Engineer', 'UX Designer'],
+      options: ['Software Developer', 'UX Designer'],
     },
     {
       labelText: 'About me',
@@ -88,11 +88,6 @@ export const userForm = {
       name: 'fun_fact',
       max_chars: 250,
       type: 'textarea',
-    },
-    {
-      labelText: 'Porfolio link <small>(optional)</small>',
-      name: 'portfolio_link',
-      type: 'text',
     },
   ],
 };
