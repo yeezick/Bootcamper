@@ -14,22 +14,23 @@ export const EditProfileForm = ({ formData, formState }) => {
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    <form className="edit-profile-form" onSubmit={handleSubmit}>
       {inputs.map((input) => (
-        <div key={input.name} className="input-wrapper">
+        <div className="container">
           <label htmlFor={input.name}>{parseHtml(input.labelText)}</label>
           {input.type === 'checkbox' ? (
-            <div>
+            <div key={input.name} className="role-wrapper">
               {input.options.map((option) => (
-                <>
+                <div className="role-inputs">
                   <input
+                    className="checkbox"
                     key={input.name}
-                    value={option}
                     onChange={(e) => handleChange(e, input.name, setterFunction)}
                     type={input.type}
+                    value={option}
                   />
                   <label htmlFor={input.name}>{option}</label>
-                </>
+                </div>
               ))}
             </div>
           ) : (
@@ -44,7 +45,7 @@ export const EditProfileForm = ({ formData, formState }) => {
           )}
         </div>
       ))}
-      <SingleActionButton payload={submitFormPayload} />
+      {/* <SingleActionButton payload={submitFormPayload} /> */}
     </form>
   );
 };

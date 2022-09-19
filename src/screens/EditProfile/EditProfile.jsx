@@ -30,7 +30,11 @@ export const EditProfile = ({ currUser }) => {
             <HiPencil size={22} />
           </div>
           <div className="image"></div>
-
+          {currUser ? (
+            <p className="currUser">
+              {currUser.first_name} {currUser.last_name}
+            </p>
+          ) : null}
           <AboutUser />
           <AddPortfolioProject />
           <ShowPortfolioProjects currUser={currUser} />
