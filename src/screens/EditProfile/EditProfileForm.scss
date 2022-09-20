@@ -1,10 +1,3 @@
-.form {
-  // align-items: center;
-  // display: flex;
-  // flex-direction: column;
-  // margin: 5% 0;
-}
-
 div > label + div {
   display: flex;
   flex-direction: row;
@@ -13,15 +6,16 @@ div > label + div {
 
 .container {
   display: flex;
-  gap: 8px;
+  // gap: 8px;
 }
 
 #role {
   align-self: center;
+  margin-right: 8px;
 }
 
 .role-wrapper {
-  gap: 10px;
+  gap: 12px;
 
   input[type='checkbox'] {
     appearance: none;
@@ -53,6 +47,7 @@ div > label + div {
 
   label {
     font-size: 12px;
+
     margin-bottom: 0.5rem;
   }
 }
@@ -63,14 +58,25 @@ form > div + div.container {
 }
 
 label#about,
-#fun_fact,
-#portfolio_link {
+label#fun_fact {
+  font-weight: 400;
   margin-top: 25px;
-  text-align: start !important;
 }
 
 input#about,
 input#fun_fact {
+  border-radius: 4px;
   height: 151px;
-  width: 250px;
+  position: relative;
+  width: 100%;
+}
+
+.charCount {
+  position: absolute;
+  font-weight: 300;
+  right: 12px;
+  margin-top: 193px;
+  // top: 10%;
+  // top: 42%;
+  // bottom: 100px;
 }

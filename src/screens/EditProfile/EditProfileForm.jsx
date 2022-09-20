@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import parseHtml from 'html-react-parser';
 import { handleChange } from '../../services/utils/formHandlers';
 import { SingleActionButton } from '../../components/Button/SingleActionButton';
@@ -7,7 +7,7 @@ import './EditProfileForm.scss';
 export const EditProfileForm = ({ formData, formState }) => {
   const { button, handlers, inputs } = formData;
   const [stateObject, setterFunction, handleSubmit] = formState;
-  const [content, setContent] = useState(('', 0));
+  const [charCount, setCharCount] = useState(0);
 
   const submitFormPayload = {
     handlers: handleSubmit,
@@ -15,11 +15,7 @@ export const EditProfileForm = ({ formData, formState }) => {
   };
 
   const handleContent = (e) => {
-    console.log(e);
-    setContent({
-      ...content,
-      [e.target.name]: e.target.value,
-    });
+    setCharCount(e.target.value.length);
   };
 
   return (
@@ -45,20 +41,24 @@ export const EditProfileForm = ({ formData, formState }) => {
               ))}
             </div>
           ) : (
-            <>
-              <input
+            <div>
+              <textarea
                 id={input.name}
                 name={input.name}
                 onChange={(e) => {
                   handleChange(e, input.name, setterFunction);
-                  handleContent;
+                  handleContent(e);
                 }}
+                rows="14"
+                cols="35"
+                wrap="soft"
                 type={input.type}
                 value={stateObject[input.name]}
+                maxLength={input.max_chars}
                 required={input.required ? true : null}
-              />
-              <h2>Remaining: {content}</h2>
-            </>
+              ></textarea>
+              <p className="charCount">{250 - charCount}</p>
+            </div>
           )}
         </div>
       ))}
