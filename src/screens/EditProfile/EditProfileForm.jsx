@@ -66,9 +66,9 @@ export const EditProfileForm = ({ formData, formState }) => {
                 required={input.required ? true : null}
               ></textarea>
               {input.name === 'about' ? (
-                <p className="charCount">{250 - aboutCharCount}</p>
+                <p className="charCount">{input.max_chars - aboutCharCount}</p>
               ) : (
-                <p className="charCount">{250 - factCharCount}</p>
+                <p className="charCount">{input.max_chars - factCharCount}</p>
               )}
             </div>
           )}
