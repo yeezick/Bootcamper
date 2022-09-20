@@ -40,9 +40,6 @@ export const EditProfile = ({ currUser }) => {
           <AboutUser />
           <AddPortfolioProject />
           <ShowPortfolioProjects currUser={currUser} />
-          <Link to="/roulette">
-            <button>Start Collaborating!</button>
-          </Link>
         </div>
       </div>
     </>

@@ -7,7 +7,8 @@ import './EditProfileForm.scss';
 export const EditProfileForm = ({ formData, formState }) => {
   const { button, handlers, inputs } = formData;
   const [stateObject, setterFunction, handleSubmit] = formState;
-  const [charCount, setCharCount] = useState(0);
+  const [aboutCharCount, setAboutCharCount] = useState(0);
+  const [factCharCount, setFactCharCount] = useState(0);
 
   const submitFormPayload = {
     handlers: handleSubmit,
@@ -15,11 +16,18 @@ export const EditProfileForm = ({ formData, formState }) => {
   };
 
   const handleContent = (e) => {
-    setCharCount(e.target.value.length);
+    if (e.target.name === 'about') {
+      setAboutCharCount(e.target.value.length);
+    } else if (e.target.name === 'fun_fact') {
+      setFactCharCount(e.target.value.length);
+    }
   };
 
   return (
     <form className="edit-profile-form" onSubmit={handleSubmit}>
+      <button className="submit-btn" type="submit">
+        Done
+      </button>
       {inputs.map((input) => (
         <div className="container">
           <label htmlFor={input.name} id={input.name}>
@@ -45,24 +53,25 @@ export const EditProfileForm = ({ formData, formState }) => {
               <textarea
                 id={input.name}
                 name={input.name}
+                key={input.name}
                 onChange={(e) => {
                   handleChange(e, input.name, setterFunction);
                   handleContent(e);
                 }}
-                rows="14"
-                cols="35"
-                wrap="soft"
                 type={input.type}
                 value={stateObject[input.name]}
                 maxLength={input.max_chars}
                 required={input.required ? true : null}
               ></textarea>
-              <p className="charCount">{250 - charCount}</p>
+              {input.name === 'about' ? (
+                <p className="charCount">{250 - aboutCharCount}</p>
+              ) : (
+                <p className="charCount">{250 - factCharCount}</p>
+              )}
             </div>
           )}
         </div>
       ))}
-      {/* <SingleActionButton payload={submitFormPayload} /> */}
     </form>
   );
 };

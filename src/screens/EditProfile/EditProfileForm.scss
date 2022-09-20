@@ -1,3 +1,20 @@
+.submit-btn {
+  background-color: white;
+  color: #000000;
+  font-family: 'Nunito';
+  font-size: 16px;
+  font-weight: 600;
+  position: absolute;
+  right: 33px;
+  text-transform: uppercase;
+  top: -45px;
+  width: 2px;
+}
+
+.submit-btn:active {
+  color: #333;
+}
+
 div > label + div {
   display: flex;
   flex-direction: row;
@@ -6,7 +23,6 @@ div > label + div {
 
 .container {
   display: flex;
-  // gap: 8px;
 }
 
 #role {
@@ -19,8 +35,8 @@ div > label + div {
 
   input[type='checkbox'] {
     appearance: none;
-    box-shadow: 0 0 0 1px black;
     border: 4px solid white;
+    box-shadow: 0 0 0 1px black;
     margin: 0px 8px 0px 5px;
     position: relative;
     -webkit-appearance: none;
@@ -47,7 +63,6 @@ div > label + div {
 
   label {
     font-size: 12px;
-
     margin-bottom: 0.5rem;
   }
 }
@@ -63,20 +78,20 @@ label#fun_fact {
   margin-top: 25px;
 }
 
-input#about,
-input#fun_fact {
+textarea {
+  border: 1px solid #000000;
   border-radius: 4px;
-  height: 151px;
+  font-family: 'Nunito';
+  height: 133px;
   position: relative;
+  resize: none;
   width: 100%;
 }
 
 .charCount {
-  position: absolute;
+  font-size: 10.5px;
   font-weight: 300;
-  right: 12px;
-  margin-top: 193px;
-  // top: 10%;
-  // top: 42%;
-  // bottom: 100px;
+  margin-top: 119px;
+  position: absolute;
+  right: 3px;
 }

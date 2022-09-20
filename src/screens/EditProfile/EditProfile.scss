@@ -1,18 +1,3 @@
-// .edit-profile {
-//   .about-user {
-//     display: flex;
-//     flex-direction: column;
-//   }
-//   .add-portfolio-project {
-//     display: flex;
-//     flex-direction: column;
-//     form {
-//       display: flex;
-//       flex-direction: column;
-//     }
-//   }
-// }
-
 .edit-profile {
   align-items: center;
   display: flex;
@@ -21,18 +6,7 @@
 
   .profile-picture {
     position: relative;
-    // display: flex;
-    // flex: 40px 1;
-    // justify-content: space-between;
-    // padding: 10px;
-    // margin-bottom: 30px;
-    // width: 100%;
   }
-
-  // Left side of user contact
-  // .contact-left {
-  //   position: relative;
-  // }
 
   .toggle-edit-mode {
     align-items: center;
@@ -56,14 +30,6 @@
     margin: auto;
     width: 160px;
   }
-
-  // Right side of user contact
-  // .contact-right {
-  //   display: flex;
-  //   flex-direction: column;
-  //   justify-content: space-evenly;
-  //   text-align: center;
-  // }
 
   .currUser {
     font-size: 24px;
@@ -95,18 +61,11 @@
   }
 }
 
-// .info-card {
-//   background-color: #313131;
-//   border-radius: 4px;
-//   color: white;
-//   font-weight: 300;
-//   margin-bottom: 20px;
-//   padding: 10px;
-//   width: 300px;
-
-//   h4 {
-//     font-weight: 700;
-//     margin-bottom: 5px;
-//     text-transform: uppercase;
-//   }
-// }
+.add-portfolio-project {
+  display: flex;
+  flex-direction: column;
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+}
