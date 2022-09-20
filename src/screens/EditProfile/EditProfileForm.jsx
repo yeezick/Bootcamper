@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import parseHtml from 'html-react-parser';
 import { handleChange } from '../../services/utils/formHandlers';
-import { SingleActionButton } from '../../components/Button/SingleActionButton';
 import './EditProfileForm.scss';
 
 export const EditProfileForm = ({ formData, formState }) => {
@@ -9,10 +9,12 @@ export const EditProfileForm = ({ formData, formState }) => {
   const [stateObject, setterFunction, handleSubmit] = formState;
   const [aboutCharCount, setAboutCharCount] = useState(0);
   const [factCharCount, setFactCharCount] = useState(0);
+  const navigate = useNavigate();
 
-  const submitFormPayload = {
-    handlers: handleSubmit,
-    title: button.text,
+  const showUser = (applicantID) => {
+    navigation.navigate('UserProfile', {
+      userID: applicantID,
+    });
   };
 
   const handleContent = (e) => {
@@ -25,7 +27,7 @@ export const EditProfileForm = ({ formData, formState }) => {
 
   return (
     <form className="edit-profile-form" onSubmit={handleSubmit}>
-      <button className="submit-btn" type="submit">
+      <button className="submit-btn" type="submit" onClick={showUser}>
         Done
       </button>
       {inputs.map((input) => (
