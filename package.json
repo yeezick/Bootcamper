@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@aws-amplify/ui-react": "^3.5.4",
     "@reduxjs/toolkit": "^1.7.1",
     "@testing-library/dom": "^8.16.0",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "aws-amplify": "^4.3.36",
     "axios": "^0.25.0",
     "eslint-plugin-jest-dom": "^4.0.2",
     "eslint-plugin-testing-library": "^5.6.0",
