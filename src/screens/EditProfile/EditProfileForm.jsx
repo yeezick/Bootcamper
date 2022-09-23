@@ -61,7 +61,6 @@ export const EditProfileForm = ({ formData, formState }) => {
                   handleContent(e);
                 }}
                 type={input.type}
-                value={stateObject[input.name]}
                 maxLength={input.max_chars}
                 required={input.required ? true : null}
               ></textarea>

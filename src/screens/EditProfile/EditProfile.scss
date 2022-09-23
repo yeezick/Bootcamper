@@ -61,6 +61,30 @@
   }
 }
 
+.about-user {
+  input[type='checkbox'] {
+    appearance: none;
+    border: 4px solid white;
+    box-shadow: 0 0 0 1px black;
+    margin: 0px 8px 0px 5px;
+    position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+  }
+
+  input[type='checkbox']:checked::before {
+    color: #000000;
+    content: '✓';
+    display: inline-block;
+    font-size: 18px;
+    position: absolute;
+    right: -8.8px;
+    text-align: center;
+    top: -13px;
+  }
+}
+
 .add-portfolio-project {
   display: flex;
   flex-direction: column;
