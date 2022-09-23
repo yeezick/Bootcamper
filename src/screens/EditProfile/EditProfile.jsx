@@ -30,6 +30,7 @@ export const EditProfile = ({ currUser }) => {
             <HiPencil size={22} />
           </div>
           <div className="image"></div>
+          {/* Temporary code, a guest user would not be able to view this screen. */}
           {currUser ? (
             <p className="currUser">
               {currUser.first_name} {currUser.last_name}

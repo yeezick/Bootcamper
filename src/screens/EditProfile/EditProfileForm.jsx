@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import parseHtml from 'html-react-parser';
+import { useSelector } from 'react-redux';
 import { handleChange } from '../../services/utils/formHandlers';
 import './EditProfileForm.scss';
 
 export const EditProfileForm = ({ formData, formState }) => {
   const { button, handlers, inputs } = formData;
   const [stateObject, setterFunction, handleSubmit] = formState;
+  const { _id: userId } = useSelector((state) => state.ui.user);
   const [aboutCharCount, setAboutCharCount] = useState(0);
   const [factCharCount, setFactCharCount] = useState(0);
   const navigate = useNavigate();
 
-  const showUser = (applicantID) => {
-    navigation.navigate('UserProfile', {
-      userID: applicantID,
-    });
+  const showUser = () => {
+    navigate(`/users/${userId}`);
   };
 
   const handleContent = (e) => {
