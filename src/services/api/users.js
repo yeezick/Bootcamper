@@ -60,7 +60,10 @@ export const signIn = async (credentials) => {
   try {
     const res = await api.post('/sign-in', credentials);
     const { token, user } = res.data;
+    console.log(token);
+    console.log(user);
     localStorage.setItem('token', token);
+    localStorage.setItem('userId', user._id);
     // const user = jwtDecode(res.data.token);
     return user;
   } catch (error) {
@@ -81,7 +84,7 @@ export const verify = async () => {
   const token = localStorage.getItem('token');
   if (token) {
     const { data: payload } = await api.get('/verify');
-    const { data: user } = await api.get(`/users/${payload.userID}`);
+    const { data: user } = await api.get(`/users/${payload.id}`);
     return user;
   }
   return false;
