@@ -57,7 +57,7 @@ const AboutUser = () => {
   const { _id: userId } = useSelector((state) => state.ui.user);
   const [aboutCharCount, setAboutCharCount] = useState(0);
   const [factCharCount, setFactCharCount] = useState(0);
-  const [stateObject, setterFunction, handleSubmit] = formState;
+  // const [stateObject, setterFunction, handleSubmit] = formState;
 
   const [userInfo, setUserInfo] = useState({
     about: '',
@@ -107,23 +107,34 @@ const AboutUser = () => {
           Done
         </button>
         <div className="role-container">
-          <label htmlFor="checkbox">I am a:</label>
+          <label htmlFor="checkbox" className="label">
+            I am a:
+          </label>
+          <label htmlFor="software">
+            <div className="role">
+              <input
+                id="software"
+                type="checkbox"
+                name="role"
+                // onChange={(e) => handleChange(e, 'role')}
+                value="Software Developer"
+              />
+              Software Developer
+            </div>
+          </label>
 
-          <input
-            type="checkbox"
-            name="role"
-            // onChange={(e) => handleChange(e, 'role')}
-            value="Software Developer"
-          />
-          <label htmlFor="role">Software Developer</label>
-
-          <input
-            type="checkbox"
-            name="role"
-            // onChange={(e) => handleChange(e, 'role')}
-            value="UX Designer"
-          />
-          <label htmlFor="role">UX Designer</label>
+          <label htmlFor="designer">
+            <div className="role">
+              <input
+                id="designer"
+                type="checkbox"
+                name="role"
+                // onChange={(e) => handleChange(e, 'role')}
+                value="UX Designer"
+              />
+              UX Designer
+            </div>
+          </label>
         </div>
         <div className="text-container">
           <label htmlFor="about">About me</label>
@@ -154,7 +165,7 @@ const AboutUser = () => {
           <p>{250 - factCharCount}</p>
         </div>
       </form>
-      <EditProfileForm formData={userForm} formState={[userInfo, setUserInfo, handleUserUpdate]} />
+      {/* <EditProfileForm formData={userForm} formState={[userInfo, setUserInfo, handleUserUpdate]} /> */}
     </div>
   );
 };
