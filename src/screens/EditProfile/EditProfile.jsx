@@ -57,12 +57,12 @@ const AboutUser = () => {
   const { _id: userId } = useSelector((state) => state.ui.user);
   const [aboutCharCount, setAboutCharCount] = useState(0);
   const [factCharCount, setFactCharCount] = useState(0);
+
   // const [stateObject, setterFunction, handleSubmit] = formState;
 
   const [userInfo, setUserInfo] = useState({
     about: '',
     fun_fact: '',
-    portfolio_link: '',
     role: '',
   });
 
@@ -83,13 +83,16 @@ const AboutUser = () => {
     try {
       const res = await updateUser(user._id, userInfo);
       dispatch(uiActions.updateUser(res));
+      console.log(userInfo);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const showUser = () => {
-    navigate(`/users/${userId}`);
+  const handleProfileChange = (e) => {
+    const { value } = e.target;
+    console.log(value);
+    setUserInfo({ ...userInfo, [e.target.name]: value });
   };
 
   const handleContent = (e) => {
@@ -102,8 +105,8 @@ const AboutUser = () => {
 
   return (
     <div className="about-user">
-      <form className="edit-profile-form">
-        <button className="submit-btn" type="submit" onClick={showUser}>
+      <form className="edit-profile-form" onSubmit={handleUserUpdate}>
+        <button className="submit-btn" type="submit">
           Done
         </button>
         <div className="role-container">
@@ -116,7 +119,7 @@ const AboutUser = () => {
                 id="software"
                 type="checkbox"
                 name="role"
-                // onChange={(e) => handleChange(e, 'role')}
+                onChange={(e) => handleProfileChange(e)}
                 value="Software Developer"
               />
               Software Developer
@@ -129,7 +132,7 @@ const AboutUser = () => {
                 id="designer"
                 type="checkbox"
                 name="role"
-                // onChange={(e) => handleChange(e, 'role')}
+                onChange={(e) => handleProfileChange(e)}
                 value="UX Designer"
               />
               UX Designer
@@ -143,6 +146,7 @@ const AboutUser = () => {
             id="about"
             maxLength={250}
             onChange={(e) => {
+              handleProfileChange(e);
               handleContent(e);
             }}
             required={true}
@@ -157,7 +161,7 @@ const AboutUser = () => {
             id="fun_fact"
             maxLength={250}
             onChange={(e) => {
-              // handleChange(e, 'about');
+              handleProfileChange(e);
               handleContent(e);
             }}
             required={false}
