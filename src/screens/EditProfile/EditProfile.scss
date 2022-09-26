@@ -3,6 +3,24 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: 15px;
+
+  .submit-btn {
+    background-color: white;
+    color: #000000;
+    font-family: 'Nunito';
+    font-size: 16px;
+    font-weight: 600;
+    position: absolute;
+    right: 33px;
+    text-transform: uppercase;
+    top: -45px;
+    width: 2px;
+  }
+
+  .submit-btn:active {
+    color: #333;
+  }
 
   .profile-picture {
     position: relative;
@@ -67,7 +85,8 @@
   .role-container {
     display: flex;
     flex-wrap: nowrap;
-    gap: 10px;
+    gap: 5px;
+    margin-bottom: 15px;
   }
 
   .role {
@@ -96,6 +115,26 @@
     right: -8.8px;
     text-align: center;
     top: -13px;
+  }
+
+  textarea {
+    border: 1px solid #000000;
+    border-radius: 4px;
+    font-family: 'Nunito';
+    height: 133px;
+    padding: 10px 24px 10px 10px;
+    position: relative;
+    margin-bottom: 15px;
+    resize: none;
+    width: 100%;
+  }
+
+  .charCount {
+    font-size: 10.5px;
+    font-weight: 300;
+    margin-top: -35px;
+    position: absolute;
+    right: 4px;
   }
 }
 

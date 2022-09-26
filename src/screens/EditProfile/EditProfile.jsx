@@ -1,24 +1,17 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
   AddPortfolioProject,
   ShowPortfolioProjects,
 } from '../../components/Projects/PortfolioCard/PortfolioCard';
-import { EditProfileForm } from './EditProfileForm';
 import { Header } from '../../components/Header/Header';
 import { Modal } from '../../components/Modal/Modal';
 
 import { uiActions } from '../../services/redux/slices/uiSlice';
 import { updateUser } from '../../services/api/users';
-import { userForm } from '../../services/formData';
-import './EditProfile.scss';
 import { HiPencil } from 'react-icons/hi';
 import { useEffect } from 'react';
-
-import { useNavigate } from 'react-router-dom';
-import parseHtml from 'html-react-parser';
-import { handleChange } from '../../services/utils/formHandlers';
+import './EditProfile.scss';
 
 export const EditProfile = ({ currUser }) => {
   const header = {
@@ -58,8 +51,6 @@ const AboutUser = () => {
   const [aboutCharCount, setAboutCharCount] = useState(0);
   const [factCharCount, setFactCharCount] = useState(0);
 
-  // const [stateObject, setterFunction, handleSubmit] = formState;
-
   const [userInfo, setUserInfo] = useState({
     about: '',
     fun_fact: '',
@@ -68,11 +59,10 @@ const AboutUser = () => {
 
   useEffect(() => {
     if (editMode) {
-      const { about, fun_fact, portfolio_link, role } = user;
+      const { about, fun_fact, role } = user;
       setUserInfo({
         about,
         fun_fact,
-        portfolio_link,
         role,
       });
     }
@@ -83,7 +73,7 @@ const AboutUser = () => {
     try {
       const res = await updateUser(user._id, userInfo);
       dispatch(uiActions.updateUser(res));
-      console.log(userInfo);
+      console.log(userInfo.role);
     } catch (error) {
       console.error(error);
     }
@@ -119,6 +109,7 @@ const AboutUser = () => {
                 id="software"
                 type="checkbox"
                 name="role"
+                defaultChecked={userInfo.role === 'Software Developer' ? true : false}
                 onChange={(e) => handleProfileChange(e)}
                 value="Software Developer"
               />
@@ -132,6 +123,7 @@ const AboutUser = () => {
                 id="designer"
                 type="checkbox"
                 name="role"
+                defaultChecked={userInfo.role === 'UX Designer' ? true : false}
                 onChange={(e) => handleProfileChange(e)}
                 value="UX Designer"
               />
@@ -141,17 +133,19 @@ const AboutUser = () => {
         </div>
         <div className="text-container">
           <label htmlFor="about">About me</label>
+          {console.log(userInfo)}
           <textarea
             name="about"
             id="about"
             maxLength={250}
+            defaultValue={userInfo.about}
             onChange={(e) => {
               handleProfileChange(e);
               handleContent(e);
             }}
             required={true}
           ></textarea>
-          <p>{250 - aboutCharCount}</p>
+          <p className="charCount">{250 - aboutCharCount}</p>
 
           <label htmlFor="fun_fact">
             Fun fact <small>(optional)</small>
@@ -160,16 +154,16 @@ const AboutUser = () => {
             name="fun_fact"
             id="fun_fact"
             maxLength={250}
+            defaultValue={userInfo.fun_fact}
             onChange={(e) => {
               handleProfileChange(e);
               handleContent(e);
             }}
             required={false}
           ></textarea>
-          <p>{250 - factCharCount}</p>
+          <p className="charCount">{250 - factCharCount}</p>
         </div>
       </form>
-      {/* <EditProfileForm formData={userForm} formState={[userInfo, setUserInfo, handleUserUpdate]} /> */}
     </div>
   );
 };
