@@ -53,7 +53,6 @@ export const UserProfile = () => {
   if (editMode) {
     return (
       <>
-        <button onClick={handleToggleMode}>back to profile</button>
         <EditProfile currUser={currUser} />
       </>
     );

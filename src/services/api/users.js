@@ -81,7 +81,7 @@ export const verify = async () => {
   const token = localStorage.getItem('token');
   if (token) {
     const { data: payload } = await api.get('/verify');
-    const { data: user } = await api.get(`/users/${payload.userID}`);
+    const { data: user } = await api.get(`/users/${payload.id}`);
     return user;
   }
   return false;

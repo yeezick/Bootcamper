@@ -1,14 +1,148 @@
 .edit-profile {
-  .about-user {
-    display: flex;
-    flex-direction: column;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 15px;
+
+  .submit-btn {
+    background-color: white;
+    color: #000000;
+    font-family: 'Nunito';
+    font-size: 16px;
+    font-weight: 600;
+    position: absolute;
+    right: 33px;
+    text-transform: uppercase;
+    top: -45px;
+    width: 2px;
   }
-  .add-portfolio-project {
+
+  .submit-btn:active {
+    color: #333;
+  }
+
+  .profile-picture {
+    position: relative;
+  }
+
+  .toggle-edit-mode {
+    align-items: center;
+    background-color: #d9d9d9;
+    border-radius: 100%;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    height: 29px;
+    justify-content: center;
+    position: absolute;
+    right: 78px;
+    top: 10px;
+    width: 29px;
+  }
+
+  .image {
+    background-color: #c4c4c4;
+    border-radius: 100%;
+    height: 160px;
+    margin: auto;
+    width: 160px;
+  }
+
+  .currUser {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 15px 0px 30px;
+    text-align: center;
+  }
+
+  .name {
+    font-size: 24px;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+
+  .media {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
+
+    div {
+      background-color: #d9d9d9;
+      height: 30px;
+      width: 30px;
+    }
+  }
+}
+
+.about-user {
+  font-size: 12px;
+
+  .label {
+    align-self: center;
+  }
+
+  .role-container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 5px;
+    margin-bottom: 15px;
+  }
+
+  .role {
+    border: 1px solid #000000;
+    border-radius: 4px;
+    padding: 8px;
+  }
+
+  input[type='checkbox'] {
+    appearance: none;
+    border: 4px solid white;
+    box-shadow: 0 0 0 1px black;
+    margin: 0px 8px 0px 5px;
+    position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+  }
+
+  input[type='checkbox']:checked::before {
+    color: #000000;
+    content: '✓';
+    display: inline-block;
+    font-size: 18px;
+    position: absolute;
+    right: -8.8px;
+    text-align: center;
+    top: -13px;
+  }
+
+  textarea {
+    border: 1px solid #000000;
+    border-radius: 4px;
+    font-family: 'Nunito';
+    height: 133px;
+    padding: 10px 24px 10px 10px;
+    position: relative;
+    margin-bottom: 15px;
+    resize: none;
+    width: 100%;
+  }
+
+  .charCount {
+    font-size: 10.5px;
+    font-weight: 300;
+    margin-top: -35px;
+    position: absolute;
+    right: 4px;
+  }
+}
+
+.add-portfolio-project {
+  display: flex;
+  flex-direction: column;
+  form {
     display: flex;
     flex-direction: column;
-    form {
-      display: flex;
-      flex-direction: column;
-    }
   }
 }
