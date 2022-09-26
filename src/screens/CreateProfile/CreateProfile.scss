@@ -9,7 +9,7 @@
     border: solid black 1px;
     height: 28px;
     padding-left: 7px;
-    width: 80%;
+    width: 100%;
   }
   
   .input-wrapper{
@@ -21,7 +21,7 @@
     border: solid black 1px;
     border-radius: 4px;
     height: 28px;
-    padding-left: 7px;
+    padding-left: 9px;
     width: 100%;
   }
   
@@ -42,9 +42,16 @@
   #about{
     border: solid black 1px;
     height: 80px;
-    padding-left: 7px;
+    padding-left: 9px;
+    padding-bottom: 40px;
+    width: 100%;
+    overflow-wrap: break-word;
+  }
+  #link{
     width: 100%;
   }
-
+  textarea{
+    padding: 0;
+  }
   
 }
