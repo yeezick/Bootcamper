@@ -73,7 +73,7 @@ const AboutUser = () => {
     try {
       const res = await updateUser(user._id, userInfo);
       dispatch(uiActions.updateUser(res));
-      console.log(userInfo.role);
+      dispatch(uiActions.toggleEditMode());
     } catch (error) {
       console.error(error);
     }
@@ -81,7 +81,6 @@ const AboutUser = () => {
 
   const handleProfileChange = (e) => {
     const { value } = e.target;
-    console.log(value);
     setUserInfo({ ...userInfo, [e.target.name]: value });
   };
 
